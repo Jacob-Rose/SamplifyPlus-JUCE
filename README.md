@@ -7,7 +7,7 @@ A port of my Samplify Project created in WPF using C#. I wanted more control ove
 
 
 ## Features
-![SamplifyImage1](https://imgur.com/GoQHlHo)
+![SamplifyImage1](https://i.imgur.com/GoQHlHo.png)
 - Sample Folder Selection
 
 
