@@ -11,5 +11,6 @@ Tha main mechanic that I wanted from a sample browser was a waveform view and a 
 
 This project is also before I commented anything well if at all, bad habits die hard.
 
-I needed to hard code in the sample library location and never added tha ability to change it
+I needed to hard code in the sample library location and never added the ability to change it once its set. Saves to system registry,
+
 Old project, need to work on more
