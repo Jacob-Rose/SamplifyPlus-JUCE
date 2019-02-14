@@ -65,6 +65,7 @@ I made this project after my first year at Champlain College. The architecture i
 This project is also before I commented anything well if at all, bad habits die hard. Will hopefully add some at some point.
 
 
+### Legal
 
 I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
 
