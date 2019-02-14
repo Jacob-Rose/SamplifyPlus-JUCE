@@ -27,7 +27,6 @@ There is a memory leak on program quit, need to fix at some point.
 
 **NOTE IF USE:**
 
-Project creates string to sample library path in registry, just an FYI.
 Project currently creates a copy of each file with a .samp extension. This will hopefully be changed to a single folder that can be deleted, but currently there is an included .bat file to delete all sample files. Put this file in your sample directory and run.
 
 
