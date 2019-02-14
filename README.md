@@ -16,7 +16,7 @@ There is a memory leak on program quit, need to fix at some point.
 - Program variable to change color
 - Program variable to change size of everything
 
-!![SamplifyImage1](https://i.imgur.com/LbgovDd.png)
+![SamplifyImage1](https://i.imgur.com/LbgovDd.png)
 
 ### Future Plans
 
