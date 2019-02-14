@@ -5,16 +5,21 @@ My first attempt with using the JUCE library.
 
 A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated. 
 
+There is a memory leak on program quit, need to fix at some point.
 
 ## Features
 ![SamplifyImage1](https://i.imgur.com/GoQHlHo.png)
 - Sample Folder Selection
+- Directory View of Folders
+- Waveform View of Files
+- Drag and Drop ability
+
 
 
 **NOTE IF USE:**
 
 Project creates string to sample library path in registry, just an FYI.
-Project creates a folder in directory to save all file waveforms to. Just delete folder, all created files are in there.
+Project currently creates a copy of each file with a .samp extension. This will hopefully be changed to a single folder that can be deleted, but currently there is an included .bat file to delete all sample files. Put this file in your sample directory and run.
 
 
 * *Goal of project was to create a new sample browser for music producers.* *
