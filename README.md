@@ -37,6 +37,13 @@ There is a memory leak on program quit, need to fix at some point.
 - Comment Code
 
 
+## Learning Outcomes
+
+- Learned how to read waveforms and draw custom waveforms based off their data
+- Learned how to manage memory effectively to reduce UI hanging
+- Learned to use JUCE library
+- Gained skill in C++ and standard library features included in it
+
 **NOTE IF USE:**
 
 Project currently creates a copy of each file with a .samp extension. This will hopefully be changed to a single folder that can be deleted, but currently there is an included .bat file to delete all sample files. Put this file in your sample directory and run.
