@@ -7,6 +7,12 @@ A port of my Samplify Project created in WPF using C#. I wanted more control ove
 PLEASE NOTE:
 I made this project after my first year at Champlain College. The architecture is not as clear as I want it to be.
 
+
+NOTE IF USE:
+Project creates string to sample library path in registry, just an FYI.
+Project creates a folder in directory to save all file waveforms to. Just delete folder, all created files are in there.
+
+
 Goal of project was to create a new sample browser for music producers.
 
 Tha main mechanic that I wanted from a sample browser was a waveform view and a tagging system. The waveform view is working great, with the ability to custom draw the waveform in any way desired, but the loading of this many waveforms slows down the system greatly, especially with large sample libraries.
