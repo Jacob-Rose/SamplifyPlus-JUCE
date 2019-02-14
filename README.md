@@ -13,7 +13,16 @@ There is a memory leak on program quit, need to fix at some point.
 - Directory View of Folders
 - Waveform View of Files
 - Drag and Drop ability
+- Program variable to change color
+- Program variable to change size of everything
 
+!![SamplifyImage1](https://i.imgur.com/LbgovDd.png)
+
+### Future Plans
+
+- Tag Browser instead of folders, allow searching through tags
+- Cleanup code
+- Comment Code
 
 
 **NOTE IF USE:**
@@ -22,7 +31,7 @@ Project creates string to sample library path in registry, just an FYI.
 Project currently creates a copy of each file with a .samp extension. This will hopefully be changed to a single folder that can be deleted, but currently there is an included .bat file to delete all sample files. Put this file in your sample directory and run.
 
 
-**Goal of project was to create a new sample browser for music producers.* *
+__Goal of project was to create a new sample browser for music producers.__
 
 Tha main mechanic that I wanted from a sample browser was a waveform view and a tagging system. The waveform view is working great, with the ability to custom draw the waveform in any way desired, but the loading of this many waveforms slows down the system greatly, especially with large sample libraries.
 
