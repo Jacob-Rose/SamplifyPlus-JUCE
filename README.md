@@ -2,6 +2,8 @@
 
 My first attempt with using the JUCE library. 
 
+A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated. 
+
 PLEASE NOTE:
 I made this project after my first year at Champlain College. The architecture is not as clear as I want it to be.
 
