@@ -4,11 +4,12 @@ My first attempt with using the JUCE library.
 
 A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated. 
 
-PLEASE NOTE:
+**PLEASE NOTE:**
+
 I made this project after my first year at Champlain College. The architecture is not as clear as I want it to be.
 
 
-NOTE IF USE:
+**NOTE IF USE:**
 
 Project creates string to sample library path in registry, just an FYI.
 Project creates a folder in directory to save all file waveforms to. Just delete folder, all created files are in there.
@@ -24,4 +25,4 @@ I needed to hard code in the sample library location and never added the ability
 
 I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
 
-Old project, need to work on more
+Old project, need to work on more :ok_hand:
