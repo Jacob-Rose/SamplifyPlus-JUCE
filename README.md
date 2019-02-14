@@ -1,5 +1,5 @@
-##Samplify Plus
-###JUCE Library
+## Samplify Plus
+### JUCE Library
 
 My first attempt with using the JUCE library. 
 
