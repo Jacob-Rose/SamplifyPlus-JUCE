@@ -13,4 +13,6 @@ This project is also before I commented anything well if at all, bad habits die 
 
 I needed to hard code in the sample library location and never added the ability to change it once its set. Saves to system registry,
 
+I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
+
 Old project, need to work on more
