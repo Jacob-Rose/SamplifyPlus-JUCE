@@ -9,6 +9,7 @@ I made this project after my first year at Champlain College. The architecture i
 
 
 NOTE IF USE:
+
 Project creates string to sample library path in registry, just an FYI.
 Project creates a folder in directory to save all file waveforms to. Just delete folder, all created files are in there.
 
