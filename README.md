@@ -67,4 +67,5 @@ This project is also before I commented anything well if at all, bad habits die 
 
 
 I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
+
 I have included a FontAwesome module for JUCE, I do not own these files and all rights for those files fall under their specified license.
