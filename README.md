@@ -1,8 +1,11 @@
 ## Samplify Plus
+![SamplifyImage1](https://i.imgur.com/TEacSr6.png)
+[^1]:
+*concept image*
 
 A File Manager based around music production and samples.
 
-Music production has hundreds of great tools to allow creators to make new and amazing things, but searching for the right sounding sample when creators have libraries of thousands of files is impossible in modern softwares like Ableton Live and FL Studio. 
+Music production has hundreds of great tools to allow creators to make new and amazing things, but searching for the right sounding sample when creators have libraries of thousands of files is impossible in modern softwares like Ableton Live and FL Studio.
 
 File organization is not the solution for these projects, but Tags.
 Tags allow users to label each sample with certain traits that they can define. Label a sample with the tags *kick*, *short*, *trigger* and search for multiple tags at once to find the sample for the situation.
@@ -13,9 +16,9 @@ Easy drag and drop from Samplify into your preferred DAW, similar to dragging it
 
 ### JUCE Library
 
-My first attempt with using the JUCE library. 
+My first attempt with using the JUCE library.
 
-A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated. 
+A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated.
 
 There is a memory leak on program quit, need to fix at some point.
 
