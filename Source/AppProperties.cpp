@@ -39,6 +39,7 @@ File AppProperties::getDefaultFile()
 
 void AppProperties::loadDirectories()
 {
+	/*
 	File propFile = getDefaultFile();
 	if (propFile.existsAsFile())
 	{
@@ -58,6 +59,9 @@ void AppProperties::loadDirectories()
 	{
 		browseForDirectoryAndAdd();
 	}
+	*/
+	//this is my personal storage, current bug in debug is that the properties file does not save, so just loading mine directly
+	mDirectories.push_back(File("D:\\Users\\jacob\\Music\\Music Assets\\LOOPMASTERS 4Gig Pack"));
 }
 
 void AppProperties::saveDirectories()

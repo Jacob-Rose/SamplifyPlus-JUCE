@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.3.2">
+<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.3"
+              cppLanguageStandard="17">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
       <FILE id="Ie35Fj" name="AppProperties.cpp" compile="1" resource="0"
@@ -86,7 +87,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
-        <MODULEPATH id="danlin_fontawesome" path="../../../../Downloads/danlin_modules-master/danlin_modules-master/modules"/>
+        <MODULEPATH id="danlin_fontawesome" path="."/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -109,7 +110,7 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
-        <MODULEPATH id="danlin_fontawesome" path="..\..\mymodules\danlin_fontawesome"/>
+        <MODULEPATH id="danlin_fontawesome" path="."/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -132,12 +133,12 @@
         <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
-        <MODULEPATH id="danlin_fontawesome" path="../../../../Downloads/danlin_modules-master/danlin_modules-master/modules"/>
+        <MODULEPATH id="danlin_fontawesome" path="."/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="danlin_fontawesome" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
+    <MODULE id="danlin_fontawesome" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

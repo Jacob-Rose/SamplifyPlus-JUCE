@@ -123,7 +123,6 @@ void SampleTile::resized()
 
 void SampleTile::mouseDown(const MouseEvent & e)
 {
-	
 	if (mSampleReference != nullptr)
 	{
 		if (isMouseOverButton)
@@ -202,4 +201,9 @@ void SampleTile::setSampleReference(SampleReference * sample)
 SampleReference * SampleTile::getSampleReference()
 {
 	return mSampleReference;
+}
+
+bool SampleTile::operator==(SampleReference * ref)
+{
+	return ref == mSampleReference;
 }

@@ -55,7 +55,7 @@ public:
     static AudioFormatManager* getAudioFormatManager();
 private:
     File mSampleFile;
-    File mSamplePropertiesFile;
+    File mSamplePropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp
     SampleType mSampleType = SampleType::UNDEFINED;
 	bool mSampleTypeConfirmed = false;
     StringArray mSampleTags;

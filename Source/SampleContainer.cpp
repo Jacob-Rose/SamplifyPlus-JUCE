@@ -11,7 +11,8 @@
 #include "SampleContainer.h"
 #include "SampleLibrary.h"
 #include "AppProperties.h"
-
+#include <algorithm>
+#include <cmath>
 
 SampleContainer::SampleContainer()
 {
@@ -27,11 +28,7 @@ SampleContainer::SampleContainer()
 
 SampleContainer::~SampleContainer()
 {
-	for (int i = 0; i < mActiveSampleTiles.size(); i++)
-	{
-		delete mActiveSampleTiles[i];
-	}
-	mActiveSampleTiles.clear();
+	
 }
 
 void SampleContainer::paint (Graphics& g)
@@ -54,25 +51,18 @@ void SampleContainer::sampleListUpdated()
 	refreshItems();
 	refreshBounds();
 }
+//! this is important
+//? what dod 
 
-void SampleContainer::addFlexItem(SampleReference * sample)
-{
-	mFlexBox.items.add(FlexItem().withMinWidth(SAMPVIEW_WIDTH).withMinHeight(SAMPVIEW_HEIGHT).
-		withMaxWidth(SAMPVIEW_WIDTH+200).withMaxHeight(SAMPVIEW_HEIGHT+200).
-		withMargin(SAMPVIEW_MARGIN));
-	FlexItem* flexItem = &mFlexBox.items.getReference(mFlexBox.items.size() - 1);
-
-	SampleTile* sampleTile = new SampleTile(sample);
-	mActiveSampleTiles.push_back(sampleTile);
-	flexItem->associatedComponent = sampleTile;
-	addAndMakeVisible(sampleTile);
-}
 
 void SampleContainer::initializeItems()
 {
 	for (int i = 0; i < MAX_LOADED_SAMPLES; i++)
 	{
-		addFlexItem(nullptr);
+		mFlexBox.items.add(FlexItem().withMinWidth(SAMPVIEW_WIDTH).withMinHeight(SAMPVIEW_HEIGHT).
+			withMaxWidth(SAMPVIEW_WIDTH + 200).withMaxHeight(SAMPVIEW_HEIGHT + 200).
+			withMargin(SAMPVIEW_MARGIN));
+		//FlexItem* flexItem = &mFlexBox.items.getReference(mFlexBox.items.size() - 1);
 	}
 }
 
@@ -85,19 +75,45 @@ void SampleContainer::refreshItems()
 {
 	for (int i = 0; i < mFlexBox.items.size(); i++)
 	{
-		FlexItem* flexItem = &mFlexBox.items.getReference(i);
-		SampleTile* flexItemComponent = (SampleTile*)(flexItem->associatedComponent);
-		std::vector<SampleReference*>* sampleList = AppProperties::getSampleLibrary()->getCurrentSamples();
-		if (i < sampleList->size())
+		removeChildComponent(mFlexBox.items[i].associatedComponent);
+	}
+	std::vector<SampleReference*>* sampleList = AppProperties::getSampleLibrary()->getCurrentSamples();
+	SampleTile* toLoad = nullptr;
+	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
+	{
+		int j = 0;
+		while (toLoad == nullptr && j < mLoadedSampleTiles.size())
 		{
-			flexItemComponent->setSampleReference((*sampleList)[i]);
-			//flexItemComponent->setSampleReference(nullptr);
+			if (mLoadedSampleTiles.at(j)->getSampleReference() == sampleList->at(i))
+			{
+				toLoad = mLoadedSampleTiles.at(j);
+			}
+			j++;
 		}
-		else
+		if (toLoad == nullptr)
 		{
-			flexItemComponent->setSampleReference(nullptr);
+			mLoadedSampleTiles.push_back(new SampleTile(sampleList->at(i)));
 		}
 	}
+	//what?
+
+
+	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
+	{
+		SampleTile* toLoad = nullptr;
+		int j = 0;
+		while (toLoad == nullptr && j < mLoadedSampleTiles.size())
+		{
+			if (mLoadedSampleTiles.at(j)->getSampleReference() == sampleList->at(i))
+			{
+				toLoad = mLoadedSampleTiles.at(j);
+			}
+			j++;
+		}
+		mFlexBox.items.getReference(i).associatedComponent = toLoad;
+		addAndMakeVisible(toLoad);
+	}
+	refreshBounds();
 }
 
 void SampleContainer::refreshBounds()
@@ -117,7 +133,7 @@ int SampleContainer::calculateRows()
 	int elementsPerRow = (getWidth() / (SAMPVIEW_WIDTH + (2 * SAMPVIEW_MARGIN)));
 	if (elementsPerRow > 0)
 	{
-		return mActiveSampleTiles.size() / elementsPerRow;
+		return AppProperties::getSampleLibrary()->getCurrentSamples()->size() / elementsPerRow;
 	}
 	return 0;
 }

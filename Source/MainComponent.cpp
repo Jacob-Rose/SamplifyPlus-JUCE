@@ -57,7 +57,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-	float widthSegment = getWidth() / 5;
+	int widthSegment = getWidth() / 5;
 	mDirectoryExplorer->setBounds(0, 0, widthSegment, getHeight());
 	mSampleExplorer->setBounds(widthSegment, 0, widthSegment * 3, getHeight());
 	mFilterExplorer->setBounds(widthSegment * 4, 0, widthSegment, getHeight());

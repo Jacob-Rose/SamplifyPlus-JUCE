@@ -26,7 +26,7 @@
 /*
 */
 
-class SampleTile    : public Component, public MouseListener, public DragAndDropTarget
+class SampleTile    : public Component, public DragAndDropTarget
 {
 public:
     SampleTile(SampleReference*);
@@ -47,6 +47,7 @@ public:
 	void setSampleReference(SampleReference*);
 
 	SampleReference* getSampleReference();
+	bool operator==(SampleReference* ref);
 
 private:
 	SampleReference* mSampleReference = nullptr;
