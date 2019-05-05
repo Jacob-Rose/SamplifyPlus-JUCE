@@ -14,6 +14,7 @@
 //==============================================================================
 FilterExplorer::FilterExplorer()
 {
+	mSearchBox.addListener(this);
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
 
@@ -31,4 +32,23 @@ void FilterExplorer::paint (Graphics& g)
 void FilterExplorer::resized()
 {
 	mSearchBox.setBounds(Rectangle<int>(0, 0, getWidth(), 40));
+}
+
+void FilterExplorer::updateTags()
+{
+	mLatestTags = AppProperties::getSampleLibrary()->getAllTags();
+}
+
+void FilterExplorer::filterTags()
+{
+	for (int i = 0; i < mLatestTags.size(); i++)
+	{
+		if(mLatestTags[i].contains())
+	}
+}
+
+void FilterExplorer::changeListenerCallback(ChangeBroadcaster * source)
+{
+	updateTags();
+	filterTags();
 }

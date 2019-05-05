@@ -43,14 +43,18 @@ void SampleTile::paint (Graphics& g)
 		}
 		g.fillAll(backgroundColor);
 		g.setColour(foregroundColor);
-		g.drawRect(getLocalBounds(), 1);   // draw an outline around the component
+		// draw an outline around the component
+		g.drawRect(getLocalBounds(), 1);   
 		
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
 
 		Rectangle<int> sampleTypeBox(0, 0, widthSegment, heightSegment);
 		g.setColour(foregroundColor);
+		//draw box around sampleType box
 		g.drawRect(sampleTypeBox, 1);
+
+		///DRAW SAMPLE TYPE
 		switch (mSampleReference->getSampleType())
 		{
 		case SampleType::ONESHOT:
@@ -88,14 +92,8 @@ void SampleTile::paint (Graphics& g)
 			}
 		}
 
-		if (isMouseOverButton)
-		{
-			g.setColour(C_BACKGROUND_HOVER);
-		}
-		else
-		{
-			g.setColour(C_BACKGROUND_DEFAULT);
-		}
+		if (isMouseOverButton) { g.setColour(C_BACKGROUND_HOVER); }
+		else { g.setColour(C_BACKGROUND_DEFAULT); }
 
 		g.fillRect(buttonBounds);
 		g.setColour(foregroundColor);
@@ -105,14 +103,25 @@ void SampleTile::paint (Graphics& g)
 		Rectangle<int> sampleFilenameBox(widthSegment, 0, widthSegment * 3, getHeight() / 2);
 
 		g.setColour(foregroundColor);
-		g.setFont(14.0f);
+		g.setFont((getHeight() / 10) * 1.2f);
 		g.drawText(mSampleReference->getFilename(), sampleFilenameBox, Justification::topLeft, true);
-		g.setFont(10.0f);
+		g.setFont((getHeight() / 10) * 0.8f);
 		g.drawText(mSampleReference->getFullPathName(), sampleFilenameBox, Justification::bottomLeft, true);
+
+
+		float totalShifted = 0.0f;
+		StringArray* tags = mSampleReference->getSampleTags();
+		for (int i = 0; i < tags->size(); i++)
+		{
+			Rectangle<float> area = Rectangle<float>(0 + totalShifted, heightSegment, totalShifted, heightSegment / 2);
+			g.drawRoundedRectangle(area, 0.5f, 1.0f);
+			g.drawText(tags->getReference(i), area, juce::Justification::centred);
+		}
+		
 	}
 	else
 	{
-		g.fillAll(Colours::aqua);
+		//g.fillAll(Colours::aqua);
 	}
 }
 
@@ -162,6 +171,7 @@ void SampleTile::mouseMove(const MouseEvent & e)
 
 void SampleTile::playSample()
 {
+	
 }
 
 bool SampleTile::isMouseWithinPlayButton(const MouseEvent & e)

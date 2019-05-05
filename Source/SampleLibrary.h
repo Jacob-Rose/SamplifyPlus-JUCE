@@ -30,6 +30,7 @@ public:
     void updateCurrentSamples(File path);
     void updateCurrentSamples(String query);
     std::vector<SampleReference*>* getCurrentSamples();
+	StringArray getAllTags();
     
 private:
     std::vector<SampleReference> mSamples;

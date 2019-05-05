@@ -33,6 +33,7 @@ public:
     ~SampleTile();
 
     void paint (Graphics&) override;
+
     void resized() override;
 
 	void mouseDown(const MouseEvent &e) override;

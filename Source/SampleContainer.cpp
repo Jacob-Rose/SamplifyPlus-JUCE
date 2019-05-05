@@ -64,6 +64,8 @@ void SampleContainer::initializeItems()
 			withMargin(SAMPVIEW_MARGIN));
 		//FlexItem* flexItem = &mFlexBox.items.getReference(mFlexBox.items.size() - 1);
 	}
+	refreshItems();
+	refreshBounds();
 }
 
 void SampleContainer::changeListenerCallback(ChangeBroadcaster * source)
@@ -75,6 +77,7 @@ void SampleContainer::refreshItems()
 {
 	for (int i = 0; i < mFlexBox.items.size(); i++)
 	{
+		mFlexBox.items.getReference(i).associatedComponent = nullptr;
 		removeChildComponent(mFlexBox.items[i].associatedComponent);
 	}
 	std::vector<SampleReference*>* sampleList = AppProperties::getSampleLibrary()->getCurrentSamples();
@@ -95,8 +98,6 @@ void SampleContainer::refreshItems()
 			mLoadedSampleTiles.push_back(new SampleTile(sampleList->at(i)));
 		}
 	}
-	//what?
-
 
 	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
 	{

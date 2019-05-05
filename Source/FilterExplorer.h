@@ -11,11 +11,12 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AppProperties.h"
 
 //==============================================================================
 /*
 */
-class FilterExplorer    : public Component
+class FilterExplorer    : public Component, public ChangeListener
 {
 public:
     FilterExplorer();
@@ -23,8 +24,13 @@ public:
 
     void paint (Graphics&) override;
     void resized() override;
+	void updateTags();
+	void filterTags();
+
+	void changeListenerCallback(ChangeBroadcaster* source);
 
 private:
+	StringArray mLatestTags;
 	TextEditor mSearchBox;
 	FlexBox mTagFlexBox;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterExplorer)

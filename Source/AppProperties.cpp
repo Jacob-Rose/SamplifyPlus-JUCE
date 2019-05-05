@@ -61,7 +61,7 @@ void AppProperties::loadDirectories()
 	}
 	*/
 	//this is my personal storage, current bug in debug is that the properties file does not save, so just loading mine directly
-	mDirectories.push_back(File("D:\\Users\\jacob\\Music\\Music Assets\\LOOPMASTERS 4Gig Pack"));
+	mDirectories.push_back(File("C:\\Users\\jacob\\Music\\stems"));
 }
 
 void AppProperties::saveDirectories()

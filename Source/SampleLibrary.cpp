@@ -104,3 +104,21 @@ std::vector<SampleReference*>* SampleLibrary::getCurrentSamples()
 {
 	return &mCurrentSamples;
 }
+
+StringArray SampleLibrary::getAllTags()
+{
+	//todo sort on order
+	StringArray tags = StringArray();
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		StringArray* sTags = mSamples[i].getSampleTags();
+		for (int j = 0; j < sTags->size(); j++)
+		{
+			if (!tags.contains((*sTags)[j]))
+			{
+				tags.add((*sTags)[j]);
+			}
+		}
+		
+	}
+}
