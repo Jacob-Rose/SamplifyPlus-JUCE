@@ -16,7 +16,7 @@
 //==============================================================================
 /*
 */
-class FilterExplorer    : public Component, public ChangeListener
+class FilterExplorer    : public Component, public TextEditor::Listener
 {
 public:
     FilterExplorer();
@@ -27,11 +27,26 @@ public:
 	void updateTags();
 	void filterTags();
 
-	void changeListenerCallback(ChangeBroadcaster* source);
+	void textEditorTextChanged(TextEditor&) override;
 
 private:
 	StringArray mLatestTags;
 	TextEditor mSearchBox;
 	FlexBox mTagFlexBox;
+	NewTagButton mButton;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterExplorer)
+};
+
+
+class NewTagButton : public Button
+{
+public:
+	NewTagButton();
+	~NewTagButton();
+
+	void paintButton(Graphics& g,
+		bool isMouseOverButton,
+		bool isButtonDown) override;
+private:
+
 };

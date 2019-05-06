@@ -25,6 +25,9 @@ public:
     MainComponent();
     ~MainComponent();
 
+	void init();
+	void cleanup();
+
 	void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 	void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 	void releaseResources() override;

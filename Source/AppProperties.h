@@ -3,7 +3,7 @@
 
     AppProperties.h
     Created: 31 May 2018 3:16:14pm
-    Author:  jacob
+    Author:  Jacob Rose
 
   ==============================================================================
 */
@@ -13,59 +13,48 @@
 #include <string>
 #include "SampleLibrary.h"
 #include <vector>
+
 static class AppProperties
 {
 public:
-	static void init()
-	{
-		mDirectories = std::vector<File>();
-		mSelectedDirectory = File("");
-		loadDirectories();
-		mSampleLibrary.reset(new SampleLibrary());
-	}
-	static void loadDirectories();
 
-	static File browseForDirectory();
+	static void initInstance();
+	static void cleanupInstance();
+	
+	void init();
+	void cleanup();
 
-	static void browseForDirectoryAndAdd();
+	void loadDirectories();
 
-	static std::vector<File> getDirectories()
-	{
-		return mDirectories;
-	}
+	File browseForDirectory();
 
-	static File getDefaultFile();
+	void browseForDirectoryAndAdd();
 
-	static File getSelectedDirectory()
-	{
-		return mSelectedDirectory;
-	}
+	std::vector<File> getDirectories() { return mDirectories; }
 
-	static SampleLibrary* getSampleLibrary()
-	{
-		return mSampleLibrary.get();
-	}
+	File getDefaultFile();
 
-	static void setSelectedDirectory(File directory)
-	{
-		mSelectedDirectory = directory;
-		AppProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
-	}
+	File getSelectedDirectory() { return mSelectedDirectory;	}
 
-	static void saveDirectories();
+	SampleLibrary* getSampleLibrary() {	return mSampleLibrary.get(); }
 
-	static void clearDirectories()
-	{
-		mDirectories.clear();
-	}
+	void setSelectedDirectory(File directory);
 
-	static void updateDirectories(std::vector<File> directories)
-	{
-		clearDirectories();
-		mDirectories = directories;
-	}
+	void saveDirectories();
+
+	void clearDirectories();
+
+	void updateDirectories(std::vector<File> directories);
+
 private:
-	static std::vector<File> mDirectories;
-	static File mSelectedDirectory;
-	static std::unique_ptr<SampleLibrary> mSampleLibrary;
+	AppProperties();
+	~AppProperties();
+
+	bool mIsInit = false;
+
+	std::vector<File> mDirectories = std::vector<File>();
+	File mSelectedDirectory = File("");
+	std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
+
+	static std::unique_ptr<AppProperties> smAppProperties;
 };

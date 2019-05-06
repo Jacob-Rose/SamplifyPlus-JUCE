@@ -3,7 +3,7 @@
 
     SampleTile.h
     Created: 31 May 2018 1:20:01pm
-    Author:  jacob
+    Author:  Jacob Rose
 
   ==============================================================================
 */
@@ -52,6 +52,9 @@ public:
 
 private:
 	SampleReference* mSampleReference = nullptr;
+	//Not actual button used as the button activates something from
+	//Samplereference, seemed easier to generate button then to nest a new object
+	//it works
 	bool isMouseOverButton = false;
 	bool isButtonPressed = false;
 	Rectangle<int> buttonBounds;

@@ -18,6 +18,14 @@ MainComponent::~MainComponent()
 {
 }
 
+void MainComponent::init()
+{
+}
+
+void MainComponent::cleanup()
+{
+}
+
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
 	// This function will be called when the audio device is started, or when

@@ -26,7 +26,21 @@ FilterExplorer::~FilterExplorer()
 
 void FilterExplorer::paint (Graphics& g)
 {
-    
+	float xPos = 0;
+	float yPos = 0;
+	for (int i = 0; i < mLatestTags.size(); i++)
+	{
+		float width = g.getCurrentFont().getStringWidthFloat(mLatestTags[i]);
+		float height = g.getCurrentFont().getHeight();
+		Rectangle<float> area = Rectangle<float>(xPos, yPos, width, height);
+		g.drawText(mLatestTags[i], area, Justification::centredLeft);
+		xPos += width;
+		if (xPos > getBounds().getWidth())
+		{
+			xPos = 0;
+			yPos += height;
+		}
+	}
 }
 
 void FilterExplorer::resized()
@@ -43,12 +57,18 @@ void FilterExplorer::filterTags()
 {
 	for (int i = 0; i < mLatestTags.size(); i++)
 	{
-		if(mLatestTags[i].contains())
+		if (mLatestTags[i].contains(mSearchBox.getText()));
 	}
 }
 
-void FilterExplorer::changeListenerCallback(ChangeBroadcaster * source)
+NewTagButton::NewTagButton()
 {
-	updateTags();
-	filterTags();
+}
+
+NewTagButton::~NewTagButton()
+{
+}
+
+void NewTagButton::paintButton(Graphics& g, bool isMouseOverButton, bool isButtonDown)
+{
 }

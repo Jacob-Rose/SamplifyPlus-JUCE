@@ -10,10 +10,6 @@
 
 #include "AppProperties.h"
 
-std::vector<File> AppProperties::mDirectories = std::vector<File>();
-File AppProperties::mSelectedDirectory = File("");
-std::unique_ptr<SampleLibrary> AppProperties::mSampleLibrary = nullptr;
-
 File AppProperties::browseForDirectory()
 {
 	FileChooser dirSelector(String("Select Music Directory"), File::getSpecialLocation(File::userHomeDirectory));
@@ -35,6 +31,30 @@ File AppProperties::getDefaultFile()
 	options.filenameSuffix = ".settings";
 	File propFile = options.getDefaultFile();
 	return propFile;
+}
+
+void AppProperties::initInstance()
+{
+	smAppProperties.reset(new AppProperties());
+	smAppProperties->init();
+}
+
+void AppProperties::cleanupInstance()
+{
+	smAppProperties = nullptr;
+}
+
+void AppProperties::init()
+{
+	mDirectories = std::vector<File>();
+	mSelectedDirectory = File("");
+	loadDirectories();
+	mSampleLibrary.reset(new SampleLibrary());
+}
+
+void AppProperties::cleanup()
+{
+	mSampleLibrary = nullptr;
 }
 
 void AppProperties::loadDirectories()
@@ -64,6 +84,12 @@ void AppProperties::loadDirectories()
 	mDirectories.push_back(File("C:\\Users\\jacob\\Music\\stems"));
 }
 
+void AppProperties::setSelectedDirectory(File directory)
+{
+	mSelectedDirectory = directory;
+	AppProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
+}
+
 void AppProperties::saveDirectories()
 {
 	File propFile = getDefaultFile();
@@ -77,4 +103,19 @@ void AppProperties::saveDirectories()
 	{
 		propFile.appendText(mDirectories[i].getFullPathName() + "\n");
 	}
+}
+
+void AppProperties::clearDirectories()
+{
+	mDirectories.clear();
+}
+
+void AppProperties::updateDirectories(std::vector<File> directories)
+{
+	clearDirectories();
+	mDirectories = directories;
+}
+
+AppProperties::~AppProperties()
+{
 }
