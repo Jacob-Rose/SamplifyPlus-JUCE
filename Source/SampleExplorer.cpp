@@ -40,5 +40,5 @@ void SampleExplorer::resized()
 
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
-	AppProperties::getSampleLibrary()->updateCurrentSamples(e.getText());
+	AppProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
 }

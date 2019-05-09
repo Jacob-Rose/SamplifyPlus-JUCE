@@ -50,7 +50,7 @@ void FilterExplorer::resized()
 
 void FilterExplorer::updateTags()
 {
-	mLatestTags = AppProperties::getSampleLibrary()->getAllTags();
+	mLatestTags = AppProperties::getInstance()->getSampleLibrary()->getAllTags();
 }
 
 void FilterExplorer::filterTags()
@@ -61,7 +61,11 @@ void FilterExplorer::filterTags()
 	}
 }
 
-NewTagButton::NewTagButton()
+void FilterExplorer::textEditorTextChanged(TextEditor&)
+{
+}
+
+NewTagButton::NewTagButton() : Button("NEW TAG")
 {
 }
 

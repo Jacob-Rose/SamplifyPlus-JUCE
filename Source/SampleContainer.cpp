@@ -23,7 +23,7 @@ SampleContainer::SampleContainer()
 	mFlexBox.flexWrap = FlexBox::Wrap::wrap;
 	initializeItems();
 	sampleListUpdated();
-	AppProperties::getSampleLibrary()->addChangeListener(this);
+	AppProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 SampleContainer::~SampleContainer()
@@ -80,7 +80,7 @@ void SampleContainer::refreshItems()
 		mFlexBox.items.getReference(i).associatedComponent = nullptr;
 		removeChildComponent(mFlexBox.items[i].associatedComponent);
 	}
-	std::vector<SampleReference*>* sampleList = AppProperties::getSampleLibrary()->getCurrentSamples();
+	std::vector<SampleReference*>* sampleList = AppProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	SampleTile* toLoad = nullptr;
 	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
 	{
@@ -134,7 +134,7 @@ int SampleContainer::calculateRows()
 	int elementsPerRow = (getWidth() / (SAMPVIEW_WIDTH + (2 * SAMPVIEW_MARGIN)));
 	if (elementsPerRow > 0)
 	{
-		return AppProperties::getSampleLibrary()->getCurrentSamples()->size() / elementsPerRow;
+		return AppProperties::getInstance()->getSampleLibrary()->getCurrentSamples()->size() / elementsPerRow;
 	}
 	return 0;
 }

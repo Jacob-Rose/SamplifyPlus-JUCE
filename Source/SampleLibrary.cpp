@@ -31,7 +31,7 @@ SampleLibrary::~SampleLibrary()
 
 void SampleLibrary::initialize()
 {
-	loadSamplesFromDirectory(AppProperties::getDirectories());
+	loadSamplesFromDirectory(AppProperties::getInstance()->getDirectories());
 
 	SampleLibrary::updateCurrentSamples("");
 }
@@ -121,4 +121,5 @@ StringArray SampleLibrary::getAllTags()
 		}
 		
 	}
+	return tags;
 }

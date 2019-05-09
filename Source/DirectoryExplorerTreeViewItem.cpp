@@ -90,6 +90,6 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 {
 	if (isNowSelected)
 	{
-		AppProperties::setSelectedDirectory(mFile);
+		AppProperties::getInstance()->setSelectedDirectory(mFile);
 	}
 }

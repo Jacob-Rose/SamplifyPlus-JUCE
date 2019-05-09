@@ -33,7 +33,7 @@ private:
 	StringArray mLatestTags;
 	TextEditor mSearchBox;
 	FlexBox mTagFlexBox;
-	NewTagButton mButton;
+	//NewTagButton mNewTagButton;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterExplorer)
 };
 

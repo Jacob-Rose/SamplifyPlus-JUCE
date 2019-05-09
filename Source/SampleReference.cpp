@@ -59,7 +59,7 @@ String SampleReference::getFilename() const
 String SampleReference::getFullPathName() const
 {
 	String path = mSampleFile.getFullPathName();
-	std::vector<File> dirs = AppProperties::getDirectories();
+	std::vector<File> dirs = AppProperties::getInstance()->getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
 		if (path.contains(dirs[i].getFullPathName()))

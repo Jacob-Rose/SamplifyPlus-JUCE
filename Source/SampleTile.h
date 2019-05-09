@@ -32,6 +32,9 @@ public:
     SampleTile(SampleReference*);
     ~SampleTile();
 
+	void init();
+	void cleanup();
+
     void paint (Graphics&) override;
 
     void resized() override;

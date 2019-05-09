@@ -35,13 +35,27 @@ File AppProperties::getDefaultFile()
 
 void AppProperties::initInstance()
 {
-	smAppProperties.reset(new AppProperties());
-	smAppProperties->init();
+	if (smAppProperties == nullptr)
+	{
+		smAppProperties = new AppProperties();
+		smAppProperties->init();
+	}
 }
 
 void AppProperties::cleanupInstance()
 {
-	smAppProperties = nullptr;
+	if (smAppProperties != nullptr)
+	{
+		smAppProperties->saveDirectories();
+		delete smAppProperties;
+		smAppProperties = nullptr;
+	}
+
+}
+
+AppProperties* AppProperties::getInstance()
+{
+	return smAppProperties;
 }
 
 void AppProperties::init()

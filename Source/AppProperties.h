@@ -20,6 +20,7 @@ public:
 
 	static void initInstance();
 	static void cleanupInstance();
+	static AppProperties* getInstance();
 	
 	void init();
 	void cleanup();
@@ -56,5 +57,5 @@ private:
 	File mSelectedDirectory = File("");
 	std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
 
-	static std::unique_ptr<AppProperties> smAppProperties;
+	static AppProperties* smAppProperties;
 };

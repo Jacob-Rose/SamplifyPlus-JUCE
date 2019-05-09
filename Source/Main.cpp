@@ -29,14 +29,14 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
-		AppProperties::init();
+		AppProperties::initInstance();
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
     void shutdown() override
     {
 		FontAwesome::deleteInstance();
-		AppProperties::saveDirectories();
+		AppProperties::cleanupInstance();
         mainWindow = nullptr; // (deletes our window)
     }
 

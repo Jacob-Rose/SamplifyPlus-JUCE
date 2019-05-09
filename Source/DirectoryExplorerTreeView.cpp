@@ -18,7 +18,7 @@ DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 	DirectoryExplorerTreeViewItem* root = new DirectoryExplorerTreeViewItem();
 	setRootItem(root);
 
-	std::vector<File> paths = AppProperties::getDirectories();
+	std::vector<File> paths = AppProperties::getInstance()->getDirectories();
 	for (int i = 0; i < paths.size(); i++)
 	{
 		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(paths[i]);
