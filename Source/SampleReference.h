@@ -51,8 +51,6 @@ public:
 	bool isSamplePropertiesFileValid();
     
     bool operator==(const SampleReference&);
-    
-    static AudioFormatManager* getAudioFormatManager();
 private:
     File mSampleFile;
     File mSamplePropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp
@@ -62,5 +60,4 @@ private:
     double mSampleLength = -1;
     std::unique_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
     std::unique_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
-    static std::unique_ptr<AudioFormatManager> mFormatManager;
 };

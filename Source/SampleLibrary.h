@@ -5,7 +5,7 @@
     Created: 31 May 2018 12:45:49pm
     Author:  jacob
 	Summary: Class with ability to load all samples in the directory specified in AppProperties class
-
+	TODO Make into a singleton?
   ==============================================================================
 */
 #pragma once
@@ -19,12 +19,10 @@ public:
 	SampleLibrary();
 	SampleLibrary(const SampleLibrary&);
 	~SampleLibrary();
+
     void initialize();
     void loadSamplesFromDirectory(File);
 	void loadSamplesFromDirectory(std::vector<File>&);
-    
-    //static void loadSamplifyPropertiesFile();
-    //static void saveSamplifyPropertiesFile();
     
     void updateCurrentSamples(File path, String query);
     void updateCurrentSamples(File path);
@@ -37,4 +35,6 @@ private:
     std::vector<SampleReference*> mCurrentSamples;
     File mCurrentDirectory;
     String mCurrentQuery;
+
+	JUCE_LEAK_DETECTOR(SampleLibrary)
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.3.2"
+<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.3"
               cppLanguageStandard="17">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">

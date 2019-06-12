@@ -10,7 +10,7 @@
 
 #include "DirectoryExplorerTreeView.h"
 #include "DirectoryExplorerTreeViewItem.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 
 //==============================================================================
 DirectoryExplorerTreeView::DirectoryExplorerTreeView()
@@ -18,7 +18,7 @@ DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 	DirectoryExplorerTreeViewItem* root = new DirectoryExplorerTreeViewItem();
 	setRootItem(root);
 
-	std::vector<File> paths = AppProperties::getInstance()->getDirectories();
+	std::vector<File> paths = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < paths.size(); i++)
 	{
 		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(paths[i]);
@@ -28,4 +28,5 @@ DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 
 DirectoryExplorerTreeView::~DirectoryExplorerTreeView()
 {
+	delete getRootItem();
 }

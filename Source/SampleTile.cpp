@@ -83,7 +83,7 @@ void SampleTile::paint (Graphics& g)
 
 		Rectangle<int> thumbnailBounds(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
 		SampleAudioThumbnail* mThumbnail = mSampleReference->getAudioThumbnail();
-		if (mThumbnail != nullptr && mThumbnail != NULL && mThumbnail->isFullyLoaded())
+		if (mThumbnail != nullptr && mThumbnail->isFullyLoaded())
 		{
 			if (mThumbnail->getNumChannels() != 0)
 			{
@@ -171,7 +171,8 @@ void SampleTile::mouseMove(const MouseEvent & e)
 
 void SampleTile::playSample()
 {
-	
+	SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	SamplifyProperties::getInstance()->getAudioPlayer()->play();
 }
 
 bool SampleTile::isMouseWithinPlayButton(const MouseEvent & e)

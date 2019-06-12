@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SampleReference.h"
+#include "SamplifyProperties.h"
 
 #define SAMPVIEW_WIDTH 200
 #define SAMPVIEW_HEIGHT 120
@@ -32,11 +33,7 @@ public:
     SampleTile(SampleReference*);
     ~SampleTile();
 
-	void init();
-	void cleanup();
-
     void paint (Graphics&) override;
-
     void resized() override;
 
 	void mouseDown(const MouseEvent &e) override;

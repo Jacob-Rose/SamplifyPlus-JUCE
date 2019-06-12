@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "DirectoryExplorerTreeViewItem.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
 {
 	mFile = file;
@@ -23,7 +23,13 @@ DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem()
 
 DirectoryExplorerTreeViewItem::~DirectoryExplorerTreeViewItem()
 {
-	
+	/*
+	int subItemCount = getNumSubItems();
+	for (int i = 0; i < subItemCount; i++)
+	{
+		removeSubItem(0, true); 
+	}
+	*/
 }
 
 bool DirectoryExplorerTreeViewItem::mightContainSubItems()
@@ -54,9 +60,9 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 {
 	if (isSelected())
 	{
-		g.fillAll(Colours::aqua);
+		g.fillAll(SamplifyProperties::getInstance()->MAIN_ACCENT_COLOR);
 	}
-	g.setColour(Colours::grey);
+	g.setColour(SamplifyProperties::getInstance()->MAIN_TEXT_COLOR);
 	g.setFont(12);
 	g.drawText(mFile.getFileName(), 0, 0, width, height, Justification::centredLeft, true);
 }
@@ -78,18 +84,12 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 			}
 		}
 	}
-	else
-	{
-		// in this case, we'll leave any sub-items in the tree when the node gets closed,
-		// though you could choose to delete them if that's more appropriate for
-		// your application.
-	}
 }
 
 void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 {
 	if (isNowSelected)
 	{
-		AppProperties::getInstance()->setSelectedDirectory(mFile);
+		SamplifyProperties::getInstance()->setSelectedDirectory(mFile);
 	}
 }

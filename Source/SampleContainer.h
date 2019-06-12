@@ -39,6 +39,8 @@ public:
 
 	int calculateRows();
 
+	void deleteSampleViews();
+
 private:
 	std::vector<SampleTile*> mLoadedSampleTiles;
 	FlexBox mFlexBox;

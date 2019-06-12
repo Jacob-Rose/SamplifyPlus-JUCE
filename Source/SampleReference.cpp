@@ -3,24 +3,19 @@
 
     SampleReference.cpp
     Created: 31 May 2018 12:46:00pm
-    Author:  jacob
+    Author:  Jacob Rose
 
   ==============================================================================
 */
 
 #include "SampleReference.h"
 #include <string>
-#include "AppProperties.h"
-std::unique_ptr<AudioFormatManager> SampleReference::mFormatManager = nullptr;
+#include "SamplifyProperties.h"
+
 
 SampleReference::SampleReference(File file) : mSampleFile(file), mSamplePropertiesFile(file.getFullPathName() + ".samplify"), mSampleTags()
 {
 	loadSamplePropertiesFile();
-	if (mFormatManager == nullptr)
-	{
-		mFormatManager.reset(new AudioFormatManager());
-		mFormatManager->registerBasicFormats();
-	}
 	if (isSamplePropertiesFileValid())
 	{
 		loadSamplePropertiesFile();
@@ -44,6 +39,7 @@ SampleReference::~SampleReference()
 {
 	mThumbnailCache.reset(nullptr);
 	mThumbnail.reset(nullptr);
+	
 }
 
 File SampleReference::getFile() const
@@ -59,7 +55,7 @@ String SampleReference::getFilename() const
 String SampleReference::getFullPathName() const
 {
 	String path = mSampleFile.getFullPathName();
-	std::vector<File> dirs = AppProperties::getInstance()->getDirectories();
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
 		if (path.contains(dirs[i].getFullPathName()))
@@ -98,15 +94,17 @@ SampleAudioThumbnail * SampleReference::getAudioThumbnail()
 void SampleReference::generateThumbnailAndCache()
 {
 	mThumbnailCache.reset(new AudioThumbnailCache(1));
-	mThumbnail.reset(new SampleAudioThumbnail(512, *mFormatManager, *mThumbnailCache));
+	AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
+	mThumbnail.reset(new SampleAudioThumbnail(512, *afm, *mThumbnailCache));
 	mThumbnail->addChangeListener(this);
 
-	AudioFormatReader* reader = mFormatManager->createReaderFor(mSampleFile);
+	AudioFormatReader* reader = afm->createReaderFor(mSampleFile);
 	if (reader != nullptr)
 	{
 		mThumbnail->setSource(new FileInputSource(mSampleFile));
 		mSampleLength = (float)reader->lengthInSamples / reader->sampleRate;
 	}
+	delete reader;
 	
 }
 
@@ -136,7 +134,7 @@ void SampleReference::saveSamplePropertiesFile()
 	{
 		mSamplePropertiesFile.deleteFile();
 	}
-	mSamplePropertiesFile.create();
+	mSamplePropertiesFile.create(); 
 	mSamplePropertiesFile.appendText(String(ProjectInfo::versionNumber) + "\n");
 	mSamplePropertiesFile.appendText(String(mSampleTags.size()) + "\n");
 	for (int i = 0; i < mSampleTags.size(); i++)
@@ -177,9 +175,4 @@ bool SampleReference::operator==(const SampleReference& other)
 	{
 		return false;
 	}
-}
-
-AudioFormatManager * SampleReference::getAudioFormatManager()
-{
-	return mFormatManager.get();
 }

@@ -11,7 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
 #include "SampleLibrary.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 
 //==============================================================================
 class SamplifyPlusApplication  : public JUCEApplication
@@ -29,14 +29,14 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
-		AppProperties::initInstance();
+		SamplifyProperties::initInstance();
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
     void shutdown() override
     {
 		FontAwesome::deleteInstance();
-		AppProperties::cleanupInstance();
+		SamplifyProperties::cleanupInstance();
         mainWindow = nullptr; // (deletes our window)
     }
 

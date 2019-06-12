@@ -1,28 +1,23 @@
 #include "MainComponent.h"
 
-
+MainComponent* MainComponent::mInstance = nullptr;
 MainComponent::MainComponent()
 {
+	mInstance = this;
     mDirectoryExplorer.reset(new DirectoryExplorer());
     mSampleExplorer.reset(new SampleExplorer());
     mFilterExplorer.reset(new FilterExplorer());
+	mMenuBar.reset(new MenuBarComponent());
 
 	addAndMakeVisible(*mDirectoryExplorer);
 	addAndMakeVisible(*mSampleExplorer);
 	addAndMakeVisible(*mFilterExplorer);
+	addAndMakeVisible(*mMenuBar);
     
     setSize (600, 400);
 }
 
 MainComponent::~MainComponent()
-{
-}
-
-void MainComponent::init()
-{
-}
-
-void MainComponent::cleanup()
 {
 }
 
@@ -33,7 +28,7 @@ void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate
 
 	// You can use this function to initialise any resources you might need,
 	// but be careful - it will be called on the audio thread, not the GUI thread.
-
+	SamplifyProperties::getInstance()->getAudioPlayer()->prepareToPlay(samplesPerBlockExpected, sampleRate);
 	// For more details, see the help for AudioProcessor::prepareToPlay()
 }
 
@@ -42,17 +37,14 @@ void MainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill
 	// Your audio-processing code goes here!
 
 	// For more details, see the help for AudioProcessor::getNextAudioBlock()
-
-	// Right now we are not producing any data, in which case we need to clear the buffer
-	// (to prevent the output of random noise)
-	bufferToFill.clearActiveBufferRegion();
+	SamplifyProperties::getInstance()->getAudioPlayer()->getNextAudioBlock(bufferToFill);
 }
 
 void MainComponent::releaseResources()
 {
 	// This will be called when the audio device stops, or when it is being
 	// restarted due to a setting change.
-
+	SamplifyProperties::getInstance()->getAudioPlayer()->releaseResources();
 	// For more details, see the help for AudioProcessor::releaseResources()
 }
 
@@ -60,13 +52,19 @@ void MainComponent::releaseResources()
 void MainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colours::white);
+    g.fillAll (SamplifyProperties::getInstance()->MAIN_BASE_COLOR);
 }
 
 void MainComponent::resized()
 {
 	int widthSegment = getWidth() / 5;
-	mDirectoryExplorer->setBounds(0, 0, widthSegment, getHeight());
-	mSampleExplorer->setBounds(widthSegment, 0, widthSegment * 3, getHeight());
-	mFilterExplorer->setBounds(widthSegment * 4, 0, widthSegment, getHeight());
+	mDirectoryExplorer->setBounds(0, 16, widthSegment, getHeight());
+	mMenuBar->setBounds(0, 0, getWidth(), 16);
+	mSampleExplorer->setBounds(widthSegment, 16, widthSegment * 3, getHeight()-16);
+	mFilterExplorer->setBounds(widthSegment * 4, 16, widthSegment, getHeight()-16);
+}
+
+MainComponent* MainComponent::getInstance()
+{
+	return mInstance;
 }

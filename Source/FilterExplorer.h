@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 
 //==============================================================================
 /*
@@ -30,23 +30,11 @@ public:
 	void textEditorTextChanged(TextEditor&) override;
 
 private:
-	StringArray mLatestTags;
+	TextButton mNewButtonTag;
+	StringArray mContainedTags; //all tags for current files in directory with text from search bar contained in it
+	StringArray mNotContainedTags; //all tags for lower half, only ones with the text in search bar contained in it
 	TextEditor mSearchBox;
 	FlexBox mTagFlexBox;
-	//NewTagButton mNewTagButton;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterExplorer)
-};
-
-
-class NewTagButton : public Button
-{
-public:
-	NewTagButton();
-	~NewTagButton();
-
-	void paintButton(Graphics& g,
-		bool isMouseOverButton,
-		bool isButtonDown) override;
-private:
-
 };

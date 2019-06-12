@@ -10,7 +10,7 @@
 
 #include "SampleExplorer.h"
 #include "SampleLibrary.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 //==============================================================================
 SampleExplorer::SampleExplorer()
 {
@@ -40,5 +40,5 @@ void SampleExplorer::resized()
 
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
-	AppProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
+	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
 }

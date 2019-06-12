@@ -9,7 +9,7 @@
 */
 
 #include "SampleLibrary.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 
 SampleLibrary::SampleLibrary()
 {
@@ -31,7 +31,7 @@ SampleLibrary::~SampleLibrary()
 
 void SampleLibrary::initialize()
 {
-	loadSamplesFromDirectory(AppProperties::getInstance()->getDirectories());
+	loadSamplesFromDirectory(SamplifyProperties::getInstance()->getDirectories());
 
 	SampleLibrary::updateCurrentSamples("");
 }

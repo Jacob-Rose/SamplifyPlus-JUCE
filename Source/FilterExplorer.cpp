@@ -26,6 +26,7 @@ FilterExplorer::~FilterExplorer()
 
 void FilterExplorer::paint (Graphics& g)
 {
+	/*
 	float xPos = 0;
 	float yPos = 0;
 	for (int i = 0; i < mLatestTags.size(); i++)
@@ -41,6 +42,7 @@ void FilterExplorer::paint (Graphics& g)
 			yPos += height;
 		}
 	}
+	*/
 }
 
 void FilterExplorer::resized()
@@ -50,29 +52,18 @@ void FilterExplorer::resized()
 
 void FilterExplorer::updateTags()
 {
-	mLatestTags = AppProperties::getInstance()->getSampleLibrary()->getAllTags();
+	mContainedTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
+	filterTags();
 }
 
 void FilterExplorer::filterTags()
 {
-	for (int i = 0; i < mLatestTags.size(); i++)
+	for (int i = 0; i < mContainedTags.size(); i++)
 	{
-		if (mLatestTags[i].contains(mSearchBox.getText()));
+		if (mContainedTags[i].contains(mSearchBox.getText()));
 	}
 }
 
 void FilterExplorer::textEditorTextChanged(TextEditor&)
-{
-}
-
-NewTagButton::NewTagButton() : Button("NEW TAG")
-{
-}
-
-NewTagButton::~NewTagButton()
-{
-}
-
-void NewTagButton::paintButton(Graphics& g, bool isMouseOverButton, bool isButtonDown)
 {
 }

@@ -10,7 +10,7 @@
 
 #include "SampleContainer.h"
 #include "SampleLibrary.h"
-#include "AppProperties.h"
+#include "SamplifyProperties.h"
 #include <algorithm>
 #include <cmath>
 
@@ -23,12 +23,12 @@ SampleContainer::SampleContainer()
 	mFlexBox.flexWrap = FlexBox::Wrap::wrap;
 	initializeItems();
 	sampleListUpdated();
-	AppProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
+	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 SampleContainer::~SampleContainer()
 {
-	
+	deleteSampleViews();
 }
 
 void SampleContainer::paint (Graphics& g)
@@ -51,8 +51,6 @@ void SampleContainer::sampleListUpdated()
 	refreshItems();
 	refreshBounds();
 }
-//! this is important
-//? what dod 
 
 
 void SampleContainer::initializeItems()
@@ -80,7 +78,7 @@ void SampleContainer::refreshItems()
 		mFlexBox.items.getReference(i).associatedComponent = nullptr;
 		removeChildComponent(mFlexBox.items[i].associatedComponent);
 	}
-	std::vector<SampleReference*>* sampleList = AppProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
+	std::vector<SampleReference*>* sampleList = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	SampleTile* toLoad = nullptr;
 	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
 	{
@@ -98,7 +96,7 @@ void SampleContainer::refreshItems()
 			mLoadedSampleTiles.push_back(new SampleTile(sampleList->at(i)));
 		}
 	}
-
+	//check if already been loaded
 	for (int i = 0; i < sampleList->size() && i < MAX_LOADED_SAMPLES; i++)
 	{
 		SampleTile* toLoad = nullptr;
@@ -134,7 +132,15 @@ int SampleContainer::calculateRows()
 	int elementsPerRow = (getWidth() / (SAMPVIEW_WIDTH + (2 * SAMPVIEW_MARGIN)));
 	if (elementsPerRow > 0)
 	{
-		return AppProperties::getInstance()->getSampleLibrary()->getCurrentSamples()->size() / elementsPerRow;
+		return SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples()->size() / elementsPerRow;
 	}
 	return 0;
+}
+
+void SampleContainer::deleteSampleViews()
+{
+	for (int i = 0; i < mLoadedSampleTiles.size(); i++)
+	{
+		delete mLoadedSampleTiles[i];
+	}
 }
