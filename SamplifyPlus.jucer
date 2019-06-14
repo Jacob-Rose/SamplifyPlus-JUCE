@@ -4,9 +4,10 @@
               cppLanguageStandard="17">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
-      <FILE id="Ie35Fj" name="AppProperties.cpp" compile="1" resource="0"
-            file="Source/AppProperties.cpp"/>
-      <FILE id="WjGgkQ" name="AppProperties.h" compile="0" resource="0" file="Source/AppProperties.h"/>
+      <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
+            file="Source/SamplifyProperties.h"/>
+      <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
+            file="Source/SamplifyProperties.cpp"/>
       <GROUP id="{0345CD7A-C993-8A44-1CBF-A33496D18EC9}" name="Backend">
         <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
               file="Source/SampleLibrary.cpp"/>

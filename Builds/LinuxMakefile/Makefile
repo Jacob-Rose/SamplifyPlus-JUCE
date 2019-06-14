@@ -68,7 +68,7 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
-  $(JUCE_OBJDIR)/AppProperties_d6f9395.o \
+  $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o \
   $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
   $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
   $(JUCE_OBJDIR)/MainComponent_a6ffb4a5.o \
@@ -112,9 +112,9 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
 
-$(JUCE_OBJDIR)/AppProperties_d6f9395.o: ../../Source/AppProperties.cpp
+$(JUCE_OBJDIR)/SamplifyProperties_6873029d.o: ../../Source/SamplifyProperties.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling AppProperties.cpp"
+	@echo "Compiling SamplifyProperties.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/SampleLibrary_83e9292.o: ../../Source/SampleLibrary.cpp

@@ -49,6 +49,9 @@ public:
 
 	void saveDirectories();
 
+	//update based on all samples loaded in mSampleLibrary
+	void updateAllTags();
+
 	void getThemeColor(std::string key);
 
 	void clearDirectories();
@@ -66,6 +69,7 @@ private:
 
 	ApplicationProperties mApplicationProperties;
 	std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
+	StringArray mAllSampleTags;
 	std::vector<File> mDirectories = std::vector<File>();
 	File mSelectedDirectory = File("");
 	AudioPlayer mAudioPlayer;

@@ -9,7 +9,7 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "MainComponent.h"
+#include "SamplifyMainComponent.h"
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
 
@@ -18,9 +18,7 @@ class SamplifyPlusApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
-    SamplifyPlusApplication() {
-		
-	}
+    SamplifyPlusApplication() {	}
 
     const String getApplicationName() override       { return ProjectInfo::projectName; }
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
@@ -35,6 +33,7 @@ public:
 
     void shutdown() override
     {
+
 		FontAwesome::deleteInstance();
 		SamplifyProperties::cleanupInstance();
         mainWindow = nullptr; // (deletes our window)
@@ -43,8 +42,6 @@ public:
     //==============================================================================
     void systemRequestedQuit() override
     {
-        // This is called when the app is being asked to quit: you can ignore this
-        // request and let the app carry on running, or call quit() to allow the app to close.
         quit();
     }
 
@@ -54,33 +51,26 @@ public:
 		quit();
     }
 
-    //==============================================================================
-    /*
-        This class implements the desktop window that contains an instance of
-        our MainComponent class.
-    */
+	//The main application that creates the SamplifyMainComponent
     class MainWindow    : public DocumentWindow
     {
     public:
-        MainWindow (String name)  : DocumentWindow (name,
-                                                    Desktop::getInstance().getDefaultLookAndFeel()
-                                                                          .findColour (ResizableWindow::backgroundColourId),
-                                                    DocumentWindow::allButtons)
+        MainWindow (String name) : DocumentWindow (name,                        
+												   Desktop::getInstance()
+												  .getDefaultLookAndFeel()
+												  .findColour (ResizableWindow::backgroundColourId),
+												  DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
-            setContentOwned (new MainComponent(), true);
+            setContentOwned (new SamplifyMainComponent(), true);
 			setResizable(true, true);
-
             centreWithSize (getWidth(), getHeight());
             setVisible (true);
         }
 
         void closeButtonPressed() override
         {
-            // This is called when the user tries to close this window. Here, we'll just
-            // ask the app to quit when this happens, but you can change this to do
-            // whatever you need.
-            JUCEApplication::getInstance()->systemRequestedQuit();
+            JUCEApplication::getInstance()->systemRequestedQuit(); //close app
         }
 
         /* Note: Be careful if you override any DocumentWindow methods - the base

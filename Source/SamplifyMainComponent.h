@@ -10,12 +10,12 @@
 /*
     The Root Component of the Application
 */
-class MainComponent   : public AudioAppComponent
+class SamplifyMainComponent   : public AudioAppComponent
 {
 public:
 
-    MainComponent();
-    ~MainComponent();
+    SamplifyMainComponent();
+    ~SamplifyMainComponent();
 
 	void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 	void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
@@ -26,7 +26,7 @@ public:
     void resized() override;
 
 	AudioPlayer* getAudioPlayer();
-	static MainComponent* getInstance();
+	static SamplifyMainComponent* getInstance();
 
 private:
     std::unique_ptr<DirectoryExplorer> mDirectoryExplorer = nullptr;
@@ -34,7 +34,7 @@ private:
     std::unique_ptr<FilterExplorer> mFilterExplorer = nullptr;
 	std::unique_ptr<MenuBarComponent> mMenuBar = nullptr;
 
-	static MainComponent* mInstance;
+	static SamplifyMainComponent* mInstance;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplifyMainComponent)
 };

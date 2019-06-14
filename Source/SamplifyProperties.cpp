@@ -133,6 +133,11 @@ void SamplifyProperties::saveDirectories()
 	}
 }
 
+void SamplifyProperties::updateAllTags()
+{
+	mAllSampleTags = mSampleLibrary.get()->getAllTags();
+}
+
 void SamplifyProperties::getThemeColor(std::string key)
 {
 }

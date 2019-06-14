@@ -69,9 +69,9 @@
 			isa = PBXBuildFile;
 			fileRef = BAABEE7737DDF081CACD401D;
 		};
-		704044D5C80E6B01ADFA45B5 = {
+		8E6B91F2B617728F069DC893 = {
 			isa = PBXBuildFile;
-			fileRef = 799FF308E6208DC8552BE9DF;
+			fileRef = 1341EE58AE99FF529116AA16;
 		};
 		F1E4226675BF1179624D028E = {
 			isa = PBXBuildFile;
@@ -210,6 +210,13 @@
 			path = System/Library/Frameworks/IOKit.framework;
 			sourceTree = SDKROOT;
 		};
+		1341EE58AE99FF529116AA16 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SamplifyProperties.cpp;
+			path = ../../Source/SamplifyProperties.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		14BC89D747726A9AF4102800 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -236,6 +243,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = SampleLibrary.cpp;
 			path = ../../Source/SampleLibrary.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		232DDC330942E87B3037775A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SamplifyProperties.h;
+			path = ../../Source/SamplifyProperties.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		29D627ADE8A9E14ADD08DC80 = {
@@ -406,13 +420,6 @@
 			path = "~/JUCE/modules/juce_gui_basics";
 			sourceTree = "<absolute>";
 		};
-		799FF308E6208DC8552BE9DF = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = AppProperties.cpp;
-			path = ../../Source/AppProperties.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		7A850E904A718EA17101C103 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -538,13 +545,6 @@
 			name = Carbon.framework;
 			path = System/Library/Frameworks/Carbon.framework;
 			sourceTree = SDKROOT;
-		};
-		B06CABFF02B9ACAAFB53F9B8 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AppProperties.h;
-			path = ../../Source/AppProperties.h;
-			sourceTree = "SOURCE_ROOT";
 		};
 		B2FCB0A4313D73D927CC53AC = {
 			isa = PBXFileReference;
@@ -802,8 +802,8 @@
 		0FF46B2C570D1813960294EF = {
 			isa = PBXGroup;
 			children = (
-				799FF308E6208DC8552BE9DF,
-				B06CABFF02B9ACAAFB53F9B8,
+				232DDC330942E87B3037775A,
+				1341EE58AE99FF529116AA16,
 				221269CE4E91DC9536525056,
 				C4E7652EF70FB1EE961FA9CE,
 				8A8F5B7B4E0EF582F1F26413,
@@ -1128,7 +1128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				704044D5C80E6B01ADFA45B5,
+				8E6B91F2B617728F069DC893,
 				F1E4226675BF1179624D028E,
 				E8B083AAA9E14B477F86EBE8,
 				36353791C93E6802169D688F,

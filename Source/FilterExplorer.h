@@ -3,19 +3,19 @@
 
     FilterExplorer.h
     Created: 31 May 2018 1:21:30pm
-    Author:  jacob
+    Author:  Jacob Rose
+
+	Component that displays all the tags
 
   ==============================================================================
 */
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "SamplifyProperties.h"
 
-//==============================================================================
-/*
-*/
+
 class FilterExplorer    : public Component, public TextEditor::Listener
 {
 public:
@@ -30,9 +30,6 @@ public:
 	void textEditorTextChanged(TextEditor&) override;
 
 private:
-	TextButton mNewButtonTag;
-	StringArray mContainedTags; //all tags for current files in directory with text from search bar contained in it
-	StringArray mNotContainedTags; //all tags for lower half, only ones with the text in search bar contained in it
 	TextEditor mSearchBox;
 	FlexBox mTagFlexBox;
 

@@ -1,7 +1,7 @@
-#include "MainComponent.h"
+#include "SamplifyMainComponent.h"
 
-MainComponent* MainComponent::mInstance = nullptr;
-MainComponent::MainComponent()
+SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
+SamplifyMainComponent::SamplifyMainComponent()
 {
 	mInstance = this;
     mDirectoryExplorer.reset(new DirectoryExplorer());
@@ -17,11 +17,11 @@ MainComponent::MainComponent()
     setSize (600, 400);
 }
 
-MainComponent::~MainComponent()
+SamplifyMainComponent::~SamplifyMainComponent()
 {
 }
 
-void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
 	// This function will be called when the audio device is started, or when
 	// its settings (i.e. sample rate, block size, etc) are changed.
@@ -32,7 +32,7 @@ void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate
 	// For more details, see the help for AudioProcessor::prepareToPlay()
 }
 
-void MainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
+void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
 	// Your audio-processing code goes here!
 
@@ -40,7 +40,7 @@ void MainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill
 	SamplifyProperties::getInstance()->getAudioPlayer()->getNextAudioBlock(bufferToFill);
 }
 
-void MainComponent::releaseResources()
+void SamplifyMainComponent::releaseResources()
 {
 	// This will be called when the audio device stops, or when it is being
 	// restarted due to a setting change.
@@ -49,13 +49,13 @@ void MainComponent::releaseResources()
 }
 
 //==============================================================================
-void MainComponent::paint (Graphics& g)
+void SamplifyMainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (SamplifyProperties::getInstance()->MAIN_BASE_COLOR);
 }
 
-void MainComponent::resized()
+void SamplifyMainComponent::resized()
 {
 	int widthSegment = getWidth() / 5;
 	mDirectoryExplorer->setBounds(0, 16, widthSegment, getHeight());
@@ -64,7 +64,7 @@ void MainComponent::resized()
 	mFilterExplorer->setBounds(widthSegment * 4, 16, widthSegment, getHeight()-16);
 }
 
-MainComponent* MainComponent::getInstance()
+SamplifyMainComponent* SamplifyMainComponent::getInstance()
 {
 	return mInstance;
 }
