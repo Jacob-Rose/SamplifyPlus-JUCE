@@ -50,20 +50,6 @@ void FilterExplorer::resized()
 	mSearchBox.setBounds(Rectangle<int>(0, 0, getWidth(), 40));
 }
 
-void FilterExplorer::updateTags()
-{
-	mContainedTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
-	filterTags();
-}
-
-void FilterExplorer::filterTags()
-{
-	for (int i = 0; i < mContainedTags.size(); i++)
-	{
-		if (mContainedTags[i].contains(mSearchBox.getText()));
-	}
-}
-
 void FilterExplorer::textEditorTextChanged(TextEditor&)
 {
 }

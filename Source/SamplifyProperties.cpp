@@ -48,7 +48,7 @@ void SamplifyProperties::cleanupInstance()
 {
 	if (smAppProperties != nullptr)
 	{
-		smAppProperties->saveDirectories();
+		smAppProperties->saveDirectoriesToPropertiesFile();
 		delete smAppProperties;
 		smAppProperties = nullptr;
 	}
@@ -73,7 +73,7 @@ void SamplifyProperties::init()
 {
 	mDirectories = std::vector<File>();
 	mSelectedDirectory = File("");
-	loadDirectories();
+	loadDirectoriesFromPropertiesFile();
 	mSampleLibrary.reset(new SampleLibrary());
 }
 
@@ -86,7 +86,13 @@ void SamplifyProperties::cleanup()
 	
 }
 
-void SamplifyProperties::loadDirectories()
+void SamplifyProperties::setDirectories(std::vector<File> directories)
+{
+	clearDirectories();
+	mDirectories = directories;
+}
+
+void SamplifyProperties::loadDirectoriesFromPropertiesFile()
 {
 	PropertiesFile* propFile = mApplicationProperties.getUserSettings();
 	if (propFile->isValidFile())
@@ -115,7 +121,7 @@ void SamplifyProperties::setSelectedDirectory(File directory)
 	SamplifyProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
 }
 
-void SamplifyProperties::saveDirectories()
+void SamplifyProperties::saveDirectoriesToPropertiesFile()
 {
 	PropertiesFile* propFile = mApplicationProperties.getUserSettings();
 	if (!propFile->isValidFile())
@@ -133,13 +139,14 @@ void SamplifyProperties::saveDirectories()
 	}
 }
 
-void SamplifyProperties::updateAllTags()
+void SamplifyProperties::addTag(std::string text, Colour color)
 {
-	mAllSampleTags = mSampleLibrary.get()->getAllTags();
+	mSampleTagColors[text] = color;
 }
 
-void SamplifyProperties::getThemeColor(std::string key)
+Colour SamplifyProperties::getTagColor(std::string text)
 {
+	return mSampleTagColors[text];
 }
 
 void SamplifyProperties::clearDirectories()
@@ -147,9 +154,5 @@ void SamplifyProperties::clearDirectories()
 	mDirectories.clear();
 }
 
-void SamplifyProperties::updateDirectories(std::vector<File> directories)
-{
-	clearDirectories();
-	mDirectories = directories;
-}
+
 

@@ -17,7 +17,7 @@
 SampleTile::SampleTile(SampleReference* sample)
 {
 	setRepaintsOnMouseActivity(true);
-	setSize(SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
+	//setSize(SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
 	setSampleReference(sample);
 }
 

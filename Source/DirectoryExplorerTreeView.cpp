@@ -28,5 +28,5 @@ DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 
 DirectoryExplorerTreeView::~DirectoryExplorerTreeView()
 {
-	delete getRootItem();
+	//delete getRootItem();
 }

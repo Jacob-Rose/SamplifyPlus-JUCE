@@ -14,66 +14,66 @@
 #include "SampleLibrary.h"
 #include <string>
 #include <vector>
+#include <map>
 #include "AudioPlayer.h"
-
-#define SAMPVIEW_ASPECTRATIO = 9.0f/16.0f; //opposite because system based on width not height
-#define SAMPVIEW_MAX_WIDTH = 250;
-#define SAMPVIEW_MIN_WIDTH = 150;
+#include "TagDrawer.h"
 
 
 class SamplifyProperties : public ApplicationProperties
 {
 public:
-
+	//==================================================================================
 	static void initInstance();
 	static void cleanupInstance();
 	static SamplifyProperties* getInstance();
-	
+	//==================================================================================
 	void init();
 	void cleanup();
-
-	void loadDirectories();
-
-	File browseForDirectory();
-
-	void browseForDirectoryAndAdd();
-
+	//=Saving============================================================================
+	void loadDirectoriesFromPropertiesFile();
+	void saveDirectoriesToPropertiesFile();
+	//=Directories=========================================================================
+	void setDirectories(std::vector<File> directories);
 	std::vector<File> getDirectories() { return mDirectories; }
-
-	File getSelectedDirectory() { return mSelectedDirectory;	}
-
-	SampleLibrary* getSampleLibrary() {	return mSampleLibrary.get(); }
-	AudioPlayer* getAudioPlayer() { return &mAudioPlayer; }
-
-	void setSelectedDirectory(File directory);
-
-	void saveDirectories();
-
-	//update based on all samples loaded in mSampleLibrary
-	void updateAllTags();
-
-	void getThemeColor(std::string key);
-
 	void clearDirectories();
 
-	void updateDirectories(std::vector<File> directories);
+	File browseForDirectory();
+	void browseForDirectoryAndAdd();
 
+	void setSelectedDirectory(File directory);
+	File getSelectedDirectory() { return mSelectedDirectory;	}
+	//==================================================================================
+	SampleLibrary* getSampleLibrary() {	return mSampleLibrary.get(); }
+	AudioPlayer* getAudioPlayer() { return &mAudioPlayer; }
+	//==================================================================================
+	void addTag(std::string text, Colour color);
+	void addTag(std::string text)
+	{
+		Random& r = Random::getSystemRandom();
+		addTag(text, Colour(r.nextInt(Range(0, 256)),
+			r.nextInt(Range(0, 256)),
+			r.nextInt(Range(0, 256))));
+	}
+
+	Colour getTagColor(std::string text);
+	//==================================================================================
 	const Colour MAIN_BASE_COLOR = Colours::slategrey;
 	const Colour MAIN_ACCENT_COLOR = Colours::orangered;
 	const Colour MAIN_TEXT_COLOR = Colours::white;
 private:
+	//==================================================================================
 	SamplifyProperties();
 	~SamplifyProperties();
-
-	bool mIsInit = false;
-
+	//==================================================================================
 	ApplicationProperties mApplicationProperties;
 	std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
-	StringArray mAllSampleTags;
+	std::map<std::string, Colour> mSampleTagColors;
 	std::vector<File> mDirectories = std::vector<File>();
 	File mSelectedDirectory = File("");
 	AudioPlayer mAudioPlayer;
-
+	//==================================================================================
 	static SamplifyProperties* smAppProperties;
+	bool mIsInit = false;
+
 	JUCE_LEAK_DETECTOR(SamplifyProperties)
 };

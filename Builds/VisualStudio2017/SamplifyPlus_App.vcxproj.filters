@@ -448,16 +448,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
       <Filter>SamplifyPlus\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp">
       <Filter>SamplifyPlus\Source\Backend</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
+      <Filter>SamplifyPlus\Source\Backend</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\SampleReference.cpp">
       <Filter>SamplifyPlus\Source\Backend</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MainComponent.cpp">
+    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
+      <Filter>SamplifyPlus\Source\UX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagDrawer.cpp">
       <Filter>SamplifyPlus\Source\UX</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
@@ -469,7 +475,13 @@
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CollectionExplorer.cpp">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagExplorer.cpp">
       <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TagTile.cpp">
@@ -485,9 +497,6 @@
       <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleTile.cpp">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleTilePlayButton.cpp">
       <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -2421,8 +2430,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\SamplifyProperties.h">
+    <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>SamplifyPlus\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyProperties.h">
+      <Filter>SamplifyPlus\Source\Backend</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleLibrary.h">
       <Filter>SamplifyPlus\Source\Backend</Filter>
@@ -2430,7 +2442,10 @@
     <ClInclude Include="..\..\Source\SampleReference.h">
       <Filter>SamplifyPlus\Source\Backend</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MainComponent.h">
+    <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
+      <Filter>SamplifyPlus\Source\UX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagDrawer.h">
       <Filter>SamplifyPlus\Source\UX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h">
@@ -2441,6 +2456,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CollectionExplorer.h">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagExplorer.h">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FilterExplorer.h">
       <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
@@ -2458,9 +2479,6 @@
       <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleTile.h">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleTilePlayButton.h">
       <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\danlin_fontawesome\data\FontAwesomeData.h">

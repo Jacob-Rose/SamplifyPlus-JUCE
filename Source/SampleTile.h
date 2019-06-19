@@ -10,22 +10,18 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "SampleReference.h"
 #include "SamplifyProperties.h"
 
-#define SAMPVIEW_WIDTH 200
-#define SAMPVIEW_HEIGHT 120
-#define SAMPVIEW_MARGIN 10
+#define SAMPVIEW_MIN_WIDTH 150
+#define SAMPVIEW_MAX_WIDTH 250
+#define SAMPVIEW_ASPECTRATIO 9.0f/16.0f
 
 #define C_BACKGROUND_HOVER Colours::lightgrey
 #define C_BACKGROUND_DEFAULT Colours::white
 #define C_FOREGROUND_HOVER Colours::forestgreen
 #define C_FOREGROUND_DEFAULT Colours::forestgreen
-
-//==============================================================================
-/*
-*/
 
 class SampleTile    : public Component, public DragAndDropTarget
 {
@@ -35,7 +31,7 @@ public:
 
     void paint (Graphics&) override;
     void resized() override;
-
+	//===========================================================================
 	void mouseDown(const MouseEvent &e) override;
 	void mouseMove(const MouseEvent &e) override;
 

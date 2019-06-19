@@ -23,13 +23,11 @@ DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem()
 
 DirectoryExplorerTreeViewItem::~DirectoryExplorerTreeViewItem()
 {
-	/*
 	int subItemCount = getNumSubItems();
 	for (int i = 0; i < subItemCount; i++)
 	{
 		removeSubItem(0, true); 
 	}
-	*/
 }
 
 bool DirectoryExplorerTreeViewItem::mightContainSubItems()

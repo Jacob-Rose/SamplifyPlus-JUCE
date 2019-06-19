@@ -138,20 +138,23 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
     <ClCompile Include="..\..\Source\SampleReference.cpp"/>
-    <ClCompile Include="..\..\Source\MainComponent.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp"/>
+    <ClCompile Include="..\..\Source\TagDrawer.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorer.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeView.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp"/>
+    <ClCompile Include="..\..\Source\CollectionExplorer.cpp"/>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\TagExplorer.cpp"/>
     <ClCompile Include="..\..\Source\TagTile.cpp"/>
     <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp"/>
     <ClCompile Include="..\..\Source\SampleContainer.cpp"/>
     <ClCompile Include="..\..\Source\SampleExplorer.cpp"/>
     <ClCompile Include="..\..\Source\SampleTile.cpp"/>
-    <ClCompile Include="..\..\Source\SampleTilePlayButton.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\danlin_fontawesome\data\FontAwesomeData.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1928,20 +1931,23 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\SamplifyProperties.h"/>
     <ClInclude Include="..\..\Source\SampleLibrary.h"/>
     <ClInclude Include="..\..\Source\SampleReference.h"/>
-    <ClInclude Include="..\..\Source\MainComponent.h"/>
+    <ClInclude Include="..\..\Source\SamplifyMainComponent.h"/>
+    <ClInclude Include="..\..\Source\TagDrawer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeView.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h"/>
+    <ClInclude Include="..\..\Source\CollectionExplorer.h"/>
+    <ClInclude Include="..\..\Source\TagExplorer.h"/>
     <ClInclude Include="..\..\Source\FilterExplorer.h"/>
     <ClInclude Include="..\..\Source\TagTile.h"/>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>
     <ClInclude Include="..\..\Source\SampleContainer.h"/>
     <ClInclude Include="..\..\Source\SampleExplorer.h"/>
     <ClInclude Include="..\..\Source\SampleTile.h"/>
-    <ClInclude Include="..\..\Source\SampleTilePlayButton.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\data\FontAwesomeData.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\src\FontAwesome.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\src\Icons.h"/>

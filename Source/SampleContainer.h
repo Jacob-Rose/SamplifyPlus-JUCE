@@ -42,7 +42,7 @@ public:
 	void deleteSampleViews();
 
 private:
-	std::vector<SampleTile*> mLoadedSampleTiles;
+	std::vector<FlexItem> mAllFlexItems;
 	FlexBox mFlexBox;
 	Viewport mViewport;
 	static const int MAX_LOADED_SAMPLES = 250;

@@ -4,13 +4,15 @@
               cppLanguageStandard="17">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
-      <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
-            file="Source/SamplifyProperties.h"/>
-      <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
-            file="Source/SamplifyProperties.cpp"/>
+      <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+      <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
       <GROUP id="{0345CD7A-C993-8A44-1CBF-A33496D18EC9}" name="Backend">
         <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
               file="Source/SampleLibrary.cpp"/>
+        <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
+              file="Source/SamplifyProperties.cpp"/>
+        <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
+              file="Source/SamplifyProperties.h"/>
         <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
         <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
               file="Source/SampleReference.cpp"/>
@@ -18,9 +20,12 @@
               file="Source/SampleReference.h"/>
       </GROUP>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="UX">
-        <FILE id="fogDTz" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-        <FILE id="WUR2bW" name="MainComponent.cpp" compile="1" resource="0"
-              file="Source/MainComponent.cpp"/>
+        <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
+              file="Source/SamplifyMainComponent.h"/>
+        <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
+              file="Source/SamplifyMainComponent.cpp"/>
+        <FILE id="lnlRPo" name="TagDrawer.h" compile="0" resource="0" file="Source/TagDrawer.h"/>
+        <FILE id="vQx8Vp" name="TagDrawer.cpp" compile="1" resource="0" file="Source/TagDrawer.cpp"/>
         <GROUP id="{0E13B4DC-8882-CEBB-2E3C-876096035BBF}" name="DirectoryExplorer">
           <FILE id="Ouzaz2" name="DirectoryExplorer.cpp" compile="1" resource="0"
                 file="Source/DirectoryExplorer.cpp"/>
@@ -36,8 +41,14 @@
                 resource="0" file="Source/DirectoryExplorerTreeViewItem.h"/>
         </GROUP>
         <GROUP id="{EFDD0C54-A436-2DB3-B1FA-4026CF9D00D4}" name="FilterExplorer">
+          <FILE id="AgmoB7" name="CollectionExplorer.cpp" compile="1" resource="0"
+                file="Source/CollectionExplorer.cpp"/>
+          <FILE id="bzJtmR" name="CollectionExplorer.h" compile="0" resource="0"
+                file="Source/CollectionExplorer.h"/>
           <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
                 file="Source/FilterExplorer.cpp"/>
+          <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
+          <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
           <FILE id="UVcWpr" name="FilterExplorer.h" compile="0" resource="0"
                 file="Source/FilterExplorer.h"/>
           <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
@@ -58,10 +69,6 @@
                 file="Source/SampleExplorer.h"/>
           <FILE id="gajHaQ" name="SampleTile.cpp" compile="1" resource="0" file="Source/SampleTile.cpp"/>
           <FILE id="IuE5nP" name="SampleTile.h" compile="0" resource="0" file="Source/SampleTile.h"/>
-          <FILE id="K9Cdxo" name="SampleTilePlayButton.cpp" compile="1" resource="0"
-                file="Source/SampleTilePlayButton.cpp"/>
-          <FILE id="tPCOIX" name="SampleTilePlayButton.h" compile="0" resource="0"
-                file="Source/SampleTilePlayButton.h"/>
         </GROUP>
       </GROUP>
       <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
