@@ -15,9 +15,9 @@
 #include "SampleReference.h"
 #include "SamplifyProperties.h"
 
-#define SAMPVIEW_MIN_WIDTH 150
-#define SAMPVIEW_MAX_WIDTH 250
+#define SAMPVIEW_WIDTH 200
 #define SAMPVIEW_ASPECTRATIO (9.0f/16.0f)
+#define SAMPVIEW_HEIGHT SAMPVIEW_WIDTH * SAMPVIEW_ASPECTRATIO
 
 #define C_BACKGROUND_HOVER Colours::lightgrey
 #define C_BACKGROUND_DEFAULT Colours::white

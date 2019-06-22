@@ -15,7 +15,7 @@
 #include "SampleReference.h"
 #include "SampleTile.h"
 
-class SampleContainer    : public Component, public ChangeListener
+class SampleContainer    : public Component
 {
 public:
 	//========================================================
@@ -25,14 +25,8 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-	Rectangle<int> getViewportBounds();
-
-	void changeListenerCallback(ChangeBroadcaster* source);
-
-	void refreshItems();
+	void updateItems();
 	void clearItems();
-
-	void refreshItemsBounds();
 
 	void setSampleItems(std::vector<SampleReference*> mSampleReferences);
 	//======================================================
@@ -40,17 +34,12 @@ public:
 	int calculateRowCount();
 	int calculateColumnCount();
 
-	float calculateBoxWidth();
-	float calculateBoxHeight();
-
 private:
 	void createFreeSampleTile();
-	FlexItem createFlexItem();
 	//=============================================================================
-	std::vector<SampleTile*> mFreeSampleItems;
+	std::vector<SampleTile*> mUsedSampleTiles; //store all of them? mabye this will fix it
+	std::vector<SampleTile*> mFreeSampleTiles;
 	std::vector<SampleReference*> mCurrentSampleReferences;
-	FlexBox mFlexBox;
-	Viewport mViewport;
 	static const int MAX_LOADED_SAMPLES = 100;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleContainer)

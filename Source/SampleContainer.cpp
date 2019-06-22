@@ -16,12 +16,18 @@
 
 SampleContainer::SampleContainer()
 {
-	mFlexBox.alignContent = FlexBox::AlignContent::flexStart;
-	mFlexBox.flexDirection = FlexBox::Direction::row;
-	mFlexBox.justifyContent = FlexBox::JustifyContent::flexStart;
-	mFlexBox.alignItems = FlexBox::AlignItems::flexStart;
-	mFlexBox.flexWrap = FlexBox::Wrap::wrap;
-	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
+	for (int i = 0; i < 20; i++)
+	{
+		createFreeSampleTile();
+	}
+	/*
+	using Track = Grid::TrackInfo;
+	mGrid.templateColumns = { Track(1_fr), Track(1_fr), Track(1_fr) };
+	mGrid.templateRows = { Track(1_fr), Track(1_fr), Track(1_fr) };
+	mGrid.autoColumns = Track(1_fr);
+	mGrid.autoRows = Track(1_fr);
+	mGrid.autoFlow = Grid::AutoFlow::row;
+	*/
 }
 
 SampleContainer::~SampleContainer()
@@ -37,66 +43,60 @@ void SampleContainer::paint (Graphics& g)
 
 void SampleContainer::resized()
 {
-	refreshItemsBounds();
+	updateItems();
 }
 
-Rectangle<int> SampleContainer::getViewportBounds()
-{
-	return mViewport.getBounds();
-}
-
-
-void SampleContainer::changeListenerCallback(ChangeBroadcaster * source)
-{
-	refreshItems();
-}
-
-void SampleContainer::refreshItems()
+void SampleContainer::updateItems()
 {
 	clearItems();
-	for (int i = 0; i < mCurrentSampleReferences.size() && i < MAX_LOADED_SAMPLES; i++)
+	int columns = calculateColumnCount();
+	if (columns > 0)
 	{
-		if (mFreeSampleItems.size() < 1)
+		for (unsigned int i = 0; i < mFreeSampleTiles.size() && i < mCurrentSampleReferences.size(); i++)
 		{
-			createFreeSampleTile();
+			SampleTile* tile = mFreeSampleTiles.at(0);
+			mFreeSampleTiles.erase(mFreeSampleTiles.begin());
+			mUsedSampleTiles.push_back(tile);
+			tile->setSampleReference(mCurrentSampleReferences[i]);
+			int column = i % columns;
+			int row = i / columns; //will cut off, not round (i feel like a real coder)
+			tile->setBounds(column * SAMPVIEW_WIDTH, row * SAMPVIEW_HEIGHT, SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
+			addAndMakeVisible(tile);
 		}
-		
-		mFlexBox.items.add(createFlexItem());
-		((SampleTile*)mFlexBox.items.getLast().associatedComponent)->setSampleReference(mCurrentSampleReferences[i]);
-		addAndMakeVisible(mFlexBox.items.getLast().associatedComponent);
 	}
-	refreshItemsBounds();
+	setBounds(Rectangle<int>(0, 0, calculateColumnCount() * SAMPVIEW_WIDTH, calculateRowCount() * SAMPVIEW_HEIGHT));
+	repaint();
 }
 
-void SampleContainer::refreshItemsBounds()
+void SampleContainer::clearItems()
 {
-	Rectangle<int> bounds = getBounds();
-	setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), calculateAllRowsHeight());
-	float boxWidth = 1000000;
-	int c = 1;
-	while (boxWidth > SAMPVIEW_MAX_WIDTH)
+	for (unsigned int i = 0; i < mUsedSampleTiles.size(); i++)
 	{
-		boxWidth = getBounds().getWidth() / c;
-		c++;
+		mUsedSampleTiles.at(0)->setSampleReference(nullptr);
+		removeChildComponent(mUsedSampleTiles.at(0));
+		mFreeSampleTiles.push_back(mUsedSampleTiles.at(0));
 	}
-	float boxHeight = boxWidth * SAMPVIEW_ASPECTRATIO;
-	for (int i = 0; i < mFlexBox.items.size(); i++)
-	{
-		mFlexBox.items.getReference(i).associatedComponent->setSize(boxWidth, boxHeight);
-	}
-	mFlexBox.performLayout(getLocalBounds());
+	mUsedSampleTiles.clear();
 }
 
 void SampleContainer::setSampleItems(std::vector<SampleReference*> currentSamples)
 {
 	mCurrentSampleReferences = currentSamples;
-	refreshItems();
+	updateItems();
 }
 
 int SampleContainer::calculateAllRowsHeight()
 {
-	int columns = roundFloatToInt(getLocalBounds().getWidth() / mFlexBox.items[0].width);
-	float height = mFlexBox.items[0].height;
+	int columns = calculateColumnCount();
+	float height;
+	if (mUsedSampleTiles.size() > 0)
+	{
+		height = mUsedSampleTiles[0]->getHeight();
+	}
+	else
+	{
+		height = 0;
+	}
 	return height * calculateRowCount();
 }
 
@@ -105,49 +105,20 @@ int SampleContainer::calculateRowCount()
 	int columns = calculateColumnCount();
 	if (columns > 0)
 	{
-		return SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples()->size() / columns;
+		return mUsedSampleTiles.size() / columns;
 	}
 	return 0;
 }
 
 int SampleContainer::calculateColumnCount()
 {
-	return roundFloatToInt(getLocalBounds().getWidth() / mFlexBox.items[0].width);
+	return roundToInt(getWidth() / SAMPVIEW_WIDTH);
 }
 
-float SampleContainer::calculateBoxWidth()
-{
-	return getLocalBounds().getWidth() / calculateColumnCount();
-}
 
-float SampleContainer::calculateBoxHeight()
-{
-	return calculateBoxWidth() * SAMPVIEW_ASPECTRATIO;
-}
-
-void SampleContainer::clearItems()
-{
-	for (int i = 0; i < mFlexBox.items.size(); i++)
-	{
-		((SampleTile*)mFlexBox.items[i].associatedComponent)->setSampleReference(nullptr);
-		mFreeSampleItems.push_back((SampleTile*)mFlexBox.items[i].associatedComponent);
-	}
-	mFlexBox.items.clear();
-}
 
 void SampleContainer::createFreeSampleTile()
 {
 	SampleTile* tile = new SampleTile(nullptr);
-	mFreeSampleItems.push_back(tile);
-}
-
-FlexItem SampleContainer::createFlexItem()
-{
-	FlexItem item = FlexItem().withMinWidth(SAMPVIEW_MIN_WIDTH)
-		.withMaxWidth(SAMPVIEW_MAX_WIDTH)
-		.withMaxHeight(SAMPVIEW_MAX_WIDTH * SAMPVIEW_ASPECTRATIO)
-		.withMinHeight(SAMPVIEW_MIN_WIDTH * SAMPVIEW_ASPECTRATIO);
-	item.associatedComponent = mFreeSampleItems.at(0);
-	mFreeSampleItems.erase(mFreeSampleItems.begin());
-	return item;
+	mFreeSampleTiles.push_back(tile);
 }

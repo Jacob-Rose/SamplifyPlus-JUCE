@@ -17,7 +17,7 @@
 SampleTile::SampleTile(SampleReference* sample)
 {
 	setRepaintsOnMouseActivity(true);
-	setSize(SAMPVIEW_MAX_WIDTH, SAMPVIEW_MAX_WIDTH * SAMPVIEW_ASPECTRATIO);
+	setSize(SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
 	setSampleReference(sample);
 }
 
@@ -128,6 +128,7 @@ void SampleTile::paint (Graphics& g)
 void SampleTile::resized()
 {
 	buttonBounds = Rectangle<int>(getWidth() * 0.875, getHeight() * 0.68, getWidth() * 0.1, getWidth() * 0.1);
+	repaint();
 }
 
 void SampleTile::mouseDown(const MouseEvent & e)
