@@ -3,12 +3,13 @@
 
     SampleContainer.h
     Created: 31 May 2018 1:20:21pm
-    Author:  jacob
+    Author:  Jacob Rose
+	Contains SampleTiles and properly adjust depending on input search terms
 
   ==============================================================================
 */
-
-#pragma once
+#ifndef SAMPLECONTAINER_H
+#define SAMPLECONTAINER_H
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SampleReference.h"
@@ -17,6 +18,7 @@
 class SampleContainer    : public Component, public ChangeListener
 {
 public:
+	//========================================================
     SampleContainer();
     ~SampleContainer();
 
@@ -25,27 +27,32 @@ public:
 
 	Rectangle<int> getViewportBounds();
 
-	void sampleListUpdated();
-	
-	void initializeItems();
-
 	void changeListenerCallback(ChangeBroadcaster* source);
 
 	void refreshItems();
+	void clearItems();
 
-	void refreshBounds();
+	void refreshItemsBounds();
 
-	int calculateHeight();
+	void setSampleItems(std::vector<SampleReference*> mSampleReferences);
+	//======================================================
+	int calculateAllRowsHeight();
+	int calculateRowCount();
+	int calculateColumnCount();
 
-	int calculateRows();
-
-	void deleteSampleViews();
+	float calculateBoxWidth();
+	float calculateBoxHeight();
 
 private:
-	std::vector<FlexItem> mAllFlexItems;
+	void createFreeSampleTile();
+	FlexItem createFlexItem();
+	//=============================================================================
+	std::vector<SampleTile*> mFreeSampleItems;
+	std::vector<SampleReference*> mCurrentSampleReferences;
 	FlexBox mFlexBox;
 	Viewport mViewport;
-	static const int MAX_LOADED_SAMPLES = 250;
+	static const int MAX_LOADED_SAMPLES = 100;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleContainer)
 };
+#endif

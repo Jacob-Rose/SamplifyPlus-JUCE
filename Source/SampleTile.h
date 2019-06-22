@@ -8,7 +8,8 @@
   ==============================================================================
 */
 
-#pragma once
+#ifndef SAMPLETILE_H
+#define SAMPLETILE_H
 
 #include "JuceHeader.h"
 #include "SampleReference.h"
@@ -16,7 +17,7 @@
 
 #define SAMPVIEW_MIN_WIDTH 150
 #define SAMPVIEW_MAX_WIDTH 250
-#define SAMPVIEW_ASPECTRATIO 9.0f/16.0f
+#define SAMPVIEW_ASPECTRATIO (9.0f/16.0f)
 
 #define C_BACKGROUND_HOVER Colours::lightgrey
 #define C_BACKGROUND_DEFAULT Colours::white
@@ -26,6 +27,7 @@
 class SampleTile    : public Component, public DragAndDropTarget
 {
 public:
+	//===========================================================================
     SampleTile(SampleReference*);
     ~SampleTile();
 
@@ -58,3 +60,4 @@ private:
 	FlexBox mTagFlexBox;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleTile)
 };
+#endif

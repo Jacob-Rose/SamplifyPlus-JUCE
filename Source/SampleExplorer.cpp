@@ -19,6 +19,7 @@ SampleExplorer::SampleExplorer()
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
+	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }
 
 SampleExplorer::~SampleExplorer()
@@ -35,11 +36,11 @@ void SampleExplorer::resized()
     mSearchBar.setBounds(0, 0, getWidth(), 30);
 	mViewport.setBounds(0,30,getWidth(), getHeight()-30);
 	mSampleContainer.setBounds(mViewport.getBounds());
-	mSampleContainer.refreshBounds();
+	mSampleContainer.refreshItemsBounds();
 }
 
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
 	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
-	mSampleContainer.sampleListUpdated();
+	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }
