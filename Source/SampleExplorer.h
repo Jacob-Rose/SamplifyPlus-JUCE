@@ -15,7 +15,7 @@
 //==============================================================================
 /*
 */
-class SampleExplorer    : public Component, public TextEditor::Listener
+class SampleExplorer    : public Component, public TextEditor::Listener, public ChangeListener
 {
 public:
     SampleExplorer();
@@ -24,6 +24,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     void textEditorTextChanged(TextEditor &) override;
+	void changeListenerCallback(ChangeBroadcaster* source) override;
 
 private:
     Viewport mViewport;

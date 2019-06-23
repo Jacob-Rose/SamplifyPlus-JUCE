@@ -16,10 +16,6 @@
 
 SampleContainer::SampleContainer()
 {
-	for (int i = 0; i < 20; i++)
-	{
-		createFreeSampleTile();
-	}
 	/*
 	using Track = Grid::TrackInfo;
 	mGrid.templateColumns = { Track(1_fr), Track(1_fr), Track(1_fr) };
@@ -33,7 +29,12 @@ SampleContainer::SampleContainer()
 SampleContainer::~SampleContainer()
 {
 	//delete sampviews
-	//delete flex items?
+	for (int i = 0; i < mUsedSampleTiles.size(); i++)
+	{
+		delete mUsedSampleTiles[i];
+		mUsedSampleTiles[i] = nullptr;
+	}
+	mUsedSampleTiles.clear();
 }
 
 void SampleContainer::paint (Graphics& g)
@@ -48,33 +49,41 @@ void SampleContainer::resized()
 
 void SampleContainer::updateItems()
 {
-	clearItems();
 	int columns = calculateColumnCount();
 	if (columns > 0)
 	{
-		for (unsigned int i = 0; i < mFreeSampleTiles.size() && i < mCurrentSampleReferences.size(); i++)
+		for (unsigned int i = 0;i < mCurrentSampleReferences.size() && i < 12; i++)
 		{
-			SampleTile* tile = mFreeSampleTiles.at(0);
-			mFreeSampleTiles.erase(mFreeSampleTiles.begin());
-			mUsedSampleTiles.push_back(tile);
-			tile->setSampleReference(mCurrentSampleReferences[i]);
-			int column = i % columns;
-			int row = i / columns; //will cut off, not round (i feel like a real coder)
-			tile->setBounds(column * SAMPVIEW_WIDTH, row * SAMPVIEW_HEIGHT, SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
-			addAndMakeVisible(tile);
+			if (i < mUsedSampleTiles.size())
+			{
+				mUsedSampleTiles[i]->setSampleReference(mCurrentSampleReferences[i]);
+			}
+			else
+			{
+				SampleTile* tile = new SampleTile(mCurrentSampleReferences[i]);
+				mUsedSampleTiles.push_back(tile);
+
+				int column = i % columns;
+				int row = i / columns; //will cut off, not round (i feel like a real coder)
+
+				tile->setSampleReference(mCurrentSampleReferences[i]);
+
+				addAndMakeVisible(tile);
+				tile->setBounds(column * SAMPVIEW_WIDTH, row * SAMPVIEW_HEIGHT, SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
+			}
+			
 		}
 	}
 	setBounds(Rectangle<int>(0, 0, calculateColumnCount() * SAMPVIEW_WIDTH, calculateRowCount() * SAMPVIEW_HEIGHT));
-	repaint();
+	//repaint();
 }
 
 void SampleContainer::clearItems()
 {
 	for (unsigned int i = 0; i < mUsedSampleTiles.size(); i++)
 	{
-		mUsedSampleTiles.at(0)->setSampleReference(nullptr);
-		removeChildComponent(mUsedSampleTiles.at(0));
-		mFreeSampleTiles.push_back(mUsedSampleTiles.at(0));
+		delete mUsedSampleTiles.at(i);
+		mUsedSampleTiles.at(i) = nullptr;
 	}
 	mUsedSampleTiles.clear();
 }
@@ -112,13 +121,5 @@ int SampleContainer::calculateRowCount()
 
 int SampleContainer::calculateColumnCount()
 {
-	return roundToInt(getWidth() / SAMPVIEW_WIDTH);
-}
-
-
-
-void SampleContainer::createFreeSampleTile()
-{
-	SampleTile* tile = new SampleTile(nullptr);
-	mFreeSampleTiles.push_back(tile);
+	return getWidth() / SAMPVIEW_WIDTH;
 }

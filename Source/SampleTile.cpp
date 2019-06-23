@@ -128,7 +128,6 @@ void SampleTile::paint (Graphics& g)
 void SampleTile::resized()
 {
 	buttonBounds = Rectangle<int>(getWidth() * 0.875, getHeight() * 0.68, getWidth() * 0.1, getWidth() * 0.1);
-	repaint();
 }
 
 void SampleTile::mouseDown(const MouseEvent & e)

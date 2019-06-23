@@ -45,7 +45,7 @@ void AudioPlayer::changeState(TransportState newState)
 		switch (state)
 		{
 		case Stopped:
-			transportSource.setPosition(0.0f);
+			//transportSource.setPosition(0.0f);
 			break;
 		case Stopping:
 			transportSource.stop();
@@ -68,7 +68,6 @@ void AudioPlayer::loadFile(File file)
 	{
 		std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));
 		transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
-		transportSource.stop();
 		readerSource.reset(newSource.release());
 	}
 }

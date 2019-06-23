@@ -14,7 +14,15 @@ SamplifyMainComponent::SamplifyMainComponent()
 	addAndMakeVisible(*mFilterExplorer);
 	addAndMakeVisible(*mMenuBar);
     
+	AudioDeviceManager::AudioDeviceSetup ads;
+	//setAudioChannels(0,2)
+
     setSize (600, 400);
+}
+
+SamplifyMainComponent::SamplifyMainComponent(AudioDeviceManager& deviceManager) :
+	AudioAppComponent(deviceManager)
+{
 }
 
 SamplifyMainComponent::~SamplifyMainComponent()

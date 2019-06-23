@@ -78,7 +78,8 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 			int childDirCount = mFile.findChildFiles(files, 1, false);
 			for (int i = 0; i < childDirCount; i++)
 			{
-				addSubItem(new DirectoryExplorerTreeViewItem(files[i]));
+				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(files[i]);
+				addSubItem(item);
 			}
 		}
 	}

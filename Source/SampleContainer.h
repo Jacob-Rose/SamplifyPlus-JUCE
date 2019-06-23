@@ -34,11 +34,10 @@ public:
 	int calculateRowCount();
 	int calculateColumnCount();
 
+	void extendSampleItems();
 private:
-	void createFreeSampleTile();
 	//=============================================================================
 	std::vector<SampleTile*> mUsedSampleTiles; //store all of them? mabye this will fix it
-	std::vector<SampleTile*> mFreeSampleTiles;
 	std::vector<SampleReference*> mCurrentSampleReferences;
 	static const int MAX_LOADED_SAMPLES = 100;
 

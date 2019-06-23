@@ -56,8 +56,6 @@ private:
 	bool isMouseOverButton = false;
 	bool isButtonPressed = false;
 	Rectangle<int> buttonBounds;
-	Viewport mTagViewport;
-	FlexBox mTagFlexBox;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleTile)
 };
 #endif

@@ -1,6 +1,2 @@
-#include "JuceHeader.h"
+#include "CollectionExplorer.h"
 
-class CollectionExplorer : Component
-{
-
-};

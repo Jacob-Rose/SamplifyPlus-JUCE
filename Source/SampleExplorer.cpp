@@ -20,6 +20,7 @@ SampleExplorer::SampleExplorer()
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
 	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 SampleExplorer::~SampleExplorer()
@@ -41,5 +42,9 @@ void SampleExplorer::resized()
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
 	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
+}
+
+void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
+{
 	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }
