@@ -148,6 +148,7 @@
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeView.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp"/>
     <ClCompile Include="..\..\Source\CollectionExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\TagContainer.cpp"/>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp"/>
     <ClCompile Include="..\..\Source\TagExplorer.cpp"/>
     <ClCompile Include="..\..\Source\TagTile.cpp"/>
@@ -1940,6 +1941,7 @@
     <ClInclude Include="..\..\Source\DirectoryExplorer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeView.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h"/>
+    <ClInclude Include="..\..\Source\TagContainer.h"/>
     <ClInclude Include="..\..\Source\CollectionExplorer.h"/>
     <ClInclude Include="..\..\Source\TagExplorer.h"/>
     <ClInclude Include="..\..\Source\FilterExplorer.h"/>

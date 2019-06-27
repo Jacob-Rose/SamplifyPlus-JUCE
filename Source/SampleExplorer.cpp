@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SampleExplorer.cpp
-    Created: 31 May 2018 12:43:08pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
 #include "SampleExplorer.h"
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
@@ -19,7 +9,7 @@ SampleExplorer::SampleExplorer()
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
-	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
@@ -46,5 +36,5 @@ void SampleExplorer::textEditorTextChanged(TextEditor& e)
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	mSampleContainer.setSampleItems(*SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }

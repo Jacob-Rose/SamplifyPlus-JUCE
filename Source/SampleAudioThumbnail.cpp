@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SampleAudioThumbnail.cpp
-    Created: 31 May 2018 1:20:36pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
 #include "SampleAudioThumbnail.h"
 
 SampleAudioThumbnail::SampleAudioThumbnail(int sourceSamplesPerThumbnailSample,

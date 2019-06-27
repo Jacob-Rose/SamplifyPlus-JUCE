@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    DirectoryExplorerTreeView.cpp
-    Created: 31 May 2018 1:22:15pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
 #include "DirectoryExplorerTreeView.h"
 #include "DirectoryExplorerTreeViewItem.h"
 #include "SamplifyProperties.h"

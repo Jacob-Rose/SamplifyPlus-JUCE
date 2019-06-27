@@ -3,18 +3,18 @@
 
     SampleExplorer.h
     Created: 31 May 2018 12:43:08pm
-    Author:  jacob
+    Author:  Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
+#ifndef SAMPLEEXPLORER_H
+#define SAMPLEEXPLORER_H
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
+
 #include "SampleContainer.h"
 //==============================================================================
-/*
-*/
 class SampleExplorer    : public Component, public TextEditor::Listener, public ChangeListener
 {
 public:
@@ -32,3 +32,4 @@ private:
 	SampleContainer mSampleContainer;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleExplorer)
 };
+#endif

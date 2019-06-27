@@ -3,18 +3,17 @@
 
     DirectoryExplorerTreeViewItem.h
     Created: 31 May 2018 1:22:28pm
-    Author:  jacob
+    Author:  Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
+#ifndef DIRECTORYEXPLORERTREEVIEWITEM_H
+#define DIRECTORYEXPLORERTREEVIEWITEM_H
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 //==============================================================================
-/*
-*/
 class DirectoryExplorerTreeViewItem    : public TreeViewItem
 {
 public:
@@ -38,3 +37,4 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorerTreeViewItem)
 };
+#endif

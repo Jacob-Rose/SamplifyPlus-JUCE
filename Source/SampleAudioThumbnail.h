@@ -3,13 +3,15 @@
 
     SampleAudioThumbnail.h
     Created: 31 May 2018 1:20:36pm
-    Author:  jacob
+    Author:  Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
-#include "../JuceLibraryCode/JuceHeader.h"
+#ifndef SAMPLEAUDIOTHUMBNAIL
+#define SAMPLEAUDIOTHUMBNAIL
+
+#include "JuceHeader.h"
 
 class SampleAudioThumbnail : public AudioThumbnail
 {
@@ -37,4 +39,4 @@ private:
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleAudioThumbnail)
 };
-
+#endif

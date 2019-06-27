@@ -1,4 +1,15 @@
-#pragma once
+/*
+  ==============================================================================
+
+	SamplifyMainComponent.h
+	Author:  Jake Rose
+
+	The main component of the application
+  ==============================================================================
+*/
+
+#ifndef SAMPLIFYMAINCOMPONENT_H
+#define SAMPLIFYMAINCOMPONENT_H
 
 #include "JuceHeader.h"
 
@@ -7,9 +18,6 @@
 #include "FilterExplorer.h"
 #include "SampleExplorer.h"
 
-/*
-    The Root Component of the Application
-*/
 class SamplifyMainComponent   : public AudioAppComponent
 {
 public:
@@ -38,3 +46,4 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplifyMainComponent)
 };
+#endif

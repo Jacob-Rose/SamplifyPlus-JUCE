@@ -3,18 +3,17 @@
 
     DirectoryExplorerTreeView.h
     Created: 31 May 2018 1:22:15pm
-    Author:  jacob
+    Author:  Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
+#ifndef DIRECTORYEXPLORERTREEVIEW_H
+#define DIRECTORYEXPLORERTREEVIEW_H
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 //==============================================================================
-/*
-*/
 class DirectoryExplorerTreeView    : public TreeView
 {
 public:
@@ -23,3 +22,4 @@ public:
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorerTreeView)
 };
+#endif

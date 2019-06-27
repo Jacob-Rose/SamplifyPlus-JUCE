@@ -3,14 +3,16 @@
 
     DirectoryExplorer.h
     Created: 31 May 2018 1:22:06pm
-    Author:  jacob
+    Author: Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
+#ifndef DIRECTORYEXPLORER_H
+#define DIRECTORYEXPLORER_H
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
+
 #include "DirectoryExplorerTreeView.h"
 
 class DirectoryExplorer    : public Component
@@ -26,3 +28,4 @@ private:
 	std::unique_ptr<DirectoryExplorerTreeView> mDirectoryTree = nullptr;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorer)
 };
+#endif

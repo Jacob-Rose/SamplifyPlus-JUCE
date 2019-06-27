@@ -1,17 +1,6 @@
-/*
-  ==============================================================================
-
-    SampleReference.cpp
-    Created: 31 May 2018 12:46:00pm
-    Author:  Jacob Rose
-
-  ==============================================================================
-*/
-
 #include "SampleReference.h"
 #include <string>
 #include "SamplifyProperties.h"
-
 
 SampleReference::SampleReference(File file) : mSampleFile(file), mSamplePropertiesFile(file.getFullPathName() + ".samplify"), mSampleTags()
 {

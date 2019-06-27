@@ -3,13 +3,16 @@
 
     SampleReference.h
     Created: 31 May 2018 12:46:00pm
-    Author:  jacob
+    Author:  Jake Rose
 
   ==============================================================================
 */
 
-#pragma once
-#include "../JuceLibraryCode/JuceHeader.h"
+#ifndef SAMPLEREFERENCE_H
+#define SAMPLEREFERENCE_H
+
+#include "JuceHeader.h"
+
 #include "SampleAudioThumbnail.h"
 
 enum SampleType
@@ -61,3 +64,4 @@ private:
     std::unique_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
     std::unique_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
 };
+#endif

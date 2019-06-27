@@ -1,23 +1,13 @@
-/*
-  ==============================================================================
-
-    FilterExplorer.cpp
-    Created: 31 May 2018 1:21:30pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "FilterExplorer.h"
 
 //==============================================================================
 FilterExplorer::FilterExplorer()
 {
-	mSearchBox.addListener(this);
+	mSearchBar.addListener(this);
     // In your constructor, you should add any child components, and
     // initialise any special settings that your component needs.
-
+	addAndMakeVisible(mSearchBar);
+	addAndMakeVisible(mTagExplorer);
 }
 
 FilterExplorer::~FilterExplorer()
@@ -47,9 +37,11 @@ void FilterExplorer::paint (Graphics& g)
 
 void FilterExplorer::resized()
 {
-	mSearchBox.setBounds(Rectangle<int>(0, 0, getWidth(), 40));
+	mSearchBar.setBounds(0, 0, getWidth(), 30);
+	mTagExplorer.setBounds(0,30,getWidth(), getHeight()-30);
 }
 
-void FilterExplorer::textEditorTextChanged(TextEditor&)
+void FilterExplorer::textEditorTextChanged(TextEditor& te)
 {
+	mTagExplorer.updateTags(te.getText());
 }

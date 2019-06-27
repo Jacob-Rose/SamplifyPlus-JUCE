@@ -1,15 +1,4 @@
-/*
-  ==============================================================================
-
-    SampleLibrary.cpp
-    Created: 31 May 2018 12:45:49pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
 #include "SampleLibrary.h"
-#include "SamplifyProperties.h"
 
 SampleLibrary::SampleLibrary()
 {
@@ -31,9 +20,7 @@ SampleLibrary::~SampleLibrary()
 
 void SampleLibrary::initialize()
 {
-	loadSamplesFromDirectory(SamplifyProperties::getInstance()->getDirectories());
-
-	SampleLibrary::updateCurrentSamples("");
+	
 }
 
 void SampleLibrary::loadSamplesFromDirectory(File path)
@@ -60,6 +47,7 @@ void SampleLibrary::loadSamplesFromDirectory(File path)
 			//dw->repaint();
 		}
 	}
+	SampleLibrary::updateCurrentSamples("");
 	//delete dw;
 }
 
@@ -100,9 +88,9 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
-std::vector<SampleReference*>* SampleLibrary::getCurrentSamples()
+std::vector<SampleReference*> SampleLibrary::getCurrentSamples()
 {
-	return &mCurrentSamples;
+	return mCurrentSamples;
 }
 
 StringArray SampleLibrary::getAllTags()

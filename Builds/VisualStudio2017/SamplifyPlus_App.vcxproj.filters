@@ -478,6 +478,9 @@
     <ClCompile Include="..\..\Source\CollectionExplorer.cpp">
       <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TagContainer.cpp">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp">
       <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
     </ClCompile>
@@ -2456,6 +2459,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagContainer.h">
+      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CollectionExplorer.h">
       <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>

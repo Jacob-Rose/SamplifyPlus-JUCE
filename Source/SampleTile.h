@@ -3,7 +3,7 @@
 
     SampleTile.h
     Created: 31 May 2018 1:20:01pm
-    Author:  Jacob Rose
+    Author:  Jake Rose
 
   ==============================================================================
 */
@@ -12,17 +12,9 @@
 #define SAMPLETILE_H
 
 #include "JuceHeader.h"
+
 #include "SampleReference.h"
 #include "SamplifyProperties.h"
-
-#define SAMPVIEW_WIDTH 200
-#define SAMPVIEW_ASPECTRATIO (9.0f/16.0f)
-#define SAMPVIEW_HEIGHT SAMPVIEW_WIDTH * SAMPVIEW_ASPECTRATIO
-
-#define C_BACKGROUND_HOVER Colours::lightgrey
-#define C_BACKGROUND_DEFAULT Colours::white
-#define C_FOREGROUND_HOVER Colours::forestgreen
-#define C_FOREGROUND_DEFAULT Colours::forestgreen
 
 class SampleTile    : public Component, public DragAndDropTarget
 {

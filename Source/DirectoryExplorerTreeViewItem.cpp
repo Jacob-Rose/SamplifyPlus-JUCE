@@ -1,14 +1,3 @@
-/*
-  ==============================================================================
-
-    DirectoryExplorerTreeViewItem.cpp
-    Created: 31 May 2018 1:22:28pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "DirectoryExplorerTreeViewItem.h"
 #include "SamplifyProperties.h"
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
@@ -78,7 +67,7 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 			int childDirCount = mFile.findChildFiles(files, 1, false);
 			for (int i = 0; i < childDirCount; i++)
 			{
-				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(files[i]);
+				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(files[i]);  
 				addSubItem(item);
 			}
 		}

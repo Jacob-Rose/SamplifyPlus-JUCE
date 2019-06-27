@@ -1,4 +1,13 @@
-#pragma once
+/*
+  ==============================================================================
+
+	SamplifyMainComponent.h
+	Author:  Jake Rose
+
+  ==============================================================================
+*/
+#ifndef AUDIOPLAYER_H
+#define AUDIOPLAYER_H
 
 #include "JuceHeader.h"
 #include "SampleReference.h"
@@ -37,3 +46,4 @@ private:
 	AudioTransportSource transportSource;
 	TransportState state;
 };
+#endif

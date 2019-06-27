@@ -43,6 +43,9 @@
         <GROUP id="{EFDD0C54-A436-2DB3-B1FA-4026CF9D00D4}" name="FilterExplorer">
           <FILE id="AgmoB7" name="CollectionExplorer.cpp" compile="1" resource="0"
                 file="Source/CollectionExplorer.cpp"/>
+          <FILE id="nj6vkM" name="TagContainer.cpp" compile="1" resource="0"
+                file="Source/TagContainer.cpp"/>
+          <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
           <FILE id="bzJtmR" name="CollectionExplorer.h" compile="0" resource="0"
                 file="Source/CollectionExplorer.h"/>
           <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"

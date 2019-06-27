@@ -1,15 +1,5 @@
-/*
-  ==============================================================================
-
-    SampleTile.cpp
-    Created: 31 May 2018 1:20:01pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "SampleTile.h"
+
 #include <iomanip>
 #include <sstream>
 
@@ -17,14 +7,16 @@
 SampleTile::SampleTile(SampleReference* sample)
 {
 	setRepaintsOnMouseActivity(true);
-	setSize(SAMPVIEW_WIDTH, SAMPVIEW_HEIGHT);
+	setSize(SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH, 
+		SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH * 
+		SamplifyProperties::getInstance()->SAMPLE_TILE_ASPECT_RATIO);
 	setSampleReference(sample);
 }
 
 SampleTile::~SampleTile()
 {
 }
-
+//==============================================================================
 void SampleTile::paint (Graphics& g)
 {
 	if (mSampleReference != nullptr)
@@ -33,13 +25,13 @@ void SampleTile::paint (Graphics& g)
 		Colour foregroundColor;
 		if (isMouseOverOrDragging() && !isMouseOverButton)
 		{
-			backgroundColor = C_BACKGROUND_HOVER;
-			foregroundColor = C_FOREGROUND_HOVER;
+			backgroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_BG_HOVER;
+			foregroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_FG_HOVER;
 		}
 		else
 		{
-			backgroundColor = C_BACKGROUND_DEFAULT;
-			foregroundColor = C_FOREGROUND_DEFAULT;
+			backgroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_BG_DEFAULT;
+			foregroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_FG_DEFAULT;
 		}
 		g.fillAll(backgroundColor);
 		g.setColour(foregroundColor);
@@ -92,9 +84,7 @@ void SampleTile::paint (Graphics& g)
 			}
 		}
 
-		if (isMouseOverButton) { g.setColour(C_BACKGROUND_HOVER); }
-		else { g.setColour(C_BACKGROUND_DEFAULT); }
-
+		g.setColour(backgroundColor);
 		g.fillRect(buttonBounds);
 		g.setColour(foregroundColor);
 		g.drawRect(buttonBounds);
@@ -194,6 +184,7 @@ bool SampleTile::isInterestedInDragSource(const SourceDetails & dragSourceDetail
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 {
+
 }
 
 void SampleTile::setSampleReference(SampleReference * sample)

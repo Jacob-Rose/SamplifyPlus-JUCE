@@ -78,6 +78,7 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/DirectoryExplorerTreeView_730a9730.o \
   $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o \
   $(JUCE_OBJDIR)/CollectionExplorer_e475a806.o \
+  $(JUCE_OBJDIR)/TagContainer_56836f10.o \
   $(JUCE_OBJDIR)/FilterExplorer_f4b6d7e0.o \
   $(JUCE_OBJDIR)/TagExplorer_f78737da.o \
   $(JUCE_OBJDIR)/TagTile_39a785c9.o \
@@ -163,6 +164,11 @@ $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o: ../../Source/DirectoryE
 $(JUCE_OBJDIR)/CollectionExplorer_e475a806.o: ../../Source/CollectionExplorer.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CollectionExplorer.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/TagContainer_56836f10.o: ../../Source/TagContainer.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling TagContainer.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/FilterExplorer_f4b6d7e0.o: ../../Source/FilterExplorer.cpp

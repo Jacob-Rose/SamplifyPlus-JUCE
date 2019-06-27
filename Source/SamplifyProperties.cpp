@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    AppProperties.cpp
-    Created: 31 May 2018 3:16:14pm
-    Author:  jacob
-
-  ==============================================================================
-*/
-
 #include "SamplifyProperties.h"
 
 SamplifyProperties* SamplifyProperties::smAppProperties = nullptr;
@@ -75,6 +65,7 @@ void SamplifyProperties::init()
 	mSelectedDirectory = File("");
 	loadDirectoriesFromPropertiesFile();
 	mSampleLibrary.reset(new SampleLibrary());
+	mSampleLibrary->loadSamplesFromDirectory(mDirectories[0]);
 }
 
 void SamplifyProperties::cleanup()
@@ -139,12 +130,12 @@ void SamplifyProperties::saveDirectoriesToPropertiesFile()
 	}
 }
 
-void SamplifyProperties::addTag(std::string text, Colour color)
+void SamplifyProperties::addTag(juce::String text, Colour color)
 {
 	mSampleTagColors[text] = color;
 }
 
-Colour SamplifyProperties::getTagColor(std::string text)
+Colour SamplifyProperties::getTagColor(juce::String text)
 {
 	return mSampleTagColors[text];
 }

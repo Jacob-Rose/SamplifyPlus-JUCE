@@ -1,12 +1,33 @@
+/*
+  ==============================================================================
+
+	SampleTile.h
+	Created: 27 June 2019
+	Author:  Jake Rose
+
+  ==============================================================================
+*/
+#ifndef TAGEXPLORER_H
+#define TAGEXPLORER_H
+
 #include "JuceHeader.h"
+
+#include "TagContainer.h"
 
 class TagExplorer : public Component
 {
 public:
-	void updateTags(std::string newSearch);
+	TagExplorer();
+	~TagExplorer();
+	void updateTags(juce::String newSearch);
+
+	void resized() override;
+	void paint(Graphics&) override;
+	void addNewTag();
 private:
 	TextButton mNewButtonTag;
-	StringArray mContainedTags; //all tags for current files in directory with text from search bar contained in it
-	StringArray mNotContainedTags; //all tags for lower half, only ones with the text in search bar contained in it
-	FlexBox mTagFlexBox;
+	TagContainer mNewTags;
+	TagContainer mContainedTags; //all tags for current files in directory with text from search bar contained in it
+	TagContainer mNotContainedTags; //all tags for lower half, only ones with the text in search bar contained in it
 };
+#endif
