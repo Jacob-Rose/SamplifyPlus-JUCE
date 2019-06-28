@@ -29,7 +29,7 @@ namespace samplify
 		void paint(Graphics&) override;
 		void resized() override;
 
-		void updateItems();
+		void updateItems(Graphics& g);
 		void clearItems();
 
 		StringArray getTags();
@@ -39,14 +39,14 @@ namespace samplify
 		void addTag(juce::String tag);
 		//======================================================
 		int calculateAllRowsHeight();
-		int calculateRowCount();
-		int calculateColumnCount();
+		int getRowCount();
 
 		void extendItems();
 	private:
 		//=============================================================================
-		std::vector<TagTile*> mUsedSampleTiles;
+		std::vector<TagTile*> mUsedSampleTags;
 		StringArray mCurrentTags; //tags to store in the container
+		int mLineCount = 0;
 		int mMaxItems = 20;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagContainer)

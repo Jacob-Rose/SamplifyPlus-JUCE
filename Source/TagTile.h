@@ -21,6 +21,8 @@ namespace samplify
 		TagTile(juce::String tag);
 		~TagTile();
 
+		void setTag(juce::String tag);
+
 		void paint(Graphics&) override;
 		void resized() override;
 

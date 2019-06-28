@@ -11,6 +11,12 @@ TagTile::~TagTile()
 {
 }
 
+void samplify::TagTile::setTag(juce::String tag)
+{
+	mTag = tag;
+	repaint();
+}
+
 void TagTile::paint (Graphics& g)
 {
 	//todo replace

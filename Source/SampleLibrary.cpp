@@ -4,7 +4,6 @@ using namespace samplify;
 
 SampleLibrary::SampleLibrary()
 {
-	initialize();
 }
 
 SampleLibrary::SampleLibrary(const SampleLibrary &)
@@ -20,10 +19,6 @@ SampleLibrary::~SampleLibrary()
 	}
 }
 
-void SampleLibrary::initialize()
-{
-	
-}
 
 void SampleLibrary::loadSamplesFromDirectory(File path)
 {

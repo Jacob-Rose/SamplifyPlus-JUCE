@@ -2304,6 +2304,9 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SampleList.cpp">
+      <Filter>SamplifyPlus\Source\Backend</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AudioPlayer.h">
@@ -4456,6 +4459,9 @@
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>JUCE Library Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleList.h">
+      <Filter>SamplifyPlus\Source\Backend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

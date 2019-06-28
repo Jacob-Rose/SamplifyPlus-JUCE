@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp" />
+    <ClCompile Include="..\..\Source\SampleList.cpp" />
     <ClCompile Include="..\..\Source\SampleLibrary.cpp" />
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp" />
     <ClCompile Include="..\..\Source\SampleReference.cpp" />
@@ -1925,6 +1926,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AudioPlayer.h" />
+    <ClInclude Include="..\..\Source\SampleList.h" />
     <ClInclude Include="..\..\Source\SamplifyProperties.h" />
     <ClInclude Include="..\..\Source\SampleLibrary.h" />
     <ClInclude Include="..\..\Source\SampleReference.h" />

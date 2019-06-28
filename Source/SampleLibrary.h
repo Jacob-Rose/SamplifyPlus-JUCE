@@ -25,13 +25,19 @@ namespace samplify
 		SampleLibrary(const SampleLibrary&);
 		~SampleLibrary();
 
-		void initialize();
 		void loadSamplesFromDirectory(File);
 		void loadSamplesFromDirectory(std::vector<File>&);
 
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
+
+		/*
+		void addSample(File file);
+		void removeSample(File file);
+		void clearSamples();
+		*/
+
 		std::vector<SampleReference*> getCurrentSamples();
 		StringArray getAllTags();
 
