@@ -1,5 +1,9 @@
 #include "DirectoryExplorerTreeViewItem.h"
 #include "SamplifyProperties.h"
+#include "SamplifyColorPallete.h"
+
+using namespace samplify;
+
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
 {
 	mFile = file;
@@ -47,9 +51,9 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 {
 	if (isSelected())
 	{
-		g.fillAll(SamplifyProperties::getInstance()->MAIN_ACCENT_COLOR);
+		g.fillAll(MAIN_ACCENT_COLOR);
 	}
-	g.setColour(SamplifyProperties::getInstance()->MAIN_TEXT_COLOR);
+	g.setColour(MAIN_TEXT_COLOR);
 	g.setFont(12);
 	g.drawText(mFile.getFileName(), 0, 0, width, height, Justification::centredLeft, true);
 }

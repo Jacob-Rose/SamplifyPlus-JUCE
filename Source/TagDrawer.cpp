@@ -1,6 +1,8 @@
 #include "TagDrawer.h"
 #include "SamplifyProperties.h"
 
+using namespace samplify;
+
 void TagDrawer::DrawTags(Graphics& g, std::vector<std::string> tags, Rectangle<float> bounds, float padding, float tagSpacerWidth)
 {
 	float fontHeight = g.getCurrentFont().getHeight();

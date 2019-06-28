@@ -1,5 +1,7 @@
 #include "SamplifyMainComponent.h"
 
+using namespace samplify;
+
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 SamplifyMainComponent::SamplifyMainComponent()
 {

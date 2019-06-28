@@ -1,22 +1,22 @@
 #include "SampleTile.h"
 
+#include "SamplifyColorPallete.h"
+
 #include <iomanip>
 #include <sstream>
 
-//==============================================================================
+using namespace samplify;
+
 SampleTile::SampleTile(SampleReference* sample)
 {
 	setRepaintsOnMouseActivity(true);
-	setSize(SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH, 
-		SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH * 
-		SamplifyProperties::getInstance()->SAMPLE_TILE_ASPECT_RATIO);
+	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
 	setSampleReference(sample);
 }
 
 SampleTile::~SampleTile()
 {
 }
-//==============================================================================
 void SampleTile::paint (Graphics& g)
 {
 	if (mSampleReference != nullptr)
@@ -25,13 +25,13 @@ void SampleTile::paint (Graphics& g)
 		Colour foregroundColor;
 		if (isMouseOverOrDragging() && !isMouseOverButton)
 		{
-			backgroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_BG_HOVER;
-			foregroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_FG_HOVER;
+			backgroundColor = SAMPLE_TILE_COLOR_BG_HOVER;
+			foregroundColor = SAMPLE_TILE_COLOR_FG_HOVER;
 		}
 		else
 		{
-			backgroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_BG_DEFAULT;
-			foregroundColor = SamplifyProperties::getInstance()->SAMPLE_TILE_COLOR_FG_DEFAULT;
+			backgroundColor = SAMPLE_TILE_COLOR_BG_DEFAULT;
+			foregroundColor = SAMPLE_TILE_COLOR_FG_DEFAULT;
 		}
 		g.fillAll(backgroundColor);
 		g.setColour(foregroundColor);
@@ -49,10 +49,10 @@ void SampleTile::paint (Graphics& g)
 		///DRAW SAMPLE TYPE
 		switch (mSampleReference->getSampleType())
 		{
-		case SampleType::ONESHOT:
+		case SampleReference::SampleType::ONESHOT:
 			FontAwesome::drawCenterd(g, FontAwesome_Share, 30.0f, foregroundColor, sampleTypeBox);
 			break;
-		case SampleType::LOOP:
+		case SampleReference::SampleType::LOOP:
 			FontAwesome::drawCenterd(g, FontAwesome_Refresh, 30.0f, foregroundColor, sampleTypeBox);
 			break;
 		default:

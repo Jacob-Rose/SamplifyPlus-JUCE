@@ -13,28 +13,30 @@
 
 #include "JuceHeader.h"
 
-//==============================================================================
-class DirectoryExplorerTreeViewItem    : public TreeViewItem
+namespace samplify
 {
-public:
-	DirectoryExplorerTreeViewItem(File file);
-	DirectoryExplorerTreeViewItem();
-	~DirectoryExplorerTreeViewItem();
+	class DirectoryExplorerTreeViewItem : public TreeViewItem
+	{
+	public:
+		DirectoryExplorerTreeViewItem(File file);
+		DirectoryExplorerTreeViewItem();
+		~DirectoryExplorerTreeViewItem();
 
-	bool mightContainSubItems() override;
+		bool mightContainSubItems() override;
 
-	String getName();
+		String getName();
 
-	void paintItem(Graphics& g, int width, int height) override;
+		void paintItem(Graphics& g, int width, int height) override;
 
-	void itemOpennessChanged(bool isNowOpen) override;
+		void itemOpennessChanged(bool isNowOpen) override;
 
-	void itemSelectionChanged(bool isNowSelected) override;
+		void itemSelectionChanged(bool isNowSelected) override;
 
-private:
-	File mFile;
-	bool mShouldUseFile = true;
+	private:
+		File mFile;
+		bool mShouldUseFile = true;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorerTreeViewItem)
-};
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)
+	};
+}
 #endif

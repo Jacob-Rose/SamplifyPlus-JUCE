@@ -1,7 +1,9 @@
 #include "SampleExplorer.h"
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
-//==============================================================================
+
+using namespace samplify;
+
 SampleExplorer::SampleExplorer()
 {
     addAndMakeVisible(mViewport);

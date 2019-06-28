@@ -16,32 +16,35 @@
 #include "SampleReference.h"
 #include "SampleTile.h"
 
-class SampleContainer    : public Component
+namespace samplify
 {
-public:
-	//========================================================
-    SampleContainer();
-    ~SampleContainer();
+	class SampleContainer : public Component
+	{
+	public:
+		//========================================================
+		SampleContainer();
+		~SampleContainer();
 
-    void paint (Graphics&) override;
-    void resized() override;
+		void paint(Graphics&) override;
+		void resized() override;
 
-	void updateItems();
-	void clearItems();
+		void updateItems();
+		void clearItems();
 
-	void setSampleItems(std::vector<SampleReference*> mSampleReferences);
-	//======================================================
-	int calculateAllRowsHeight();
-	int calculateRowCount();
-	int calculateColumnCount();
+		void setSampleItems(std::vector<SampleReference*> mSampleReferences);
+		//======================================================
+		int calculateAllRowsHeight();
+		int calculateRowCount();
+		int calculateColumnCount();
 
-	void extendSampleItems();
-private:
-	//=============================================================================
-	std::vector<SampleTile*> mUsedSampleTiles;
-	std::vector<SampleReference*> mCurrentSampleReferences;
-	int mMaxItems = 20;
+		void extendSampleItems();
+	private:
+		//=============================================================================
+		std::vector<SampleTile*> mUsedSampleTiles;
+		std::vector<SampleReference*> mCurrentSampleReferences;
+		int mMaxItems = 20;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SampleContainer)
-};
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleContainer)
+	};
+}
 #endif

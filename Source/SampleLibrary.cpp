@@ -1,5 +1,7 @@
 #include "SampleLibrary.h"
 
+using namespace samplify;
+
 SampleLibrary::SampleLibrary()
 {
 	initialize();

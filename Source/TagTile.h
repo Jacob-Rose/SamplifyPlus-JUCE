@@ -13,18 +13,23 @@
 
 #include "JuceHeader.h"
 
-//==============================================================================
-class TagTile    : public Component, public DragAndDropContainer
+namespace samplify
 {
-public:
-    TagTile(juce::String tag);
-    ~TagTile();
+	class TagTile : public Component, public DragAndDropContainer
+	{
+	public:
+		TagTile(juce::String tag);
+		~TagTile();
 
-    void paint (Graphics&) override;
-    void resized() override;
+		void paint(Graphics&) override;
+		void resized() override;
 
-private:
-	juce::String mTag;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TagTile)
-};
+		void mouseDown(const MouseEvent& e) override;
+		void mouseMove(const MouseEvent& e) override;
+
+	private:
+		juce::String mTag;
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagTile)
+	};
+}
 #endif

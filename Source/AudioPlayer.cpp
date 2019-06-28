@@ -1,5 +1,7 @@
 #include "AudioPlayer.h"
 
+using namespace samplify;
+
 AudioPlayer::AudioPlayer()
 {
 	formatManager.registerBasicFormats();

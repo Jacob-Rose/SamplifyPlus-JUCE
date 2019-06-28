@@ -17,36 +17,39 @@
 
 #include "TagTile.h"
 
-class TagContainer : public Component
+namespace samplify
 {
-public:
-	//========================================================
-	TagContainer();
-	~TagContainer();
+	class TagContainer : public Component
+	{
+	public:
+		//========================================================
+		TagContainer();
+		~TagContainer();
 
-	void paint(Graphics&) override;
-	void resized() override;
+		void paint(Graphics&) override;
+		void resized() override;
 
-	void updateItems();
-	void clearItems();
+		void updateItems();
+		void clearItems();
 
-	StringArray getTags();
+		StringArray getTags();
 
-	void setItems(StringArray newTags);
-	void removeTag(juce::String tag);
-	void addTag(juce::String tag);
-	//======================================================
-	int calculateAllRowsHeight();
-	int calculateRowCount();
-	int calculateColumnCount();
+		void setItems(StringArray newTags);
+		void removeTag(juce::String tag);
+		void addTag(juce::String tag);
+		//======================================================
+		int calculateAllRowsHeight();
+		int calculateRowCount();
+		int calculateColumnCount();
 
-	void extendItems();
-private:
-	//=============================================================================
-	std::vector<TagTile*> mUsedSampleTiles;
-	StringArray mCurrentTags; //tags to store in the container
-	int mMaxItems = 20;
+		void extendItems();
+	private:
+		//=============================================================================
+		std::vector<TagTile*> mUsedSampleTiles;
+		StringArray mCurrentTags; //tags to store in the container
+		int mMaxItems = 20;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagContainer)
-};
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagContainer)
+	};
+}
 #endif

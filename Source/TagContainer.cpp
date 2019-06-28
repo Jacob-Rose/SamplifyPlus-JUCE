@@ -1,5 +1,7 @@
 #include "TagContainer.h"
 
+using namespace samplify;
+
 TagContainer::~TagContainer()
 {
 }

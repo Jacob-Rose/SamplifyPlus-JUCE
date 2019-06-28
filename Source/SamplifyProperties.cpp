@@ -1,5 +1,7 @@
 #include "SamplifyProperties.h"
 
+using namespace samplify;
+
 SamplifyProperties* SamplifyProperties::smAppProperties = nullptr;
 
 SamplifyProperties::SamplifyProperties()

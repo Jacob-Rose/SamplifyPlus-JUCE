@@ -1,9 +1,12 @@
 #include "SampleContainer.h"
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
+#include "SamplifyColorPallete.h"
 
 #include <algorithm>
 #include <cmath>
+
+using namespace samplify;
 
 SampleContainer::SampleContainer()
 {
@@ -41,8 +44,8 @@ void SampleContainer::resized()
 void SampleContainer::updateItems()
 {
 	int columns = calculateColumnCount();
-	int width = SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH;
-	int height = SamplifyProperties::getInstance()->SAMPLE_TILE_ASPECT_RATIO * width;
+	int width = SAMPLE_TILE_MIN_WIDTH;
+	int height = SAMPLE_TILE_ASPECT_RATIO * width;
 	if (columns > 0)
 	{
 		for (unsigned int i = 0;i < mCurrentSampleReferences.size() && i < mMaxItems; i++)
@@ -115,7 +118,7 @@ int SampleContainer::calculateRowCount()
 
 int SampleContainer::calculateColumnCount()
 {
-	return getWidth() / SamplifyProperties::getInstance()->SAMPLE_TILE_MIN_WIDTH;
+	return getWidth() / SAMPLE_TILE_MIN_WIDTH;
 }
 
 void SampleContainer::extendSampleItems()

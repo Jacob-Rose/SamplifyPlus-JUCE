@@ -18,22 +18,24 @@
 #include "SamplifyProperties.h"
 #include "TagExplorer.h"
 
-
-class FilterExplorer    : public Component, public TextEditor::Listener
+namespace samplify
 {
-public:
-	//===========================================================
-    FilterExplorer();
-    ~FilterExplorer();
+	class FilterExplorer : public Component, public TextEditor::Listener
+	{
+	public:
+		//===========================================================
+		FilterExplorer();
+		~FilterExplorer();
 
-    void paint (Graphics&) override;
-    void resized() override;
+		void paint(Graphics&) override;
+		void resized() override;
 
-	void textEditorTextChanged(TextEditor&) override;
-private:
-	TagExplorer mTagExplorer;
-	TextEditor mSearchBar;
+		void textEditorTextChanged(TextEditor&) override;
+	private:
+		TagExplorer mTagExplorer;
+		TextEditor mSearchBar;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilterExplorer)
-};
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FilterExplorer)
+	};
+}
 #endif

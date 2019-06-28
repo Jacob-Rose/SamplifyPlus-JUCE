@@ -11,8 +11,11 @@
 
 #include "JuceHeader.h"
 
-class CollectionExplorer : Component
+namespace samplify
 {
+	class CollectionExplorer : Component
+	{
 
-};
+	};
+}
 #endif

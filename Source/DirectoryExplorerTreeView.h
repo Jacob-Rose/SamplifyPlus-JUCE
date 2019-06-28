@@ -13,13 +13,8 @@
 
 #include "JuceHeader.h"
 
-//==============================================================================
-class DirectoryExplorerTreeView    : public TreeView
+namespace samplify
 {
-public:
-    DirectoryExplorerTreeView();
-    ~DirectoryExplorerTreeView();
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorerTreeView)
-};
+	
+}
 #endif

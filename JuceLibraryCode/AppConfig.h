@@ -159,11 +159,11 @@
 // juce_audio_utils flags:
 
 #ifndef    JUCE_USE_CDREADER
- //#define JUCE_USE_CDREADER 0
+ #define   JUCE_USE_CDREADER 0
 #endif
 
 #ifndef    JUCE_USE_CDBURNER
- //#define JUCE_USE_CDBURNER 0
+ #define   JUCE_USE_CDBURNER 0
 #endif
 
 //==============================================================================

@@ -1,5 +1,7 @@
 #include "SampleAudioThumbnail.h"
 
+using namespace samplify;
+
 SampleAudioThumbnail::SampleAudioThumbnail(int sourceSamplesPerThumbnailSample,
 	AudioFormatManager& formatManagerToUse,
 	AudioThumbnailCache& cacheToUse) :

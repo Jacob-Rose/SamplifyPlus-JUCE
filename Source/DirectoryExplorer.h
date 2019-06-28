@@ -13,19 +13,30 @@
 
 #include "JuceHeader.h"
 
-#include "DirectoryExplorerTreeView.h"
+#include "DirectoryExplorerTreeViewItem.h"
 
-class DirectoryExplorer    : public Component
+namespace samplify
 {
-public:
-    DirectoryExplorer();
-    ~DirectoryExplorer();
+	class DirectoryExplorer : public Component
+	{
+	public:
+		class DirectoryExplorerTreeView : public TreeView
+		{
+		public:
+			DirectoryExplorerTreeView();
+			~DirectoryExplorerTreeView();
+		private:
+			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeView)
+		};
+		DirectoryExplorer();
+		~DirectoryExplorer();
 
-    void paint (Graphics&) override;
-    void resized() override;
+		void paint(Graphics&) override;
+		void resized() override;
 
-private:
-	std::unique_ptr<DirectoryExplorerTreeView> mDirectoryTree = nullptr;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DirectoryExplorer)
-};
+	private:
+		std::unique_ptr<DirectoryExplorerTreeView> mDirectoryTree = nullptr;
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorer)
+	};
+}
 #endif

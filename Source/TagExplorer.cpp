@@ -1,6 +1,9 @@
 #include "TagExplorer.h"
 #include "SamplifyProperties.h"
+#include "SamplifyColorPallete.h"
 #include "SampleReference.h"
+
+using namespace samplify;
 
 TagExplorer::TagExplorer()
 {
@@ -16,34 +19,20 @@ TagExplorer::~TagExplorer()
 void TagExplorer::updateTags(juce::String newSearch)
 {
 	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
+	//StringArray currentSampleTags = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	for (int i = 0; i < mNewTags.getTags().size(); i++)
 	{
-		if (mNotContainedTags.contains(mNewTags[i]))
+		if (mNotContainedTags.getTags().contains(mNewTags.getTags()[i]))
 		{
-			mNewTags.remove(i);
+			mNewTags.removeTag(mNewTags.getTags()[i]);
 			i--;
 		}
 	}
-	for (int i = 0; i < mContainedTags.size(); i++)
+	for (int i = 0; i < allTags.size(); i++)
 	{
-		if (!mNotContainedTags[i].contains(newSearch))
+		if (allTags[i].contains(newSearch))
 		{
-			mNotContainedTags.remove(i);
-			i--;
-		}
-		else
-		{
-			std::vector<SampleReference*> samples = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
-			for (int j = 0; j < samples.size(); j++)
-			{
-				if (samples[j]->getSampleTags()->contains(mNotContainedTags[i], true))
-				{
-					mContainedTags.add(mNotContainedTags[i]);
-					mNotContainedTags.remove(i);
-					i--;
-					break;
-				}
-			}
+			//if()
 		}
 	}
 }
@@ -59,4 +48,10 @@ void TagExplorer::paint(Graphics&)
 
 void TagExplorer::addNewTag()
 {
+	TextEditor* te = new TextEditor();
+	te->setBounds(0,0,200,30);
+	//change from nullptr to the maincompoent to make it overlay?
+	DialogWindow::showModalDialog("New Tag Name", te,nullptr, SAMPLE_TILE_COLOR_BG_DEFAULT, true,false);
+	mNewTags.addTag(te->getText());
+
 }

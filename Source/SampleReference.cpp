@@ -2,6 +2,8 @@
 #include <string>
 #include "SamplifyProperties.h"
 
+using namespace samplify;
+
 SampleReference::SampleReference(File file) : mSampleFile(file), mSamplePropertiesFile(file.getFullPathName() + ".samplify"), mSampleTags()
 {
 	loadSamplePropertiesFile();
@@ -55,7 +57,7 @@ String SampleReference::getFullPathName() const
 	return mSampleFile.getFullPathName();
 }
 
-SampleType SampleReference::getSampleType() const
+SampleReference::SampleType SampleReference::getSampleType() const
 {
 	return mSampleType;
 }
