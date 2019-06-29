@@ -1,6 +1,6 @@
 #include "TagTile.h"
 #include "SamplifyProperties.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 TagTile::TagTile(juce::String tag)
@@ -44,10 +44,16 @@ void TagTile::resized()
 	//repainting is automatic
 }
 
-void TagTile::mouseDown(const MouseEvent& e)
+
+void TagTile::mouseUp(const MouseEvent& e)
 {
+	if (e.mouseWasClicked())
+	{
+		
+	}
 }
 
-void TagTile::mouseMove(const MouseEvent& e)
+void samplify::TagTile::mouseDrag(const MouseEvent& e)
 {
+	startDragging("Tags", this, juce::Image().null, true);
 }

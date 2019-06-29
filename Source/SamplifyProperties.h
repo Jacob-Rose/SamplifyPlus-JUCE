@@ -55,9 +55,9 @@ namespace samplify
 		void addTag(juce::String text)
 		{
 			Random& r = Random::getSystemRandom();
-			addTag(text, Colour(r.nextInt(Range(0, 256)),
-				r.nextInt(Range(0, 256)),
-				r.nextInt(Range(0, 256))));
+			addTag(text, Colour(juce::uint8(r.nextInt(Range(0, 256))),
+				juce::uint8(r.nextInt(Range(0, 256))),
+				juce::uint8(r.nextInt(Range(0, 256)))));
 		}
 
 		Colour getTagColor(juce::String text);

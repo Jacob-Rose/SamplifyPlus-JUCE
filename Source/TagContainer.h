@@ -30,11 +30,10 @@ namespace samplify
 		void resized() override;
 
 		void updateItems();
-		void clearItems();
 
 		StringArray getTags();
-
-		void setItems(StringArray newTags);
+		void setTags(StringArray newTags);
+		void clearTags();
 		void removeTag(juce::String tag);
 		void addTag(juce::String tag);
 		//======================================================

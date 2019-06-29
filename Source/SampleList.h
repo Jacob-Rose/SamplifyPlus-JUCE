@@ -44,7 +44,7 @@ namespace samplify
 
 	private:
 		std::vector<SampleReference*> mSamples;
-
+		//add image?
 	};
 }
 #endif

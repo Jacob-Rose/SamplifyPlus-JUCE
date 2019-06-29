@@ -14,6 +14,7 @@
 #include "JuceHeader.h"
 
 #include "SampleReference.h"
+#include "TagContainer.h"
 #include "SamplifyProperties.h"
 
 namespace samplify
@@ -45,6 +46,7 @@ namespace samplify
 
 	private:
 		SampleReference* mSampleReference = nullptr;
+		TagContainer mTagContainer;
 		bool isMouseOverButton = false;
 		bool isButtonPressed = false;
 		Rectangle<int> buttonBounds;

@@ -32,6 +32,8 @@ namespace samplify
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void releaseResources() override;
 
+		void setupLookAndFeel();
+
 		//==============================================================================
 		void paint(Graphics&) override;
 		void resized() override;

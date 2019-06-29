@@ -38,9 +38,10 @@ namespace samplify
 
 		SampleType getSampleType() const;
 
-		double getSampleLength() const;
+		double getLength() const;
 
-		StringArray* getSampleTags();
+		StringArray getTags();
+		void addTag(juce::String tag);
 
 		AudioThumbnailCache* getAudioThumbnailCache();
 
@@ -49,19 +50,19 @@ namespace samplify
 		void generateThumbnailAndCache();
 		void determineSampleType();
 		void changeListenerCallback(ChangeBroadcaster* source);
-		void saveSamplePropertiesFile();
-		void loadSamplePropertiesFile();
+		void savePropertiesFile();
+		void loadPropertiesFile();
 		/*Checks if file both exist and has same or older version number*/
-		bool isSamplePropertiesFileValid();
+		bool isPropertiesFileValid();
 
 		bool operator==(const SampleReference&);
 	private:
-		File mSampleFile;
-		File mSamplePropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp
+		File mFile;
+		File mPropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp
 		SampleType mSampleType = SampleType::UNDEFINED;
 		bool mSampleTypeConfirmed = false;
-		StringArray mSampleTags;
-		double mSampleLength = -1;
+		StringArray mTags;
+		double mLength = -1;
 		std::unique_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		std::unique_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
 	};

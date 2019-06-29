@@ -1,6 +1,6 @@
 #include "TagExplorer.h"
 #include "SamplifyProperties.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 #include "SampleReference.h"
 
 using namespace samplify;
@@ -55,7 +55,8 @@ void TagExplorer::addNewTag()
 	TextEditor* te = new TextEditor();
 	te->setBounds(0,0,200,30);
 	//change from nullptr to the maincompoent to make it overlay?
-	DialogWindow::showModalDialog("New Tag Name", te,nullptr, SAMPLE_TILE_COLOR_BG_DEFAULT, true,false);
+	DialogWindow::showModalDialog("New Tag Name", te,nullptr, getLookAndFeel().findColour(MAIN_BASE_COLOR), true,false);
 	mNewTags.addTag(te->getText());
+	delete te;
 
 }

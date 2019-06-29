@@ -1,7 +1,7 @@
 #include "SampleContainer.h"
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 
 #include <algorithm>
 #include <cmath>
@@ -44,34 +44,40 @@ void SampleContainer::resized()
 void SampleContainer::updateItems()
 {
 	int columns = calculateColumnCount();
-	int width = SAMPLE_TILE_MIN_WIDTH;
-	int height = SAMPLE_TILE_ASPECT_RATIO * width;
 	if (columns > 0)
 	{
-		for (unsigned int i = 0;i < mCurrentSampleReferences.size() && i < mMaxItems; i++)
+		int width = getWidth() / columns;
+		int height = SAMPLE_TILE_ASPECT_RATIO * width;
+		if (columns > 0)
 		{
-			int column = i % columns;
-			int row = i / columns; //will cut off, not round (i feel like a real coder)
-
-			SampleTile* tile;
-			if (i < mUsedSampleTiles.size())
+			for (unsigned int i = 0; i < mCurrentSampleReferences.size() && i < mMaxItems; i++)
 			{
-				tile = mUsedSampleTiles[i];
-				
-			}
-			else
-			{
-				tile = new SampleTile(mCurrentSampleReferences[i]);
-				mUsedSampleTiles.push_back(tile);
+				int column = i % columns;
+				int row = i / columns; //will cut off, not round (i feel like a real coder)
 
-				addAndMakeVisible(tile);
+				SampleTile* tile;
+				if (i < mUsedSampleTiles.size())
+				{
+					tile = mUsedSampleTiles[i];
+				}
+				else
+				{
+					tile = new SampleTile(mCurrentSampleReferences[i]);
+					mUsedSampleTiles.push_back(tile);
+					addAndMakeVisible(tile);
+				}
+				tile->setBounds((column * width) + SAMPLETILE_CONTAINER_ITEM_PADDING, 
+								(row * height) + SAMPLETILE_CONTAINER_ITEM_PADDING,
+								width - (SAMPLETILE_CONTAINER_ITEM_PADDING * 2),
+								height - (SAMPLETILE_CONTAINER_ITEM_PADDING * 2));
+				tile->setSampleReference(mCurrentSampleReferences[i]);
+
 			}
-			tile->setBounds(column * width, row * height, width, height);
-			tile->setSampleReference(mCurrentSampleReferences[i]);
-			
 		}
+		setBounds(Rectangle<int>(0, 0, calculateColumnCount() * width, calculateRowCount() * height));
 	}
-	setBounds(Rectangle<int>(0, 0, calculateColumnCount() * width, calculateRowCount() * height));
+
+
 	//repaint();
 }
 

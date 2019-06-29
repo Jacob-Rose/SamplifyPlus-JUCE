@@ -20,8 +20,8 @@
               file="Source/SampleReference.h"/>
       </GROUP>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="UX">
-        <FILE id="OPwuxU" name="SamplifyColorPallete.h" compile="0" resource="0"
-              file="Source/SamplifyColorPallete.h"/>
+        <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
+              file="Source/SamplifyLookAndFeel.h"/>
         <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
               file="Source/SamplifyMainComponent.h"/>
         <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"

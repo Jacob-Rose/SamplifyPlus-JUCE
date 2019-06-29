@@ -765,11 +765,11 @@
 			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		F1857945D0F0B275641EE361 = {
+		EDD7C9092891FD30DF7A6A1D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
-			name = SamplifyColorPallete.h;
-			path = ../../Source/SamplifyColorPallete.h;
+			name = SamplifyLookAndFeel.h;
+			path = ../../Source/SamplifyLookAndFeel.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		F8094ED215E0B97D0BFCF6F0 = {
@@ -875,7 +875,7 @@
 		C4E7652EF70FB1EE961FA9CE = {
 			isa = PBXGroup;
 			children = (
-				F1857945D0F0B275641EE361,
+				EDD7C9092891FD30DF7A6A1D,
 				FC23FD37BA34F4ACD45E7154,
 				850AD1C9B17FBBC10791C998,
 				40CC1EC11842FF25C302011A,

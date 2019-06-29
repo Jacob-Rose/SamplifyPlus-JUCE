@@ -22,12 +22,15 @@ namespace samplify
 		~TagTile();
 
 		void setTag(juce::String tag);
+		juce::String getTag() { return mTag; }
 
 		void paint(Graphics&) override;
 		void resized() override;
 
-		void mouseDown(const MouseEvent& e) override;
-		void mouseMove(const MouseEvent& e) override;
+
+
+		void mouseUp(const MouseEvent& e) override;
+		void mouseDrag(const MouseEvent& e) override;
 
 	private:
 		juce::String mTag;

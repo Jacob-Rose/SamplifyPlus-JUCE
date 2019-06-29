@@ -1,6 +1,6 @@
 #include "DirectoryExplorerTreeViewItem.h"
 #include "SamplifyProperties.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
@@ -49,13 +49,39 @@ String DirectoryExplorerTreeViewItem::getName()
 
 void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int height)
 {
-	if (isSelected())
+	//check if not added yet, dont draw
+	if (getOwnerView() != nullptr)
 	{
-		g.fillAll(MAIN_ACCENT_COLOR);
+		if (isSelected())
+		{
+			Colour c = getOwnerView()->getLookAndFeel().findColour(MAIN_ACCENT_COLOR);
+			g.setColour(c);
+			g.fillRoundedRectangle(0, 0, width, height, 1.0f);
+			if (c.getPerceivedBrightness() > 0.5f)
+			{
+				g.setColour(Colours::black);
+			}
+			else
+			{
+				g.setColour(Colours::white);
+			}
+		}
+		else
+		{
+
+			if (getOwnerView()->getLookAndFeel().findColour(MAIN_BASE_COLOR).getPerceivedBrightness() > 0.5f)
+			{
+				g.setColour(Colours::black);
+			}
+			else
+			{
+				g.setColour(Colours::white);
+			}
+		}
+		g.setFont(12);
+		g.drawText(mFile.getFileName(), 0, 0, width, height, Justification::centredLeft, true);
 	}
-	g.setColour(MAIN_TEXT_COLOR);
-	g.setFont(12);
-	g.drawText(mFile.getFileName(), 0, 0, width, height, Justification::centredLeft, true);
+
 }
 
 void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)

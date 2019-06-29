@@ -7,6 +7,7 @@ using namespace samplify;
 SampleExplorer::SampleExplorer()
 {
     addAndMakeVisible(mViewport);
+	mViewport.addAndMakeVisible(mSampleContainer);
 	addAndMakeVisible(mSearchBar);
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
@@ -28,7 +29,7 @@ void SampleExplorer::resized()
 {
     mSearchBar.setBounds(0, 0, getWidth(), 30);
 	mViewport.setBounds(0,30,getWidth(), getHeight()-30);
-	mSampleContainer.setBounds(mViewport.getBounds());
+	mSampleContainer.setBounds(mViewport.getBounds().withRight(mViewport.getWidth() - mViewport.getScrollBarThickness()));
 }
 
 void SampleExplorer::textEditorTextChanged(TextEditor& e)

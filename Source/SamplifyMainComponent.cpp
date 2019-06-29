@@ -1,5 +1,5 @@
 #include "SamplifyMainComponent.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
@@ -19,7 +19,7 @@ SamplifyMainComponent::SamplifyMainComponent()
     
 	AudioDeviceManager::AudioDeviceSetup ads;
 	//setAudioChannels(0,2)
-
+	setupLookAndFeel();
     setSize (600, 400);
 }
 
@@ -59,11 +59,21 @@ void SamplifyMainComponent::releaseResources()
 	// For more details, see the help for AudioProcessor::releaseResources()
 }
 
+void samplify::SamplifyMainComponent::setupLookAndFeel()
+{
+	getLookAndFeel().setColour(MAIN_BASE_COLOR, Colours::white);
+	getLookAndFeel().setColour(MAIN_ACCENT_COLOR, Colours::orangered);
+	getLookAndFeel().setColour(SAMPLETILE_COLOR_BG_DEFAULT, getLookAndFeel().findColour(MAIN_BASE_COLOR));
+	getLookAndFeel().setColour(SAMPLETILE_COLOR_BG_HOVER, getLookAndFeel().findColour(MAIN_BASE_COLOR).darker());
+	getLookAndFeel().setColour(SAMPLETILE_COLOR_FG_DEFAULT, getLookAndFeel().findColour(MAIN_ACCENT_COLOR));
+	getLookAndFeel().setColour(SAMPLETILE_COLOR_FG_HOVER, getLookAndFeel().findColour(MAIN_ACCENT_COLOR));
+}
+
 //==============================================================================
 void SamplifyMainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (MAIN_BASE_COLOR);
+    g.fillAll (getLookAndFeel().findColour(MAIN_BASE_COLOR));
 }
 
 void SamplifyMainComponent::resized()

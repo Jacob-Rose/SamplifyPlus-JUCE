@@ -1,14 +1,20 @@
 #include "TagContainer.h"
-#include "SamplifyColorPallete.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
-samplify::TagContainer::TagContainer()
+TagContainer::TagContainer()
 {
 }
 
 TagContainer::~TagContainer()
 {
+	for (int i = 0; i < mUsedSampleTags.size(); i++)
+	{
+		delete mUsedSampleTags[i];
+		mUsedSampleTags[i] = nullptr;
+	}
+	mUsedSampleTags.clear();
 }
 
 void TagContainer::paint(Graphics& g)
@@ -35,12 +41,10 @@ void TagContainer::updateItems()
 		float boxWidth = fontWidth + (padding * 2);
 		if (currentWidth + boxWidth < getWidth())
 		{
-			//draw the box bih
 			TagTile* tag;
 			if (mUsedSampleTags.size() > i)
 			{
 				tag = mUsedSampleTags[i];
-
 			}
 			else
 			{
@@ -63,10 +67,9 @@ void TagContainer::updateItems()
 		}
 	}
 	mLineCount = line + 1;
-	setBounds(0, 0, getWidth(), mLineCount * boxHeight);
 }
 
-void TagContainer::clearItems()
+void TagContainer::clearTags()
 {
 	mCurrentTags.clear();
 	updateItems();
@@ -77,7 +80,7 @@ StringArray TagContainer::getTags()
 	return mCurrentTags;
 }
 
-void TagContainer::setItems(StringArray newTags)
+void TagContainer::setTags(StringArray newTags)
 {
 	mCurrentTags = newTags;
 	updateItems();

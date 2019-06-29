@@ -35,16 +35,19 @@ void SampleLibrary::loadSamplesFromDirectory(File path)
 	auto result = placement.appliedTo(area, Desktop::getInstance().getDisplays()
 		.getMainDisplay().userArea.reduced(20));
 		*/
-	while (iterator.next())
+	int count = 0;
+	while (iterator.next() && count < 100)
 	{
+		//todo remove counter
 		SampleReference ref(iterator.getFile());
 		if (std::find(mSamples.begin(), mSamples.end(), ref) == mSamples.end()) {
 			mSamples.push_back(ref);
 			//dw->updatePercent(iterator.getEstimatedProgress());
 			//dw->repaint();
 		}
+		count++;
 	}
-	SampleLibrary::updateCurrentSamples("");
+	updateCurrentSamples("");
 	//delete dw;
 }
 
@@ -96,12 +99,12 @@ StringArray SampleLibrary::getAllTags()
 	StringArray tags = StringArray();
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		StringArray* sTags = mSamples[i].getSampleTags();
-		for (int j = 0; j < sTags->size(); j++)
+		StringArray sTags = mSamples[i].getTags();
+		for (int j = 0; j < sTags.size(); j++)
 		{
-			if (!tags.contains((*sTags)[j]))
+			if (!tags.contains(sTags[j]))
 			{
-				tags.add((*sTags)[j]);
+				tags.add(sTags[j]);
 			}
 		}
 		
