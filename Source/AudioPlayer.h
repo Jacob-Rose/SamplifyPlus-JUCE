@@ -36,6 +36,11 @@ namespace samplify
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void releaseResources() override;
 
+		void setRelativeTime(float t);
+
+		File getFile() { return mCurrentFile; }
+		float getRelativeTime() { return transportSource.getTotalLength() / transportSource.getCurrentPosition(); }
+
 		void changeState(TransportState state);
 		void loadFile(File file);
 		void loadFile(SampleReference* reference);
@@ -43,6 +48,7 @@ namespace samplify
 		TransportState getState() { return state; }
 		AudioFormatManager* getFormatManager() { return &formatManager; }
 	private:
+		File mCurrentFile;
 		AudioFormatManager formatManager;
 		std::unique_ptr<AudioFormatReaderSource> readerSource;
 		AudioTransportSource transportSource;

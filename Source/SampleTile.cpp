@@ -27,7 +27,7 @@ void SampleTile::paint (Graphics& g)
 	{
 		Colour backgroundColor;
 		Colour foregroundColor;
-		if (isMouseOverOrDragging() && !isMouseOverButton)
+		if (isMouseOverOrDragging())
 		{
 			backgroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_BG_HOVER);
 			foregroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_FG_HOVER);
@@ -105,19 +105,6 @@ void SampleTile::paint (Graphics& g)
 				mThumbnail->drawChannel(g, thumbnailBounds.toNearestInt(), 0.0, mThumbnail->getTotalLength(), 0, 1.0f);
 			}
 		}
-		if (isMouseOverButton)
-		{
-			g.setColour(getLookAndFeel().findColour(SAMPLETILE_COLOR_BG_HOVER));
-		}
-		else
-		{
-			g.setColour(getLookAndFeel().findColour(SAMPLETILE_COLOR_BG_DEFAULT));
-		}
-
-		g.fillRect(buttonBounds);
-		g.setColour(foregroundColor);
-		g.drawRect(buttonBounds);
-		FontAwesome::drawCenterd(g, FontAwesome_Play, 12.0f, foregroundColor, buttonBounds);
 
 		Rectangle<float> sampleFilenameBox(widthSegment, 0, widthSegment * 3, getHeight() / 2);
 
@@ -127,6 +114,15 @@ void SampleTile::paint (Graphics& g)
 		g.setFont((getHeight() / 10) * 0.8f);
 		g.drawText(mSampleReference->getFullPathName(), sampleFilenameBox, Justification::bottomLeft, true);
 		
+		if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() == mSampleReference->getFile())
+		{
+			float t = SamplifyProperties::getInstance()->getAudioPlayer()->getRelativeTime();
+			float x = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * t);
+			float y1 = thumbnailBounds.getTopLeft().y;
+			float y2 = thumbnailBounds.getBottomLeft().y;
+			g.setColour(Colours::black);
+			g.drawLine(x, y1, x, y2, 1.0f);
+		}
 	}
 	else
 	{
@@ -138,7 +134,6 @@ void SampleTile::resized()
 {
 	int widthSegment = getWidth() / 4;
 	int heightSegment = getHeight() / 3;
-	buttonBounds = Rectangle<int>(getWidth() * 0.875, getHeight() * 0.68, getWidth() * 0.1, getWidth() * 0.1);
 	mTagContainer.setBounds(widthSegment, SAMPLE_TAG_FONT_SIZE, widthSegment * 3, heightSegment);
 }
 
@@ -158,7 +153,9 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 {
 	if (mSampleReference != nullptr)
 	{
-		if (isMouseOverButton)
+		int widthSegment = getWidth() / 4;
+		int heightSegment = getHeight() / 3;
+		if (Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2).contains(mouseEvent.getMouseDownPosition().toFloat()))
 		{
 			playSample();
 		}
@@ -175,22 +172,6 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 void SampleTile::mouseMove(const MouseEvent & e)
 {
 
-	if (isMouseWithinPlayButton(e))
-	{
-		if (!isMouseOverButton)
-		{
-			isMouseOverButton = true;
-			repaint();
-		}
-	}
-	else
-	{
-		if (isMouseOverButton)
-		{
-			isMouseOverButton = false;
-			repaint();
-		}
-	}
 }
 
 void SampleTile::playSample()
@@ -199,16 +180,11 @@ void SampleTile::playSample()
 	SamplifyProperties::getInstance()->getAudioPlayer()->play();
 }
 
-bool SampleTile::isMouseWithinPlayButton(const MouseEvent & e)
+void samplify::SampleTile::playSample(float t)
 {
-	if (buttonBounds.contains(e.getPosition()))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	SamplifyProperties::getInstance()->getAudioPlayer()->setRelativeTime(t);
+	SamplifyProperties::getInstance()->getAudioPlayer()->play();
 }
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)

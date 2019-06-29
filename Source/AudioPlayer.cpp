@@ -38,6 +38,11 @@ void AudioPlayer::releaseResources()
 	transportSource.releaseResources();
 }
 
+void samplify::AudioPlayer::setRelativeTime(float t)
+{
+	transportSource.setPosition(transportSource.getTotalLength() * t);
+}
+
 void AudioPlayer::changeState(TransportState newState)
 {
 	if (state != newState)
@@ -65,7 +70,7 @@ void AudioPlayer::changeState(TransportState newState)
 void AudioPlayer::loadFile(File file)
 {
 	AudioFormatReader* reader = formatManager.createReaderFor(file);
-
+	mCurrentFile = file;
 	if (reader != nullptr)
 	{
 		std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));

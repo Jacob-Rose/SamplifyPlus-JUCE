@@ -33,7 +33,7 @@ namespace samplify
 		void mouseMove(const MouseEvent& e) override;
 
 		void playSample();
-		bool isMouseWithinPlayButton(const MouseEvent& e);
+		void playSample(float t);
 
 		bool isInterestedInDragSource(const SourceDetails& dragSourceDetails) override;
 		void itemDropped(const SourceDetails& dragSourceDetails) override;
@@ -47,9 +47,6 @@ namespace samplify
 	private:
 		SampleReference* mSampleReference = nullptr;
 		TagContainer mTagContainer;
-		bool isMouseOverButton = false;
-		bool isButtonPressed = false;
-		Rectangle<int> buttonBounds;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)
 	};
 }
