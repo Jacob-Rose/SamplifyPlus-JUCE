@@ -3,30 +3,35 @@
 
 using namespace samplify;
 
+samplify::TagContainer::TagContainer()
+{
+}
+
 TagContainer::~TagContainer()
 {
 }
 
 void TagContainer::paint(Graphics& g)
 {
-	updateItems(g);
+	tagFont = g.getCurrentFont().withHeight(SAMPLE_TAG_FONT_SIZE);
 }
 
 void TagContainer::resized()
 {
+	updateItems();
 }
 
-void TagContainer::updateItems(Graphics& g)
+void TagContainer::updateItems()
 {
 	int padding = SAMPLE_TAG_TEXT_PADDING;
-	int fontHeight = g.getCurrentFont().getHeight();
+	int fontHeight = tagFont.getHeight();
 	int boxHeight = fontHeight + padding;
 
 	int currentWidth = 0.0f;
 	int line = 0;
 	for (int i = 0; i < mCurrentTags.size(); i++)
 	{
-		float fontWidth = g.getCurrentFont().getStringWidthFloat(mCurrentTags[i]);
+		float fontWidth = tagFont.getStringWidthFloat(mCurrentTags[i]);
 		float boxWidth = fontWidth + (padding * 2);
 		if (currentWidth + boxWidth < getWidth())
 		{
@@ -35,31 +40,36 @@ void TagContainer::updateItems(Graphics& g)
 			if (mUsedSampleTags.size() > i)
 			{
 				tag = mUsedSampleTags[i];
-				tag->setTag(mCurrentTags[i]);
+
 			}
 			else
 			{
 				tag = new TagTile(mCurrentTags[i]);
+				addAndMakeVisible(tag);
 				mUsedSampleTags.push_back(tag);
 			}
-
 			tag->setBounds(currentWidth, line * boxHeight, boxWidth, boxHeight);
-
-			currentWidth += fontWidth + padding;
+			tag->setTag(mCurrentTags[i]);
+			currentWidth += boxWidth + padding;
 		}
 		else
 		{
-			line++;
-			currentWidth = 0.0f;
-			i--; //redo this next line
+			if (currentWidth != 0.0f)
+			{
+				line++;
+				currentWidth = 0.0f;
+				i--; //redo this next line
+			}
 		}
-		mLineCount = line;
-		setBounds(0, 0, getWidth(), line * boxHeight);
 	}
+	mLineCount = line + 1;
+	setBounds(0, 0, getWidth(), mLineCount * boxHeight);
 }
 
 void TagContainer::clearItems()
 {
+	mCurrentTags.clear();
+	updateItems();
 }
 
 StringArray TagContainer::getTags()
@@ -70,19 +80,19 @@ StringArray TagContainer::getTags()
 void TagContainer::setItems(StringArray newTags)
 {
 	mCurrentTags = newTags;
-	repaint();
+	updateItems();
 }
 
 void TagContainer::removeTag(juce::String tag)
 {
 	mCurrentTags.removeString(tag, true);
-	repaint();
+	updateItems();
 }
 
 void TagContainer::addTag(juce::String tag)
 {
 	mCurrentTags.add(tag);
-	repaint();
+	updateItems();
 }
 
 int TagContainer::calculateAllRowsHeight()

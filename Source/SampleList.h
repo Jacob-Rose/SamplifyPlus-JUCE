@@ -32,6 +32,16 @@ namespace samplify
 		void clearAndDeleteSamples();
 		void sortSamples();
 
+		enum SortingMethod
+		{
+			FirstToLast,
+			LastToFirst,
+			Random, //help in discovering new stuff
+			Newest,
+			Oldest
+			//popularity
+		};
+
 	private:
 		std::vector<SampleReference*> mSamples;
 

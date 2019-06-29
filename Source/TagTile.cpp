@@ -1,5 +1,6 @@
 #include "TagTile.h"
 #include "SamplifyProperties.h"
+#include "SamplifyColorPallete.h"
 
 using namespace samplify;
 TagTile::TagTile(juce::String tag)
@@ -19,16 +20,23 @@ void samplify::TagTile::setTag(juce::String tag)
 
 void TagTile::paint (Graphics& g)
 {
-	//todo replace
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
-
-    g.setColour (Colours::grey);
-    g.drawRect (getLocalBounds(), 1);   // draw an outline around the component
-
-    g.setColour (SamplifyProperties::getInstance()->getTagColor(mTag));
-    g.setFont (14.0f);
-    g.drawText (mTag, getLocalBounds(),
-                Justification::centred, true);   // draw some placeholder text
+	Colour mainColor = SamplifyProperties::getInstance()->getTagColor(mTag);
+    g.setColour (mainColor);
+    g.fillRoundedRectangle (getLocalBounds().toFloat(), 1.0f);   // draw an outline around the component
+	g.setColour(mainColor.darker());
+	g.drawRoundedRectangle(getLocalBounds().toFloat(), 1.0f, 1.0f);
+	float oldFontSize = g.getCurrentFont().getHeight();
+	if (mainColor.getPerceivedBrightness() > 0.5f)
+	{
+		g.setColour(Colours::black);
+	}
+	else
+	{
+		g.setColour(Colours::white);
+	}
+    g.setFont (SAMPLE_TAG_FONT_SIZE);
+    g.drawText (mTag, getLocalBounds(), Justification::centred, true); 
+	g.setFont(oldFontSize);
 }
 
 void TagTile::resized()

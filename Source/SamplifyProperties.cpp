@@ -139,7 +139,15 @@ void SamplifyProperties::addTag(juce::String text, Colour color)
 
 Colour SamplifyProperties::getTagColor(juce::String text)
 {
-	return mSampleTagColors[text];
+	if (mSampleTagColors.find(text) != mSampleTagColors.end())
+	{
+		return mSampleTagColors[text];
+	}
+	else
+	{
+		addTag(text);
+		return mSampleTagColors[text];
+	}
 }
 
 void SamplifyProperties::clearDirectories()

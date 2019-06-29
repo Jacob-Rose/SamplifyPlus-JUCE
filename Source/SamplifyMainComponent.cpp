@@ -1,4 +1,5 @@
 #include "SamplifyMainComponent.h"
+#include "SamplifyColorPallete.h"
 
 using namespace samplify;
 
@@ -62,7 +63,7 @@ void SamplifyMainComponent::releaseResources()
 void SamplifyMainComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (SamplifyProperties::getInstance()->MAIN_BASE_COLOR);
+    g.fillAll (MAIN_BASE_COLOR);
 }
 
 void SamplifyMainComponent::resized()
