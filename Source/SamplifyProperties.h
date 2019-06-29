@@ -49,7 +49,8 @@ namespace samplify
 		File getSelectedDirectory() { return mSelectedDirectory; }
 		//=======================================================
 		SampleLibrary* getSampleLibrary() { return mSampleLibrary.get(); }
-		AudioPlayer* getAudioPlayer() { return &mAudioPlayer; }
+		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }
+		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
 		//=======================================================
 		void addTag(juce::String text, Colour color);
 		void addTag(juce::String text)
@@ -71,7 +72,7 @@ namespace samplify
 		std::map<juce::String, Colour> mSampleTagColors;
 		std::vector<File> mDirectories = std::vector<File>();
 		File mSelectedDirectory = File("");
-		AudioPlayer mAudioPlayer;
+		AudioPlayer* mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;
 		bool mIsInit = false;

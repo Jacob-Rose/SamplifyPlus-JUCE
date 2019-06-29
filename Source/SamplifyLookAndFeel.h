@@ -26,8 +26,10 @@ namespace samplify
 	const int SAMPLETILE_COLOR_FG_DEFAULT = 46;
 	const int SAMPLETILE_COLOR_FG_HOVER = 47;
 
-	const int SAMPLE_TILE_MIN_WIDTH = 150;
-	const float SAMPLE_TILE_ASPECT_RATIO = 9.0f / 16.0f;
+	const int SAMPLETILE_FILENAME_FONT_SIZE = 16;
+
+	const int SAMPLE_TILE_MIN_WIDTH = 200;
+	const float SAMPLE_TILE_ASPECT_RATIO = 0.8;
 	const int SAMPLETILE_CONTAINER_ITEM_PADDING = 2;
 
 	const int SAMPLE_TAG_FONT_SIZE = 12;

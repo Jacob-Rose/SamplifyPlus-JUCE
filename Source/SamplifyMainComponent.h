@@ -23,7 +23,13 @@ namespace samplify
 	class SamplifyMainComponent : public AudioAppComponent
 	{
 	public:
-
+		enum TransportState
+		{
+			Playing,
+			Stopped,
+			Stopping,
+			Starting
+		};
 		SamplifyMainComponent();
 		SamplifyMainComponent(AudioDeviceManager& deviceManager);
 		~SamplifyMainComponent();
@@ -47,6 +53,8 @@ namespace samplify
 		std::unique_ptr<FilterExplorer> mFilterExplorer = nullptr;
 		std::unique_ptr<MenuBarComponent> mMenuBar = nullptr;
 		static SamplifyMainComponent* mInstance;
+
+		std::unique_ptr<AudioPlayer> mAudioPlayer;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SamplifyMainComponent)
 	};

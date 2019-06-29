@@ -74,7 +74,7 @@ void SamplifyProperties::cleanup()
 {
 	if (mIsInit)
 	{
-		mSampleLibrary = nullptr;
+		mSampleLibrary.reset(nullptr);
 	}
 	
 }
