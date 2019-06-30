@@ -75,7 +75,6 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o \
   $(JUCE_OBJDIR)/TagDrawer_ffc1110c.o \
   $(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o \
-  $(JUCE_OBJDIR)/DirectoryExplorerTreeView_730a9730.o \
   $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o \
   $(JUCE_OBJDIR)/CollectionExplorer_e475a806.o \
   $(JUCE_OBJDIR)/TagContainer_56836f10.o \
@@ -149,11 +148,6 @@ $(JUCE_OBJDIR)/TagDrawer_ffc1110c.o: ../../Source/TagDrawer.cpp
 $(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o: ../../Source/DirectoryExplorer.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling DirectoryExplorer.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DirectoryExplorerTreeView_730a9730.o: ../../Source/DirectoryExplorerTreeView.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DirectoryExplorerTreeView.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o: ../../Source/DirectoryExplorerTreeViewItem.cpp

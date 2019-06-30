@@ -113,10 +113,9 @@ void SampleTile::paint (Graphics& g)
 		g.drawText(mSampleReference->getFilename(), sampleFilenameBox, Justification::topLeft, true);
 		g.setFont((getHeight() / 10) * 0.8f);
 		g.drawText(mSampleReference->getFullPathName(), sampleFilenameBox, Justification::bottomLeft, true);
-		
-		if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() == mSampleReference->getFile())
+		float t = SamplifyProperties::getInstance()->getAudioPlayer()->getRelativeTime();
+		if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() == mSampleReference->getFile() && t < 1.0f && t > 0.0f)
 		{
-			float t = SamplifyProperties::getInstance()->getAudioPlayer()->getRelativeTime();
 			float x = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * t);
 			float y1 = thumbnailBounds.getTopLeft().y;
 			float y2 = thumbnailBounds.getBottomLeft().y;
@@ -153,19 +152,32 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 {
 	if (mSampleReference != nullptr)
 	{
-		int widthSegment = getWidth() / 4;
-		int heightSegment = getHeight() / 3;
-		if (Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2).contains(mouseEvent.getMouseDownPosition().toFloat()))
-		{
-			playSample();
-		}
-		else
-		{
-			StringArray files = StringArray();
-			files.add(mSampleReference->getFile().getFullPathName());
-			DragAndDropContainer::performExternalDragDropOfFiles(files, false);
-		}
-		
+			int widthSegment = getWidth() / 4;
+			int heightSegment = getHeight() / 3;
+			Rectangle audiowave = Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
+			if (audiowave.contains(mouseEvent.getMouseDownPosition().toFloat()))
+			{
+				if (mouseEvent.mods.isLeftButtonDown())
+				{
+					playSample();
+				}
+				else if (mouseEvent.mods.isRightButtonDown())
+				{
+					playSample((audiowave.getWidth() + audiowave.getTopLeft().x) / mouseEvent.getMouseDownX() );
+				}
+
+			}
+			else
+			{
+				if (mouseEvent.mods.isCtrlDown())
+				{
+					
+					StringArray files = StringArray();
+					files.add(mSampleReference->getFile().getFullPathName());
+					DragAndDropContainer::performExternalDragDropOfFiles(files, false);
+				}
+				
+			}
 	}
 }
 

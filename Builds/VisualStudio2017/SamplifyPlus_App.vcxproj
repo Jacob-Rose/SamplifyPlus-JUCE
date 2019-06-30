@@ -145,7 +145,6 @@
     <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp"/>
     <ClCompile Include="..\..\Source\TagDrawer.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorer.cpp"/>
-    <ClCompile Include="..\..\Source\DirectoryExplorerTreeView.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp"/>
     <ClCompile Include="..\..\Source\CollectionExplorer.cpp"/>
     <ClCompile Include="..\..\Source\TagContainer.cpp"/>
@@ -1940,7 +1939,6 @@
     <ClInclude Include="..\..\Source\SamplifyMainComponent.h"/>
     <ClInclude Include="..\..\Source\TagDrawer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h"/>
-    <ClInclude Include="..\..\Source\DirectoryExplorerTreeView.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h"/>
     <ClInclude Include="..\..\Source\TagContainer.h"/>
     <ClInclude Include="..\..\Source\CollectionExplorer.h"/>

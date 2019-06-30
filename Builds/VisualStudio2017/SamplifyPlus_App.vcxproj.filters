@@ -469,9 +469,6 @@
     <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryExplorerTreeView.cpp">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
     </ClCompile>
@@ -2455,9 +2452,6 @@
       <Filter>SamplifyPlus\Source\UX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DirectoryExplorerTreeView.h">
       <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">

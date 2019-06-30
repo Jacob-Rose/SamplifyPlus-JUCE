@@ -33,10 +33,6 @@
                 file="Source/DirectoryExplorer.cpp"/>
           <FILE id="ULN1cJ" name="DirectoryExplorer.h" compile="0" resource="0"
                 file="Source/DirectoryExplorer.h"/>
-          <FILE id="UdF2eJ" name="DirectoryExplorerTreeView.cpp" compile="1"
-                resource="0" file="Source/DirectoryExplorerTreeView.cpp"/>
-          <FILE id="C7WQMd" name="DirectoryExplorerTreeView.h" compile="0" resource="0"
-                file="Source/DirectoryExplorerTreeView.h"/>
           <FILE id="J6wKdl" name="DirectoryExplorerTreeViewItem.cpp" compile="1"
                 resource="0" file="Source/DirectoryExplorerTreeViewItem.cpp"/>
           <FILE id="xMuM6d" name="DirectoryExplorerTreeViewItem.h" compile="0"
