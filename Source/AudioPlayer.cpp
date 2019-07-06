@@ -21,12 +21,25 @@ void AudioPlayer::play()
 
 void AudioPlayer::reset()
 {
-	transportSource.setPosition(0.0);
+	transportSource.setPosition(mSampleStartT);
 }
 
 void AudioPlayer::stop()
 {
 	transportSource.stop();
+}
+
+void samplify::AudioPlayer::toggle()
+{
+	if (state == Playing)
+	{
+		changeState(Stopping);
+	}
+	else if (state == Stopped)
+	{
+		reset();
+		changeState(Starting);
+	}
 }
 
 void AudioPlayer::changeListenerCallback(ChangeBroadcaster* source)

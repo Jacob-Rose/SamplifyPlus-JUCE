@@ -20,7 +20,7 @@
 
 namespace samplify
 {
-	class SamplifyMainComponent : public AudioAppComponent
+	class SamplifyMainComponent : public AudioAppComponent, public KeyListener
 	{
 	public:
 		enum TransportState
@@ -33,6 +33,8 @@ namespace samplify
 		SamplifyMainComponent();
 		SamplifyMainComponent(AudioDeviceManager& deviceManager);
 		~SamplifyMainComponent();
+
+		bool keyPressed(const KeyPress& key, Component* originatingComponent);
 
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;

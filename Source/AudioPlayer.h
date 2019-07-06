@@ -31,6 +31,7 @@ namespace samplify
 		void play();
 		void reset();
 		void stop();
+		void toggle();
 
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;

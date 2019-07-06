@@ -12,7 +12,7 @@ SamplifyMainComponent::SamplifyMainComponent()
     mSampleExplorer.reset(new SampleExplorer());
     mFilterExplorer.reset(new FilterExplorer());
 	mMenuBar.reset(new MenuBarComponent());
-	
+	addKeyListener(this);
 	
 	mAudioPlayer.reset(new AudioPlayer());
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer.get());
@@ -42,6 +42,16 @@ SamplifyMainComponent::~SamplifyMainComponent()
 {
 	//deviceManager.closeAudioDevice();
 	shutdownAudio();
+}
+
+bool samplify::SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
+{
+	if (key.getKeyCode() == key.spaceKey)
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->toggle();
+		return true;
+	}
+	
 }
 
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
