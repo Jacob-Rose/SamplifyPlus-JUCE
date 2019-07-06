@@ -4,7 +4,7 @@
 using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
-SamplifyMainComponent::SamplifyMainComponent()
+SamplifyMainComponent::SamplifyMainComponent() 
 {
 	mInstance = this;
 	//usingCustomDeviceManager = true;
@@ -12,6 +12,8 @@ SamplifyMainComponent::SamplifyMainComponent()
     mSampleExplorer.reset(new SampleExplorer());
     mFilterExplorer.reset(new FilterExplorer());
 	mMenuBar.reset(new MenuBarComponent());
+	
+	
 	mAudioPlayer.reset(new AudioPlayer());
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer.get());
 

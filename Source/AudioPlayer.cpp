@@ -52,6 +52,7 @@ void samplify::AudioPlayer::setRelativeTime(float t)
 	else
 	{
 		//throw Exception
+		printf(0);
 	}
 }
 	
@@ -74,7 +75,7 @@ void AudioPlayer::changeState(TransportState newState)
 			break;
 		case Starting:
 			transportSource.start();
-
+			changeState(Playing);
 			break;
 		}
 	}
@@ -84,12 +85,12 @@ void AudioPlayer::loadFile(File file)
 {
 	AudioFormatReader* reader = formatManager.createReaderFor(file);
 	mCurrentFile = file;
-	if (reader != nullptr)
+	juce::Time currentTime = juce::Time::getCurrentTime();
+	if (reader != nullptr && (currentTime - mTimeSinceLoaded).inSeconds() > 0.2f && state != Starting)
 	{
 		std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));
 		transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
 		readerSource.reset(newSource.release());
-
 	}
 }
 

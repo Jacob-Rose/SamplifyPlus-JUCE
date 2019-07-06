@@ -73,6 +73,10 @@
 			isa = PBXBuildFile;
 			fileRef = 978DBF90FE5001CA896A212C;
 		};
+		5E0473064051D5A8842ABE91 = {
+			isa = PBXBuildFile;
+			fileRef = 45D955784B106D9A00AFEED3;
+		};
 		F1E4226675BF1179624D028E = {
 			isa = PBXBuildFile;
 			fileRef = 227ADF622651A2D499B902B0;
@@ -84,6 +88,10 @@
 		E8B083AAA9E14B477F86EBE8 = {
 			isa = PBXBuildFile;
 			fileRef = FF666969887772CB34735EDF;
+		};
+		CBB20DD6C97BE807762313A4 = {
+			isa = PBXBuildFile;
+			fileRef = AEF3D965B9C36327E5E05CCA;
 		};
 		BE5F8ECDD91689D310D4C316 = {
 			isa = PBXBuildFile;
@@ -278,6 +286,13 @@
 			path = System/Library/Frameworks/DiscRecording.framework;
 			sourceTree = SDKROOT;
 		};
+		2CE1E0A38D64CEEDD35220EC = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SamplifyMenuBar.h;
+			path = ../../Source/SamplifyMenuBar.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		2E0E4805015C2778C7E21138 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -332,6 +347,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = TagDrawer.h;
 			path = ../../Source/TagDrawer.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		45D955784B106D9A00AFEED3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SampleList.cpp;
+			path = ../../Source/SampleList.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		4716595473E46FB7AE645B6C = {
@@ -572,6 +594,13 @@
 			path = "~/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
 		};
+		9E48EB585D9E6333CBEE3807 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SampleList.h;
+			path = ../../Source/SampleList.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		A115E354DDF4EFC8ABC9A080 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -584,6 +613,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = DirectoryExplorerTreeViewItem.h;
 			path = ../../Source/DirectoryExplorerTreeViewItem.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		AEF3D965B9C36327E5E05CCA = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SamplifyMenuBar.cpp;
+			path = ../../Source/SamplifyMenuBar.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AFB51361D56AA2DE81329694 = {
@@ -799,6 +835,8 @@
 		221269CE4E91DC9536525056 = {
 			isa = PBXGroup;
 			children = (
+				45D955784B106D9A00AFEED3,
+				9E48EB585D9E6333CBEE3807,
 				227ADF622651A2D499B902B0,
 				1341EE58AE99FF529116AA16,
 				232DDC330942E87B3037775A,
@@ -855,6 +893,8 @@
 		C4E7652EF70FB1EE961FA9CE = {
 			isa = PBXGroup;
 			children = (
+				AEF3D965B9C36327E5E05CCA,
+				2CE1E0A38D64CEEDD35220EC,
 				EDD7C9092891FD30DF7A6A1D,
 				FC23FD37BA34F4ACD45E7154,
 				850AD1C9B17FBBC10791C998,
@@ -1197,9 +1237,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C873C0F9DB822F4D4F9C3430,
+				5E0473064051D5A8842ABE91,
 				F1E4226675BF1179624D028E,
 				8E6B91F2B617728F069DC893,
 				E8B083AAA9E14B477F86EBE8,
+				CBB20DD6C97BE807762313A4,
 				BE5F8ECDD91689D310D4C316,
 				42F57A09E0E4221931D41A84,
 				A613E443925FC4C701F98098,

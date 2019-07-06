@@ -35,15 +35,18 @@ void SampleLibrary::loadSamplesFromDirectory(File path)
 	auto result = placement.appliedTo(area, Desktop::getInstance().getDisplays()
 		.getMainDisplay().userArea.reduced(20));
 		*/
-	while (iterator.next())
+	int count = 0;
+	while (iterator.next() && count < 60)
 	{
 		//todo remove counter
 		SampleReference ref(iterator.getFile());
 		if (std::find(mSamples.begin(), mSamples.end(), ref) == mSamples.end()) {
 			mSamples.push_back(ref);
+			count++;
 			//dw->updatePercent(iterator.getEstimatedProgress());
 			//dw->repaint();
 		}
+
 	}
 	updateCurrentSamples("");
 	//delete dw;
@@ -57,21 +60,30 @@ void SampleLibrary::loadSamplesFromDirectories(std::vector<File>& dirs)
 	}
 }
 
-void samplify::SampleLibrary::addSample(File file)
+void SampleLibrary::deleteSampleFromDirectory(File dir)
+{
+}
+
+void SampleLibrary::addSample(File file)
 {
 	//check if already exist
 	mSamples.push_back(SampleReference(file));
 }
 
-void samplify::SampleLibrary::removeSample(File file)
+void SampleLibrary::removeSample(File file)
 {
 }
 
-void samplify::SampleLibrary::clearSamples()
+void SampleLibrary::clearSamples()
 {
 }
 
-void samplify::SampleLibrary::sortCurrentSamples(SortingMethod method)
+bool SampleLibrary::containsSample(File file)
+{
+	return false;
+}
+
+void SampleLibrary::sortCurrentSamples(SortingMethod method)
 {
 	mCurrentSamples.sortSamples(method);
 }
@@ -107,7 +119,7 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
-std::vector<SampleReference*> samplify::SampleLibrary::getAllSamplesInSelectedDirectory()
+std::vector<SampleReference*> SampleLibrary::getAllSamplesInSelectedDirectory()
 {
 	return mDirectorySamples.getSamples();
 }

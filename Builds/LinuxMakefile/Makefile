@@ -69,9 +69,11 @@ endif
 
 OBJECTS_APP := \
   $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
+  $(JUCE_OBJDIR)/SampleList_d99256f1.o \
   $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
   $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o \
   $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
+  $(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o \
   $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o \
   $(JUCE_OBJDIR)/TagDrawer_ffc1110c.o \
   $(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o \
@@ -120,6 +122,11 @@ $(JUCE_OBJDIR)/AudioPlayer_39c70138.o: ../../Source/AudioPlayer.cpp
 	@echo "Compiling AudioPlayer.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleList.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/SampleLibrary_83e9292.o: ../../Source/SampleLibrary.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling SampleLibrary.cpp"
@@ -133,6 +140,11 @@ $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o: ../../Source/SamplifyProperties.cp
 $(JUCE_OBJDIR)/SampleReference_fdae44a2.o: ../../Source/SampleReference.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling SampleReference.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o: ../../Source/SamplifyMenuBar.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SamplifyMenuBar.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o: ../../Source/SamplifyMainComponent.cpp

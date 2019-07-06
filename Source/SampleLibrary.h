@@ -31,13 +31,15 @@ namespace samplify
 
 		};
 
-		void loadSamplesFromDirectory(File dir);
-		void loadSamplesFromDirectories(std::vector<File>& dir);
-		void deleteSamplesFromDirectory(File dir);
+		void loadSamplesFromDirectory(File);
+		void loadSamplesFromDirectories(std::vector<File>&);
+		void deleteSampleFromDirectory(File);
 
 		void addSample(File file);
 		void removeSample(File file);
 		void clearSamples();
+
+		bool containsSample(File file);
 
 		void sortCurrentSamples(SortingMethod method);
 

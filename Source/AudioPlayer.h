@@ -49,6 +49,8 @@ namespace samplify
 		TransportState getState() { return state; }
 		AudioFormatManager* getFormatManager() { return &formatManager; }
 	private:
+		
+		juce::Time mTimeSinceLoaded = juce::Time(0);
 		File mCurrentFile;
 		AudioFormatManager formatManager;
 		std::unique_ptr<AudioFormatReaderSource> readerSource;

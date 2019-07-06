@@ -25,6 +25,7 @@ void SampleTile::paint (Graphics& g)
 	//g.fillRect(getLocalBounds().toFloat());
 	if (mSampleReference != nullptr)
 	{
+		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
 		if (isMouseOverOrDragging())
@@ -154,8 +155,8 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 	{
 			int widthSegment = getWidth() / 4;
 			int heightSegment = getHeight() / 3;
-			Rectangle audiowave = Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
-			if (audiowave.contains(mouseEvent.getMouseDownPosition().toFloat()))
+			Rectangle audiowaveRect = Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
+			if (audiowaveRect.contains(mouseEvent.getMouseDownPosition().toFloat()))
 			{
 				if (mouseEvent.mods.isLeftButtonDown())
 				{
@@ -163,18 +164,20 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 				}
 				else if (mouseEvent.mods.isRightButtonDown())
 				{
-					playSample((audiowave.getWidth() + audiowave.getTopLeft().x) / mouseEvent.getMouseDownX() );
+					float rectWidth = audiowaveRect.getWidth();
+					float mouseDownX = mouseEvent.getMouseDownX();
+					playSample(mouseDownX / rectWidth );
 				}
 
 			}
 			else
 			{
-				//if (mouseEvent.mods.isCtrlDown())
-				//{
+				if (mouseEvent.mods.isCtrlDown())
+				{
 					StringArray files = StringArray();
 					files.add(mSampleReference->getFile().getFullPathName());
 					DragAndDropContainer::performExternalDragDropOfFiles(files, false);
-				//}
+				}
 				
 			}
 	}

@@ -15,7 +15,7 @@
 
 namespace samplify
 {
-	class DirectoryExplorerTreeViewItem : public TreeViewItem
+	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget
 	{
 	public:
 		DirectoryExplorerTreeViewItem(File file);
@@ -23,6 +23,12 @@ namespace samplify
 		~DirectoryExplorerTreeViewItem();
 
 		bool mightContainSubItems() override;
+		bool isInterestedInFileDrag(const StringArray& files) override;
+		void filesDropped(const StringArray& files, int x, int y) override;
+
+		//todo allow external drag drop of files/folders into the directory
+		//if the samples are in the root directory, just move them
+		//else then add samples to sample library
 
 		String getName();
 

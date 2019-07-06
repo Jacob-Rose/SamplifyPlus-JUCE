@@ -7,6 +7,8 @@
       <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
       <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
       <GROUP id="{0345CD7A-C993-8A44-1CBF-A33496D18EC9}" name="Backend">
+        <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
+        <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
         <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
               file="Source/SampleLibrary.cpp"/>
         <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
@@ -20,6 +22,10 @@
               file="Source/SampleReference.h"/>
       </GROUP>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="UX">
+        <FILE id="eN9IwM" name="SamplifyMenuBar.cpp" compile="1" resource="0"
+              file="Source/SamplifyMenuBar.cpp"/>
+        <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
+              file="Source/SamplifyMenuBar.h"/>
         <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
               file="Source/SamplifyLookAndFeel.h"/>
         <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"

@@ -35,6 +35,15 @@ bool DirectoryExplorerTreeViewItem::mightContainSubItems()
 	}
 }
 
+bool DirectoryExplorerTreeViewItem::isInterestedInFileDrag(const StringArray& files)
+{
+	return false;
+}
+
+void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x, int y)
+{
+}
+
 String DirectoryExplorerTreeViewItem::getName()
 {
 	if (mShouldUseFile)
