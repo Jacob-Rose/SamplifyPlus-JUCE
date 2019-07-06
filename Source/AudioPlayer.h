@@ -15,7 +15,7 @@
 
 namespace samplify
 {
-	class AudioPlayer : public ChangeListener, public AudioSource
+	class AudioPlayer : public ChangeListener, public AudioSource, public ChangeBroadcaster
 	{
 	public:
 		enum TransportState
@@ -38,10 +38,11 @@ namespace samplify
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void releaseResources() override;
 
-		void setRelativeTime(float t);
+		void setRelativeTime(double t);
 
 		File getFile() { return mCurrentFile; }
-		float getRelativeTime() { return transportSource.getTotalLength() / transportSource.getCurrentPosition(); }
+		float getRelativeTime() { return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds(); }
+		float getStartCueRelative() { return mSampleStartT; }
 
 		void changeState(TransportState state);
 		void loadFile(File file);
@@ -50,7 +51,6 @@ namespace samplify
 		TransportState getState() { return state; }
 		AudioFormatManager* getFormatManager() { return &formatManager; }
 	private:
-		
 		juce::Time mTimeSinceLoaded = juce::Time(0);
 		double mSampleStartT = 0.0f; //between 0 and 1
 		File mCurrentFile;

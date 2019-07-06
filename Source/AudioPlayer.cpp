@@ -58,14 +58,14 @@ void AudioPlayer::releaseResources()
 	transportSource.releaseResources();
 }
 
-void AudioPlayer::setRelativeTime(float t)
+void AudioPlayer::setRelativeTime(double t)
 {
-	std::clamp(t, 0.0f, 1.0f);
-	if (t < 1 && t >= 0.0f)
-	{
-		mSampleStartT = t;
-		transportSource.setPosition(mSampleStartT * transportSource.getLengthInSeconds());
-	}
+	std::clamp(t, 0.0, 1.0);
+	mSampleStartT = t;
+	float currentPos = transportSource.getCurrentPosition();
+	int64 length = transportSource.getTotalLength();
+	double sampleRate = transportSource.getSampleRate();
+	transportSource.setNextReadPosition((t * transportSource.getLengthInSeconds()) * sampleRate);
 }
 	
 
@@ -91,6 +91,7 @@ void AudioPlayer::changeState(TransportState newState)
 			break;
 		}
 	}
+	sendChangeMessage();
 }
 
 void AudioPlayer::loadFile(File file)
@@ -104,6 +105,7 @@ void AudioPlayer::loadFile(File file)
 		transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
 		readerSource.reset(newSource.release());
 	}
+	sendChangeMessage();
 }
 
 void AudioPlayer::loadFile(SampleReference* reference)

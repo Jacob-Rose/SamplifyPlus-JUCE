@@ -92,7 +92,7 @@ void SamplifyMainComponent::releaseResources()
 void samplify::SamplifyMainComponent::setupLookAndFeel()
 {
 	getLookAndFeel().setColour(MAIN_BASE_COLOR_ID, Colours::white);
-	getLookAndFeel().setColour(MAIN_ACCENT_COLOR_ID, Colours::orangered);
+	getLookAndFeel().setColour(MAIN_ACCENT_COLOR_ID, Colours::aqua);
 	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_BG_DEFAULT, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
 	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_BG_HOVER, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID).darker());
 	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_FG_DEFAULT, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID));

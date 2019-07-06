@@ -114,14 +114,24 @@ void SampleTile::paint (Graphics& g)
 		g.drawText(mSampleReference->getFilename(), sampleFilenameBox, Justification::topLeft, true);
 		g.setFont((getHeight() / 10) * 0.8f);
 		g.drawText(mSampleReference->getFullPathName(), sampleFilenameBox, Justification::bottomLeft, true);
-		float t = SamplifyProperties::getInstance()->getAudioPlayer()->getRelativeTime();
-		if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() == mSampleReference->getFile() && t < 1.0f && t > 0.0f)
+		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
+		if (auxPlayer->getFile() == mSampleReference->getFile())
 		{
-			float x = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * t);
+			float startT = auxPlayer->getStartCueRelative();
+			float currentT = auxPlayer->getRelativeTime();
+			float startX = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * startT);
+			float currentX = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * currentT);
 			float y1 = thumbnailBounds.getTopLeft().y;
 			float y2 = thumbnailBounds.getBottomLeft().y;
 			g.setColour(Colours::black);
-			g.drawLine(x, y1, x, y2, 1.0f);
+			g.drawLine(startX, y1, startX, y2, 1.0f);
+			if (auxPlayer->getState() == AudioPlayer::TransportState::Playing)
+			{
+				g.setColour(Colours::red);
+				g.drawLine(currentX, y1, currentX, y2, 1.0f);
+				repaint();
+			}
+
 		}
 	}
 	else
@@ -168,6 +178,7 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 					float mouseDownX = mouseEvent.getMouseDownX() - widthSegment;
 					playSample(mouseDownX / rectWidth );
 				}
+				SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
 
 			}
 			else
@@ -218,6 +229,21 @@ void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 	TagTile* tagComp = (TagTile*)(dragSourceDetails.sourceComponent.get());
 	mSampleReference->addTag(tagComp->getTag());
 	mTagContainer.setTags(mSampleReference->getTags());
+}
+
+void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
+{
+  	AudioPlayer* aux = SamplifyProperties::getInstance()->getAudioPlayer();
+	if (aux->getFile() == mSampleReference->getFile())
+	{
+		if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
+			aux->getState() == AudioPlayer::TransportState::Playing))
+		{
+			aux->removeChangeListener(this);
+		}
+
+		repaint();
+	}
 }
 
 void SampleTile::setSampleReference(SampleReference * sample)

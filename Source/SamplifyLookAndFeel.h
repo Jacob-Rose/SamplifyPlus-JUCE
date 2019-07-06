@@ -37,5 +37,10 @@ namespace samplify
 	const int AUDIO_THUMBNAIL_LINE_COUNT = 40;
 
 	const float SAMPLE_TAG_TEXT_PADDING = 2.0f;
+
+	static void initColors(Component& comp)
+	{
+
+	}
 }
 #endif
