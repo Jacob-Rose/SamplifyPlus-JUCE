@@ -29,6 +29,7 @@ namespace samplify
 		~AudioPlayer();
 
 		void play();
+		void reset();
 		void stop();
 
 		void changeListenerCallback(ChangeBroadcaster* source) override;

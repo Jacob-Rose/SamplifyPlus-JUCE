@@ -26,6 +26,7 @@ namespace samplify
 			ONESHOT,
 			LOOP
 		};
+		SampleReference();
 		SampleReference(File);
 		SampleReference(const SampleReference&);
 		~SampleReference();
@@ -56,6 +57,7 @@ namespace samplify
 		bool isPropertiesFileValid();
 
 		bool operator==(const SampleReference&);
+		bool operator==(const File&);
 	private:
 		File mFile;
 		File mPropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp

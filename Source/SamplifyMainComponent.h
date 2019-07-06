@@ -34,6 +34,13 @@ namespace samplify
 		SamplifyMainComponent(AudioDeviceManager& deviceManager);
 		~SamplifyMainComponent();
 
+		class MainMenuModel : public MenuBarModel
+		{
+		public:
+		private:
+
+		};
+
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void releaseResources() override;

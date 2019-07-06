@@ -14,37 +14,57 @@
 
 #include "SampleReference.h"
 
+#include <algorithm>
 #include <vector>
 
 namespace samplify
 {
-	class SampleCollection
+
+	class SampleList;
+	struct SampleListReference;
+	enum SortingMethod;
+
+	class SampleList
 	{
 	public:
-		SampleCollection();
-		~SampleCollection();
+
+		SampleList();
+		~SampleList();
 
 		void addSample(SampleReference* sample);
-		void addSamples(const SampleCollection& collection);
+		void addSamples(const SampleList& collection);
+		std::vector<SampleReference*> getSamples();
 		void removeSample(SampleReference* sample);
 		void removeSample(int index);
 		void clearSamples();
-		void clearAndDeleteSamples();
-		void sortSamples();
+		void sortSamples(SortingMethod method);
 
-		enum SortingMethod
-		{
-			FirstToLast,
-			LastToFirst,
-			Random, //help in discovering new stuff
-			Newest,
-			Oldest
-			//popularity
-		};
+		SortingMethod getSortingMethod();
+
 
 	private:
-		std::vector<SampleReference*> mSamples;
+		std::vector<SampleListReference> mSamples;
+		SortingMethod mSortingMethod;
 		//add image?
+	};
+
+	struct SampleListReference
+	{
+	public:
+		SampleListReference(SampleReference* sample, SampleList* parent);
+		bool operator<(const SampleListReference& other) const;
+		bool operator==(const SampleReference* sample) const;
+		SampleList* mParent = nullptr;
+		SampleReference* mSampleReference = nullptr;
+	};
+
+	enum SortingMethod
+	{
+		FirstToLast,
+		LastToFirst,
+		Newest,
+		Oldest
+		//popularity
 	};
 }
 #endif

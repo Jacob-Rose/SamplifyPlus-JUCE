@@ -169,16 +169,19 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 			}
 			else
 			{
-				if (mouseEvent.mods.isCtrlDown())
-				{
-					
+				//if (mouseEvent.mods.isCtrlDown())
+				//{
 					StringArray files = StringArray();
 					files.add(mSampleReference->getFile().getFullPathName());
 					DragAndDropContainer::performExternalDragDropOfFiles(files, false);
-				}
+				//}
 				
 			}
 	}
+}
+
+void SampleTile::mouseUp(const MouseEvent& e)
+{
 }
 
 void SampleTile::mouseMove(const MouseEvent & e)
@@ -188,13 +191,29 @@ void SampleTile::mouseMove(const MouseEvent & e)
 
 void SampleTile::playSample()
 {
-	SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() != mSampleReference->getFile())
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	}
+	else
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
+		SamplifyProperties::getInstance()->getAudioPlayer()->reset();
+	}
 	SamplifyProperties::getInstance()->getAudioPlayer()->play();
 }
 
-void samplify::SampleTile::playSample(float t)
+void SampleTile::playSample(float t)
 {
-	SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() != mSampleReference->getFile())
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+	}
+	else
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
+		SamplifyProperties::getInstance()->getAudioPlayer()->reset();
+	}
 	SamplifyProperties::getInstance()->getAudioPlayer()->setRelativeTime(t);
 	SamplifyProperties::getInstance()->getAudioPlayer()->play();
 }
@@ -219,7 +238,7 @@ void SampleTile::setSampleReference(SampleReference * sample)
 	repaint();
 }
 
-SampleReference * SampleTile::getSampleReference()
+SampleReference* SampleTile::getSampleReference()
 {
 	return mSampleReference;
 }

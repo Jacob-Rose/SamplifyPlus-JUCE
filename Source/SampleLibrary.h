@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 
 #include "SampleReference.h"
+#include "SampleList.h"
 
 #include <vector>
 
@@ -25,25 +26,33 @@ namespace samplify
 		SampleLibrary(const SampleLibrary&);
 		~SampleLibrary();
 
-		void loadSamplesFromDirectory(File);
-		void loadSamplesFromDirectory(std::vector<File>&);
+		class SampleSearchThread : public Thread
+		{
+
+		};
+
+		void loadSamplesFromDirectory(File dir);
+		void loadSamplesFromDirectories(std::vector<File>& dir);
+		void deleteSamplesFromDirectory(File dir);
+
+		void addSample(File file);
+		void removeSample(File file);
+		void clearSamples();
+
+		void sortCurrentSamples(SortingMethod method);
 
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
 
-		/*
-		void addSample(File file);
-		void removeSample(File file);
-		void clearSamples();
-		*/
-
+		std::vector<SampleReference*> getAllSamplesInSelectedDirectory();
 		std::vector<SampleReference*> getCurrentSamples();
 		StringArray getAllTags();
 
 	private:
 		std::vector<SampleReference> mSamples;
-		std::vector<SampleReference*> mCurrentSamples;
+		SampleList mCurrentSamples;
+		SampleList mDirectorySamples;
 		File mCurrentDirectory;
 		String mCurrentQuery;
 

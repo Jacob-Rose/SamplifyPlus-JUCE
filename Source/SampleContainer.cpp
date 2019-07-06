@@ -130,5 +130,11 @@ int SampleContainer::calculateColumnCount()
 void SampleContainer::extendSampleItems()
 {
 	//todo put on new thread
-	mMaxItems += calculateColumnCount() * 3;
+
+	if (mCurrentSampleReferences.size() > mMaxItems)
+	{
+		mMaxItems += calculateColumnCount() * 3;
+		updateItems();
+	}
+	
 }

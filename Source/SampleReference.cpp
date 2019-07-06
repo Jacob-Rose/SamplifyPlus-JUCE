@@ -4,6 +4,11 @@
 
 using namespace samplify;
 
+SampleReference::SampleReference() : mFile(""), mPropertiesFile("")
+{
+	delete this;
+}
+
 SampleReference::SampleReference(File file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
 {
 	loadPropertiesFile();
@@ -174,4 +179,9 @@ bool SampleReference::operator==(const SampleReference& other)
 	{
 		return false;
 	}
+}
+
+bool SampleReference::operator==(const File& other)
+{
+	return other == mFile;
 }

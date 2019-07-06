@@ -6,7 +6,7 @@ SampleLibrary::SampleLibrary()
 {
 }
 
-SampleLibrary::SampleLibrary(const SampleLibrary &)
+SampleLibrary::SampleLibrary(const SampleLibrary&)
 {
 	
 }
@@ -35,8 +35,7 @@ void SampleLibrary::loadSamplesFromDirectory(File path)
 	auto result = placement.appliedTo(area, Desktop::getInstance().getDisplays()
 		.getMainDisplay().userArea.reduced(20));
 		*/
-	int count = 0;
-	while (iterator.next() && count < 100)
+	while (iterator.next())
 	{
 		//todo remove counter
 		SampleReference ref(iterator.getFile());
@@ -45,13 +44,12 @@ void SampleLibrary::loadSamplesFromDirectory(File path)
 			//dw->updatePercent(iterator.getEstimatedProgress());
 			//dw->repaint();
 		}
-		count++;
 	}
 	updateCurrentSamples("");
 	//delete dw;
 }
 
-void SampleLibrary::loadSamplesFromDirectory(std::vector<File>& dirs)
+void SampleLibrary::loadSamplesFromDirectories(std::vector<File>& dirs)
 {
 	for (int i = 0; i < dirs.size(); i++)
 	{
@@ -59,17 +57,38 @@ void SampleLibrary::loadSamplesFromDirectory(std::vector<File>& dirs)
 	}
 }
 
+void samplify::SampleLibrary::addSample(File file)
+{
+	//check if already exist
+	mSamples.push_back(SampleReference(file));
+}
+
+void samplify::SampleLibrary::removeSample(File file)
+{
+}
+
+void samplify::SampleLibrary::clearSamples()
+{
+}
+
+void samplify::SampleLibrary::sortCurrentSamples(SortingMethod method)
+{
+	mCurrentSamples.sortSamples(method);
+}
+
 void SampleLibrary::updateCurrentSamples(File path, String query)
 {
-	mCurrentSamples.clear();
+	mCurrentSamples.clearSamples();
+	mDirectorySamples.clearSamples();
 	for (int i = 0; i < mSamples.size(); i++)
 	{
 		SampleReference* ref = &mSamples[i];
-		if (ref->getFile().getFullPathName().toStdString().find(path.getFullPathName().toStdString()) != std::string::npos)
+		if (ref->getFile().isAChildOf(path))
 		{
-			if (ref->getFilename().toLowerCase().toStdString().find(query.toLowerCase().toStdString()) != std::string::npos)
+			mDirectorySamples.addSample(ref);
+			if (ref->getFilename().containsIgnoreCase(query))
 			{
-				mCurrentSamples.push_back(ref);
+				mCurrentSamples.addSample(ref);
 			}
 		}
 	}
@@ -88,9 +107,14 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
+std::vector<SampleReference*> samplify::SampleLibrary::getAllSamplesInSelectedDirectory()
+{
+	return mDirectorySamples.getSamples();
+}
+
 std::vector<SampleReference*> SampleLibrary::getCurrentSamples()
 {
-	return mCurrentSamples;
+	return mCurrentSamples.getSamples();
 }
 
 StringArray SampleLibrary::getAllTags()

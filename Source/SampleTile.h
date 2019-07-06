@@ -19,7 +19,7 @@
 
 namespace samplify
 {
-	class SampleTile : public Component, public DragAndDropTarget
+	class SampleTile : public Component, public DragAndDropTarget, public MouseListener
 	{
 	public:
 		//===========================================================================
@@ -30,6 +30,7 @@ namespace samplify
 		void resized() override;
 		//===========================================================================
 		void mouseDown(const MouseEvent& e) override;
+		void mouseUp(const MouseEvent& e) override;
 		void mouseMove(const MouseEvent& e) override;
 
 		void playSample();
@@ -45,6 +46,7 @@ namespace samplify
 		bool operator==(SampleReference* ref);
 
 	private:
+		juce::SharedResourcePointer<TooltipWindow> mTooltip;
 		SampleReference* mSampleReference = nullptr;
 		TagContainer mTagContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)

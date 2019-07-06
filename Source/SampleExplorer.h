@@ -14,22 +14,33 @@
 #include "JuceHeader.h"
 
 #include "SampleContainer.h"
+#include "SamplifyProperties.h"
 
 namespace samplify
 {
-	class SampleExplorer : public Component, public TextEditor::Listener, public ChangeListener
+	class SampleExplorer : public Component, public TextEditor::Listener, public ChangeListener, public ComboBox::Listener
 	{
 	public:
 		SampleExplorer();
 		~SampleExplorer();
 
+		class SampleViewport : public Viewport
+		{
+		public:
+			SampleViewport(SampleContainer* container);
+			void visibleAreaChanged(const Rectangle<int>& newVisibleArea) override;
+		private:
+			SampleContainer* mSampleContainer = nullptr;
+		};
 		void paint(Graphics&) override;
 		void resized() override;
 		void textEditorTextChanged(TextEditor&) override;
+		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
 	private:
-		Viewport mViewport;
+		ComboBox mFilter;
+		SampleViewport mViewport;
 		TextEditor mSearchBar;
 		SampleContainer mSampleContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleExplorer)

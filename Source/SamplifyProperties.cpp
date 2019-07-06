@@ -137,6 +137,14 @@ void SamplifyProperties::addTag(juce::String text, Colour color)
 	mSampleTagColors[text] = color;
 }
 
+void SamplifyProperties::addTag(juce::String text)
+{
+	Random& r = Random::getSystemRandom();
+	addTag(text, Colour(juce::uint8(r.nextInt(Range(0, 256))),
+		juce::uint8(r.nextInt(Range(0, 256))),
+		juce::uint8(r.nextInt(Range(0, 256)))));
+}
+
 Colour SamplifyProperties::getTagColor(juce::String text)
 {
 	if (mSampleTagColors.find(text) != mSampleTagColors.end())

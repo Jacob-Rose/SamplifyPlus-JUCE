@@ -18,6 +18,11 @@ void AudioPlayer::play()
 	changeState(Starting);
 }
 
+void AudioPlayer::reset()
+{
+	transportSource.setPosition(0.0);
+}
+
 void AudioPlayer::stop()
 {
 }
@@ -40,8 +45,16 @@ void AudioPlayer::releaseResources()
 
 void samplify::AudioPlayer::setRelativeTime(float t)
 {
-	transportSource.setPosition(transportSource.getTotalLength() * t);
+	if (t < 1 && t > 0)
+	{
+		transportSource.setPosition(transportSource.getLengthInSeconds()  * t);
+	}
+	else
+	{
+		//throw Exception
+	}
 }
+	
 
 void AudioPlayer::changeState(TransportState newState)
 {
@@ -76,6 +89,7 @@ void AudioPlayer::loadFile(File file)
 		std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));
 		transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
 		readerSource.reset(newSource.release());
+
 	}
 }
 

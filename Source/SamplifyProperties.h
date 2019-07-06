@@ -14,13 +14,14 @@
 
 #include "JuceHeader.h"
 
-#include "SampleLibrary.h"
 #include "AudioPlayer.h"
+#include "SampleLibrary.h"
+#include "SampleList.h"
 #include "TagDrawer.h"
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
 
 namespace samplify
 {
@@ -37,6 +38,7 @@ namespace samplify
 		//=Saving=================================================
 		void loadDirectoriesFromPropertiesFile();
 		void saveDirectoriesToPropertiesFile();
+		void loadTagColorsFromPropertiesFile();
 		//=Directories==============================================
 		void setDirectories(std::vector<File> directories);
 		std::vector<File> getDirectories() { return mDirectories; }
@@ -53,13 +55,7 @@ namespace samplify
 		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
 		//=======================================================
 		void addTag(juce::String text, Colour color);
-		void addTag(juce::String text)
-		{
-			Random& r = Random::getSystemRandom();
-			addTag(text, Colour(juce::uint8(r.nextInt(Range(0, 256))),
-				juce::uint8(r.nextInt(Range(0, 256))),
-				juce::uint8(r.nextInt(Range(0, 256)))));
-		}
+		void addTag(juce::String text);
 
 		Colour getTagColor(juce::String text);
 	private:

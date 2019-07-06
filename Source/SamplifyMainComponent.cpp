@@ -7,6 +7,7 @@ SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 SamplifyMainComponent::SamplifyMainComponent()
 {
 	mInstance = this;
+	//usingCustomDeviceManager = true;
     mDirectoryExplorer.reset(new DirectoryExplorer());
     mSampleExplorer.reset(new SampleExplorer());
     mFilterExplorer.reset(new FilterExplorer());
@@ -38,6 +39,7 @@ SamplifyMainComponent::SamplifyMainComponent(AudioDeviceManager& deviceManager) 
 SamplifyMainComponent::~SamplifyMainComponent()
 {
 	//deviceManager.closeAudioDevice();
+	shutdownAudio();
 }
 
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
