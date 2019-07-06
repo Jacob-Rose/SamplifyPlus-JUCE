@@ -63,7 +63,7 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 	{
 		if (isSelected())
 		{
-			Colour c = getOwnerView()->getLookAndFeel().findColour(MAIN_ACCENT_COLOR);
+			Colour c = getOwnerView()->getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID);
 			g.setColour(c);
 			g.fillRoundedRectangle(0, 0, width, height, 1.0f);
 			if (c.getPerceivedBrightness() > 0.5f)
@@ -78,7 +78,7 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 		else
 		{
 
-			if (getOwnerView()->getLookAndFeel().findColour(MAIN_BASE_COLOR).getPerceivedBrightness() > 0.5f)
+			if (getOwnerView()->getLookAndFeel().findColour(MAIN_BASE_COLOR_ID).getPerceivedBrightness() > 0.5f)
 			{
 				g.setColour(Colours::black);
 			}

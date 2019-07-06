@@ -3,7 +3,7 @@
 
 using namespace samplify;
 
-TagContainer::TagContainer()
+TagContainer::TagContainer() : tagFont(SAMPLE_TAG_FONT_SIZE)
 {
 }
 
@@ -19,7 +19,7 @@ TagContainer::~TagContainer()
 
 void TagContainer::paint(Graphics& g)
 {
-	tagFont = g.getCurrentFont().withHeight(SAMPLE_TAG_FONT_SIZE);
+
 }
 
 void TagContainer::resized()
@@ -30,6 +30,7 @@ void TagContainer::resized()
 void TagContainer::updateItems()
 {
 	int padding = SAMPLE_TAG_TEXT_PADDING;
+
 	int fontHeight = tagFont.getHeight();
 	int boxHeight = fontHeight + padding;
 
@@ -37,7 +38,7 @@ void TagContainer::updateItems()
 	int line = 0;
 	for (int i = 0; i < mCurrentTags.size(); i++)
 	{
-		float fontWidth = tagFont.getStringWidthFloat(mCurrentTags[i]);
+		float fontWidth = tagFont.getStringWidth(mCurrentTags[i]);
 		float boxWidth = fontWidth + (padding * 2);
 		if (currentWidth + boxWidth < getWidth())
 		{
@@ -48,7 +49,7 @@ void TagContainer::updateItems()
 			}
 			else
 			{
-				tag = new TagTile(mCurrentTags[i]);
+				tag = new TagTile(mCurrentTags[i], tagFont);
 				addAndMakeVisible(tag);
 				mUsedSampleTags.push_back(tag);
 			}

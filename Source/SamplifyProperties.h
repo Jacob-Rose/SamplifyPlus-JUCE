@@ -28,6 +28,19 @@ namespace samplify
 	class SamplifyProperties : public ApplicationProperties
 	{
 	public:
+
+		class LoadSamplesThread : public ThreadWithProgressWindow
+		{
+		public:
+			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false), mDirectory(file)
+			{
+
+			}
+			void run();
+		private:
+			File mDirectory;
+		};
+
 		//=Instance Handling========================================
 		static void initInstance();
 		static void cleanupInstance();
@@ -49,6 +62,9 @@ namespace samplify
 
 		void setSelectedDirectory(File directory);
 		File getSelectedDirectory() { return mSelectedDirectory; }
+
+		void loadSamplesFromDirectory(File& file);
+		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
 		SampleLibrary* getSampleLibrary() { return mSampleLibrary.get(); }
 		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }

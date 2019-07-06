@@ -67,7 +67,8 @@ void SamplifyProperties::init()
 	mSelectedDirectory = File("");
 	loadDirectoriesFromPropertiesFile();
 	mSampleLibrary.reset(new SampleLibrary());
-	mSampleLibrary->loadSamplesFromDirectory(mDirectories[0]);
+	LoadSamplesThread loadSamplesThread(mDirectories[0]);
+	loadSamplesThread.runThread();
 }
 
 void SamplifyProperties::cleanup()
@@ -112,6 +113,18 @@ void SamplifyProperties::setSelectedDirectory(File directory)
 {
 	mSelectedDirectory = directory;
 	SamplifyProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
+}
+
+void SamplifyProperties::loadSamplesFromDirectory(File& file)
+{
+}
+
+void SamplifyProperties::loadSamplesFromDirectories(std::vector<File>& dirs)
+{
+	for (int i = 0; i < dirs.size(); i++)
+	{
+		loadSamplesFromDirectory(dirs[i]);
+	}
 }
 
 void SamplifyProperties::saveDirectoriesToPropertiesFile()
@@ -163,5 +176,17 @@ void SamplifyProperties::clearDirectories()
 	mDirectories.clear();
 }
 
-
-
+void SamplifyProperties::LoadSamplesThread::run()
+{
+	DirectoryIterator iterator(mDirectory, true, "*.wav");
+	int count = 0;
+	while (iterator.next() && count < 60)
+	{
+		if (threadShouldExit())
+			break;
+		//todo remove counter
+		SampleReference ref(iterator.getFile());
+		getInstance()->getSampleLibrary()->addSample(ref);
+		setProgress(iterator.getEstimatedProgress());
+	}
+}

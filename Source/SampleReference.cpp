@@ -24,7 +24,14 @@ SampleReference::SampleReference(File file) : mFile(file), mPropertiesFile(file.
 
 SampleReference::SampleReference(const SampleReference& s) : SampleReference(s.getFile())
 {
-	
+	mFile = s.mFile;
+	mPropertiesFile = s.mPropertiesFile;
+	mLength = s.mLength;
+	mSampleType = s.mSampleType;
+	mSampleTypeConfirmed = s.mSampleTypeConfirmed;
+	mTags = s.mTags;
+	mThumbnail = nullptr;
+	mThumbnailCache = nullptr;
 }
 
 bool SampleReference::isPropertiesFileValid()
@@ -164,7 +171,7 @@ void SampleReference::loadPropertiesFile()
 		}
 		else
 		{
-			mPropertiesFile.deleteFile();
+			//mPropertiesFile.deleteFile();
 		}
 	}
 }

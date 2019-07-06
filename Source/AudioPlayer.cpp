@@ -15,6 +15,7 @@ AudioPlayer::~AudioPlayer()
 
 void AudioPlayer::play()
 {
+	transportSource.setPosition(mSampleStartT);
 	changeState(Starting);
 }
 
@@ -25,6 +26,7 @@ void AudioPlayer::reset()
 
 void AudioPlayer::stop()
 {
+	transportSource.stop();
 }
 
 void AudioPlayer::changeListenerCallback(ChangeBroadcaster* source)
@@ -43,16 +45,13 @@ void AudioPlayer::releaseResources()
 	transportSource.releaseResources();
 }
 
-void samplify::AudioPlayer::setRelativeTime(float t)
+void AudioPlayer::setRelativeTime(float t)
 {
-	if (t < 1 && t > 0)
+	std::clamp(t, 0.0f, 1.0f);
+	if (t < 1 && t >= 0.0f)
 	{
-		transportSource.setPosition(transportSource.getLengthInSeconds()  * t);
-	}
-	else
-	{
-		//throw Exception
-		printf(0);
+		mSampleStartT = t;
+		transportSource.setPosition(mSampleStartT * transportSource.getLengthInSeconds());
 	}
 }
 	
@@ -107,10 +106,11 @@ void AudioPlayer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 
 void AudioPlayer::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-	if (readerSource.get() == nullptr || state == Stopped)
+	if (readerSource.get() == nullptr || state == Stopped || transportSource.hasStreamFinished())
 	{
 		bufferToFill.clearActiveBufferRegion();
 		return;
 	}
 	transportSource.getNextAudioBlock(bufferToFill);
+	
 }

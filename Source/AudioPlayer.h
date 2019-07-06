@@ -51,6 +51,7 @@ namespace samplify
 	private:
 		
 		juce::Time mTimeSinceLoaded = juce::Time(0);
+		double mSampleStartT = 0.0f; //between 0 and 1
 		File mCurrentFile;
 		AudioFormatManager formatManager;
 		std::unique_ptr<AudioFormatReaderSource> readerSource;

@@ -30,13 +30,13 @@ void SampleTile::paint (Graphics& g)
 		Colour foregroundColor;
 		if (isMouseOverOrDragging())
 		{
-			backgroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_BG_HOVER);
-			foregroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_FG_HOVER);
+			backgroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_ID_BG_HOVER);
+			foregroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_ID_FG_HOVER);
 		}
 		else
 		{
-			backgroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_BG_DEFAULT);
-			foregroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_FG_DEFAULT);
+			backgroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_ID_BG_DEFAULT);
+			foregroundColor = getLookAndFeel().findColour(SAMPLETILE_COLOR_ID_FG_DEFAULT);
 		}
 		g.fillAll(backgroundColor);
 		g.setColour(foregroundColor);
@@ -134,7 +134,7 @@ void SampleTile::resized()
 {
 	int widthSegment = getWidth() / 4;
 	int heightSegment = getHeight() / 3;
-	mTagContainer.setBounds(widthSegment, SAMPLE_TAG_FONT_SIZE, widthSegment * 3, heightSegment);
+	mTagContainer.setBounds(widthSegment, (getHeight() / 10) * 1.2f, widthSegment * 3, heightSegment);
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)
@@ -165,7 +165,7 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 				else if (mouseEvent.mods.isRightButtonDown())
 				{
 					float rectWidth = audiowaveRect.getWidth();
-					float mouseDownX = mouseEvent.getMouseDownX();
+					float mouseDownX = mouseEvent.getMouseDownX() - widthSegment;
 					playSample(mouseDownX / rectWidth );
 				}
 
@@ -194,31 +194,23 @@ void SampleTile::mouseMove(const MouseEvent & e)
 
 void SampleTile::playSample()
 {
-	if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() != mSampleReference->getFile())
-	{
-		SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
-	}
-	else
-	{
-		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
-		SamplifyProperties::getInstance()->getAudioPlayer()->reset();
-	}
-	SamplifyProperties::getInstance()->getAudioPlayer()->play();
+	playSample(0.0f);
 }
 
 void SampleTile::playSample(float t)
 {
-	if (SamplifyProperties::getInstance()->getAudioPlayer()->getFile() != mSampleReference->getFile())
+	AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
+	if (auxPlayer->getFile() != mSampleReference->getFile())
 	{
-		SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSampleReference);
+		auxPlayer->loadFile(mSampleReference);
 	}
 	else
 	{
-		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
-		SamplifyProperties::getInstance()->getAudioPlayer()->reset();
+		auxPlayer->stop();
+		auxPlayer->reset();
 	}
-	SamplifyProperties::getInstance()->getAudioPlayer()->setRelativeTime(t);
-	SamplifyProperties::getInstance()->getAudioPlayer()->play();
+	auxPlayer->setRelativeTime(t);
+	auxPlayer->play();
 }
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)

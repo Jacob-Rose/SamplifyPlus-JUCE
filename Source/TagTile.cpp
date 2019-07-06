@@ -3,9 +3,10 @@
 #include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
-TagTile::TagTile(juce::String tag)
+TagTile::TagTile(juce::String tag, Font& font)
 {
 	mTag = tag;
+	mFont = &font;
 }
 
 TagTile::~TagTile()
@@ -34,7 +35,7 @@ void TagTile::paint (Graphics& g)
 	{
 		g.setColour(Colours::white);
 	}
-    g.setFont (SAMPLE_TAG_FONT_SIZE);
+	g.setFont(*mFont);
     g.drawText (mTag, getLocalBounds(), Justification::centred, true); 
 	g.setFont(oldFontSize);
 }

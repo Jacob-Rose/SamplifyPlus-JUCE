@@ -20,54 +20,34 @@ SampleLibrary::~SampleLibrary()
 }
 
 
-void SampleLibrary::loadSamplesFromDirectory(File path)
-{
-	File file(path);
-	DirectoryIterator iterator(file, true, "*.wav");
-	/*auto* dw = new SampleLoadWindow();
-	Rectangle<int> area(0, 0, 300, 400);
-
-	RectanglePlacement placement((true ? RectanglePlacement::xLeft
-		: RectanglePlacement::xRight)
-		| RectanglePlacement::yTop
-		| RectanglePlacement::doNotResize);
-
-	auto result = placement.appliedTo(area, Desktop::getInstance().getDisplays()
-		.getMainDisplay().userArea.reduced(20));
-		*/
-	int count = 0;
-	while (iterator.next() && count < 60)
-	{
-		//todo remove counter
-		SampleReference ref(iterator.getFile());
-		if (std::find(mSamples.begin(), mSamples.end(), ref) == mSamples.end()) {
-			mSamples.push_back(ref);
-			count++;
-			//dw->updatePercent(iterator.getEstimatedProgress());
-			//dw->repaint();
-		}
-
-	}
-	updateCurrentSamples("");
-	//delete dw;
-}
-
-void SampleLibrary::loadSamplesFromDirectories(std::vector<File>& dirs)
-{
-	for (int i = 0; i < dirs.size(); i++)
-	{
-		loadSamplesFromDirectory(dirs[i]);
-	}
-}
-
-void SampleLibrary::deleteSampleFromDirectory(File dir)
-{
-}
-
 void SampleLibrary::addSample(File file)
 {
 	//check if already exist
-	mSamples.push_back(SampleReference(file));
+	SampleReference ref(file);
+	if(!containsSample(file))
+		mSamples.push_back(ref);
+}
+
+void SampleLibrary::addSamples(std::vector<File> files)
+{
+	for (int i = 0; i < files.size(); i++)
+	{
+		addSample(files[i]);
+	}
+}
+
+void SampleLibrary::addSamples(std::vector<SampleReference> files)
+{
+	for (int i = 0; i < files.size(); i++)
+	{
+		addSample(files[i]);
+	}
+}
+
+void SampleLibrary::addSample(SampleReference& ref)
+{
+	if (!containsSample(ref.getFile()))
+		mSamples.push_back(ref);
 }
 
 void SampleLibrary::removeSample(File file)

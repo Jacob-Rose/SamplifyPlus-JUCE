@@ -26,16 +26,10 @@ namespace samplify
 		SampleLibrary(const SampleLibrary&);
 		~SampleLibrary();
 
-		class SampleSearchThread : public Thread
-		{
-
-		};
-
-		void loadSamplesFromDirectory(File);
-		void loadSamplesFromDirectories(std::vector<File>&);
-		void deleteSampleFromDirectory(File);
-
 		void addSample(File file);
+		void addSample(SampleReference& ref);
+		void addSamples(std::vector<File> files);
+		void addSamples(std::vector<SampleReference> files);
 		void removeSample(File file);
 		void clearSamples();
 
