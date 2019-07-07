@@ -23,15 +23,8 @@ namespace samplify
 	class SamplifyMainComponent : public AudioAppComponent, public KeyListener
 	{
 	public:
-		enum TransportState
-		{
-			Playing,
-			Stopped,
-			Stopping,
-			Starting
-		};
+		//=====================================================
 		SamplifyMainComponent();
-		SamplifyMainComponent(AudioDeviceManager& deviceManager);
 		~SamplifyMainComponent();
 
 		bool keyPressed(const KeyPress& key, Component* originatingComponent);

@@ -5,8 +5,6 @@
     Created: 26 Jun 2019 6:31:38pm
     Author:  Jake Rose
 
-	*Transferable* -- Does not reference outside classes except for objects
-
   ==============================================================================
 */
 

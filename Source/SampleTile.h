@@ -22,13 +22,6 @@ namespace samplify
 	class SampleTile : public Component, public DragAndDropTarget, public MouseListener, public ChangeListener
 	{
 	public:
-
-		class SampleTileTooltip : public TooltipWindow
-		{
-		public:
-		private:
-
-		};
 		//===========================================================================
 		SampleTile(SampleReference*);
 		~SampleTile();
@@ -40,22 +33,20 @@ namespace samplify
 		void mouseUp(const MouseEvent& e) override;
 		void mouseMove(const MouseEvent& e) override;
 
+		bool isInterestedInDragSource(const SourceDetails& dragSourceDetails) override;
+		void itemDropped(const SourceDetails& dragSourceDetails) override;
+		void changeListenerCallback(ChangeBroadcaster* source) override;
+
 		void playSample();
 		void playSample(float t);
 
-		bool isInterestedInDragSource(const SourceDetails& dragSourceDetails) override;
-		void itemDropped(const SourceDetails& dragSourceDetails) override;
-
-		void changeListenerCallback(ChangeBroadcaster* source) override;
-
 		void setSampleReference(SampleReference*);
-
 		SampleReference* getSampleReference();
 		//=Operator Overrides===========================================
 		bool operator==(SampleReference* ref);
 
 	private:
-		juce::SharedResourcePointer<SampleTileTooltip> mTooltip;
+		//juce::SharedResourcePointer<SampleTileTooltip> mTooltip;
 		SampleReference* mSampleReference = nullptr;
 		TagContainer mTagContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)

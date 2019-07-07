@@ -68,26 +68,25 @@ ifeq ($(CONFIG),Release)
 endif
 
 OBJECTS_APP := \
-  $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
-  $(JUCE_OBJDIR)/SampleList_d99256f1.o \
-  $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
-  $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o \
-  $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
-  $(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o \
-  $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o \
-  $(JUCE_OBJDIR)/TagDrawer_ffc1110c.o \
-  $(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o \
-  $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o \
   $(JUCE_OBJDIR)/CollectionExplorer_e475a806.o \
-  $(JUCE_OBJDIR)/TagContainer_56836f10.o \
   $(JUCE_OBJDIR)/FilterExplorer_f4b6d7e0.o \
+  $(JUCE_OBJDIR)/TagContainer_56836f10.o \
   $(JUCE_OBJDIR)/TagExplorer_f78737da.o \
   $(JUCE_OBJDIR)/TagTile_39a785c9.o \
-  $(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o \
+  $(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o \
+  $(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o \
   $(JUCE_OBJDIR)/SampleContainer_137ec6d8.o \
   $(JUCE_OBJDIR)/SampleExplorer_f55dc712.o \
   $(JUCE_OBJDIR)/SampleTile_bd67101.o \
+  $(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o \
+  $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o \
+  $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
+  $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
+  $(JUCE_OBJDIR)/SampleList_d99256f1.o \
+  $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
+  $(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o \
+  $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o \
   $(JUCE_OBJDIR)/include_danlin_fontawesome_15c414b5.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -117,69 +116,19 @@ $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) : $(OBJECTS_APP) $(RESOURCES)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR)/$(JUCE_TARGET_APP) $(OBJECTS_APP) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_APP) $(RESOURCES) $(TARGET_ARCH)
 
-$(JUCE_OBJDIR)/AudioPlayer_39c70138.o: ../../Source/AudioPlayer.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling AudioPlayer.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleList.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SampleLibrary_83e9292.o: ../../Source/SampleLibrary.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleLibrary.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SamplifyProperties_6873029d.o: ../../Source/SamplifyProperties.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SamplifyProperties.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SampleReference_fdae44a2.o: ../../Source/SampleReference.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleReference.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o: ../../Source/SamplifyMenuBar.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SamplifyMenuBar.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o: ../../Source/SamplifyMainComponent.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SamplifyMainComponent.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/TagDrawer_ffc1110c.o: ../../Source/TagDrawer.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling TagDrawer.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o: ../../Source/DirectoryExplorer.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DirectoryExplorer.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o: ../../Source/DirectoryExplorerTreeViewItem.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling DirectoryExplorerTreeViewItem.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/CollectionExplorer_e475a806.o: ../../Source/CollectionExplorer.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling CollectionExplorer.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/TagContainer_56836f10.o: ../../Source/TagContainer.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling TagContainer.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
 $(JUCE_OBJDIR)/FilterExplorer_f4b6d7e0.o: ../../Source/FilterExplorer.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling FilterExplorer.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/TagContainer_56836f10.o: ../../Source/TagContainer.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling TagContainer.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/TagExplorer_f78737da.o: ../../Source/TagExplorer.cpp
@@ -192,9 +141,14 @@ $(JUCE_OBJDIR)/TagTile_39a785c9.o: ../../Source/TagTile.cpp
 	@echo "Compiling TagTile.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o: ../../Source/SampleAudioThumbnail.cpp
+$(JUCE_OBJDIR)/DirectoryExplorer_e357812d.o: ../../Source/DirectoryExplorer.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleAudioThumbnail.cpp"
+	@echo "Compiling DirectoryExplorer.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/DirectoryExplorerTreeViewItem_95bbff63.o: ../../Source/DirectoryExplorerTreeViewItem.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling DirectoryExplorerTreeViewItem.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/SampleContainer_137ec6d8.o: ../../Source/SampleContainer.cpp
@@ -212,9 +166,49 @@ $(JUCE_OBJDIR)/SampleTile_bd67101.o: ../../Source/SampleTile.cpp
 	@echo "Compiling SampleTile.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/SamplifyMenuBar_49a9c6d4.o: ../../Source/SamplifyMenuBar.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SamplifyMenuBar.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o: ../../Source/SamplifyMainComponent.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SamplifyMainComponent.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/AudioPlayer_39c70138.o: ../../Source/AudioPlayer.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling AudioPlayer.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SampleLibrary_83e9292.o: ../../Source/SampleLibrary.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleLibrary.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleList.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SampleReference_fdae44a2.o: ../../Source/SampleReference.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleReference.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/Main_90ebc5c2.o: ../../Source/Main.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling Main.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o: ../../Source/SampleAudioThumbnail.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleAudioThumbnail.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SamplifyProperties_6873029d.o: ../../Source/SamplifyProperties.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SamplifyProperties.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/include_danlin_fontawesome_15c414b5.o: ../../JuceLibraryCode/include_danlin_fontawesome.cpp

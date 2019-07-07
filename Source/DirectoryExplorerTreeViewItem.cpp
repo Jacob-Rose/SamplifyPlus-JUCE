@@ -7,10 +7,12 @@ using namespace samplify;
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
 {
 	mFile = file;
+	mShouldUseFile = true;
 }
 
-DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem()
+DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(String string)
 {
+	mText = string;
 	mShouldUseFile = false;
 }
 
@@ -37,11 +39,36 @@ bool DirectoryExplorerTreeViewItem::mightContainSubItems()
 
 bool DirectoryExplorerTreeViewItem::isInterestedInFileDrag(const StringArray& files)
 {
-	return false;
+	bool allDirs = true;
+	for (int i = 0; i < files.size(); i++)
+	{
+		allDirs = File(files[i]).isDirectory() && allDirs;
+	}
+	return allDirs;
 }
 
 void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x, int y)
 {
+	for (int i = 0; i < files.size(); i++)
+	{
+		if (!mShouldUseFile)
+		{
+			File file(files[i]);
+			if (file.isDirectory())
+			{
+				SamplifyProperties::getInstance()->loadSamplesFromDirectory(File(files[i]));
+			}
+		}
+		else
+		{
+
+		}
+	}
+}
+
+void samplify::DirectoryExplorerTreeViewItem::setName(String name)
+{
+	mFile = File(name);
 }
 
 String DirectoryExplorerTreeViewItem::getName()
@@ -52,7 +79,7 @@ String DirectoryExplorerTreeViewItem::getName()
 	}
 	else
 	{
-		return "";
+		return mText;
 	}
 }
 

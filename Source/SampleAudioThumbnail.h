@@ -18,11 +18,13 @@ namespace samplify
 	class SampleAudioThumbnail : public AudioThumbnail
 	{
 	public:
+		//=========================================
 		SampleAudioThumbnail(int sourceSamplesPerThumbnailSample,
 			AudioFormatManager& formatManagerToUse,
 			AudioThumbnailCache& cacheToUse);
 		~SampleAudioThumbnail();
 
+		//=========================================
 		void drawChannel(Graphics& g,
 			const Rectangle<int>& area,
 			double startTimeSeconds,
@@ -35,9 +37,6 @@ namespace samplify
 			double endTimeSeconds,
 			float verticalZoomFactor) override;
 	private:
-		const float spacesSize = 1;
-		const float fillSize = 2;
-		const int waveformLines = 40;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleAudioThumbnail)
 	};

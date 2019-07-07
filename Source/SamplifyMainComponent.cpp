@@ -4,6 +4,7 @@
 using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
+
 SamplifyMainComponent::SamplifyMainComponent() 
 {
 	mInstance = this;
@@ -33,18 +34,13 @@ SamplifyMainComponent::SamplifyMainComponent()
     setSize (600, 400);
 }
 
-SamplifyMainComponent::SamplifyMainComponent(AudioDeviceManager& deviceManager) :
-	AudioAppComponent(deviceManager)
-{
-}
-
 SamplifyMainComponent::~SamplifyMainComponent()
 {
 	//deviceManager.closeAudioDevice();
 	shutdownAudio();
 }
 
-bool samplify::SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
+bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
 {
 	if (key.getKeyCode() == key.spaceKey)
 	{
@@ -93,16 +89,16 @@ void samplify::SamplifyMainComponent::setupLookAndFeel()
 {
 	getLookAndFeel().setColour(MAIN_BASE_COLOR_ID, Colours::white);
 	getLookAndFeel().setColour(MAIN_ACCENT_COLOR_ID, Colours::aqua);
-	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_BG_DEFAULT, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
-	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_BG_HOVER, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID).darker());
-	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_FG_DEFAULT, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID));
-	getLookAndFeel().setColour(SAMPLETILE_COLOR_ID_FG_HOVER, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID));
+	getLookAndFeel().setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
+	getLookAndFeel().setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID).darker());
+	getLookAndFeel().setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID));
+	getLookAndFeel().setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID));
 }
 
 //==============================================================================
 void SamplifyMainComponent::paint (Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
+    // Our component is opaque, so we must completely fill the background with a solid colour
     g.fillAll (getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
 }
 

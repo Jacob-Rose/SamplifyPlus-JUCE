@@ -19,7 +19,7 @@ namespace samplify
 	{
 	public:
 		DirectoryExplorerTreeViewItem(File file);
-		DirectoryExplorerTreeViewItem();
+		DirectoryExplorerTreeViewItem(String string);
 		~DirectoryExplorerTreeViewItem();
 
 		bool mightContainSubItems() override;
@@ -30,6 +30,7 @@ namespace samplify
 		//if the samples are in the root directory, just move them
 		//else then add samples to sample library
 
+		void setName(String name);
 		String getName();
 
 		void paintItem(Graphics& g, int width, int height) override;
@@ -40,6 +41,7 @@ namespace samplify
 
 	private:
 		File mFile;
+		String mText;
 		bool mShouldUseFile = true;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)

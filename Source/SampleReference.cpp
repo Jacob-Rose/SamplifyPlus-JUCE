@@ -123,7 +123,6 @@ void SampleReference::determineSampleType()
 {
 	if (mLength > 1.5)
 	{
-		//TODO
 		mSampleType = SampleType::LOOP;
 	}
 	else

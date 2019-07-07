@@ -28,14 +28,12 @@ namespace samplify
 	class SamplifyProperties : public ApplicationProperties
 	{
 	public:
-
+		//=======================================================
 		class LoadSamplesThread : public ThreadWithProgressWindow
 		{
 		public:
-			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false), mDirectory(file)
-			{
-
-			}
+			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false), 
+				mDirectory(file) {}
 			void run();
 		private:
 			File mDirectory;
@@ -70,8 +68,9 @@ namespace samplify
 		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }
 		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
 		//=======================================================
-		void addTag(juce::String text, Colour color);
-		void addTag(juce::String text);
+		void addTag(juce::String tag, Colour color);
+		void addTag(juce::String tag);
+		void deleteTag(juce::String tag);
 
 		Colour getTagColor(juce::String text);
 	private:

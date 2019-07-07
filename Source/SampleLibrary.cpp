@@ -75,7 +75,7 @@ void SampleLibrary::updateCurrentSamples(File path, String query)
 	for (int i = 0; i < mSamples.size(); i++)
 	{
 		SampleReference* ref = &mSamples[i];
-		if (ref->getFile().isAChildOf(path))
+		if (ref->getFile().isAChildOf(path) || !path.exists())
 		{
 			mDirectorySamples.addSample(ref);
 			if (ref->getFilename().containsIgnoreCase(query))

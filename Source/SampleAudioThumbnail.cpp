@@ -1,4 +1,5 @@
 #include "SampleAudioThumbnail.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
@@ -18,10 +19,10 @@ void SampleAudioThumbnail::drawChannel(Graphics & g, const Rectangle<int>& area,
 {
 	float peak = getApproximatePeak();
 
-	int widthSegment = area.getWidth() / waveformLines;
-	float segmentTimeLength = (endTimeSeconds - startTimeSeconds) / waveformLines;
+	int widthSegment = area.getWidth() / AUDIO_THUMBNAIL_LINE_COUNT;
+	float segmentTimeLength = (endTimeSeconds - startTimeSeconds) / AUDIO_THUMBNAIL_LINE_COUNT;
 
-	for (int i = 0; i < waveformLines; i++)
+	for (int i = 0; i < AUDIO_THUMBNAIL_LINE_COUNT; i++)
 	{
 		float max, min;
 		getApproximateMinMax(startTimeSeconds + (segmentTimeLength*i), startTimeSeconds + (segmentTimeLength*i + 1), channelNum, min, max);
@@ -29,7 +30,7 @@ void SampleAudioThumbnail::drawChannel(Graphics & g, const Rectangle<int>& area,
 		//max /= peak; //normalize
 		float posX = area.getPosition().x + (widthSegment*i);
 		float posY = ((area.getPosition().y) + (area.getHeight() / 2)) - (max * (area.getHeight() / 2));
-		float sizeX = widthSegment * (fillSize / (fillSize + spacesSize));
+		float sizeX = widthSegment * (AUDIO_THUMBNAIL_LINE_FILL_WIDTH / (AUDIO_THUMBNAIL_LINE_FILL_WIDTH + AUDIO_THUMBNAIL_LINE_GAP_WIDTH));
 		float sizeY = ((area.getHeight() / 2)*(min*-1)) + (max * (area.getHeight() / 2));
 		Rectangle<float> rectangleArea(posX, posY, sizeX, sizeY);
 		//Rectangle<float> r(Point<float>(0,0), Point<float>(0,0))

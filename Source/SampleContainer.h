@@ -29,6 +29,7 @@ namespace samplify
 		void resized() override;
 
 		void updateItems();
+		void extendItems();
 		void clearItems();
 
 		void setSampleItems(std::vector<SampleReference*> mSampleReferences);
@@ -36,8 +37,6 @@ namespace samplify
 		int calculateAllRowsHeight();
 		int calculateRowCount();
 		int calculateColumnCount();
-
-		void extendSampleItems();
 	private:
 		//=============================================================================
 		std::vector<SampleTile*> mUsedSampleTiles;

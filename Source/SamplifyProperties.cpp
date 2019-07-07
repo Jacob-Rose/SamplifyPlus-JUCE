@@ -180,13 +180,22 @@ void SamplifyProperties::LoadSamplesThread::run()
 {
 	DirectoryIterator iterator(mDirectory, true, "*.wav");
 	int count = 0;
-	while (iterator.next() && count < 60)
+	std::vector<File> mFiles;
+	while (iterator.next())
 	{
 		if (threadShouldExit())
 			break;
 		//todo remove counter
-		SampleReference ref(iterator.getFile());
-		getInstance()->getSampleLibrary()->addSample(ref);
+		mFiles.push_back(iterator.getFile());
 		setProgress(iterator.getEstimatedProgress());
+		count++;
 	}
+	setStatusMessage("calculating sample info...");
+	for (int i = 0; i < count; i++)
+	{
+		SampleReference ref(mFiles[i]);
+		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
+		setProgress(((float)i)/count);
+	}
+
 }

@@ -90,7 +90,7 @@ void SampleExplorer::SampleViewport::visibleAreaChanged(const Rectangle<int>& ne
 	int boundsBottom = newVisibleArea.getBottomLeft().y;
 	if (height == boundsBottom)
 	{
-		mSampleContainer->extendSampleItems();
+		mSampleContainer->extendItems();
 		//setViewPosition(0, boundsBottom);
 	}
 }

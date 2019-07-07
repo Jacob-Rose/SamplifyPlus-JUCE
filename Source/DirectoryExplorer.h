@@ -20,6 +20,7 @@ namespace samplify
 	class DirectoryExplorer : public Component
 	{
 	public:
+		//============================================================
 		class DirectoryExplorerTreeView : public TreeView
 		{
 		public:
@@ -28,6 +29,7 @@ namespace samplify
 		private:
 			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeView)
 		};
+		//============================================================
 		DirectoryExplorer();
 		~DirectoryExplorer();
 
@@ -35,6 +37,7 @@ namespace samplify
 		void resized() override;
 
 	private:
+		//============================================================
 		std::unique_ptr<DirectoryExplorerTreeView> mDirectoryTree = nullptr;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorer)
 	};

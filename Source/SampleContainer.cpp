@@ -66,10 +66,10 @@ void SampleContainer::updateItems()
 					mUsedSampleTiles.push_back(tile);
 					addAndMakeVisible(tile);
 				}
-				tile->setBounds((column * width) + SAMPLETILE_CONTAINER_ITEM_PADDING, 
-								(row * height) + SAMPLETILE_CONTAINER_ITEM_PADDING,
-								width - (SAMPLETILE_CONTAINER_ITEM_PADDING * 2),
-								height - (SAMPLETILE_CONTAINER_ITEM_PADDING * 2));
+				tile->setBounds((column * width) + SAMPLE_TILE_CONTAINER_ITEM_PADDING, 
+								(row * height) + SAMPLE_TILE_CONTAINER_ITEM_PADDING,
+								width - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2),
+								height - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2));
 				tile->setSampleReference(mCurrentSampleReferences[i]);
 
 			}
@@ -127,7 +127,7 @@ int SampleContainer::calculateColumnCount()
 	return getWidth() / SAMPLE_TILE_MIN_WIDTH;
 }
 
-void SampleContainer::extendSampleItems()
+void SampleContainer::extendItems()
 {
 	//todo put on new thread
 

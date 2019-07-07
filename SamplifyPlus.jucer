@@ -4,81 +4,101 @@
               cppLanguageStandard="17">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
-      <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
-      <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
-      <GROUP id="{0345CD7A-C993-8A44-1CBF-A33496D18EC9}" name="Backend">
-        <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
-        <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
-        <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
-              file="Source/SampleLibrary.cpp"/>
-        <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
-              file="Source/SamplifyProperties.cpp"/>
-        <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
-              file="Source/SamplifyProperties.h"/>
-        <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
-        <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
-              file="Source/SampleReference.cpp"/>
-        <FILE id="PMF6VZ" name="SampleReference.h" compile="0" resource="0"
-              file="Source/SampleReference.h"/>
-      </GROUP>
-      <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="UX">
-        <FILE id="eN9IwM" name="SamplifyMenuBar.cpp" compile="1" resource="0"
-              file="Source/SamplifyMenuBar.cpp"/>
-        <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
-              file="Source/SamplifyMenuBar.h"/>
+      <GROUP id="{974D5208-70BA-3D73-E5C1-78386F7A5477}" name="Header">
+        <GROUP id="{46F4462A-8686-92A7-7F54-2E3E581D68AA}" name="Components">
+          <GROUP id="{63632B92-3D83-3C3E-D8CC-3101D961035A}" name="CollectionExplorer">
+            <FILE id="bzJtmR" name="CollectionExplorer.h" compile="0" resource="0"
+                  file="Source/CollectionExplorer.h"/>
+          </GROUP>
+          <GROUP id="{6D756A5D-BEDC-B84D-237C-6DA4C22DA49B}" name="DirectoryExplorer">
+            <FILE id="ULN1cJ" name="DirectoryExplorer.h" compile="0" resource="0"
+                  file="Source/DirectoryExplorer.h"/>
+            <FILE id="xMuM6d" name="DirectoryExplorerTreeViewItem.h" compile="0"
+                  resource="0" file="Source/DirectoryExplorerTreeViewItem.h"/>
+          </GROUP>
+          <GROUP id="{5FF41C30-1925-7BA5-C5B7-3CB71E2B8814}" name="FilterExplorer">
+            <FILE id="UVcWpr" name="FilterExplorer.h" compile="0" resource="0"
+                  file="Source/FilterExplorer.h"/>
+            <GROUP id="{04DA2BF2-821D-E3BD-6B15-A4D1D1B425F7}" name="TagExplorer">
+              <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
+              <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
+              <FILE id="Fh8M8U" name="TagTile.h" compile="0" resource="0" file="Source/TagTile.h"/>
+            </GROUP>
+          </GROUP>
+          <GROUP id="{C1E01AA0-4D00-84E1-9A83-2046150C3444}" name="SampleExplorer">
+            <FILE id="wDxLlc" name="SampleContainer.h" compile="0" resource="0"
+                  file="Source/SampleContainer.h"/>
+            <FILE id="rDSIg2" name="SampleExplorer.h" compile="0" resource="0"
+                  file="Source/SampleExplorer.h"/>
+            <FILE id="IuE5nP" name="SampleTile.h" compile="0" resource="0" file="Source/SampleTile.h"/>
+          </GROUP>
+          <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
+                file="Source/SamplifyMainComponent.h"/>
+          <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
+                file="Source/SamplifyMenuBar.h"/>
+        </GROUP>
+        <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
+          <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+          <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
+          <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
+          <FILE id="PMF6VZ" name="SampleReference.h" compile="0" resource="0"
+                file="Source/SampleReference.h"/>
+        </GROUP>
+        <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
+              file="Source/SampleAudioThumbnail.h"/>
         <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
               file="Source/SamplifyLookAndFeel.h"/>
-        <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
-              file="Source/SamplifyMainComponent.h"/>
-        <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
-              file="Source/SamplifyMainComponent.cpp"/>
-        <FILE id="lnlRPo" name="TagDrawer.h" compile="0" resource="0" file="Source/TagDrawer.h"/>
-        <FILE id="vQx8Vp" name="TagDrawer.cpp" compile="1" resource="0" file="Source/TagDrawer.cpp"/>
-        <GROUP id="{0E13B4DC-8882-CEBB-2E3C-876096035BBF}" name="DirectoryExplorer">
-          <FILE id="Ouzaz2" name="DirectoryExplorer.cpp" compile="1" resource="0"
-                file="Source/DirectoryExplorer.cpp"/>
-          <FILE id="ULN1cJ" name="DirectoryExplorer.h" compile="0" resource="0"
-                file="Source/DirectoryExplorer.h"/>
-          <FILE id="J6wKdl" name="DirectoryExplorerTreeViewItem.cpp" compile="1"
-                resource="0" file="Source/DirectoryExplorerTreeViewItem.cpp"/>
-          <FILE id="xMuM6d" name="DirectoryExplorerTreeViewItem.h" compile="0"
-                resource="0" file="Source/DirectoryExplorerTreeViewItem.h"/>
-        </GROUP>
-        <GROUP id="{EFDD0C54-A436-2DB3-B1FA-4026CF9D00D4}" name="FilterExplorer">
-          <FILE id="AgmoB7" name="CollectionExplorer.cpp" compile="1" resource="0"
-                file="Source/CollectionExplorer.cpp"/>
-          <FILE id="nj6vkM" name="TagContainer.cpp" compile="1" resource="0"
-                file="Source/TagContainer.cpp"/>
-          <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
-          <FILE id="bzJtmR" name="CollectionExplorer.h" compile="0" resource="0"
-                file="Source/CollectionExplorer.h"/>
-          <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
-                file="Source/FilterExplorer.cpp"/>
-          <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
-          <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
-          <FILE id="UVcWpr" name="FilterExplorer.h" compile="0" resource="0"
-                file="Source/FilterExplorer.h"/>
-          <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
-          <FILE id="Fh8M8U" name="TagTile.h" compile="0" resource="0" file="Source/TagTile.h"/>
-        </GROUP>
-        <GROUP id="{03F3AE17-A672-A8E9-41F1-964CAF395E9E}" name="SampleExplorer">
-          <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
-                file="Source/SampleAudioThumbnail.cpp"/>
-          <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
-                file="Source/SampleAudioThumbnail.h"/>
-          <FILE id="cuUpOg" name="SampleContainer.cpp" compile="1" resource="0"
-                file="Source/SampleContainer.cpp"/>
-          <FILE id="wDxLlc" name="SampleContainer.h" compile="0" resource="0"
-                file="Source/SampleContainer.h"/>
-          <FILE id="gKzZ4q" name="SampleExplorer.cpp" compile="1" resource="0"
-                file="Source/SampleExplorer.cpp"/>
-          <FILE id="rDSIg2" name="SampleExplorer.h" compile="0" resource="0"
-                file="Source/SampleExplorer.h"/>
-          <FILE id="gajHaQ" name="SampleTile.cpp" compile="1" resource="0" file="Source/SampleTile.cpp"/>
-          <FILE id="IuE5nP" name="SampleTile.h" compile="0" resource="0" file="Source/SampleTile.h"/>
-        </GROUP>
+        <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
+              file="Source/SamplifyProperties.h"/>
       </GROUP>
-      <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <GROUP id="{1C07D502-DED7-1A09-B8CB-10BFFE8BBC44}" name="Defs">
+        <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
+          <GROUP id="{FD361608-951D-94F1-0141-6E7C470A207D}" name="CollectionExplorer">
+            <FILE id="AgmoB7" name="CollectionExplorer.cpp" compile="1" resource="0"
+                  file="Source/CollectionExplorer.cpp"/>
+          </GROUP>
+          <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
+            <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
+              <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
+                    file="Source/FilterExplorer.cpp"/>
+              <GROUP id="{D90898C6-6CDA-0955-AFE1-9A006F77CB0B}" name="TagExplorer">
+                <FILE id="nj6vkM" name="TagContainer.cpp" compile="1" resource="0"
+                      file="Source/TagContainer.cpp"/>
+                <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
+                <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
+              </GROUP>
+            </GROUP>
+            <FILE id="Ouzaz2" name="DirectoryExplorer.cpp" compile="1" resource="0"
+                  file="Source/DirectoryExplorer.cpp"/>
+            <FILE id="J6wKdl" name="DirectoryExplorerTreeViewItem.cpp" compile="1"
+                  resource="0" file="Source/DirectoryExplorerTreeViewItem.cpp"/>
+          </GROUP>
+          <GROUP id="{32C94151-7191-C734-302B-CB6AD55EE076}" name="SampleExplorer">
+            <FILE id="cuUpOg" name="SampleContainer.cpp" compile="1" resource="0"
+                  file="Source/SampleContainer.cpp"/>
+            <FILE id="gKzZ4q" name="SampleExplorer.cpp" compile="1" resource="0"
+                  file="Source/SampleExplorer.cpp"/>
+            <FILE id="gajHaQ" name="SampleTile.cpp" compile="1" resource="0" file="Source/SampleTile.cpp"/>
+          </GROUP>
+          <FILE id="eN9IwM" name="SamplifyMenuBar.cpp" compile="1" resource="0"
+                file="Source/SamplifyMenuBar.cpp"/>
+          <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
+                file="Source/SamplifyMainComponent.cpp"/>
+        </GROUP>
+        <GROUP id="{79C14502-3025-0432-3989-D402AD2C61DB}" name="Structures">
+          <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+          <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
+                file="Source/SampleLibrary.cpp"/>
+          <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
+          <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
+                file="Source/SampleReference.cpp"/>
+        </GROUP>
+        <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+        <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
+              file="Source/SampleAudioThumbnail.cpp"/>
+        <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
+              file="Source/SamplifyProperties.cpp"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

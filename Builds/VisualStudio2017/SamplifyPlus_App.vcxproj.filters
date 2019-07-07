@@ -2,20 +2,53 @@
 
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SamplifyPlus\Source\Backend">
-      <UniqueIdentifier>{00E788A0-1E44-1057-238D-6F250E62CC08}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Header\Components\CollectionExplorer">
+      <UniqueIdentifier>{5F5C4842-435C-4E88-89E5-7CFD8ACF3902}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\UX\DirectoryExplorer">
-      <UniqueIdentifier>{6D64F72D-FFE4-2423-58B5-C4E337CEE6B3}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Header\Components\DirectoryExplorer">
+      <UniqueIdentifier>{9BD0C60F-1628-4A44-B180-9C4FE7B1EF39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\UX\FilterExplorer">
-      <UniqueIdentifier>{9E24E8D1-00FD-DF38-E336-D2038B2DB379}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer">
+      <UniqueIdentifier>{C42BF115-5439-6DA2-EB5F-2C3880324AAD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\UX\SampleExplorer">
-      <UniqueIdentifier>{1DCA0039-2B70-4190-0186-42266E088F1F}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Header\Components\FilterExplorer">
+      <UniqueIdentifier>{2A96B1CB-30D0-5545-9AA2-9BDC87BA429F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\UX">
-      <UniqueIdentifier>{9DA2F3E0-9591-2097-FA96-091AB60AEEBB}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Header\Components\SampleExplorer">
+      <UniqueIdentifier>{D2C9ED75-ED34-2FEF-1539-88EFEA7B1542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Header\Components">
+      <UniqueIdentifier>{2272D0AF-FD03-D53A-6B4A-53D88BA89667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Header\Structures">
+      <UniqueIdentifier>{3535B5E3-CD0F-67B8-E73A-A42BA8AD40F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Header">
+      <UniqueIdentifier>{59233B42-8A7C-60F0-AA69-EF374AB91E1C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\CollectionExplorer">
+      <UniqueIdentifier>{48C2AF7F-DF25-B30A-09F0-5027CCF1245C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer">
+      <UniqueIdentifier>{A59B2949-F9B7-BE63-B8A6-74FCC850F537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer">
+      <UniqueIdentifier>{9C5184A7-73BA-839B-64A0-951BC64E8A61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer">
+      <UniqueIdentifier>{2C78F4DD-51B9-F332-01C0-DF55E74C9A79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\SampleExplorer">
+      <UniqueIdentifier>{1A1B434B-24BE-90EC-6F56-D22510EEECDE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components">
+      <UniqueIdentifier>{4D1A5CC0-144E-3C85-B9EC-105595C6A8B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Structures">
+      <UniqueIdentifier>{AD8D8BFD-4102-2AD0-FDCA-5EEC021DC41F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs">
+      <UniqueIdentifier>{6FF545C8-CE59-4677-4BAF-7D5FA17B6358}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamplifyPlus\Source">
       <UniqueIdentifier>{CCB45F1F-AAB3-46DD-45B6-0CB230C95C59}</UniqueIdentifier>
@@ -448,65 +481,62 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
-      <Filter>SamplifyPlus\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleList.cpp">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleLibrary.cpp">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleReference.cpp">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagDrawer.cpp">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\CollectionExplorer.cpp">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagContainer.cpp">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\CollectionExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagContainer.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TagExplorer.cpp">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TagTile.cpp">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleContainer.cpp">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleExplorer.cpp">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleTile.cpp">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleLibrary.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleList.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleReference.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
-      <Filter>SamplifyPlus\Source</Filter>
+      <Filter>SamplifyPlus\Source\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp">
+      <Filter>SamplifyPlus\Source\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
+      <Filter>SamplifyPlus\Source\Defs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\danlin_fontawesome\data\FontAwesomeData.cpp">
       <Filter>JUCE Modules\danlin_fontawesome\data</Filter>
@@ -2436,65 +2466,62 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AudioPlayer.h">
-      <Filter>SamplifyPlus\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleList.h">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyProperties.h">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleLibrary.h">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleReference.h">
-      <Filter>SamplifyPlus\Source\Backend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
-      <Filter>SamplifyPlus\Source\UX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagDrawer.h">
-      <Filter>SamplifyPlus\Source\UX</Filter>
+    <ClInclude Include="..\..\Source\CollectionExplorer.h">
+      <Filter>SamplifyPlus\Source\Header\Components\CollectionExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\DirectoryExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">
-      <Filter>SamplifyPlus\Source\UX\DirectoryExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagContainer.h">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\CollectionExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\DirectoryExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FilterExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagContainer.h">
+      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagExplorer.h">
+      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TagTile.h">
-      <Filter>SamplifyPlus\Source\UX\FilterExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleContainer.h">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleExplorer.h">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleTile.h">
-      <Filter>SamplifyPlus\Source\UX\SampleExplorer</Filter>
+      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
+      <Filter>SamplifyPlus\Source\Header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
+      <Filter>SamplifyPlus\Source\Header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioPlayer.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleLibrary.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleList.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleReference.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
+      <Filter>SamplifyPlus\Source\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h">
+      <Filter>SamplifyPlus\Source\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyProperties.h">
+      <Filter>SamplifyPlus\Source\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\..\danlin_fontawesome\data\FontAwesomeData.h">
       <Filter>JUCE Modules\danlin_fontawesome\data</Filter>

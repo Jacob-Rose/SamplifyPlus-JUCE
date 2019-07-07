@@ -18,19 +18,21 @@ namespace samplify
 	class TagTile : public Component, public DragAndDropContainer
 	{
 	public:
+		//==================================================
 		TagTile(juce::String tag, Font& font);
 		~TagTile();
-
+		//==================================================
+		void paint(Graphics&) override;
+		void resized() override;
+		//==================================================
+		void mouseUp(const MouseEvent& e) override;
+		void mouseDrag(const MouseEvent& e) override;
+		//==================================================
 		void setTag(juce::String tag);
 		juce::String getTag() { return mTag; }
 
-		void paint(Graphics&) override;
-		void resized() override;
-
-		void mouseUp(const MouseEvent& e) override;
-		void mouseDrag(const MouseEvent& e) override;
-
 	private:
+		//==================================================
 		juce::String mTag;
 		Font* mFont;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagTile)

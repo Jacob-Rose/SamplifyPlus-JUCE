@@ -21,9 +21,7 @@ namespace samplify
 	class SampleExplorer : public Component, public TextEditor::Listener, public ChangeListener, public ComboBox::Listener
 	{
 	public:
-		SampleExplorer();
-		~SampleExplorer();
-
+		//============================================================
 		class SampleViewport : public Viewport
 		{
 		public:
@@ -32,13 +30,20 @@ namespace samplify
 		private:
 			SampleContainer* mSampleContainer = nullptr;
 		};
+
+		//============================================================
+		SampleExplorer();
+		~SampleExplorer();
+
 		void paint(Graphics&) override;
 		void resized() override;
+
 		void textEditorTextChanged(TextEditor&) override;
 		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
 	private:
+		//============================================================
 		ComboBox mFilter;
 		SampleViewport mViewport;
 		TextEditor mSearchBar;

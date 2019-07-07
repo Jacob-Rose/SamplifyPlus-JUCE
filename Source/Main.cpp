@@ -53,7 +53,7 @@ namespace samplify
 			//cannot run two instances
 			quit();
 		}
-
+		
 		//The main application that creates the SamplifyMainComponent
 		class MainWindow : public DocumentWindow
 		{
