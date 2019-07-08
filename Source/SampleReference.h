@@ -44,6 +44,8 @@ namespace samplify
 		StringArray getTags();
 		void addTag(juce::String tag);
 
+		StringArray getParentFolders();
+
 		AudioThumbnailCache* getAudioThumbnailCache();
 
 		SampleAudioThumbnail* getAudioThumbnail();

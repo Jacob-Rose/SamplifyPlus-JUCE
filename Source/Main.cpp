@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 
 #include "SamplifyMainComponent.h"
+#include "SamplifyMenuBar.h"
 #include "SamplifyProperties.h"
 
 namespace samplify
@@ -36,10 +37,10 @@ namespace samplify
 
 		void shutdown() override
 		{
-
+			mainWindow = nullptr; // (deletes our window)
 			FontAwesome::deleteInstance();
 			SamplifyProperties::cleanupInstance();
-			mainWindow = nullptr; // (deletes our window)
+
 		}
 
 		//==============================================================================
@@ -69,6 +70,14 @@ namespace samplify
 				setResizable(true, true);
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
+				mMainMenuModel = new SamplifyMainMenu(&commandManager);
+				setMenuBar(mMainMenuModel);
+			}
+			~MainWindow()
+			{
+				setMenuBar(nullptr);
+				delete mMainMenuModel;
+				clearContentComponent();
 			}
 
 			void closeButtonPressed() override
@@ -84,12 +93,16 @@ namespace samplify
 			*/
 
 		private:
+			ApplicationCommandManager commandManager;
+			SamplifyMainMenu* mMainMenuModel = nullptr;
 			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 		};
 
 	private:
 		std::unique_ptr<MainWindow> mainWindow;
 	};
+
+
 }
 
 

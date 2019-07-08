@@ -92,6 +92,28 @@ void samplify::SampleReference::addTag(juce::String tag)
 	}
 }
 
+StringArray SampleReference::getParentFolders()
+{
+	StringArray folders;
+	File file(mFile);
+	File root;
+	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < rootDirs.size(); i++)
+	{
+		if (file.isAChildOf(rootDirs[i]))
+		{
+			root = rootDirs[i];
+			break;
+		}
+	}
+	while (mFile.isAChildOf(root))
+	{
+		mFile = mFile.getParentDirectory();
+		folders.add(mFile.getFileName());
+	}
+	return folders;
+}
+
 AudioThumbnailCache* SampleReference::getAudioThumbnailCache()
 {
 	return mThumbnailCache.get();
@@ -121,7 +143,7 @@ void SampleReference::generateThumbnailAndCache()
 
 void SampleReference::determineSampleType()
 {
-	if (mLength > 1.5)
+	if (mLength > 4.0)
 	{
 		mSampleType = SampleType::LOOP;
 	}

@@ -44,6 +44,7 @@
           <FILE id="PMF6VZ" name="SampleReference.h" compile="0" resource="0"
                 file="Source/SampleReference.h"/>
         </GROUP>
+        <FILE id="P5HG2Y" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
               file="Source/SampleAudioThumbnail.h"/>
         <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
@@ -93,6 +94,7 @@
           <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
                 file="Source/SampleReference.cpp"/>
         </GROUP>
+        <FILE id="nkdBBx" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
         <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
         <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
               file="Source/SampleAudioThumbnail.cpp"/>

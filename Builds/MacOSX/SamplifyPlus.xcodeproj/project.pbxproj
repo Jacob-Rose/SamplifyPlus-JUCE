@@ -133,6 +133,10 @@
 			isa = PBXBuildFile;
 			fileRef = FF666969887772CB34735EDF;
 		};
+		BA02DDA189349634C470C097 = {
+			isa = PBXBuildFile;
+			fileRef = 7D3BDCCA95600205B658E8A3;
+		};
 		CDE3E7D35E0F4F68EEC95185 = {
 			isa = PBXBuildFile;
 			fileRef = 8A8F5B7B4E0EF582F1F26413;
@@ -309,6 +313,13 @@
 			name = WebKit.framework;
 			path = System/Library/Frameworks/WebKit.framework;
 			sourceTree = SDKROOT;
+		};
+		3964186BFFC666BEA5632B96 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Fonts.h;
+			path = ../../Source/Fonts.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		39DC8E347D75AF7C8CF05374 = {
 			isa = PBXFileReference;
@@ -490,6 +501,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SampleContainer.h;
 			path = ../../Source/SampleContainer.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		7D3BDCCA95600205B658E8A3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = Fonts.cpp;
+			path = ../../Source/Fonts.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		7F4A402E373B9B4563102513 = {
@@ -889,6 +907,7 @@
 			children = (
 				3081C4B63750A16ADCE229F7,
 				C4E7652EF70FB1EE961FA9CE,
+				3964186BFFC666BEA5632B96,
 				CD2E1FC0651B895F5673991A,
 				EDD7C9092891FD30DF7A6A1D,
 				232DDC330942E87B3037775A,
@@ -971,6 +990,7 @@
 			children = (
 				FEF7AE143B278F10E8FC87FD,
 				C6B70DE83C8D4C4C23749DF2,
+				7D3BDCCA95600205B658E8A3,
 				8A8F5B7B4E0EF582F1F26413,
 				6A8C46C4C0FDADAF5EC7B41F,
 				1341EE58AE99FF529116AA16,
@@ -1320,6 +1340,7 @@
 				F1E4226675BF1179624D028E,
 				5E0473064051D5A8842ABE91,
 				E8B083AAA9E14B477F86EBE8,
+				BA02DDA189349634C470C097,
 				CDE3E7D35E0F4F68EEC95185,
 				95BBEF5D1A3F2FFAA16E7366,
 				8E6B91F2B617728F069DC893,

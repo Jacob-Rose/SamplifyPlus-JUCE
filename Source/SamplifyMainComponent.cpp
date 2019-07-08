@@ -12,7 +12,6 @@ SamplifyMainComponent::SamplifyMainComponent()
     mDirectoryExplorer.reset(new DirectoryExplorer());
     mSampleExplorer.reset(new SampleExplorer());
     mFilterExplorer.reset(new FilterExplorer());
-	mMenuBar.reset(new MenuBarComponent());
 	addKeyListener(this);
 	
 	mAudioPlayer.reset(new AudioPlayer());
@@ -21,7 +20,6 @@ SamplifyMainComponent::SamplifyMainComponent()
 	addAndMakeVisible(*mDirectoryExplorer);
 	addAndMakeVisible(*mSampleExplorer);
 	addAndMakeVisible(*mFilterExplorer);
-	addAndMakeVisible(*mMenuBar);
     
 	AudioDeviceManager::AudioDeviceSetup adsetup;
 	deviceManager.getAudioDeviceSetup(adsetup);
@@ -105,10 +103,9 @@ void SamplifyMainComponent::paint (Graphics& g)
 void SamplifyMainComponent::resized()
 {
 	int widthSegment = getWidth() / 5;
-	mDirectoryExplorer->setBounds(0, 16, widthSegment, getHeight());
-	mMenuBar->setBounds(0, 0, getWidth(), 16);
-	mSampleExplorer->setBounds(widthSegment, 16, widthSegment * 3, getHeight()-16);
-	mFilterExplorer->setBounds(widthSegment * 4, 16, widthSegment, getHeight()-16);
+	mDirectoryExplorer->setBounds(0, 0, widthSegment, getHeight());
+	mSampleExplorer->setBounds(widthSegment, 0, widthSegment * 3, getHeight());
+	mFilterExplorer->setBounds(widthSegment * 4, 0, widthSegment, getHeight());
 }
 
 SamplifyMainComponent* SamplifyMainComponent::getInstance()

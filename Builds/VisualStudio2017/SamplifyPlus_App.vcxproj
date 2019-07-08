@@ -154,6 +154,7 @@
     <ClCompile Include="..\..\Source\SampleLibrary.cpp"/>
     <ClCompile Include="..\..\Source\SampleList.cpp"/>
     <ClCompile Include="..\..\Source\SampleReference.cpp"/>
+    <ClCompile Include="..\..\Source\Fonts.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp"/>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
@@ -1948,6 +1949,7 @@
     <ClInclude Include="..\..\Source\SampleLibrary.h"/>
     <ClInclude Include="..\..\Source\SampleList.h"/>
     <ClInclude Include="..\..\Source\SampleReference.h"/>
+    <ClInclude Include="..\..\Source\Fonts.h"/>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>
     <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\SamplifyProperties.h"/>

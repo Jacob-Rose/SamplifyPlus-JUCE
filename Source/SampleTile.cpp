@@ -21,14 +21,16 @@ SampleTile::~SampleTile()
 }
 void SampleTile::paint (Graphics& g)
 {
-	g.setColour(Colours::beige);
-	//g.fillRect(getLocalBounds().toFloat());
 	if (mSampleReference != nullptr)
 	{
+		Rectangle<float> titleRect = getTitleRect();
+		Rectangle<float> timeRect = getTimeRect();
+		Rectangle<float> typeRect = getTypeRect();
+		Rectangle<float> thumbnailBounds = getThumbnailRect();
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
-		if (isMouseOverOrDragging())
+		if (isMouseOver(true))
 		{
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID);
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_HOVER_COLOR_ID);
@@ -38,65 +40,59 @@ void SampleTile::paint (Graphics& g)
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID);
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
 		}
+		g.setColour(backgroundColor);
 		g.fillAll(backgroundColor);
-		g.setColour(foregroundColor);
+		//g.fillRoundedRectangle(getBounds().toFloat(), 4.0f);
+		g.setFont(SAMPLE_TILE_TITLE_FONT);
+		g.setColour(Colours::black);
 		// draw an outline around the component
-		g.drawRoundedRectangle(getLocalBounds().toFloat(), 12.0f, 2.0f);   
-		
-		int widthSegment = getWidth() / 4;
-		int heightSegment = getHeight() / 3;
-
-		Rectangle<float> sampleTypeBox(0, 0, widthSegment, heightSegment);
+		g.drawRoundedRectangle(getLocalBounds().toFloat(), 4.0f, 2.0f);   
+		g.drawLine(thumbnailBounds.getTopLeft().x, 
+			thumbnailBounds.getTopLeft().y, 
+			thumbnailBounds.getTopRight().x, 
+			thumbnailBounds.getTopRight().y, 
+			2.0f);
+		g.drawLine(titleRect.getBottomLeft().x,
+			titleRect.getBottomLeft().y,
+			titleRect.getBottomRight().x,
+			titleRect.getBottomRight().y,
+			2.0f);
+		g.drawLine(timeRect.getTopRight().x, 
+			timeRect.getTopRight().y,
+			timeRect.getBottomRight().x,
+			timeRect.getBottomRight().y,
+			2.0f);
+		g.drawLine(typeRect.getTopRight().x,
+			typeRect.getTopRight().y,
+			typeRect.getBottomRight().x,
+			typeRect.getBottomRight().y,
+			2.0f);
+		g.setColour(Colours::darkslategrey);
+		g.drawText(mSampleReference->getFilename(), titleRect, Justification::centredLeft);
 		g.setColour(foregroundColor);
-		//draw box around sampleType box
-		g.drawLine(sampleTypeBox.getBottomLeft().x, 
-			sampleTypeBox.getBottomLeft().y, 
-			sampleTypeBox.getBottomRight().x, 
-			sampleTypeBox.getBottomRight().y, 1.0f);
-		g.drawLine(sampleTypeBox.getTopRight().x,
-			sampleTypeBox.getTopRight().y,
-			sampleTypeBox.getBottomRight().x,
-			sampleTypeBox.getBottomRight().y, 1.0f);
+
 
 		///DRAW SAMPLE TYPE
+
 		switch (mSampleReference->getSampleType())
 		{
 		case SampleReference::SampleType::ONESHOT:
-			FontAwesome::drawCenterd(g, FontAwesome_Share, 30.0f, foregroundColor, sampleTypeBox.toNearestInt());
+			FontAwesome::drawCenterd(g, FontAwesome_Share, 30.0f, foregroundColor, typeRect.toNearestInt());
 			break;
 		case SampleReference::SampleType::LOOP:
-			FontAwesome::drawCenterd(g, FontAwesome_Refresh, 30.0f, foregroundColor, sampleTypeBox.toNearestInt());
+			FontAwesome::drawCenterd(g, FontAwesome_Refresh, 30.0f, foregroundColor, typeRect.toNearestInt());
 			break;
 		default:
 			break;
 		}
 
-		Rectangle<float> sampleKeyBox(0, heightSegment, widthSegment, heightSegment);
-		g.setColour(foregroundColor);
-		g.drawLine(sampleKeyBox.getTopRight().x,
-			sampleKeyBox.getTopRight().y,
-			sampleKeyBox.getBottomRight().x,
-			sampleKeyBox.getBottomRight().y, 1.0f);
-		g.drawLine(sampleKeyBox.getBottomLeft().x,
-			sampleKeyBox.getBottomLeft().y,
-			sampleKeyBox.getBottomRight().x,
-			sampleKeyBox.getBottomRight().y, 1.0f);
-
-		Rectangle<float> sampleTimeBox(0, heightSegment * 2, widthSegment, heightSegment);
-		g.setColour(foregroundColor);
-
-		g.drawLine(sampleTimeBox.getTopRight().x,
-			sampleTimeBox.getTopRight().y,
-			sampleTimeBox.getBottomRight().x,
-			sampleTimeBox.getBottomRight().y, 1.0f);
-		g.setColour(foregroundColor);
 		g.setFont(16.0f);
 		std::stringstream str;
 		str << std::fixed << std::setprecision(2) << mSampleReference->getLength();
-		g.drawText(String(str.str()), sampleTimeBox.withLeft(sampleTimeBox.getTopLeft().x + 2.0f), Justification::centred);
+		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
 
 
-		Rectangle<float> thumbnailBounds(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
+
 		SampleAudioThumbnail* mThumbnail = mSampleReference->getAudioThumbnail();
 		if (mThumbnail != nullptr && mThumbnail->isFullyLoaded())
 		{
@@ -106,14 +102,6 @@ void SampleTile::paint (Graphics& g)
 				mThumbnail->drawChannel(g, thumbnailBounds.toNearestInt(), 0.0, mThumbnail->getTotalLength(), 0, 1.0f);
 			}
 		}
-
-		Rectangle<float> sampleFilenameBox(widthSegment, 0, widthSegment * 3, getHeight() / 2);
-
-		g.setColour(foregroundColor);
-		g.setFont((getHeight() / 10) * 1.2f);
-		g.drawText(mSampleReference->getFilename(), sampleFilenameBox, Justification::topLeft, true);
-		g.setFont((getHeight() / 10) * 0.8f);
-		g.drawText(mSampleReference->getFullPathName(), sampleFilenameBox, Justification::bottomLeft, true);
 		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
 		if (auxPlayer->getFile() == mSampleReference->getFile())
 		{
@@ -170,7 +158,7 @@ void SampleTile::mouseUp(const MouseEvent& mouseEvent)
 	{
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
-		Rectangle audiowaveRect = Rectangle<float>(widthSegment, getHeight() / 2, widthSegment * 3, getHeight() / 2);
+		Rectangle audiowaveRect = getThumbnailRect();
 		if (audiowaveRect.contains(mouseEvent.getMouseDownPosition().toFloat()))
 		{
 			if (mouseEvent.mods.isLeftButtonDown())
@@ -180,28 +168,25 @@ void SampleTile::mouseUp(const MouseEvent& mouseEvent)
 			else if (mouseEvent.mods.isRightButtonDown())
 			{
 				float rectWidth = audiowaveRect.getWidth();
-				float mouseDownX = mouseEvent.getMouseDownX() - widthSegment;
+				float mouseDownX = mouseEvent.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
 
 		}
-		else
-		{
-			if (mouseEvent.mods.isCtrlDown())
-			{
-				StringArray files = StringArray();
-				files.add(mSampleReference->getFile().getFullPathName());
-				DragAndDropContainer::performExternalDragDropOfFiles(files, false);
-			}
-
-		}
 	}
+}
+
+void samplify::SampleTile::mouseDrag(const MouseEvent& e)
+{
+	StringArray files = StringArray();
+	files.add(mSampleReference->getFile().getFullPathName());
+	DragAndDropContainer::performExternalDragDropOfFiles(files, false);
 }
 
 void SampleTile::mouseMove(const MouseEvent & e)
 {
-
+	repaint();
 }
 
 void SampleTile::playSample()
@@ -268,4 +253,31 @@ SampleReference* SampleTile::getSampleReference()
 bool SampleTile::operator==(SampleReference * ref)
 {
 	return ref == mSampleReference;
+}
+
+Rectangle<float> SampleTile::getTitleRect()
+{
+	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
+}
+
+Rectangle<float> SampleTile::getTypeRect()
+{
+	return Rectangle<float>(0, getTitleRect().getHeight(), getWidth() / 5, getWidth() / 5);
+}
+
+Rectangle<float> SampleTile::getTimeRect()
+{
+	return Rectangle<float>(getWidth() / 5, getTitleRect().getHeight(), getWidth()/5, getWidth()/5);
+}
+
+Rectangle<float> SampleTile::getThumbnailRect()
+{
+	float startY = getTitleRect().getHeight() + getTypeRect().getHeight();
+	return Rectangle<float>(0, startY, getWidth(), getHeight() - startY);
+}
+
+Rectangle<float> SampleTile::getTagRect()
+{
+	float startX = getTypeRect().getWidth() + getTimeRect().getWidth();
+	return Rectangle<float>(startX, getTitleRect().getHeight(), getWidth() - startX, getTypeRect().getHeight());
 }

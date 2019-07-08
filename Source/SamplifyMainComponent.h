@@ -23,6 +23,13 @@ namespace samplify
 	class SamplifyMainComponent : public AudioAppComponent, public KeyListener
 	{
 	public:
+		class SamplifyLookAndFeel : public LookAndFeel_V4
+		{
+		public:
+			SamplifyLookAndFeel();
+		private:
+
+		};
 		//=====================================================
 		SamplifyMainComponent();
 		~SamplifyMainComponent();
@@ -46,7 +53,6 @@ namespace samplify
 		std::unique_ptr<DirectoryExplorer> mDirectoryExplorer = nullptr;
 		std::unique_ptr<SampleExplorer> mSampleExplorer = nullptr;
 		std::unique_ptr<FilterExplorer> mFilterExplorer = nullptr;
-		std::unique_ptr<MenuBarComponent> mMenuBar = nullptr;
 		static SamplifyMainComponent* mInstance;
 
 		std::unique_ptr<AudioPlayer> mAudioPlayer;

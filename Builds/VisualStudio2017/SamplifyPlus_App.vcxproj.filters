@@ -529,6 +529,9 @@
     <ClCompile Include="..\..\Source\SampleReference.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Fonts.cpp">
+      <Filter>SamplifyPlus\Source\Defs</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>SamplifyPlus\Source\Defs</Filter>
     </ClCompile>
@@ -2513,6 +2516,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleReference.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Fonts.h">
+      <Filter>SamplifyPlus\Source\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
       <Filter>SamplifyPlus\Source\Header</Filter>
