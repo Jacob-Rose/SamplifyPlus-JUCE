@@ -80,6 +80,14 @@ void SamplifyProperties::cleanup()
 	
 }
 
+void samplify::SamplifyProperties::removeDirectory(File dir)
+{
+}
+
+void samplify::SamplifyProperties::addDirectory(File dir)
+{
+}
+
 void SamplifyProperties::setDirectories(std::vector<File> directories)
 {
 	clearDirectories();
@@ -156,6 +164,10 @@ void SamplifyProperties::addTag(juce::String text)
 	addTag(text, Colour(juce::uint8(r.nextInt(Range(0, 256))),
 		juce::uint8(r.nextInt(Range(0, 256))),
 		juce::uint8(r.nextInt(Range(0, 256)))));
+}
+
+void samplify::SamplifyProperties::deleteTag(juce::String tag)
+{
 }
 
 Colour SamplifyProperties::getTagColor(juce::String text)

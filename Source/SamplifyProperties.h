@@ -51,6 +51,8 @@ namespace samplify
 		void saveDirectoriesToPropertiesFile();
 		void loadTagColorsFromPropertiesFile();
 		//=Directories==============================================
+		void removeDirectory(File dir);
+		void addDirectory(File dir);
 		void setDirectories(std::vector<File> directories);
 		std::vector<File> getDirectories() { return mDirectories; }
 		void clearDirectories();

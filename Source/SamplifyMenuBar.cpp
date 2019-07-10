@@ -2,92 +2,54 @@
 
 using namespace samplify;
 
-SamplifyMainMenu::SamplifyMainMenu(ApplicationCommandManager* m)
-{
-	manager = m;
-}
+SamplifyMainMenu::SamplifyMainMenu() {}
 
 StringArray samplify::SamplifyMainMenu::getMenuBarNames()
 {
-	const char* const names[] = { "Files", "Directories", "Options", "Help", nullptr };
+	const char* const names[] = { "Files", "Directories", "Help", nullptr };
 
 	return StringArray(names);
 }
 
 void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
-}
-
-void samplify::SamplifyMainMenu::menuBarItemsChanged(MenuBarModel* menuBarModel)
-{
-}
-
-void samplify::SamplifyMainMenu::menuCommandInvoked(MenuBarModel* menuBarModel, const ApplicationCommandTarget::InvocationInfo& info)
-{
-}
-
-ApplicationCommandTarget* SamplifyMainMenu::getNextCommandTarget()
-{
-	return findFirstTargetParentComponent();
-}
-
-void SamplifyMainMenu::getAllCommands(Array<CommandID>& commands)
-{
-	const CommandID ids[] = { saveSampleInfo, 
-		deleteSampleInfo, addDirectory, removeDirectory, openHelpPDF, volumeControl };
-	commands.addArray(ids, numElementsInArray(ids));
-}
-
-void SamplifyMainMenu::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result)
-{
-	switch (commandID)
+	switch (menuItemID)
 	{
 	case saveSampleInfo:
-		result.setInfo("Save Sample Info", "Save the sample properties files", "Files", 0);
 		break;
 	case deleteSampleInfo:
-		result.setInfo("Delete Sample Info", "Delete all the sample properties files", "Files", 0);
 		break;
 	case addDirectory:
-		result.setInfo("Add Directory", "Add a directory to analyse", "Directories", 0);
 		break;
 	case removeDirectory:
-		result.setInfo("Remove Directory", "Remove A already added directory", "Directories", 0);
+		break;
+	case removeAndResetDirectory:
 		break;
 	case openHelpPDF:
-		result.setInfo("Save Sample Info", "Save the sample properties files", "Help", 0);
-		break;
-	case volumeControl:
-		result.setInfo("Save Sample Info", "Save the sample properties files", "Options", 0);
 		break;
 	}
 }
 
-bool SamplifyMainMenu::perform(const InvocationInfo& info)
-{
-	return false;
-}
+void samplify::SamplifyMainMenu::menuBarItemsChanged(MenuBarModel* menuBarModel) {}
 
 PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuName)
 {
 	PopupMenu menu;
 	if (menuIndex == 0) //Files
 	{
-		menu.addCommandItem(manager, saveSampleInfo);
-		menu.addCommandItem(manager, deleteSampleInfo);
+		menu.addItem(saveSampleInfo, "Save Sample Info");
+		menu.addItem(deleteSampleInfo, "Delete .samp files (dialog select directory)");
 	}
 	if (menuIndex == 1) //dir
 	{
-		menu.addCommandItem(manager, addDirectory);
-		menu.addCommandItem(manager, removeDirectory);
+		menu.addItem(addDirectory, "Add Directory");
+		menu.addItem(removeDirectory, "Remove Directory");
+		menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
 	}
 	if (menuIndex == 2)
 	{
-		menu.addCommandItem(manager, volumeControl);
+		menu.addItem(openHelpPDF, "View Tutorial PDF");
 	}
-	if (menuIndex == 3)
-	{
-		menu.addCommandItem(manager, openHelpPDF);
-	}
+	menu.addSeparator();
 	return menu;
 }

@@ -70,7 +70,7 @@ namespace samplify
 				setResizable(true, true);
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
-				mMainMenuModel = new SamplifyMainMenu(&commandManager);
+				mMainMenuModel = new SamplifyMainMenu();
 				setMenuBar(mMainMenuModel);
 			}
 			~MainWindow()
@@ -93,7 +93,6 @@ namespace samplify
 			*/
 
 		private:
-			ApplicationCommandManager commandManager;
 			SamplifyMainMenu* mMainMenuModel = nullptr;
 			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 		};
