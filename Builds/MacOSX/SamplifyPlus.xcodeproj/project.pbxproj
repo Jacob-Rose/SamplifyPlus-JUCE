@@ -129,9 +129,17 @@
 			isa = PBXBuildFile;
 			fileRef = 45D955784B106D9A00AFEED3;
 		};
+		0D2E527A7CEAFEE8FFA79E8C = {
+			isa = PBXBuildFile;
+			fileRef = 97EF953E22481CD0A424B175;
+		};
 		E8B083AAA9E14B477F86EBE8 = {
 			isa = PBXBuildFile;
 			fileRef = FF666969887772CB34735EDF;
+		};
+		713EEE869ABD11458B9609FC = {
+			isa = PBXBuildFile;
+			fileRef = 6A56B868EE89AE080950D57B;
 		};
 		BA02DDA189349634C470C097 = {
 			isa = PBXBuildFile;
@@ -148,6 +156,14 @@
 		8E6B91F2B617728F069DC893 = {
 			isa = PBXBuildFile;
 			fileRef = 1341EE58AE99FF529116AA16;
+		};
+		237CAFD6A10F184BFE94B7AA = {
+			isa = PBXBuildFile;
+			fileRef = A12FEC0BFBCE1C985A90A263;
+		};
+		433A4EAA3F7E1A436B21862F = {
+			isa = PBXBuildFile;
+			fileRef = 9B634A5225B8E4F95B7DFB44;
 		};
 		B6B0CE3EE6BF55C45DEC8374 = {
 			isa = PBXBuildFile;
@@ -426,6 +442,13 @@
 			path = "Info-App.plist";
 			sourceTree = "SOURCE_ROOT";
 		};
+		6A56B868EE89AE080950D57B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = TagManager.cpp;
+			path = ../../Source/TagManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		6A8C46C4C0FDADAF5EC7B41F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -538,6 +561,13 @@
 			path = ../../Source/Main.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		8B014EA4FD768D1C1A2B2605 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = TagEditor.h;
+			path = ../../Source/TagEditor.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		8EF543DE97F4969EB5C39E66 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -566,6 +596,13 @@
 			path = ../../Source/AudioPlayer.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		97EF953E22481CD0A424B175 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SampleManager.cpp;
+			path = ../../Source/SampleManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		99BC8D1C98C889D1E6A8CAE0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -585,6 +622,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SampleLibrary.h;
 			path = ../../Source/SampleLibrary.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		9B634A5225B8E4F95B7DFB44 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = TagEditor.cpp;
+			path = ../../Source/TagEditor.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		9D3159C19C20B5E33A1AA19D = {
@@ -607,6 +651,13 @@
 			name = "juce_audio_formats";
 			path = "~/JUCE/modules/juce_audio_formats";
 			sourceTree = "<absolute>";
+		};
+		A12FEC0BFBCE1C985A90A263 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SampleEditor.cpp;
+			path = ../../Source/SampleEditor.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		A83E3F37741CEE67005FF23E = {
 			isa = PBXFileReference;
@@ -769,11 +820,25 @@
 			path = System/Library/Frameworks/AVKit.framework;
 			sourceTree = SDKROOT;
 		};
+		D54570892A45EB67A6532CFF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SampleManager.h;
+			path = ../../Source/SampleManager.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		E15BF77E5DF811FEB95949CE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_devices.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		E352399D72863300414D443A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SampleEditor.h;
+			path = ../../Source/SampleEditor.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		EACAFE335666426CECFE3DF9 = {
@@ -788,6 +853,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SamplifyLookAndFeel.h;
 			path = ../../Source/SamplifyLookAndFeel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		EE1083E2702929247D3A3A64 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = TagManager.h;
+			path = ../../Source/TagManager.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		F8094ED215E0B97D0BFCF6F0 = {
@@ -897,7 +969,9 @@
 				C5814A3783A6A3949CA24A73,
 				9ACA130BCE09FB34754C60A5,
 				9E48EB585D9E6333CBEE3807,
+				D54570892A45EB67A6532CFF,
 				7386E55AE90E8B4606B4A950,
+				EE1083E2702929247D3A3A64,
 			);
 			name = Structures;
 			sourceTree = "<group>";
@@ -980,7 +1054,9 @@
 				978DBF90FE5001CA896A212C,
 				227ADF622651A2D499B902B0,
 				45D955784B106D9A00AFEED3,
+				97EF953E22481CD0A424B175,
 				FF666969887772CB34735EDF,
+				6A56B868EE89AE080950D57B,
 			);
 			name = Structures;
 			sourceTree = "<group>";
@@ -1011,6 +1087,10 @@
 			isa = PBXGroup;
 			children = (
 				0FF46B2C570D1813960294EF,
+				A12FEC0BFBCE1C985A90A263,
+				E352399D72863300414D443A,
+				9B634A5225B8E4F95B7DFB44,
+				8B014EA4FD768D1C1A2B2605,
 			);
 			name = SamplifyPlus;
 			sourceTree = "<group>";
@@ -1339,11 +1419,15 @@
 				C873C0F9DB822F4D4F9C3430,
 				F1E4226675BF1179624D028E,
 				5E0473064051D5A8842ABE91,
+				0D2E527A7CEAFEE8FFA79E8C,
 				E8B083AAA9E14B477F86EBE8,
+				713EEE869ABD11458B9609FC,
 				BA02DDA189349634C470C097,
 				CDE3E7D35E0F4F68EEC95185,
 				95BBEF5D1A3F2FFAA16E7366,
 				8E6B91F2B617728F069DC893,
+				237CAFD6A10F184BFE94B7AA,
+				433A4EAA3F7E1A436B21862F,
 				B6B0CE3EE6BF55C45DEC8374,
 				84E8840F9F81644A1B832716,
 				5F0954CE852F058FA27A66B5,

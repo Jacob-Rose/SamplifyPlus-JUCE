@@ -83,11 +83,15 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
   $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
   $(JUCE_OBJDIR)/SampleList_d99256f1.o \
+  $(JUCE_OBJDIR)/SampleManager_2eecb484.o \
   $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
+  $(JUCE_OBJDIR)/TagManager_ecee0abc.o \
   $(JUCE_OBJDIR)/Fonts_436ea765.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
   $(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o \
   $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o \
+  $(JUCE_OBJDIR)/SampleEditor_8bd498c0.o \
+  $(JUCE_OBJDIR)/TagEditor_89b39b88.o \
   $(JUCE_OBJDIR)/include_danlin_fontawesome_15c414b5.o \
   $(JUCE_OBJDIR)/include_juce_audio_basics_8a4e984a.o \
   $(JUCE_OBJDIR)/include_juce_audio_devices_63111d02.o \
@@ -192,9 +196,19 @@ $(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
 	@echo "Compiling SampleList.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
+$(JUCE_OBJDIR)/SampleManager_2eecb484.o: ../../Source/SampleManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleManager.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
 $(JUCE_OBJDIR)/SampleReference_fdae44a2.o: ../../Source/SampleReference.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling SampleReference.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/TagManager_ecee0abc.o: ../../Source/TagManager.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling TagManager.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Fonts_436ea765.o: ../../Source/Fonts.cpp
@@ -215,6 +229,16 @@ $(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o: ../../Source/SampleAudioThumbnail
 $(JUCE_OBJDIR)/SamplifyProperties_6873029d.o: ../../Source/SamplifyProperties.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling SamplifyProperties.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/SampleEditor_8bd498c0.o: ../../Source/SampleEditor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling SampleEditor.cpp"
+	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
+
+$(JUCE_OBJDIR)/TagEditor_89b39b88.o: ../../Source/TagEditor.cpp
+	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
+	@echo "Compiling TagEditor.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/include_danlin_fontawesome_15c414b5.o: ../../JuceLibraryCode/include_danlin_fontawesome.cpp

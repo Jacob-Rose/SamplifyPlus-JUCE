@@ -153,11 +153,15 @@
     <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp"/>
     <ClCompile Include="..\..\Source\SampleList.cpp"/>
+    <ClCompile Include="..\..\Source\SampleManager.cpp"/>
     <ClCompile Include="..\..\Source\SampleReference.cpp"/>
+    <ClCompile Include="..\..\Source\TagManager.cpp"/>
     <ClCompile Include="..\..\Source\Fonts.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp"/>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
+    <ClCompile Include="..\..\Source\SampleEditor.cpp"/>
+    <ClCompile Include="..\..\Source\TagEditor.cpp"/>
     <ClCompile Include="..\..\danlin_fontawesome\data\FontAwesomeData.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1948,11 +1952,15 @@
     <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\SampleLibrary.h"/>
     <ClInclude Include="..\..\Source\SampleList.h"/>
+    <ClInclude Include="..\..\Source\SampleManager.h"/>
     <ClInclude Include="..\..\Source\SampleReference.h"/>
+    <ClInclude Include="..\..\Source\TagManager.h"/>
     <ClInclude Include="..\..\Source\Fonts.h"/>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>
     <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\SamplifyProperties.h"/>
+    <ClInclude Include="..\..\Source\SampleEditor.h"/>
+    <ClInclude Include="..\..\Source\TagEditor.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\data\FontAwesomeData.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\src\FontAwesome.h"/>
     <ClInclude Include="..\..\danlin_fontawesome\src\Icons.h"/>

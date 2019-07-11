@@ -46,7 +46,7 @@ namespace samplify
 
 		void changeState(TransportState state);
 		void loadFile(File file);
-		void loadFile(SampleReference* reference);
+		void loadFile(Sample::SampleReference reference);
 
 		TransportState getState() { return state; }
 		AudioFormatManager* getFormatManager() { return &formatManager; }

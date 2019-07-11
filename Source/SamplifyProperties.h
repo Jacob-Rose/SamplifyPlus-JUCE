@@ -15,9 +15,7 @@
 #include "JuceHeader.h"
 
 #include "AudioPlayer.h"
-#include "SampleLibrary.h"
 #include "SampleList.h"
-#include "TagDrawer.h"
 
 #include <map>
 #include <string>
@@ -53,20 +51,15 @@ namespace samplify
 		//=Directories==============================================
 		void removeDirectory(File dir);
 		void addDirectory(File dir);
-		void setDirectories(std::vector<File> directories);
 		std::vector<File> getDirectories() { return mDirectories; }
 		void clearDirectories();
+
 		//=======================================================
-		File browseForDirectory();
+		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
+		void openRemoveDirectoryDialogue();
 
-		void setSelectedDirectory(File directory);
-		File getSelectedDirectory() { return mSelectedDirectory; }
-
-		void loadSamplesFromDirectory(File& file);
-		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
-		SampleLibrary* getSampleLibrary() { return mSampleLibrary.get(); }
 		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }
 		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
 		//=======================================================
@@ -81,9 +74,8 @@ namespace samplify
 		~SamplifyProperties();
 		//========================================================
 		ApplicationProperties mApplicationProperties;
-		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
 		std::map<juce::String, Colour> mSampleTagColors;
-		std::vector<File> mDirectories = std::vector<File>();
+		std::vector<File> mDirectories;
 		File mSelectedDirectory = File("");
 		AudioPlayer* mAudioPlayer = nullptr;
 		//========================================================

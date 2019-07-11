@@ -10,22 +10,14 @@ SampleList::~SampleList()
 {
 }
 
-void SampleList::addSample(SampleReference* sample)
+void SampleList::addSample(Sample::SampleReference sample)
 {
 	mSamples.push_back(SampleListReference(sample, this));
 }
 
-void SampleList::addSamples(const SampleList& collection)
+std::vector<Sample::SampleReference> SampleList::getSamples()
 {
-	for (int i = 0; i < collection.mSamples.size(); i++)
-	{
-		mSamples.push_back(SampleListReference(collection.mSamples[i].mSampleReference, this));
-	}
-}
-
-std::vector<SampleReference*> SampleList::getSamples()
-{
-	std::vector<SampleReference*> samples;
+	std::vector<Sample::SampleReference> samples;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
 		samples.push_back(mSamples[i].mSampleReference);
@@ -33,14 +25,16 @@ std::vector<SampleReference*> SampleList::getSamples()
 	return samples;
 }
 
-void SampleList::removeSample(SampleReference* sample)
+void SampleList::removeSample(Sample::SampleReference sample)
 {
-	mSamples.erase(std::find(mSamples.begin(), mSamples.end(), sample));
-}
-
-void samplify::SampleList::removeSample(int index)
-{
-	mSamples.erase(mSamples.begin() + index);
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		if (mSamples[i].mSampleReference.getFile() == sample.getFile())
+		{
+			mSamples.erase(mSamples.begin() + i);
+		}
+	}
+	
 }
 
 void samplify::SampleList::clearSamples()
@@ -59,61 +53,7 @@ SortingMethod SampleList::getSortingMethod()
 	return mSortingMethod;
 }
 
-SampleListReference::SampleListReference(SampleReference* sample, SampleList* parent)
+SampleList::SampleListReference::SampleListReference(Sample::SampleReference sample, SampleList* parent) : mSampleReference(sample)
 {
-	mSampleReference = sample;
 	mParent = parent;
-}
-
-bool SampleListReference::operator<(const SampleListReference& other) const
-{
-	if (mParent->getSortingMethod() == SortingMethod::LastToFirst)
-	{
-		if (other.mSampleReference->getFilename() > other.mSampleReference->getFilename())
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-	else if (mParent->getSortingMethod() == SortingMethod::Newest)
-	{
-		if (other.mSampleReference->getFile().getCreationTime() > other.mSampleReference->getFile().getCreationTime())
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-	else if (mParent->getSortingMethod() == SortingMethod::Oldest)
-	{
-		if (other.mSampleReference->getFile().getCreationTime() > other.mSampleReference->getFile().getCreationTime())
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-	else //first to last will default
-	{
-		if (other.mSampleReference->getFilename() > other.mSampleReference->getFilename())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-}
-
-bool SampleListReference::operator==(const SampleReference* sample) const
-{
-	return mSampleReference == sample;
 }

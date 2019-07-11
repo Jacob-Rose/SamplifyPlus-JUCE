@@ -23,7 +23,7 @@ namespace samplify
 	{
 	public:
 		//===========================================================================
-		SampleTile(SampleReference*);
+		SampleTile(Sample::SampleReference);
 		~SampleTile();
 
 		void paint(Graphics&) override;
@@ -42,10 +42,10 @@ namespace samplify
 		void playSample();
 		void playSample(float t);
 
-		void setSampleReference(SampleReference*);
-		SampleReference* getSampleReference();
+		void setSampleReference(Sample::SampleReference);
+		Sample::SampleReference getSampleReference();
 		//=Operator Overrides===========================================
-		bool operator==(SampleReference* ref);
+		bool operator==(Sample::SampleReference ref);
 
 		Rectangle<float> getTitleRect();
 		Rectangle<float> getTypeRect();
@@ -55,7 +55,7 @@ namespace samplify
 
 	private:
 		//juce::SharedResourcePointer<SampleTileTooltip> mTooltip;
-		SampleReference* mSampleReference = nullptr;
+		Sample::SampleReference mSampleReference;
 		TagContainer mTagContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)
 	};

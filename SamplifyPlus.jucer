@@ -41,8 +41,10 @@
           <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
           <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
           <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
+          <FILE id="HBioXh" name="SampleManager.h" compile="0" resource="0" file="Source/SampleManager.h"/>
           <FILE id="PMF6VZ" name="SampleReference.h" compile="0" resource="0"
                 file="Source/SampleReference.h"/>
+          <FILE id="eHgRyN" name="TagManager.h" compile="0" resource="0" file="Source/TagManager.h"/>
         </GROUP>
         <FILE id="P5HG2Y" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
@@ -91,8 +93,11 @@
           <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
                 file="Source/SampleLibrary.cpp"/>
           <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
+          <FILE id="F1694v" name="SampleManager.cpp" compile="1" resource="0"
+                file="Source/SampleManager.cpp"/>
           <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
                 file="Source/SampleReference.cpp"/>
+          <FILE id="JJZjqu" name="TagManager.cpp" compile="1" resource="0" file="Source/TagManager.cpp"/>
         </GROUP>
         <FILE id="nkdBBx" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
         <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
@@ -102,6 +107,11 @@
               file="Source/SamplifyProperties.cpp"/>
       </GROUP>
     </GROUP>
+    <FILE id="MiVio9" name="SampleEditor.cpp" compile="1" resource="0"
+          file="Source/SampleEditor.cpp"/>
+    <FILE id="TsnF8B" name="SampleEditor.h" compile="0" resource="0" file="Source/SampleEditor.h"/>
+    <FILE id="WdnE2P" name="TagEditor.cpp" compile="1" resource="0" file="Source/TagEditor.cpp"/>
+    <FILE id="iLvPQr" name="TagEditor.h" compile="0" resource="0" file="Source/TagEditor.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">

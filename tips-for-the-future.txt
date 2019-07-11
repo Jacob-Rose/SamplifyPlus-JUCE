@@ -5,3 +5,7 @@ useful for the root object, such as the button of a component.
 but not if reference not created for that pointer specifically
 
 Use Init/cleanup for everything that needs any processing time
+
+7/10/2019
+Note: Never make an app for programmers, somebody will outdo you
+If your app is not for programmers, strong shot of idea not being stolen.

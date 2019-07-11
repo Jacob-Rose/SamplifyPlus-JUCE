@@ -63,35 +63,41 @@ SamplifyProperties* SamplifyProperties::getInstance()
 
 void SamplifyProperties::init()
 {
-	mDirectories = std::vector<File>();
-	mSelectedDirectory = File("");
-	loadDirectoriesFromPropertiesFile();
-	mSampleLibrary.reset(new SampleLibrary());
-	LoadSamplesThread loadSamplesThread(mDirectories[0]);
-	loadSamplesThread.runThread();
+	if (!mIsInit)
+	{
+		mDirectories = std::vector<File>();
+		mSelectedDirectory = File("");
+		loadDirectoriesFromPropertiesFile();
+		LoadSamplesThread loadSamplesThread(mDirectories[0]);
+		loadSamplesThread.runThread();
+		mIsInit = true;
+	}
+	
 }
 
 void SamplifyProperties::cleanup()
 {
 	if (mIsInit)
 	{
-		mSampleLibrary.reset(nullptr);
+		
 	}
 	
 }
 
-void samplify::SamplifyProperties::removeDirectory(File dir)
+void SamplifyProperties::removeDirectory(File dir)
 {
+	if (std::find(mDirectories.begin(), mDirectories.end(), dir) == mDirectories.end())
+	{
+		mDirectories.push_back(dir);
+	}
 }
 
-void samplify::SamplifyProperties::addDirectory(File dir)
+void SamplifyProperties::addDirectory(File dir)
 {
-}
-
-void SamplifyProperties::setDirectories(std::vector<File> directories)
-{
-	clearDirectories();
-	mDirectories = directories;
+	if (std::find(mDirectories.begin(), mDirectories.end(), dir) == mDirectories.end())
+	{
+		mDirectories.push_back(dir);
+	}
 }
 
 void SamplifyProperties::loadDirectoriesFromPropertiesFile()
@@ -114,24 +120,6 @@ void SamplifyProperties::loadDirectoriesFromPropertiesFile()
 	else
 	{
 		browseForDirectoryAndAdd();
-	}
-}
-
-void SamplifyProperties::setSelectedDirectory(File directory)
-{
-	mSelectedDirectory = directory;
-	SamplifyProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
-}
-
-void SamplifyProperties::loadSamplesFromDirectory(File& file)
-{
-}
-
-void SamplifyProperties::loadSamplesFromDirectories(std::vector<File>& dirs)
-{
-	for (int i = 0; i < dirs.size(); i++)
-	{
-		loadSamplesFromDirectory(dirs[i]);
 	}
 }
 
@@ -188,6 +176,18 @@ void SamplifyProperties::clearDirectories()
 	mDirectories.clear();
 }
 
+void SamplifyProperties::openRemoveDirectoryDialogue()
+{
+	ComboBox box;
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < dirs.size(); i++)
+	{
+		box.addItem(dirs[i].getFileName(), i);
+	}
+	DialogWindow::showModalDialog("Select Directory To Delete", &box, nullptr, Colours::black, true);
+	removeDirectory(dirs.at(box.getSelectedId()));
+}
+
 void SamplifyProperties::LoadSamplesThread::run()
 {
 	DirectoryIterator iterator(mDirectory, true, "*.wav");
@@ -207,10 +207,9 @@ void SamplifyProperties::LoadSamplesThread::run()
 
 	for (int i = 0; i < count; i++)
 	{
-		SampleReference ref(mFiles[i]);
-		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
+		Sample::SampleReference sample = Sample::loadSample(mFiles[i]);
 		setProgress(((float)i)/count);
-		setStatusMessage("calculating sample info..." + ref.getFilename());
+		setStatusMessage("calculating..." + sample.getFilename());
 	}
 
 }

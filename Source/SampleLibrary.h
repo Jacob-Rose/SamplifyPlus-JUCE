@@ -19,40 +19,44 @@
 
 namespace samplify
 {
+
 	class SampleLibrary : public ChangeBroadcaster
 	{
 	public:
-		SampleLibrary();
-		SampleLibrary(const SampleLibrary&);
-		~SampleLibrary();
-
-		void addSample(File file);
-		void addSample(SampleReference& ref);
-		void addSamples(std::vector<File> files);
-		void addSamples(std::vector<SampleReference> files);
-		void removeSample(File file);
-		void clearSamples();
-
-		bool containsSample(File file);
-
+		static void initInstance() { mInstance = new SampleLibrary(); }
+		static void cleanupInstance() { delete mInstance; mInstance = nullptr; }
+		static SampleLibrary* getInstance() { return mInstance; }
+		void init();
+		void cleanup();
 		void sortCurrentSamples(SortingMethod method);
 
-		void updateCurrentSamples(File path, String query);
+		void updateCurrentSamples(File path, String query)
+		{
+			mCurrentQuery = query;
+			mCurrentDirectory = path;
+			mCurrentSamples.clearSamples();
+			
+			sendChangeMessage();
+		}
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
+		
+		SampleList getCurrentSamples() { return mCurrentSamples; }
+		File getCurrentDirectory() { return mCurrentDirectory; }
+		String getCurrentQuery() { return mCurrentQuery; }
 
-		std::vector<SampleReference*> getAllSamplesInSelectedDirectory();
-		std::vector<SampleReference*> getCurrentSamples();
 		StringArray getAllTags();
-
 	private:
-		std::vector<SampleReference> mSamples;
-		SampleList mCurrentSamples;
-		SampleList mDirectorySamples;
-		File mCurrentDirectory;
-		String mCurrentQuery;
+		SampleLibrary();
+		~SampleLibrary();
 
-		JUCE_LEAK_DETECTOR(SampleLibrary)
+		bool mIsInit = false;
+		static SampleLibrary* mInstance;
+		SampleList mCurrentSamples;
+		juce::String mCurrentQuery;
+		File mCurrentDirectory;
+
+		JUCE_LEAK_DETECTOR(SampleLibrary);
 	};
 }
 #endif

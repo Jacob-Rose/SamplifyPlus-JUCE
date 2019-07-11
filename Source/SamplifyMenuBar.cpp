@@ -1,4 +1,5 @@
 #include "SamplifyMenuBar.h"
+#include "SamplifyProperties.h"
 
 using namespace samplify;
 
@@ -11,8 +12,9 @@ StringArray samplify::SamplifyMainMenu::getMenuBarNames()
 	return StringArray(names);
 }
 
-void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
+void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
+	File newDir;
 	switch (menuItemID)
 	{
 	case saveSampleInfo:
@@ -20,8 +22,11 @@ void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMe
 	case deleteSampleInfo:
 		break;
 	case addDirectory:
+		newDir = SamplifyProperties::browseForDirectory();
+		SamplifyProperties::getInstance()->addDirectory(newDir);
 		break;
 	case removeDirectory:
+		SamplifyProperties::getInstance()->openRemoveDirectoryDialogue();
 		break;
 	case removeAndResetDirectory:
 		break;
@@ -30,7 +35,7 @@ void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMe
 	}
 }
 
-void samplify::SamplifyMainMenu::menuBarItemsChanged(MenuBarModel* menuBarModel) {}
+void SamplifyMainMenu::menuBarItemsChanged(MenuBarModel* menuBarModel) {}
 
 PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuName)
 {

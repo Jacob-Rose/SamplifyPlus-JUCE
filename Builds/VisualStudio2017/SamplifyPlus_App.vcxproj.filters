@@ -526,7 +526,13 @@
     <ClCompile Include="..\..\Source\SampleList.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SampleManager.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\SampleReference.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagManager.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Fonts.cpp">
@@ -540,6 +546,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
       <Filter>SamplifyPlus\Source\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleEditor.cpp">
+      <Filter>SamplifyPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagEditor.cpp">
+      <Filter>SamplifyPlus</Filter>
     </ClCompile>
     <ClCompile Include="..\..\danlin_fontawesome\data\FontAwesomeData.cpp">
       <Filter>JUCE Modules\danlin_fontawesome\data</Filter>
@@ -2514,7 +2526,13 @@
     <ClInclude Include="..\..\Source\SampleList.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\SampleManager.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\SampleReference.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagManager.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Fonts.h">
@@ -2528,6 +2546,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyProperties.h">
       <Filter>SamplifyPlus\Source\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleEditor.h">
+      <Filter>SamplifyPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagEditor.h">
+      <Filter>SamplifyPlus</Filter>
     </ClInclude>
     <ClInclude Include="..\..\danlin_fontawesome\data\FontAwesomeData.h">
       <Filter>JUCE Modules\danlin_fontawesome\data</Filter>
