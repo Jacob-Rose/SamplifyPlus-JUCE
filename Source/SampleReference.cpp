@@ -1,16 +1,18 @@
 #include "SampleReference.h"
 #include <string>
 #include "SamplifyProperties.h"
-#include "SampleList.h"
 
 using namespace samplify;
 
-std::vector<Sample> Sample::mAllSamples = std::vector<Sample>();
+SampleReference::SampleReference() : mFile(""), mPropertiesFile("")
+{
+	delete this;
+}
 
-Sample::Sample(const File& file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
+SampleReference::SampleReference(File file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
 {
 	loadPropertiesFile();
-	if (mPropertiesFile.existsAsFile())
+	if (isPropertiesFileValid())
 	{
 		loadPropertiesFile();
 	}
@@ -20,7 +22,7 @@ Sample::Sample(const File& file) : mFile(file), mPropertiesFile(file.getFullPath
 	}
 }
 
-Sample::Sample(const Sample& s)
+SampleReference::SampleReference(const SampleReference& s) : SampleReference(s.getFile())
 {
 	mFile = s.mFile;
 	mPropertiesFile = s.mPropertiesFile;
@@ -32,15 +34,57 @@ Sample::Sample(const Sample& s)
 	mThumbnailCache = nullptr;
 }
 
-
-Sample::~Sample()
+bool SampleReference::isPropertiesFileValid()
+{
+	return mPropertiesFile.existsAsFile();
+}
+SampleReference::~SampleReference()
 {
 	mThumbnailCache.reset(nullptr);
 	mThumbnail.reset(nullptr);
 	
 }
 
-void Sample::addTag(juce::String tag)
+File SampleReference::getFile() const
+{
+	return mFile;
+}
+
+String SampleReference::getFilename() const
+{
+	return mFile.getFileName();
+}
+
+String SampleReference::getFullPathName() const
+{
+	String path = mFile.getFullPathName();
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < dirs.size(); i++)
+	{
+		if (path.contains(dirs[i].getFullPathName()))
+		{
+			return path.substring(dirs[i].getFullPathName().length());
+		}
+	}
+	return mFile.getFullPathName();
+}
+
+SampleReference::SampleType SampleReference::getSampleType() const
+{
+	return mSampleType;
+}
+
+double SampleReference::getLength() const
+{
+	return mLength;
+}
+
+StringArray SampleReference::getTags()
+{
+	return mTags;
+}
+
+void samplify::SampleReference::addTag(juce::String tag)
 {
 	if (!mTags.contains(tag))
 	{
@@ -48,10 +92,10 @@ void Sample::addTag(juce::String tag)
 	}
 }
 
-StringArray Sample::SampleReference::getParentFolders()
+StringArray SampleReference::getParentFolders()
 {
 	StringArray folders;
-	File file(mSampleReferenced->mFile);
+	File file(mFile);
 	File root;
 	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < rootDirs.size(); i++)
@@ -62,33 +106,42 @@ StringArray Sample::SampleReference::getParentFolders()
 			break;
 		}
 	}
-	while (mSampleReferenced->mFile.isAChildOf(root))
+	while (mFile.isAChildOf(root))
 	{
-		file = mSampleReferenced->mFile.getParentDirectory();
-		folders.add(file.getFileName());
+		mFile = mFile.getParentDirectory();
+		folders.add(mFile.getFileName());
 	}
 	return folders;
 }
 
+AudioThumbnailCache* SampleReference::getAudioThumbnailCache()
+{
+	return mThumbnailCache.get();
+}
 
-void Sample::generateThumbnailAndCache()
+SampleAudioThumbnail * SampleReference::getAudioThumbnail()
+{
+	return mThumbnail.get();
+}
+
+void SampleReference::generateThumbnailAndCache()
 {
 	mThumbnailCache.reset(new AudioThumbnailCache(1));
 	AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
 	mThumbnail.reset(new SampleAudioThumbnail(512, *afm, *mThumbnailCache));
+	mThumbnail->addChangeListener(this);
 
 	AudioFormatReader* reader = afm->createReaderFor(mFile);
 	if (reader != nullptr)
 	{
 		mThumbnail->setSource(new FileInputSource(mFile));
 		mLength = (float)reader->lengthInSamples / reader->sampleRate;
-		determineSampleType();
 	}
 	delete reader;
 	
 }
 
-void Sample::determineSampleType()
+void SampleReference::determineSampleType()
 {
 	if (mLength > 4.0)
 	{
@@ -100,8 +153,14 @@ void Sample::determineSampleType()
 	}
 }
 
+void SampleReference::changeListenerCallback(ChangeBroadcaster * source)
+{
+	determineSampleType();
+	sendChangeMessage();
+}
 
-void Sample::savePropertiesFile()
+
+void SampleReference::savePropertiesFile()
 {
 	if (mPropertiesFile.existsAsFile())
 	{
@@ -117,7 +176,7 @@ void Sample::savePropertiesFile()
 	
 }
 
-void Sample::loadPropertiesFile()
+void SampleReference::loadPropertiesFile()
 {
 	if (mPropertiesFile.existsAsFile())
 	{
@@ -133,35 +192,24 @@ void Sample::loadPropertiesFile()
 		}
 		else
 		{
-			mPropertiesFile.deleteFile();
+			//mPropertiesFile.deleteFile();
 		}
 	}
 }
 
-
-std::vector<Sample*> Sample::getAllSamples()
+bool SampleReference::operator==(const SampleReference& other)
 {
-	std::vector<Sample*> list;
-	for (int i = 0; i < mAllSamples.size(); i++)
+	if (mFile == other.mFile)
 	{
-		list.push_back(&mAllSamples[i]);
+		return true;
 	}
-	return list;
+	else
+	{
+		return false;
+	}
 }
 
-Sample Sample::loadSample(const File& file)
+bool SampleReference::operator==(const File& other)
 {
-	bool contains = false;
-	for (int i = 0; i < mAllSamples.size(); i++)
-	{
-		if (mAllSamples[i] == file)
-		{
-			contains = true;
-			break;
-		}
-	}
-	jassert(contains);
-	Sample sample(file);
-	mAllSamples.push_back(sample);
-	return sample;
+	return other == mFile;
 }

@@ -5,6 +5,9 @@
     Created: 6 Jul 2019 11:36:41am
     Author:  Jake Rose
 
+	No idea how menus worked, source for help
+	https://github.com/vinniefalco/SimpleDJ/blob/master/Extern/JUCE/extras/JuceDemo/Source/MainDemoWindow.cpp
+
   ==============================================================================
 */
 
@@ -18,7 +21,6 @@ namespace samplify
 	class SamplifyMainMenu : public Component,
 							 public MenuBarModel
 	{
-	public:
 		enum CommandIDs
 		{
 			saveSampleInfo = 0x2000,
@@ -29,7 +31,8 @@ namespace samplify
 			openHelpPDF,
 			volumeControl
 		};
-
+		//const CommandID ids[] = { saveSampleInfo, deleteSampleInfo, addDirectory, removeDirectory, openHelpPDF, volumeControl };
+	public:
 		SamplifyMainMenu();
 		//Menu Bar Model Functions
 		StringArray getMenuBarNames() override;

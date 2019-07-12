@@ -110,9 +110,9 @@ void AudioPlayer::loadFile(File file)
 	sendChangeMessage();
 }
 
-void AudioPlayer::loadFile(Sample::SampleReference reference)
+void AudioPlayer::loadFile(SampleReference* reference)
 {
-	loadFile(reference.getFile());
+	loadFile(reference->getFile());
 }
 
 void AudioPlayer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)

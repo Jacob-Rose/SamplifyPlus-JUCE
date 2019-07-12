@@ -18,8 +18,8 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
-	//mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
-	//SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 SampleExplorer::~SampleExplorer()
@@ -41,7 +41,7 @@ void SampleExplorer::resized()
 
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
-	//SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
+	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
 }
 
 void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
@@ -64,19 +64,19 @@ void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 			method = SortingMethod::Oldest;
 			break;
 		}
-		//SamplifyProperties::getInstance()->getSampleLibrary()->sortCurrentSamples(method);
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortCurrentSamples(method);
 		mSampleContainer.updateItems();
 	}
 	else
 	{
-		//std::vector<SampleReference*> sampleReference = SamplifyProperties::getInstance()->getSampleLibrary()->getAllSamplesInSelectedDirectory();
+		std::vector<SampleReference*> sampleReference = SamplifyProperties::getInstance()->getSampleLibrary()->getAllSamplesInSelectedDirectory();
 		//randomize
 	}
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	//mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }
 
 SampleExplorer::SampleViewport::SampleViewport(SampleContainer* container)

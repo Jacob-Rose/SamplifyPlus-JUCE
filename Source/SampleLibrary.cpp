@@ -2,8 +2,6 @@
 
 using namespace samplify;
 
-SampleLibrary* SampleLibrary::mInstance = nullptr;
-/*
 SampleLibrary::SampleLibrary()
 {
 }
@@ -129,4 +127,3 @@ StringArray SampleLibrary::getAllTags()
 	}
 	return tags;
 }
-*/

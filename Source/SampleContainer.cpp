@@ -3,6 +3,7 @@
 #include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
 
+#include <algorithm>
 #include <cmath>
 
 using namespace samplify;
@@ -90,7 +91,7 @@ void SampleContainer::clearItems()
 	mUsedSampleTiles.clear();
 }
 
-void SampleContainer::setSampleItems(std::vector<Sample::SampleReference> currentSamples)
+void SampleContainer::setSampleItems(std::vector<SampleReference*> currentSamples)
 {
 	mCurrentSampleReferences = currentSamples;
 	updateItems();

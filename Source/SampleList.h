@@ -14,51 +14,29 @@
 
 #include "SampleReference.h"
 
+#include <algorithm>
 #include <vector>
 
 namespace samplify
 {
 
-	enum SortingMethod
-	{
-		FirstToLast,
-		LastToFirst,
-		Newest,
-		Oldest
-		//popularity
-	};
+	class SampleList;
+	struct SampleListReference;
+	enum SortingMethod;
 
-	class SampleList : public ChangeBroadcaster
+	class SampleList
 	{
 	public:
+
 		SampleList();
-		SampleList(SampleList& old)
-		{
-			mSamples = old.mSamples;
-		}
 		~SampleList();
 
-		class SampleListReference
-		{
-		public:
-			SampleListReference(Sample::SampleReference sample, SampleList* parent) ;
-			SampleList* mParent = nullptr;
-			Sample::SampleReference mSampleReference;
-			friend bool operator>(SampleListReference const& lhs, SampleListReference const& rhs);
-		};
-
-		void addSample(Sample::SampleReference sample);
-
-		void removeSample(Sample::SampleReference sample);
-		void removeSample(File file);
-
-		int getCount();
-		Sample::SampleReference getSample(int index) { return mSamples[index].mSampleReference; }
-		
-		std::vector<Sample::SampleReference> getSamples();
-
+		void addSample(SampleReference* sample);
+		void addSamples(const SampleList& collection);
+		std::vector<SampleReference*> getSamples();
+		void removeSample(SampleReference* sample);
+		void removeSample(int index);
 		void clearSamples();
-
 		void sortSamples(SortingMethod method);
 
 		SortingMethod getSortingMethod();
@@ -70,59 +48,24 @@ namespace samplify
 		//add image?
 	};
 
-	inline bool operator==(SampleList::SampleListReference const& lhs, SampleList::SampleListReference const& rhs)
+	struct SampleListReference
 	{
-		return lhs.mSampleReference == rhs.mSampleReference;
-	}
+	public:
+		SampleListReference(SampleReference* sample, SampleList* parent);
+		bool operator<(const SampleListReference& other) const;
+		bool operator==(const SampleReference* sample) const;
+		SampleList* mParent = nullptr;
+		SampleReference* mSampleReference = nullptr;
+	};
 
-	inline bool operator>(SampleList::SampleListReference const& lhs, SampleList::SampleListReference const& rhs)
+	enum SortingMethod
 	{
-		jassert(lhs.mParent == rhs.mParent);
-		if (lhs.mParent->getSortingMethod() == SortingMethod::LastToFirst)
-		{
-			if (lhs.mSampleReference.getFilename() > rhs.mSampleReference.getFilename())
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else if (lhs.mParent->getSortingMethod() == SortingMethod::Newest)
-		{
-			if (lhs.mSampleReference.getFile().getCreationTime() > rhs.mSampleReference.getFile().getCreationTime())
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else if (lhs.mParent->getSortingMethod() == SortingMethod::Oldest)
-		{
-			if (lhs.mSampleReference.getFile().getCreationTime() > rhs.mSampleReference.getFile().getCreationTime())
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else //first to last will default
-		{
-			if (rhs.mSampleReference.getFilename() > lhs.mSampleReference.getFilename())
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
+		FirstToLast,
+		LastToFirst,
+		Newest,
+		Oldest
+		//popularity
+	};
 }
 #endif
 

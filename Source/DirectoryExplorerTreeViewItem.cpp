@@ -1,5 +1,5 @@
 #include "DirectoryExplorerTreeViewItem.h"
-#include "SampleLibrary.h"
+#include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
@@ -49,7 +49,21 @@ bool DirectoryExplorerTreeViewItem::isInterestedInFileDrag(const StringArray& fi
 
 void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x, int y)
 {
-	//todo
+	for (int i = 0; i < files.size(); i++)
+	{
+		if (!mShouldUseFile)
+		{
+			File file(files[i]);
+			if (file.isDirectory())
+			{
+				SamplifyProperties::getInstance()->loadSamplesFromDirectory(File(files[i]));
+			}
+		}
+		else
+		{
+
+		}
+	}
 }
 
 void samplify::DirectoryExplorerTreeViewItem::setName(String name)
@@ -130,6 +144,6 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 {
 	if (isNowSelected)
 	{
-		SampleLibrary::getInstance()->updateCurrentSamples(mFile);
+		SamplifyProperties::getInstance()->setSelectedDirectory(mFile);
 	}
 }
