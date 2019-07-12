@@ -132,7 +132,7 @@ void SampleTile::resized()
 {
 	int widthSegment = getWidth() / 4;
 	int heightSegment = getHeight() / 3;
-	mTagContainer.setBounds(widthSegment, (getHeight() / 10) * 1.2f, widthSegment * 3, heightSegment);
+	mTagContainer.setBounds(getTagRect().toNearestInt());
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)
@@ -240,8 +240,14 @@ void SampleTile::setSampleReference(SampleReference * sample)
 		{
 			sample->generateThumbnailAndCache();
 		}
+		mTagContainer.setTags(sample->getTags());
+	}
+	else
+	{
+		mTagContainer.setTags(StringArray());
 	}
 	mSampleReference = sample;
+
 	repaint();
 }
 

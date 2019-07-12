@@ -60,9 +60,6 @@ namespace samplify
 		File browseForDirectory();
 		void browseForDirectoryAndAdd();
 
-		void setSelectedDirectory(File directory);
-		File getSelectedDirectory() { return mSelectedDirectory; }
-
 		void loadSamplesFromDirectory(File& file);
 		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
@@ -84,7 +81,6 @@ namespace samplify
 		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
 		std::map<juce::String, Colour> mSampleTagColors;
 		std::vector<File> mDirectories = std::vector<File>();
-		File mSelectedDirectory = File("");
 		AudioPlayer* mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;

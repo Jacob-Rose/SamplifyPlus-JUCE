@@ -50,6 +50,10 @@ void SampleContainer::updateItems()
 		int height = SAMPLE_TILE_ASPECT_RATIO * width;
 		if (columns > 0)
 		{
+			for (int i = 0; i < mUsedSampleTiles.size(); i++)
+			{
+				mUsedSampleTiles[i]->setSampleReference(nullptr);
+			}
 			for (unsigned int i = 0; i < mCurrentSampleReferences.size() && i < mMaxItems; i++)
 			{
 				int column = i % columns;

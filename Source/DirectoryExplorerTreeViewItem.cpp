@@ -144,6 +144,6 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 {
 	if (isNowSelected)
 	{
-		SamplifyProperties::getInstance()->setSelectedDirectory(mFile);
+		SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(mFile);
 	}
 }

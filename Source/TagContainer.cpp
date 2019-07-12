@@ -36,6 +36,15 @@ void TagContainer::updateItems()
 
 	int currentWidth = 0.0f;
 	int line = 0;
+	for (int i = 0; i < mUsedSampleTags.size(); i++)
+	{
+		mUsedSampleTags[i]->setTag("");
+	}
+	int deleteCount = mUsedSampleTags.size() - mCurrentTags.size();
+	for (int i = 0; i < deleteCount; i++)
+	{
+		mUsedSampleTags.erase(mUsedSampleTags.begin() + i);
+	}
 	for (int i = 0; i < mCurrentTags.size(); i++)
 	{
 		float fontWidth = tagFont.getStringWidth(mCurrentTags[i]);

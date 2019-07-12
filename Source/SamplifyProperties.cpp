@@ -64,7 +64,6 @@ SamplifyProperties* SamplifyProperties::getInstance()
 void SamplifyProperties::init()
 {
 	mDirectories = std::vector<File>();
-	mSelectedDirectory = File("");
 	loadDirectoriesFromPropertiesFile();
 	mSampleLibrary.reset(new SampleLibrary());
 	LoadSamplesThread loadSamplesThread(mDirectories[0]);
@@ -115,12 +114,6 @@ void SamplifyProperties::loadDirectoriesFromPropertiesFile()
 	{
 		browseForDirectoryAndAdd();
 	}
-}
-
-void SamplifyProperties::setSelectedDirectory(File directory)
-{
-	mSelectedDirectory = directory;
-	SamplifyProperties::getSampleLibrary()->updateCurrentSamples(mSelectedDirectory);
 }
 
 void SamplifyProperties::loadSamplesFromDirectory(File& file)

@@ -56,7 +56,7 @@ void SampleLibrary::removeSample(File file)
 
 void SampleLibrary::clearSamples()
 {
-}
+} 
 
 bool SampleLibrary::containsSample(File file)
 {
@@ -78,10 +78,36 @@ void SampleLibrary::updateCurrentSamples(File path, String query)
 		if (ref->getFile().isAChildOf(path) || !path.exists())
 		{
 			mDirectorySamples.addSample(ref);
-			if (ref->getFilename().containsIgnoreCase(query))
+			bool isValid = true;
+			String tmpQuery = query;
+			while(tmpQuery.containsChar('#'))
+			{
+				int first = tmpQuery.indexOfChar('#');
+				int last = tmpQuery.substring(first, tmpQuery.length() - first).indexOfChar(' ');
+				juce::String tag;
+				if (last == -1)
+				{
+					tag = tmpQuery.substring(first + 1, tmpQuery.length() - (first));
+					tmpQuery = "";
+				}
+				else
+				{
+					tag = tmpQuery.substring(first + 1, last);
+					tmpQuery = tmpQuery.substring(last + 1, tmpQuery.length() - (last + 1));
+				}
+				
+				isValid = ref->getTags().contains(tag) && isValid;
+
+			}
+			if (isValid)
+			{
+				int i = 0;
+			}
+			if (ref->getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
 				mCurrentSamples.addSample(ref);
 			}
+			
 		}
 	}
 	mCurrentQuery = query;

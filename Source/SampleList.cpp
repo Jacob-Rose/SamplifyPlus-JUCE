@@ -51,7 +51,6 @@ void samplify::SampleList::clearSamples()
 void SampleList::sortSamples(SortingMethod method)
 {
 	mSortingMethod = method;
-	std::sort(mSamples.begin(), mSamples.end());
 }
 
 SortingMethod SampleList::getSortingMethod()
