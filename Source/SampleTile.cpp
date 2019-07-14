@@ -8,11 +8,11 @@
 
 using namespace samplify;
 
-SampleTile::SampleTile(SampleReference* sample)
+SampleTile::SampleTile(Sample* sample)
 {
 	setRepaintsOnMouseActivity(true);
 	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
-	setSampleReference(sample);
+	setSample(sample);
 	addAndMakeVisible(mTagContainer);
 }
 
@@ -21,7 +21,7 @@ SampleTile::~SampleTile()
 }
 void SampleTile::paint (Graphics& g)
 {
-	if (mSampleReference != nullptr)
+	if (mSample != nullptr)
 	{
 		Rectangle<float> titleRect = getTitleRect();
 		Rectangle<float> timeRect = getTimeRect();
@@ -68,18 +68,18 @@ void SampleTile::paint (Graphics& g)
 			typeRect.getBottomRight().y,
 			2.0f);
 		g.setColour(Colours::darkslategrey);
-		g.drawText(mSampleReference->getFilename(), titleRect, Justification::centredLeft);
+		g.drawText(mSample->getFilename(), titleRect, Justification::centredLeft);
 		g.setColour(foregroundColor);
 
 
 		///DRAW SAMPLE TYPE
 
-		switch (mSampleReference->getSampleType())
+		switch (mSample->getSampleType())
 		{
-		case SampleReference::SampleType::ONESHOT:
+		case Sample::SampleType::ONESHOT:
 			FontAwesome::drawCenterd(g, FontAwesome_Share, 30.0f, foregroundColor, typeRect.toNearestInt());
 			break;
-		case SampleReference::SampleType::LOOP:
+		case Sample::SampleType::LOOP:
 			FontAwesome::drawCenterd(g, FontAwesome_Refresh, 30.0f, foregroundColor, typeRect.toNearestInt());
 			break;
 		default:
@@ -88,12 +88,12 @@ void SampleTile::paint (Graphics& g)
 
 		g.setFont(16.0f);
 		std::stringstream str;
-		str << std::fixed << std::setprecision(2) << mSampleReference->getLength();
+		str << std::fixed << std::setprecision(2) << mSample->getLength();
 		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
 
 
 
-		SampleAudioThumbnail* mThumbnail = mSampleReference->getAudioThumbnail();
+		SampleAudioThumbnail* mThumbnail = mSample->getAudioThumbnail();
 		if (mThumbnail != nullptr && mThumbnail->isFullyLoaded())
 		{
 			if (mThumbnail->getNumChannels() != 0)
@@ -103,7 +103,7 @@ void SampleTile::paint (Graphics& g)
 			}
 		}
 		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getFile() == mSampleReference->getFile())
+		if (auxPlayer->getFile() == mSample->getFile())
 		{
 			float startT = auxPlayer->getStartCueRelative();
 			float currentT = auxPlayer->getRelativeTime();
@@ -154,7 +154,7 @@ void SampleTile::mouseDown(const MouseEvent& mouseEvent)
 
 void SampleTile::mouseUp(const MouseEvent& mouseEvent)
 {
-	if (mSampleReference != nullptr)
+	if (mSample != nullptr)
 	{
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
@@ -179,9 +179,12 @@ void SampleTile::mouseUp(const MouseEvent& mouseEvent)
 
 void samplify::SampleTile::mouseDrag(const MouseEvent& e)
 {
-	StringArray files = StringArray();
-	files.add(mSampleReference->getFile().getFullPathName());
-	DragAndDropContainer::performExternalDragDropOfFiles(files, false);
+	if (mSample != nullptr)
+	{
+		StringArray files = StringArray();
+		files.add(mSample->getFile().getFullPathName());
+		DragAndDropContainer::performExternalDragDropOfFiles(files, false);
+	}
 }
 
 void SampleTile::mouseMove(const MouseEvent & e)
@@ -196,31 +199,40 @@ void SampleTile::playSample()
 
 void SampleTile::playSample(float t)
 {
-	AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-	if (auxPlayer->getFile() != mSampleReference->getFile())
+	if (mSample != nullptr)
 	{
-		auxPlayer->loadFile(mSampleReference);
+		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
+		if (auxPlayer->getFile() != mSample->getFile())
+		{
+			auxPlayer->loadFile(mSample);
+		}
+		else
+		{
+			auxPlayer->stop();
+			auxPlayer->reset();
+		}
+		auxPlayer->setRelativeTime(t);
+		auxPlayer->play();
 	}
-	else
-	{
-		auxPlayer->stop();
-		auxPlayer->reset();
-	}
-	auxPlayer->setRelativeTime(t);
-	auxPlayer->play();
+
 }
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 {
-	TagTile* tagComp = (TagTile*)(dragSourceDetails.sourceComponent.get());
-	mSampleReference->addTag(tagComp->getTag());
-	mTagContainer.setTags(mSampleReference->getTags());
+	if (mSample != nullptr)
+	{
+		if (TagTile * tagComp = dynamic_cast<TagTile*>(dragSourceDetails.sourceComponent.get()))
+		{
+			mSample->addTag(tagComp->getTag());
+			mTagContainer.setTags(mSample->getTags());
+		}
+	}
 }
 
 void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 {
   	AudioPlayer* aux = SamplifyProperties::getInstance()->getAudioPlayer();
-	if (aux->getFile() == mSampleReference->getFile())
+	if (aux->getFile() == mSample->getFile())
 	{
 		if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
 			aux->getState() == AudioPlayer::TransportState::Playing))
@@ -232,7 +244,7 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 	}
 }
 
-void SampleTile::setSampleReference(SampleReference * sample)
+void SampleTile::setSample(Sample * sample)
 {
 	if (sample != nullptr)
 	{
@@ -246,19 +258,19 @@ void SampleTile::setSampleReference(SampleReference * sample)
 	{
 		mTagContainer.setTags(StringArray());
 	}
-	mSampleReference = sample;
+	mSample = sample;
 
 	repaint();
 }
 
-SampleReference* SampleTile::getSampleReference()
+Sample* SampleTile::getSample()
 {
-	return mSampleReference;
+	return mSample;
 }
 
-bool SampleTile::operator==(SampleReference * ref)
+bool SampleTile::operator==(Sample * ref)
 {
-	return ref == mSampleReference;
+	return ref == mSample;
 }
 
 Rectangle<float> SampleTile::getTitleRect()

@@ -83,7 +83,7 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
   $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
   $(JUCE_OBJDIR)/SampleList_d99256f1.o \
-  $(JUCE_OBJDIR)/SampleReference_fdae44a2.o \
+  $(JUCE_OBJDIR)/Sample_31e5b033.o \
   $(JUCE_OBJDIR)/Fonts_436ea765.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
   $(JUCE_OBJDIR)/SampleAudioThumbnail_35af289.o \
@@ -192,9 +192,9 @@ $(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
 	@echo "Compiling SampleList.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
-$(JUCE_OBJDIR)/SampleReference_fdae44a2.o: ../../Source/SampleReference.cpp
+$(JUCE_OBJDIR)/Sample_31e5b033.o: ../../Source/Sample.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleReference.cpp"
+	@echo "Compiling Sample.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Fonts_436ea765.o: ../../Source/Fonts.cpp

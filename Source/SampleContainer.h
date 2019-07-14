@@ -13,7 +13,7 @@
 
 #include "JuceHeader.h"
 
-#include "SampleReference.h"
+#include "Sample.h"
 #include "SampleTile.h"
 
 namespace samplify
@@ -32,7 +32,7 @@ namespace samplify
 		void extendItems();
 		void clearItems();
 
-		void setSampleItems(std::vector<SampleReference*> mSampleReferences);
+		void setSampleItems(std::vector<Sample*> mSamples);
 		//======================================================
 		int calculateAllRowsHeight();
 		int calculateRowCount();
@@ -40,7 +40,7 @@ namespace samplify
 	private:
 		//=============================================================================
 		std::vector<SampleTile*> mUsedSampleTiles;
-		std::vector<SampleReference*> mCurrentSampleReferences;
+		std::vector<Sample*> mCurrentSamples;
 		int mMaxItems = 20;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleContainer)

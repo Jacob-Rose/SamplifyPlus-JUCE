@@ -110,7 +110,7 @@ void AudioPlayer::loadFile(File file)
 	sendChangeMessage();
 }
 
-void AudioPlayer::loadFile(SampleReference* reference)
+void AudioPlayer::loadFile(Sample* reference)
 {
 	loadFile(reference->getFile());
 }

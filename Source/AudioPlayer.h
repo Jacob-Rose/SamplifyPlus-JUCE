@@ -11,7 +11,7 @@
 
 #include "JuceHeader.h"
 
-#include "SampleReference.h"
+#include "Sample.h"
 
 namespace samplify
 {
@@ -46,7 +46,7 @@ namespace samplify
 
 		void changeState(TransportState state);
 		void loadFile(File file);
-		void loadFile(SampleReference* reference);
+		void loadFile(Sample* reference);
 
 		TransportState getState() { return state; }
 		AudioFormatManager* getFormatManager() { return &formatManager; }

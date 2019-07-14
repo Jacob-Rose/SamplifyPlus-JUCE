@@ -21,23 +21,26 @@ void samplify::TagTile::setTag(juce::String tag)
 
 void TagTile::paint (Graphics& g)
 {
-	Colour mainColor = SamplifyProperties::getInstance()->getTagColor(mTag);
-    g.setColour (mainColor);
-    g.fillRoundedRectangle (getLocalBounds().toFloat(), 1.0f);   // draw an outline around the component
-	g.setColour(mainColor.darker());
-	g.drawRoundedRectangle(getLocalBounds().toFloat(), 1.0f, 1.0f);
-	float oldFontSize = g.getCurrentFont().getHeight();
-	if (mainColor.getPerceivedBrightness() > 0.5f)
+	if (mTag != "")
 	{
-		g.setColour(Colours::black);
+		Colour mainColor = SamplifyProperties::getInstance()->getTagColor(mTag);
+		g.setColour(mainColor);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), 1.0f);   // draw an outline around the component
+		g.setColour(mainColor.darker());
+		g.drawRoundedRectangle(getLocalBounds().toFloat(), 1.0f, 1.0f);
+		float oldFontSize = g.getCurrentFont().getHeight();
+		if (mainColor.getPerceivedBrightness() > 0.5f)
+		{
+			g.setColour(Colours::black);
+		}
+		else
+		{
+			g.setColour(Colours::white);
+		}
+		g.setFont(*mFont);
+		g.drawText(mTag, getLocalBounds(), Justification::centred, true);
+		g.setFont(oldFontSize);
 	}
-	else
-	{
-		g.setColour(Colours::white);
-	}
-	g.setFont(*mFont);
-    g.drawText (mTag, getLocalBounds(), Justification::centred, true); 
-	g.setFont(oldFontSize);
 }
 
 void TagTile::resized()

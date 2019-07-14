@@ -23,7 +23,7 @@ SampleLibrary::~SampleLibrary()
 void SampleLibrary::addSample(File file)
 {
 	//check if already exist
-	SampleReference ref(file);
+	Sample ref(file);
 	if(!containsSample(file))
 		mSamples.push_back(ref);
 }
@@ -36,7 +36,7 @@ void SampleLibrary::addSamples(std::vector<File> files)
 	}
 }
 
-void SampleLibrary::addSamples(std::vector<SampleReference> files)
+void SampleLibrary::addSamples(std::vector<Sample> files)
 {
 	for (int i = 0; i < files.size(); i++)
 	{
@@ -44,10 +44,11 @@ void SampleLibrary::addSamples(std::vector<SampleReference> files)
 	}
 }
 
-void SampleLibrary::addSample(SampleReference& ref)
+void SampleLibrary::addSample(Sample& ref)
 {
 	if (!containsSample(ref.getFile()))
 		mSamples.push_back(ref);
+	sendChangeMessage();
 }
 
 void SampleLibrary::removeSample(File file)
@@ -65,54 +66,24 @@ bool SampleLibrary::containsSample(File file)
 
 void SampleLibrary::sortCurrentSamples(SortingMethod method)
 {
-	mCurrentSamples.sortSamples(method);
+	mCurrentSamples.sort(method);
+	sendChangeMessage();
 }
 
 void SampleLibrary::updateCurrentSamples(File path, String query)
 {
 	mCurrentSamples.clearSamples();
-	mDirectorySamples.clearSamples();
+	SampleList allSamples;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		SampleReference* ref = &mSamples[i];
-		if (ref->getFile().isAChildOf(path) || !path.exists())
-		{
-			mDirectorySamples.addSample(ref);
-			bool isValid = true;
-			String tmpQuery = query;
-			while(tmpQuery.containsChar('#'))
-			{
-				int first = tmpQuery.indexOfChar('#');
-				int last = tmpQuery.substring(first, tmpQuery.length() - first).indexOfChar(' ');
-				juce::String tag;
-				if (last == -1)
-				{
-					tag = tmpQuery.substring(first + 1, tmpQuery.length() - (first));
-					tmpQuery = "";
-				}
-				else
-				{
-					tag = tmpQuery.substring(first + 1, last);
-					tmpQuery = tmpQuery.substring(last + 1, tmpQuery.length() - (last + 1));
-				}
-				
-				isValid = ref->getTags().contains(tag) && isValid;
-
-			}
-			if (isValid)
-			{
-				int i = 0;
-			}
-			if (ref->getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
-			{
-				mCurrentSamples.addSample(ref);
-			}
-			
-		}
+		allSamples.addSample(&mSamples[i]);
 	}
 	mCurrentQuery = query;
 	mCurrentDirectory = path;
-	sendChangeMessage();
+	updateThread = new UpdateSamplesThread(this);
+	updateThread->startThread();
+	updateThread->addListener(this);
+
 }
 
 void SampleLibrary::updateCurrentSamples(File path)
@@ -125,14 +96,14 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
-std::vector<SampleReference*> SampleLibrary::getAllSamplesInSelectedDirectory()
+SampleList SampleLibrary::getCurrentSamples()
 {
-	return mDirectorySamples.getSamples();
-}
-
-std::vector<SampleReference*> SampleLibrary::getCurrentSamples()
-{
-	return mCurrentSamples.getSamples();
+	if (!updateThread->isThreadRunning())
+	{
+		delete updateThread;
+		updateThread = nullptr;
+	}
+	return mCurrentSamples;
 }
 
 StringArray SampleLibrary::getAllTags()
@@ -152,4 +123,52 @@ StringArray SampleLibrary::getAllTags()
 		
 	}
 	return tags;
+}
+
+void samplify::SampleLibrary::setCurrentSamples(SampleList samples)
+{
+	mCurrentSamples = samples;
+	sendChangeMessage();
+}
+
+void samplify::SampleLibrary::UpdateSamplesThread::run()
+{
+	for (int i = 0; i < mParent->mSamples.size(); i++)
+	{
+		Sample* ref = &mParent->mSamples[i];
+		if (ref->getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
+		{
+			bool isValid = true;
+			String tmpQuery = mParent->mCurrentQuery;
+			while (tmpQuery.containsChar('#'))
+			{
+				int first = tmpQuery.indexOfChar('#');
+				int last = tmpQuery.substring(first, tmpQuery.length() - first).indexOfChar(' ');
+				juce::String tag;
+				if (last == -1)
+				{
+					tag = tmpQuery.substring(first + 1, tmpQuery.length() - (first));
+					tmpQuery = "";
+				}
+				else
+				{
+					tag = tmpQuery.substring(first + 1, last);
+					tmpQuery = tmpQuery.substring(last + 1, tmpQuery.length() - (last + 1));
+				}
+
+				isValid = ref->getTags().contains(tag) && isValid;
+
+			}
+			if (isValid)
+			{
+				int i = 0;
+			}
+			if (ref->getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
+			{
+				mSamples.addSample(ref);
+			}
+
+		}
+	}
+	signalThreadShouldExit();
 }

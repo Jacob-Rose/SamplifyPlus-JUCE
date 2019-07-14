@@ -200,7 +200,7 @@ void SamplifyProperties::LoadSamplesThread::run()
 
 	for (int i = 0; i < count; i++)
 	{
-		SampleReference ref(mFiles[i]);
+		Sample ref(mFiles[i]);
 		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
 		setProgress(((float)i)/count);
 		setStatusMessage("calculating sample info..." + ref.getFilename());

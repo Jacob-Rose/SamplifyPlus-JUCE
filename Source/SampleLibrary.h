@@ -12,14 +12,14 @@
 
 #include "JuceHeader.h"
 
-#include "SampleReference.h"
+#include "Sample.h"
 #include "SampleList.h"
 
 #include <vector>
 
 namespace samplify
 {
-	class SampleLibrary : public ChangeBroadcaster
+	class SampleLibrary : public ChangeBroadcaster, public Thread::Listener
 	{
 	public:
 		SampleLibrary();
@@ -27,9 +27,9 @@ namespace samplify
 		~SampleLibrary();
 
 		void addSample(File file);
-		void addSample(SampleReference& ref);
+		void addSample(Sample& ref);
 		void addSamples(std::vector<File> files);
-		void addSamples(std::vector<SampleReference> files);
+		void addSamples(std::vector<Sample> files);
 		void removeSample(File file);
 		void clearSamples();
 
@@ -37,18 +37,37 @@ namespace samplify
 
 		void sortCurrentSamples(SortingMethod method);
 
+		class UpdateSamplesThread : public Thread
+		{
+		public:
+			UpdateSamplesThread(SampleLibrary* parent) : Thread("Update Samples", 0)
+				 {
+				mParent = parent;
+			}
+			void run() override;
+			friend class SampleLibrary;
+		private:
+			SampleLibrary* mParent;
+			SampleList mSamples;
+		};
+
+		void exitSignalSent() override
+		{
+			setCurrentSamples(updateThread->mSamples);
+			sendChangeMessage();
+		}
+
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
-
-		std::vector<SampleReference*> getAllSamplesInSelectedDirectory();
-		std::vector<SampleReference*> getCurrentSamples();
+		void setCurrentSamples(SampleList samples);
+		SampleList getCurrentSamples();
 		StringArray getAllTags();
 
 	private:
-		std::vector<SampleReference> mSamples;
+		UpdateSamplesThread* updateThread = nullptr;
+		std::vector<Sample> mSamples;
 		SampleList mCurrentSamples;
-		SampleList mDirectorySamples;
 		File mCurrentDirectory;
 		String mCurrentQuery;
 

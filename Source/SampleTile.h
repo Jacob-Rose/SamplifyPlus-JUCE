@@ -13,7 +13,7 @@
 
 #include "JuceHeader.h"
 
-#include "SampleReference.h"
+#include "Sample.h"
 #include "TagContainer.h"
 #include "SamplifyProperties.h"
 
@@ -23,7 +23,7 @@ namespace samplify
 	{
 	public:
 		//===========================================================================
-		SampleTile(SampleReference*);
+		SampleTile(Sample*);
 		~SampleTile();
 
 		void paint(Graphics&) override;
@@ -42,10 +42,10 @@ namespace samplify
 		void playSample();
 		void playSample(float t);
 
-		void setSampleReference(SampleReference*);
-		SampleReference* getSampleReference();
+		void setSample(Sample*);
+		Sample* getSample();
 		//=Operator Overrides===========================================
-		bool operator==(SampleReference* ref);
+		bool operator==(Sample* ref);
 
 		Rectangle<float> getTitleRect();
 		Rectangle<float> getTypeRect();
@@ -55,8 +55,9 @@ namespace samplify
 
 	private:
 		//juce::SharedResourcePointer<SampleTileTooltip> mTooltip;
-		SampleReference* mSampleReference = nullptr;
+		Sample* mSample = nullptr;
 		TagContainer mTagContainer;
+		int frameCount = 0;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)
 	};
 }

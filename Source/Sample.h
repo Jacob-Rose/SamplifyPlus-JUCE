@@ -1,15 +1,15 @@
 /*
   ==============================================================================
 
-    SampleReference.h
+    Sample.h
     Created: 31 May 2018 12:46:00pm
     Author:  Jake Rose
 
   ==============================================================================
 */
 
-#ifndef SAMPLEREFERENCE_H
-#define SAMPLEREFERENCE_H
+#ifndef SAMPLE_H
+#define SAMPLE_H
 
 #include "JuceHeader.h"
 
@@ -17,7 +17,7 @@
 
 namespace samplify
 {
-	class SampleReference : public ChangeBroadcaster, public ChangeListener
+	class Sample : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
 		enum SampleType
@@ -26,10 +26,10 @@ namespace samplify
 			ONESHOT,
 			LOOP
 		};
-		SampleReference();
-		SampleReference(File);
-		SampleReference(const SampleReference&);
-		~SampleReference();
+		Sample();
+		Sample(File);
+		Sample(const Sample&);
+		~Sample();
 
 		File getFile() const;
 
@@ -58,7 +58,7 @@ namespace samplify
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
 
-		bool operator==(const SampleReference&);
+		bool operator==(const Sample&);
 		bool operator==(const File&);
 	private:
 		File mFile;

@@ -41,8 +41,7 @@
           <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
           <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
           <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
-          <FILE id="PMF6VZ" name="SampleReference.h" compile="0" resource="0"
-                file="Source/SampleReference.h"/>
+          <FILE id="PMF6VZ" name="Sample.h" compile="0" resource="0" file="Source/Sample.h"/>
         </GROUP>
         <FILE id="P5HG2Y" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
@@ -91,8 +90,7 @@
           <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
                 file="Source/SampleLibrary.cpp"/>
           <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
-          <FILE id="RCw1oz" name="SampleReference.cpp" compile="1" resource="0"
-                file="Source/SampleReference.cpp"/>
+          <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
         </GROUP>
         <FILE id="nkdBBx" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
         <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>

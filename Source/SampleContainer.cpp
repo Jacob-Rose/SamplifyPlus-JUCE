@@ -52,9 +52,9 @@ void SampleContainer::updateItems()
 		{
 			for (int i = 0; i < mUsedSampleTiles.size(); i++)
 			{
-				mUsedSampleTiles[i]->setSampleReference(nullptr);
+				mUsedSampleTiles[i]->setSample(nullptr);
 			}
-			for (unsigned int i = 0; i < mCurrentSampleReferences.size() && i < mMaxItems; i++)
+			for (unsigned int i = 0; i < mCurrentSamples.size() && i < mMaxItems; i++)
 			{
 				int column = i % columns;
 				int row = i / columns; //will cut off, not round (i feel like a real coder)
@@ -66,7 +66,7 @@ void SampleContainer::updateItems()
 				}
 				else
 				{
-					tile = new SampleTile(mCurrentSampleReferences[i]);
+					tile = new SampleTile(mCurrentSamples[i]);
 					mUsedSampleTiles.push_back(tile);
 					addAndMakeVisible(tile);
 				}
@@ -74,7 +74,7 @@ void SampleContainer::updateItems()
 								(row * height) + SAMPLE_TILE_CONTAINER_ITEM_PADDING,
 								width - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2),
 								height - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2));
-				tile->setSampleReference(mCurrentSampleReferences[i]);
+				tile->setSample(mCurrentSamples[i]);
 
 			}
 		}
@@ -95,10 +95,30 @@ void SampleContainer::clearItems()
 	mUsedSampleTiles.clear();
 }
 
-void SampleContainer::setSampleItems(std::vector<SampleReference*> currentSamples)
+void SampleContainer::setSampleItems(std::vector<Sample*> currentSamples)
 {
-	mCurrentSampleReferences = currentSamples;
-	updateItems();
+	std::vector<Sample*> oldSamples = mCurrentSamples;
+	mCurrentSamples = currentSamples;
+	if (oldSamples.size() < mCurrentSamples.size())
+	{
+		bool same = true;
+		for (int i = 0; i < oldSamples.size(); i++)
+		{
+			same = mCurrentSamples[i] == currentSamples[i] && same;
+			if (!same)
+				break;
+		}
+		if (!same)
+		{
+			updateItems();
+		}
+		else
+		{
+			updateItems();
+		}
+	}
+	
+
 }
 
 int SampleContainer::calculateAllRowsHeight()
@@ -135,7 +155,7 @@ void SampleContainer::extendItems()
 {
 	//todo put on new thread
 
-	if (mCurrentSampleReferences.size() > mMaxItems)
+	if (mCurrentSamples.size() > mMaxItems)
 	{
 		mMaxItems += calculateColumnCount() * 3;
 		updateItems();

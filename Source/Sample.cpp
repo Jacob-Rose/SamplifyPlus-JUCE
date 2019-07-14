@@ -1,15 +1,15 @@
-#include "SampleReference.h"
+#include "Sample.h"
 #include <string>
 #include "SamplifyProperties.h"
 
 using namespace samplify;
 
-SampleReference::SampleReference() : mFile(""), mPropertiesFile("")
+Sample::Sample() : mFile(""), mPropertiesFile("")
 {
 	delete this;
 }
 
-SampleReference::SampleReference(File file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
+Sample::Sample(File file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
 {
 	loadPropertiesFile();
 	if (isPropertiesFileValid())
@@ -22,7 +22,7 @@ SampleReference::SampleReference(File file) : mFile(file), mPropertiesFile(file.
 	}
 }
 
-SampleReference::SampleReference(const SampleReference& s) : SampleReference(s.getFile())
+Sample::Sample(const Sample& s) : Sample(s.getFile())
 {
 	mFile = s.mFile;
 	mPropertiesFile = s.mPropertiesFile;
@@ -34,28 +34,28 @@ SampleReference::SampleReference(const SampleReference& s) : SampleReference(s.g
 	mThumbnailCache = nullptr;
 }
 
-bool SampleReference::isPropertiesFileValid()
+bool Sample::isPropertiesFileValid()
 {
 	return mPropertiesFile.existsAsFile();
 }
-SampleReference::~SampleReference()
+Sample::~Sample()
 {
 	mThumbnailCache.reset(nullptr);
 	mThumbnail.reset(nullptr);
 	
 }
 
-File SampleReference::getFile() const
+File Sample::getFile() const
 {
 	return mFile;
 }
 
-String SampleReference::getFilename() const
+String Sample::getFilename() const
 {
 	return mFile.getFileName();
 }
 
-String SampleReference::getFullPathName() const
+String Sample::getFullPathName() const
 {
 	String path = mFile.getFullPathName();
 	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
@@ -69,22 +69,22 @@ String SampleReference::getFullPathName() const
 	return mFile.getFullPathName();
 }
 
-SampleReference::SampleType SampleReference::getSampleType() const
+Sample::SampleType Sample::getSampleType() const
 {
 	return mSampleType;
 }
 
-double SampleReference::getLength() const
+double Sample::getLength() const
 {
 	return mLength;
 }
 
-StringArray SampleReference::getTags()
+StringArray Sample::getTags()
 {
 	return mTags;
 }
 
-void samplify::SampleReference::addTag(juce::String tag)
+void samplify::Sample::addTag(juce::String tag)
 {
 	if (!mTags.contains(tag))
 	{
@@ -92,7 +92,7 @@ void samplify::SampleReference::addTag(juce::String tag)
 	}
 }
 
-StringArray SampleReference::getParentFolders()
+StringArray Sample::getParentFolders()
 {
 	StringArray folders;
 	File file(mFile);
@@ -114,17 +114,17 @@ StringArray SampleReference::getParentFolders()
 	return folders;
 }
 
-AudioThumbnailCache* SampleReference::getAudioThumbnailCache()
+AudioThumbnailCache* Sample::getAudioThumbnailCache()
 {
 	return mThumbnailCache.get();
 }
 
-SampleAudioThumbnail * SampleReference::getAudioThumbnail()
+SampleAudioThumbnail * Sample::getAudioThumbnail()
 {
 	return mThumbnail.get();
 }
 
-void SampleReference::generateThumbnailAndCache()
+void Sample::generateThumbnailAndCache()
 {
 	mThumbnailCache.reset(new AudioThumbnailCache(1));
 	AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
@@ -141,7 +141,7 @@ void SampleReference::generateThumbnailAndCache()
 	
 }
 
-void SampleReference::determineSampleType()
+void Sample::determineSampleType()
 {
 	if (mLength > 4.0)
 	{
@@ -153,14 +153,14 @@ void SampleReference::determineSampleType()
 	}
 }
 
-void SampleReference::changeListenerCallback(ChangeBroadcaster * source)
+void Sample::changeListenerCallback(ChangeBroadcaster * source)
 {
 	determineSampleType();
 	sendChangeMessage();
 }
 
 
-void SampleReference::savePropertiesFile()
+void Sample::savePropertiesFile()
 {
 	if (mPropertiesFile.existsAsFile())
 	{
@@ -176,7 +176,7 @@ void SampleReference::savePropertiesFile()
 	
 }
 
-void SampleReference::loadPropertiesFile()
+void Sample::loadPropertiesFile()
 {
 	if (mPropertiesFile.existsAsFile())
 	{
@@ -197,7 +197,7 @@ void SampleReference::loadPropertiesFile()
 	}
 }
 
-bool SampleReference::operator==(const SampleReference& other)
+bool Sample::operator==(const Sample& other)
 {
 	if (mFile == other.mFile)
 	{
@@ -209,7 +209,7 @@ bool SampleReference::operator==(const SampleReference& other)
 	}
 }
 
-bool SampleReference::operator==(const File& other)
+bool Sample::operator==(const File& other)
 {
 	return other == mFile;
 }

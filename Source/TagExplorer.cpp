@@ -1,7 +1,7 @@
 #include "TagExplorer.h"
 #include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
-#include "SampleReference.h"
+#include "Sample.h"
 
 using namespace samplify;
 

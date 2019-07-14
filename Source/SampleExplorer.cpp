@@ -18,7 +18,8 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	mFilter.addListener(this);
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples().getSamples());
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
@@ -64,19 +65,18 @@ void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 			method = SortingMethod::Oldest;
 			break;
 		}
-		SamplifyProperties::getInstance()->getSampleLibrary()->sortCurrentSamples(method);
+		//SamplifyProperties::getInstance()->getSampleLibrary()->sortCurrentSamples(method);
 		mSampleContainer.updateItems();
 	}
 	else
 	{
-		std::vector<SampleReference*> sampleReference = SamplifyProperties::getInstance()->getSampleLibrary()->getAllSamplesInSelectedDirectory();
-		//randomize
+
 	}
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples().getSamples());
 }
 
 SampleExplorer::SampleViewport::SampleViewport(SampleContainer* container)
