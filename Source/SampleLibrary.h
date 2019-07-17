@@ -31,6 +31,7 @@ namespace samplify
 		void addSamples(std::vector<File> files);
 		void addSamples(std::vector<Sample> files);
 		void removeSample(File file);
+		void saveSamplePropertyFiles();
 		void clearSamples();
 
 		bool containsSample(File file);
@@ -41,7 +42,7 @@ namespace samplify
 		{
 		public:
 			UpdateSamplesThread(SampleLibrary* parent) : Thread("Update Samples", 0)
-				 {
+			{
 				mParent = parent;
 			}
 			void run() override;
@@ -51,9 +52,24 @@ namespace samplify
 			SampleList mSamples;
 		};
 
+		class SortSamplesThread : public Thread
+		{
+		public:
+			SortSamplesThread(SampleLibrary* parent, SortingMethod method) : Thread("Sort Samples", 0)
+			{
+				mParent = parent;
+				mMethod = method;
+			}
+
+			void run() override;
+		private:
+			SampleList mSamples;
+			SampleLibrary* mParent;
+			SortingMethod mMethod;
+		};
+
 		void exitSignalSent() override
 		{
-			setCurrentSamples(updateThread->mSamples);
 			sendChangeMessage();
 		}
 
@@ -66,6 +82,7 @@ namespace samplify
 
 	private:
 		UpdateSamplesThread* updateThread = nullptr;
+		SortSamplesThread* sortThread = nullptr;
 		std::vector<Sample> mSamples;
 		SampleList mCurrentSamples;
 		File mCurrentDirectory;

@@ -11,6 +11,7 @@ TagExplorer::TagExplorer()
 	mNewButtonTag.onClick = [this] {addNewTag(); };
 	addAndMakeVisible(mNewButtonTag);
 	addAndMakeVisible(mNewTags);
+	updateTags("");
 }
 
 TagExplorer::~TagExplorer()
@@ -19,8 +20,8 @@ TagExplorer::~TagExplorer()
 
 void TagExplorer::updateTags(juce::String newSearch)
 {
-	/*
 	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
+	StringArray passedTags;
 	//StringArray currentSampleTags = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	for (int i = 0; i < mNewTags.getTags().size(); i++)
 	{
@@ -34,10 +35,10 @@ void TagExplorer::updateTags(juce::String newSearch)
 	{
 		if (allTags[i].contains(newSearch))
 		{
-			//if()
+			passedTags.add(allTags[i]);
 		}
 	}
-	*/
+	mNewTags.setTags(passedTags);
 }
 
 void TagExplorer::resized()

@@ -13,10 +13,7 @@ SampleLibrary::SampleLibrary(const SampleLibrary&)
 
 SampleLibrary::~SampleLibrary()
 {
-	for (int i = 0; i < mSamples.size(); i++)
-	{
-		//delete mSamples[i];
-	}
+
 }
 
 
@@ -55,6 +52,14 @@ void SampleLibrary::removeSample(File file)
 {
 }
 
+void samplify::SampleLibrary::saveSamplePropertyFiles()
+{
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		mSamples[i].savePropertiesFile();
+	}
+}
+
 void SampleLibrary::clearSamples()
 {
 } 
@@ -66,8 +71,17 @@ bool SampleLibrary::containsSample(File file)
 
 void SampleLibrary::sortCurrentSamples(SortingMethod method)
 {
-	mCurrentSamples.sort(method);
+	if (sortThread != nullptr)
+	{
+		sortThread->stopThread(100);
+		delete sortThread;
+	}
+	/*
+	sortThread = new SortSamplesThread(this, method);
+	sortThread->addListener(this);
+	sortThread->startThread();
 	sendChangeMessage();
+	*/
 }
 
 void SampleLibrary::updateCurrentSamples(File path, String query)
@@ -80,6 +94,11 @@ void SampleLibrary::updateCurrentSamples(File path, String query)
 	}
 	mCurrentQuery = query;
 	mCurrentDirectory = path;
+	if (updateThread != nullptr)
+	{
+		updateThread->stopThread(1000);
+		delete updateThread;
+	}
 	updateThread = new UpdateSamplesThread(this);
 	updateThread->startThread();
 	updateThread->addListener(this);
@@ -98,11 +117,15 @@ void SampleLibrary::updateCurrentSamples(String query)
 
 SampleList SampleLibrary::getCurrentSamples()
 {
-	if (!updateThread->isThreadRunning())
+	if (updateThread != nullptr)
 	{
-		delete updateThread;
-		updateThread = nullptr;
+		if (!updateThread->isThreadRunning())
+		{
+			delete updateThread;
+			updateThread = nullptr;
+		}
 	}
+
 	return mCurrentSamples;
 }
 
@@ -135,6 +158,8 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 {
 	for (int i = 0; i < mParent->mSamples.size(); i++)
 	{
+		if (threadShouldExit())
+			break;
 		Sample* ref = &mParent->mSamples[i];
 		if (ref->getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
 		{
@@ -165,10 +190,39 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 			}
 			if (ref->getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
-				mSamples.addSample(ref);
+				mParent->mCurrentSamples.addSample(ref);
 			}
 
 		}
 	}
 	signalThreadShouldExit();
+}
+
+void samplify::SampleLibrary::SortSamplesThread::run()
+{
+	/*
+	SampleList sorted;
+	SampleList oldList;
+	for (int i = 0; i < mParent->mSamples.size(); i++)
+	{
+		oldList.addSample(&mParent->mSamples[i]);
+	}
+	for (int i = 0; i < oldList.getSamples().size(); i++)
+	{
+		if (threadShouldExit())
+		{
+			mParent->setCurrentSamples(oldList);
+			break;
+		}
+		Sample* lowest = &mParent->mSamples[i];
+		for (int j = 0; j < mParent->mSamples.size(); j++)
+		{
+			if (SampleList::getSortBool(&mParent->mSamples[i], lowest, mMethod))
+			{
+				lowest = &mParent->mSamples[j];
+			}
+		}
+		mParent->setCurrentSamples(sorted);
+	}
+	*/
 }

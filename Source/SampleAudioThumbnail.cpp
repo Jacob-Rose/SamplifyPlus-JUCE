@@ -19,7 +19,7 @@ void SampleAudioThumbnail::drawChannel(Graphics & g, const Rectangle<int>& area,
 {
 	float peak = getApproximatePeak();
 
-	int widthSegment = area.getWidth() / AUDIO_THUMBNAIL_LINE_COUNT;
+	float widthSegment = ((float)area.getWidth()) / AUDIO_THUMBNAIL_LINE_COUNT;
 	float segmentTimeLength = (endTimeSeconds - startTimeSeconds) / AUDIO_THUMBNAIL_LINE_COUNT;
 
 	for (int i = 0; i < AUDIO_THUMBNAIL_LINE_COUNT; i++)

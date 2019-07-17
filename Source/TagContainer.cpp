@@ -43,6 +43,7 @@ void TagContainer::updateItems()
 	int deleteCount = mUsedSampleTags.size() - mCurrentTags.size();
 	for (int i = 0; i < deleteCount; i++)
 	{
+		delete mUsedSampleTags[i];
 		mUsedSampleTags.erase(mUsedSampleTags.begin() + i);
 	}
 	for (int i = 0; i < mCurrentTags.size(); i++)

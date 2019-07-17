@@ -26,6 +26,13 @@ namespace samplify
 			ONESHOT,
 			LOOP
 		};
+
+		class SampleReference
+		{
+		public:
+		private:
+
+		};
 		Sample();
 		Sample(File);
 		Sample(const Sample&);

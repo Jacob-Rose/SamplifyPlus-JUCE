@@ -42,7 +42,6 @@ Sample::~Sample()
 {
 	mThumbnailCache.reset(nullptr);
 	mThumbnail.reset(nullptr);
-	
 }
 
 File Sample::getFile() const
@@ -90,6 +89,7 @@ void samplify::Sample::addTag(juce::String tag)
 	{
 		mTags.add(tag);
 	}
+	savePropertiesFile(); 
 }
 
 StringArray Sample::getParentFolders()
@@ -187,7 +187,12 @@ void Sample::loadPropertiesFile()
 			int tagCount = std::stoi(propFileLines[1].toStdString());
 			for (int i = 0; i < tagCount; i++)
 			{
-				mTags.add(propFileLines[i + 2]);
+				String tag = propFileLines[i + 2];
+				if (!mTags.contains(tag))
+				{
+					mTags.add(tag);
+				}
+				
 			}
 		}
 		else

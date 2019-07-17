@@ -41,16 +41,16 @@ void SampleTile::paint (Graphics& g)
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
 		}
 		g.setColour(backgroundColor);
-		g.fillAll(backgroundColor);
-		//g.fillRoundedRectangle(getBounds().toFloat(), 4.0f);
+		//g.fillAll(backgroundColor);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), 8.0f);
 		g.setFont(SAMPLE_TILE_TITLE_FONT);
 		g.setColour(Colours::black);
 		// draw an outline around the component
-		g.drawRoundedRectangle(getLocalBounds().toFloat(), 4.0f, 2.0f);   
+		g.drawRoundedRectangle(getLocalBounds().toFloat(), 8.0f, 2.0f);   
 		g.drawLine(thumbnailBounds.getTopLeft().x, 
-			thumbnailBounds.getTopLeft().y, 
+			0, 
 			thumbnailBounds.getTopRight().x, 
-			thumbnailBounds.getTopRight().y, 
+			getWidth(), 
 			2.0f);
 		g.drawLine(titleRect.getBottomLeft().x,
 			titleRect.getBottomLeft().y,
@@ -122,10 +122,7 @@ void SampleTile::paint (Graphics& g)
 
 		}
 	}
-	else
-	{
 
-	}
 }
 
 void SampleTile::resized()
@@ -246,21 +243,23 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 
 void SampleTile::setSample(Sample * sample)
 {
-	if (sample != nullptr)
+	if (sample != mSample)
 	{
-		if (sample->getAudioThumbnail() == nullptr)
+		if (sample != nullptr)
 		{
-			sample->generateThumbnailAndCache();
+			if (sample->getAudioThumbnail() == nullptr)
+			{
+				sample->generateThumbnailAndCache();
+			}
+			mTagContainer.setTags(sample->getTags());
 		}
-		mTagContainer.setTags(sample->getTags());
+		else
+		{
+			mTagContainer.setTags(StringArray());
+		}
+		mSample = sample;
+		repaint();
 	}
-	else
-	{
-		mTagContainer.setTags(StringArray());
-	}
-	mSample = sample;
-
-	repaint();
 }
 
 Sample* SampleTile::getSample()
@@ -275,7 +274,7 @@ bool SampleTile::operator==(Sample * ref)
 
 Rectangle<float> SampleTile::getTitleRect()
 {
-	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
+	return Rectangle<float>(0,0,getWidth() * 0.66, SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
 }
 
 Rectangle<float> SampleTile::getTypeRect()
@@ -298,4 +297,9 @@ Rectangle<float> SampleTile::getTagRect()
 {
 	float startX = getTypeRect().getWidth() + getTimeRect().getWidth();
 	return Rectangle<float>(startX, getTitleRect().getHeight(), getWidth() - startX, getTypeRect().getHeight());
+}
+
+Rectangle<float> samplify::SampleTile::getParentDirRect()
+{
+	return Rectangle<float>(getWidth() * 0.66f, 0, getWidth() * 0.33, SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
 }

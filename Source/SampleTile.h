@@ -26,6 +26,21 @@ namespace samplify
 		SampleTile(Sample*);
 		~SampleTile();
 
+		class SampleTileTooltip : public TooltipWindow
+		{
+
+		};
+
+		class SampleParentFolderTooltip : public TooltipWindow
+		{
+		public:
+			SampleParentFolderTooltip() : TooltipWindow()
+			{
+
+			}
+		private:
+		};
+
 		void paint(Graphics&) override;
 		void resized() override;
 		//===========================================================================
@@ -52,12 +67,12 @@ namespace samplify
 		Rectangle<float> getTimeRect();
 		Rectangle<float> getThumbnailRect();
 		Rectangle<float> getTagRect();
+		Rectangle<float> getParentDirRect();
 
 	private:
-		//juce::SharedResourcePointer<SampleTileTooltip> mTooltip;
+		juce::SharedResourcePointer<TooltipWindow> mTooltip;
 		Sample* mSample = nullptr;
 		TagContainer mTagContainer;
-		int frameCount = 0;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)
 	};
 }

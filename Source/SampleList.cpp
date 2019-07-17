@@ -116,7 +116,7 @@ void samplify::SampleList::quickSort(std::vector<Sample*>& list,int low, int hig
 
 bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod method)
 {
-	if (mSortingMethod == SortingMethod::LastToFirst)
+	if (method == SortingMethod::LastToFirst)
 	{
 		if (lft->getFilename() < rgt->getFilename())
 		{
@@ -127,7 +127,7 @@ bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod m
 			return true;
 		}
 	}
-	else if (mSortingMethod == SortingMethod::Newest)
+	else if (method == SortingMethod::Newest)
 	{
 		if (lft->getFile().getCreationTime() < rgt->getFile().getCreationTime())
 		{
@@ -138,7 +138,7 @@ bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod m
 			return true;
 		}
 	}
-	else if (mSortingMethod == SortingMethod::Oldest)
+	else if (method == SortingMethod::Oldest)
 	{
 		if (lft->getFile().getCreationTime() < rgt->getFile().getCreationTime())
 		{

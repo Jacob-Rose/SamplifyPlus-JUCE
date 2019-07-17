@@ -23,13 +23,6 @@ namespace samplify
 	class SamplifyMainComponent : public AudioAppComponent, public KeyListener
 	{
 	public:
-		class SamplifyLookAndFeel : public LookAndFeel_V4
-		{
-		public:
-			SamplifyLookAndFeel();
-		private:
-
-		};
 		//=====================================================
 		SamplifyMainComponent();
 		~SamplifyMainComponent();

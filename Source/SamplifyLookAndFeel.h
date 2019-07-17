@@ -35,6 +35,6 @@ namespace samplify
 	const float AUDIO_THUMBNAIL_LINE_FILL_WIDTH = 2.0f;
 	const int AUDIO_THUMBNAIL_LINE_COUNT = 40;
 
-	const Font SAMPLE_TILE_TITLE_FONT = Font(Typeface::createSystemTypefaceFor(Fonts::AbelRegular_ttf, Fonts::AbelRegular_ttfSize)).withHeight(16.0f);
+	const Font SAMPLE_TILE_TITLE_FONT = Font(Typeface::createSystemTypefaceFor(Fonts::AbelRegular_ttf, Fonts::AbelRegular_ttfSize)).withHeight(22.0f);
 }
 #endif

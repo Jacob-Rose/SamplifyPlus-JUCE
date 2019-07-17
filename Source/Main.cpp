@@ -15,6 +15,7 @@
 #include "SamplifyMainComponent.h"
 #include "SamplifyMenuBar.h"
 #include "SamplifyProperties.h"
+#include "Sample.h"
 
 namespace samplify
 {
@@ -40,7 +41,6 @@ namespace samplify
 			mainWindow = nullptr; // (deletes our window)
 			FontAwesome::deleteInstance();
 			SamplifyProperties::cleanupInstance();
-
 		}
 
 		//==============================================================================

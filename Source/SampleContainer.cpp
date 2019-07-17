@@ -6,29 +6,18 @@
 #include <algorithm>
 #include <cmath>
 
+#define JUCE_ENABLE_REPAINT_DEBUGGING true
+
 using namespace samplify;
 
 SampleContainer::SampleContainer()
 {
-	/*
-	using Track = Grid::TrackInfo;
-	mGrid.templateColumns = { Track(1_fr), Track(1_fr), Track(1_fr) };
-	mGrid.templateRows = { Track(1_fr), Track(1_fr), Track(1_fr) };
-	mGrid.autoColumns = Track(1_fr);
-	mGrid.autoRows = Track(1_fr);
-	mGrid.autoFlow = Grid::AutoFlow::row;
-	*/
+
 }
 
 SampleContainer::~SampleContainer()
 {
-	//delete sampviews
-	for (int i = 0; i < mUsedSampleTiles.size(); i++)
-	{
-		delete mUsedSampleTiles[i];
-		mUsedSampleTiles[i] = nullptr;
-	}
-	mUsedSampleTiles.clear();
+	clearItems();
 }
 
 void SampleContainer::paint (Graphics& g)
@@ -50,10 +39,6 @@ void SampleContainer::updateItems()
 		int height = SAMPLE_TILE_ASPECT_RATIO * width;
 		if (columns > 0)
 		{
-			for (int i = 0; i < mUsedSampleTiles.size(); i++)
-			{
-				mUsedSampleTiles[i]->setSample(nullptr);
-			}
 			for (unsigned int i = 0; i < mCurrentSamples.size() && i < mMaxItems; i++)
 			{
 				int column = i % columns;
@@ -80,6 +65,13 @@ void SampleContainer::updateItems()
 		}
 		setBounds(Rectangle<int>(0, 0, calculateColumnCount() * width, calculateRowCount() * height));
 	}
+	if (mUsedSampleTiles.size() > mCurrentSamples.size())
+	{
+		for (int i = mCurrentSamples.size(); i < mUsedSampleTiles.size(); i++)
+		{
+			mUsedSampleTiles[i]->setSample(nullptr);
+		}
+	}
 
 
 	//repaint();
@@ -89,8 +81,8 @@ void SampleContainer::clearItems()
 {
 	for (unsigned int i = 0; i < mUsedSampleTiles.size(); i++)
 	{
-		delete mUsedSampleTiles.at(i);
-		mUsedSampleTiles.at(i) = nullptr;
+		delete mUsedSampleTiles[i];
+		mUsedSampleTiles[i] = nullptr;
 	}
 	mUsedSampleTiles.clear();
 }
@@ -99,26 +91,15 @@ void SampleContainer::setSampleItems(std::vector<Sample*> currentSamples)
 {
 	std::vector<Sample*> oldSamples = mCurrentSamples;
 	mCurrentSamples = currentSamples;
-	if (oldSamples.size() < mCurrentSamples.size())
+	bool same = true;
+	for (int i = 0; i < oldSamples.size() && i < mCurrentSamples.size(); i++)
 	{
-		bool same = true;
-		for (int i = 0; i < oldSamples.size(); i++)
-		{
-			same = mCurrentSamples[i] == currentSamples[i] && same;
-			if (!same)
-				break;
-		}
-		if (!same)
-		{
-			updateItems();
-		}
-		else
-		{
-			updateItems();
-		}
+		same = same && mCurrentSamples[i] == oldSamples[i];
 	}
-	
-
+	if (!same)
+	{
+		updateItems();
+	}
 }
 
 int SampleContainer::calculateAllRowsHeight()

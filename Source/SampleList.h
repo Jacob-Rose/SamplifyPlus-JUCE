@@ -48,7 +48,7 @@ namespace samplify
 		}
 		void selectionSort(std::vector<Sample*>, SortingMethod method);
 		void quickSort(std::vector<Sample*>&, int low, int high, SortingMethod method);
-		bool getSortBool(Sample* lft, Sample* rgt, SortingMethod method); //cannot override operators due to SortingMethod, so gross call
+		static bool getSortBool(Sample* lft, Sample* rgt, SortingMethod method); //cannot override operators due to SortingMethod, so gross call
 		SortingMethod getSortingMethod();
 
 
