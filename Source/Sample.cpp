@@ -22,7 +22,7 @@ Sample::Sample(File file) : mFile(file), mPropertiesFile(file.getFullPathName() 
 	}
 }
 
-Sample::Sample(const Sample& s) : Sample(s.getFile())
+Sample::Sample(const Sample& s)
 {
 	mFile = s.mFile;
 	mPropertiesFile = s.mPropertiesFile;
@@ -44,76 +44,6 @@ Sample::~Sample()
 	mThumbnail.reset(nullptr);
 }
 
-File Sample::getFile() const
-{
-	return mFile;
-}
-
-String Sample::getFilename() const
-{
-	return mFile.getFileName();
-}
-
-String Sample::getFullPathName() const
-{
-	String path = mFile.getFullPathName();
-	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
-	for (int i = 0; i < dirs.size(); i++)
-	{
-		if (path.contains(dirs[i].getFullPathName()))
-		{
-			return path.substring(dirs[i].getFullPathName().length());
-		}
-	}
-	return mFile.getFullPathName();
-}
-
-Sample::SampleType Sample::getSampleType() const
-{
-	return mSampleType;
-}
-
-double Sample::getLength() const
-{
-	return mLength;
-}
-
-StringArray Sample::getTags()
-{
-	return mTags;
-}
-
-void samplify::Sample::addTag(juce::String tag)
-{
-	if (!mTags.contains(tag))
-	{
-		mTags.add(tag);
-	}
-	savePropertiesFile(); 
-}
-
-StringArray Sample::getParentFolders()
-{
-	StringArray folders;
-	File file(mFile);
-	File root;
-	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
-	for (int i = 0; i < rootDirs.size(); i++)
-	{
-		if (file.isAChildOf(rootDirs[i]))
-		{
-			root = rootDirs[i];
-			break;
-		}
-	}
-	while (mFile.isAChildOf(root))
-	{
-		mFile = mFile.getParentDirectory();
-		folders.add(mFile.getFileName());
-	}
-	return folders;
-}
-
 AudioThumbnailCache* Sample::getAudioThumbnailCache()
 {
 	return mThumbnailCache.get();
@@ -122,23 +52,6 @@ AudioThumbnailCache* Sample::getAudioThumbnailCache()
 SampleAudioThumbnail * Sample::getAudioThumbnail()
 {
 	return mThumbnail.get();
-}
-
-void Sample::generateThumbnailAndCache()
-{
-	mThumbnailCache.reset(new AudioThumbnailCache(1));
-	AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
-	mThumbnail.reset(new SampleAudioThumbnail(512, *afm, *mThumbnailCache));
-	mThumbnail->addChangeListener(this);
-
-	AudioFormatReader* reader = afm->createReaderFor(mFile);
-	if (reader != nullptr)
-	{
-		mThumbnail->setSource(new FileInputSource(mFile));
-		mLength = (float)reader->lengthInSamples / reader->sampleRate;
-	}
-	delete reader;
-	
 }
 
 void Sample::determineSampleType()
@@ -202,19 +115,61 @@ void Sample::loadPropertiesFile()
 	}
 }
 
-bool Sample::operator==(const Sample& other)
+
+
+StringArray samplify::Sample::Reference::getRelativeParentFolders() const
 {
-	if (mFile == other.mFile)
+	StringArray folders;
+	File file(mSample->mFile);
+	File root;
+	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < rootDirs.size(); i++)
 	{
-		return true;
+		if (file.isAChildOf(rootDirs[i]))
+		{
+			root = rootDirs[i];
+			break;
+		}
 	}
-	else
+	while (mSample->mFile.isAChildOf(root))
 	{
-		return false;
+		mSample->mFile = mSample->mFile.getParentDirectory();
+		folders.add(mSample->mFile.getFileName());
 	}
+	return folders;
 }
 
-bool Sample::operator==(const File& other)
+String samplify::Sample::Reference::getRelativePathName() const
 {
-	return other == mFile;
+	String path = mSample->mFile.getFullPathName();
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < dirs.size(); i++)
+	{
+		if (path.contains(dirs[i].getFullPathName()))
+		{
+			return path.substring(dirs[i].getFullPathName().length());
+		}
+	}
+	return mSample->mFile.getFullPathName();
+}
+
+
+
+void samplify::Sample::Reference::generateThumbnailAndCache()
+{
+	if (mSample->mThumbnail == nullptr)
+	{
+		mSample->mThumbnailCache.reset(new AudioThumbnailCache(1));
+		AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
+		mSample->mThumbnail.reset(new SampleAudioThumbnail(512, *afm, *mSample->mThumbnailCache));
+		mSample->mThumbnail->addChangeListener(mSample);
+
+		AudioFormatReader* reader = afm->createReaderFor(mSample->mFile);
+		if (reader != nullptr)
+		{
+			mSample->mThumbnail->setSource(new FileInputSource(mSample->mFile));
+			mSample->mLength = (float)reader->lengthInSamples / reader->sampleRate;
+		}
+		delete reader;
+	}
 }

@@ -10,7 +10,7 @@ SampleList::~SampleList()
 {
 }
 
-void SampleList::addSample(Sample* sample)
+void SampleList::addSample(Sample::Reference sample)
 {
 	mSamples.push_back(sample);
 }
@@ -23,7 +23,7 @@ void SampleList::addSamples(const SampleList& collection)
 	}
 }
 
-void samplify::SampleList::addSamples(std::vector<Sample*> samples)
+void samplify::SampleList::addSamples(std::vector<Sample::Reference> samples)
 {
 	for (int i = 0; i < samples.size(); i++)
 	{
@@ -31,19 +31,14 @@ void samplify::SampleList::addSamples(std::vector<Sample*> samples)
 	}
 }
 
-std::vector<Sample*> SampleList::getSamples()
+std::vector<Sample::Reference> SampleList::getSamples()
 {
-	std::vector<Sample*> samples;
-	for (int i = 0; i < mSamples.size(); i++)
-	{
-		samples.push_back(mSamples[i]);
-	}
-	return samples;
+	return mSamples;
 }
 
-void SampleList::removeSample(Sample* sample)
+void SampleList::removeSample(Sample::Reference sample)
 {
-	mSamples.erase(std::find(mSamples.begin(), mSamples.end(), sample));
+	//mSamples.erase(std::find(mSamples.begin(), mSamples.end(), sample));
 }
 
 void samplify::SampleList::removeSample(int index)
@@ -56,12 +51,12 @@ void samplify::SampleList::clearSamples()
 	mSamples.clear();
 }
 
-void samplify::SampleList::selectionSort(std::vector<Sample*> samples, SortingMethod method)
+void samplify::SampleList::selectionSort(std::vector<Sample::Reference> samples, SortingMethod method)
 {
-	std::vector<Sample*> sorted;
+	std::vector<Sample::Reference> sorted;
 	for (int i = 0; i < samples.size(); i++)
 	{
-		Sample* lowest = samples[i];
+		Sample::Reference lowest = samples[i];
 		for (int j = 0; j < samples.size(); j++)
 		{
 			if (getSortBool(samples[i], lowest, method))
@@ -74,12 +69,13 @@ void samplify::SampleList::selectionSort(std::vector<Sample*> samples, SortingMe
 	mSamples = sorted;
 }
 
-void samplify::SampleList::quickSort(std::vector<Sample*>& list,int low, int high, SortingMethod method)
+void samplify::SampleList::quickSort(std::vector<Sample::Reference>& list,int low, int high, SortingMethod method)
 {
+	/*
 	int i = low;
 	int j = high;
 
-	Sample* pivot = list[(low + high) / 2];
+	Sample::Reference pivot = list[(low + high) / 2];
 
 	while (i <= j)
 	{
@@ -94,7 +90,7 @@ void samplify::SampleList::quickSort(std::vector<Sample*>& list,int low, int hig
 		if (i <= j)
 		{
 			//swap(list[i], list[j]);
-			Sample* tmp = list[i];
+			Sample::Reference tmp = list[i];
 			list[i] = list[j];
 			list[j] = tmp;
 			i++;
@@ -112,13 +108,14 @@ void samplify::SampleList::quickSort(std::vector<Sample*>& list,int low, int hig
 		quickSort(list, i, high, method);
 	}
 	mSortingMethod = method;
+	*/
 }
 
-bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod method)
+bool samplify::SampleList::getSortBool(Sample::Reference lhs, Sample::Reference rhs, SortingMethod method)
 {
 	if (method == SortingMethod::LastToFirst)
 	{
-		if (lft->getFilename() < rgt->getFilename())
+		if (lhs.getFilename() < rhs.getFilename())
 		{
 			return false;
 		}
@@ -129,7 +126,7 @@ bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod m
 	}
 	else if (method == SortingMethod::Newest)
 	{
-		if (lft->getFile().getCreationTime() < rgt->getFile().getCreationTime())
+		if (lhs.getFile().getCreationTime() < rhs.getFile().getCreationTime())
 		{
 			return false;
 		}
@@ -140,7 +137,7 @@ bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod m
 	}
 	else if (method == SortingMethod::Oldest)
 	{
-		if (lft->getFile().getCreationTime() < rgt->getFile().getCreationTime())
+		if (lhs.getFile().getCreationTime() < rhs.getFile().getCreationTime())
 		{
 			return false;
 		}
@@ -151,7 +148,7 @@ bool samplify::SampleList::getSortBool(Sample* lft, Sample* rgt, SortingMethod m
 	}
 	else //first to last will default
 	{
-		if (lft->getFilename() < rgt->getFilename())
+		if (lhs.getFilename() < rhs.getFilename())
 		{
 			return true;
 		}

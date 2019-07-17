@@ -203,7 +203,7 @@ void SamplifyProperties::LoadSamplesThread::run()
 		Sample ref(mFiles[i]);
 		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
 		setProgress(((float)i)/count);
-		setStatusMessage("calculating sample info..." + ref.getFilename());
+		setStatusMessage("calculating sample info...");
 	}
 
 }

@@ -35,25 +35,25 @@ namespace samplify
 		}
 		~SampleList();
 
-		void addSample(Sample* sample);
+		void addSample(Sample::Reference sample);
 		void addSamples(const SampleList& collection);
-		void addSamples(std::vector<Sample*> samples);
-		std::vector<Sample*> getSamples();
-		void removeSample(Sample* sample);
+		void addSamples(std::vector<Sample::Reference> samples);
+		std::vector<Sample::Reference> getSamples();
+		void removeSample(Sample::Reference sample);
 		void removeSample(int index);
 		void clearSamples();
 		void sort(SortingMethod method) { 
 			//quickSort(mSamples, 0, mSamples.size()-1, method);
 			//selectionSort(mSamples, method);
 		}
-		void selectionSort(std::vector<Sample*>, SortingMethod method);
-		void quickSort(std::vector<Sample*>&, int low, int high, SortingMethod method);
-		static bool getSortBool(Sample* lft, Sample* rgt, SortingMethod method); //cannot override operators due to SortingMethod, so gross call
+		unsigned int getCount() { return mSamples.size(); }
+		void selectionSort(std::vector<Sample::Reference>, SortingMethod method);
+		void quickSort(std::vector<Sample::Reference>&, int low, int high, SortingMethod method);
+		static bool getSortBool(Sample::Reference lft, Sample::Reference rgt, SortingMethod method); //cannot override operators due to SortingMethod, so gross call
 		SortingMethod getSortingMethod();
 
-
 	private:
-		std::vector<Sample*> mSamples;
+		std::vector<Sample::Reference> mSamples;
 		SortingMethod mSortingMethod;
 		//add image?
 	};

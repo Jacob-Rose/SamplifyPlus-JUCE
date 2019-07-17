@@ -32,7 +32,7 @@ namespace samplify
 		void extendItems();
 		void clearItems();
 
-		void setSampleItems(std::vector<Sample*> mSamples);
+		void setSampleItems(SampleList mSamples);
 		//======================================================
 		int calculateAllRowsHeight();
 		int calculateRowCount();
@@ -40,7 +40,7 @@ namespace samplify
 	private:
 		//=============================================================================
 		std::vector<SampleTile*> mUsedSampleTiles;
-		std::vector<Sample*> mCurrentSamples;
+		SampleList mCurrentSamples;
 		int mMaxItems = 20;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleContainer)

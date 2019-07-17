@@ -19,7 +19,7 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
 	mFilter.addListener(this);
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples().getSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
@@ -76,7 +76,7 @@ void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples().getSamples());
+	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 }
 
 SampleExplorer::SampleViewport::SampleViewport(SampleContainer* container)

@@ -43,7 +43,7 @@ void SampleLibrary::addSamples(std::vector<Sample> files)
 
 void SampleLibrary::addSample(Sample& ref)
 {
-	if (!containsSample(ref.getFile()))
+	if (!containsSample(Sample::Reference(&ref).getFile()))
 		mSamples.push_back(ref);
 	sendChangeMessage();
 }
@@ -135,7 +135,7 @@ StringArray SampleLibrary::getAllTags()
 	StringArray tags = StringArray();
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		StringArray sTags = mSamples[i].getTags();
+		StringArray sTags = Sample::Reference(&mSamples[i]).getTags();
 		for (int j = 0; j < sTags.size(); j++)
 		{
 			if (!tags.contains(sTags[j]))
@@ -160,8 +160,8 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 	{
 		if (threadShouldExit())
 			break;
-		Sample* ref = &mParent->mSamples[i];
-		if (ref->getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
+		Sample::Reference ref = Sample::Reference(&mParent->mSamples[i]);
+		if (ref.getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
 		{
 			bool isValid = true;
 			String tmpQuery = mParent->mCurrentQuery;
@@ -181,14 +181,14 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 					tmpQuery = tmpQuery.substring(last + 1, tmpQuery.length() - (last + 1));
 				}
 
-				isValid = ref->getTags().contains(tag) && isValid;
+				isValid = ref.getTags().contains(tag) && isValid;
 
 			}
 			if (isValid)
 			{
 				int i = 0;
 			}
-			if (ref->getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
+			if (ref.getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
 				mParent->mCurrentSamples.addSample(ref);
 			}
