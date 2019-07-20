@@ -19,7 +19,7 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
 	mFilter.addListener(this);
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	//mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
@@ -47,31 +47,6 @@ void SampleExplorer::textEditorTextChanged(TextEditor& e)
 
 void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 {
-	if (comboBoxThatHasChanged->getSelectedId() != 5)
-	{
-		SortingMethod method;
-		switch (comboBoxThatHasChanged->getSelectedId())
-		{
-		case 1:
-			method = SortingMethod::FirstToLast;
-			break;
-		case 2:
-			method = SortingMethod::LastToFirst;
-			break;
-		case 3:
-			method = SortingMethod::Newest;
-			break;
-		case 4:
-			method = SortingMethod::Oldest;
-			break;
-		}
-		//SamplifyProperties::getInstance()->getSampleLibrary()->sortCurrentSamples(method);
-		
-	}
-	else
-	{
-
-	}
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)

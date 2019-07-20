@@ -16,7 +16,6 @@
 
 #include "AudioPlayer.h"
 #include "SampleLibrary.h"
-#include "SampleList.h"
 #include "TagDrawer.h"
 
 #include <map>

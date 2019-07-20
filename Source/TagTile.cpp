@@ -1,6 +1,8 @@
 #include "TagTile.h"
 #include "SamplifyProperties.h"
+#include "SampleTile.h"
 #include "SamplifyLookAndFeel.h"
+#include "SamplifyMainComponent.h"
 
 using namespace samplify;
 TagTile::TagTile(juce::String tag, Font& font)
@@ -49,11 +51,58 @@ void TagTile::resized()
 }
 
 
+void TagTile::mouseDown(const MouseEvent& e)
+{
+	
+}
+
 void TagTile::mouseUp(const MouseEvent& e)
 {
-	if (e.mouseWasClicked())
+	if (!isDragAndDropActive())
 	{
-		
+		if (e.mods.isLeftButtonDown())
+		{
+			//todo set sample container filter
+			String text = SamplifyMainComponent::getInstance()->getSampleExplorer().getSearchBar().getText();
+			SamplifyMainComponent::getInstance()->getSampleExplorer().getSearchBar().setText("#" + mTag);
+		}
+		else if (e.mods.isRightButtonDown())
+		{
+			PopupMenu menu;
+			//TagContainer -> sampleTile?
+			if (SampleTile * parent = dynamic_cast<SampleTile*>(getParentComponent()->getParentComponent()))
+			{
+				menu.addItem(1, "Edit Tag", false, false);
+				menu.addItem(2, "Untag", true, false);
+				int selection = menu.show();
+				if (selection == 1)
+				{
+
+				}
+				else if (selection == 2)
+				{
+					parent->getSample().removeTag(mTag);
+					parent->repaint();
+				}
+			}
+			else
+			{
+				menu.addItem(1, "Edit Tag", false, false);
+				menu.addItem(2, "Delete Tag (+ Refs)", true, false);
+				int selection = menu.show();
+				if (selection == 1)
+				{
+
+				}
+				else if (selection == 2)
+				{
+					//todo add confirm screen
+					SamplifyProperties::getInstance()->deleteTag(mTag);
+					SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer()->resetTags();
+				}
+			}
+
+		}
 	}
 }
 

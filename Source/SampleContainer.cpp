@@ -39,7 +39,7 @@ void SampleContainer::updateItems()
 		int height = SAMPLE_TILE_ASPECT_RATIO * width;
 		if (columns > 0)
 		{
-			for (unsigned int i = 0; i < mCurrentSamples.getCount() && i < mMaxItems; i++)
+			for (unsigned int i = 0; i < mCurrentSamples.size() && i < mMaxItems; i++)
 			{
 				int column = i % columns;
 				int row = i / columns; //will cut off, not round (i feel like a real coder)
@@ -51,7 +51,7 @@ void SampleContainer::updateItems()
 				}
 				else
 				{
-					tile = new SampleTile(mCurrentSamples.getSamples()[i]);
+					tile = new SampleTile(mCurrentSamples[i]);
 					mUsedSampleTiles.push_back(tile);
 					addAndMakeVisible(tile);
 				}
@@ -59,15 +59,15 @@ void SampleContainer::updateItems()
 								(row * height) + SAMPLE_TILE_CONTAINER_ITEM_PADDING,
 								width - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2),
 								height - (SAMPLE_TILE_CONTAINER_ITEM_PADDING * 2));
-				tile->setSample(mCurrentSamples.getSamples()[i]);
+				tile->setSample(mCurrentSamples[i]);
 
 			}
 		}
 		setBounds(Rectangle<int>(0, 0, calculateColumnCount() * width, calculateRowCount() * height));
 	}
-	if (mUsedSampleTiles.size() > mCurrentSamples.getCount())
+	if (mUsedSampleTiles.size() > mCurrentSamples.size())
 	{
-		for (int i = mCurrentSamples.getCount(); i < mUsedSampleTiles.size(); i++)
+		for (int i = mCurrentSamples.size(); i < mUsedSampleTiles.size(); i++)
 		{
 			mUsedSampleTiles[i]->setSample(nullptr);
 		}
@@ -87,9 +87,9 @@ void SampleContainer::clearItems()
 	mUsedSampleTiles.clear();
 }
 
-void SampleContainer::setSampleItems(SampleList currentSamples)
+void SampleContainer::setSampleItems(Sample::List currentSamples)
 {
-	SampleList oldSamples = mCurrentSamples;
+	Sample::List oldSamples = mCurrentSamples;
 	mCurrentSamples = currentSamples;
 	/*
 	bool same = true;
@@ -100,8 +100,10 @@ void SampleContainer::setSampleItems(SampleList currentSamples)
 	
 	if (!same)
 	{*/
-		updateItems();
+		//updateItems();
 	//}
+	//todo causing threading issue? causes error in xmemory0
+	updateItems();
 }
 
 int SampleContainer::calculateAllRowsHeight()
@@ -136,12 +138,9 @@ int SampleContainer::calculateColumnCount()
 
 void SampleContainer::extendItems()
 {
-	//todo put on new thread
-
-	if (mCurrentSamples.getCount() > mMaxItems)
+	if (mCurrentSamples.size() > mMaxItems)
 	{
 		mMaxItems += calculateColumnCount() * 3;
 		updateItems();
 	}
-	
 }

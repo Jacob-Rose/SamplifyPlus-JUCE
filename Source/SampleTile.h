@@ -26,31 +26,6 @@ namespace samplify
 		SampleTile(Sample::Reference);
 		~SampleTile();
 
-		class SampleTileTooltip : public Component
-		{
-		public:
-			SampleTileTooltip(Sample* mSample)
-			{
-
-			}
-		private:
-		};
-
-		class SampleParentFolderTooltip : public Component
-		{
-		public:
-			SampleParentFolderTooltip(StringArray folders) : Component()
-			{
-				
-			}
-			void paint(Graphics&) override;
-			void resized() override;
-		private:
-			const int width = 100;
-			const int height = 60;
-			StringArray folders;
-		};
-
 		void paint(Graphics&) override;
 		void resized() override;
 		//===========================================================================
@@ -70,7 +45,7 @@ namespace samplify
 		void setSample(Sample::Reference);
 		Sample::Reference getSample();
 		//=Operator Overrides===========================================
-		bool operator==(Sample::Reference ref);
+		//bool operator==(Sample::Reference ref);
 
 		Rectangle<float> getTitleRect();
 		Rectangle<float> getTypeRect();
@@ -80,7 +55,6 @@ namespace samplify
 		Rectangle<float> getParentDirRect();
 
 	private:
-		Component* mTooltipComponent;
 		Sample::Reference mSample = nullptr;
 		TagContainer mTagContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleTile)

@@ -103,45 +103,106 @@ namespace samplify
 
 			String getRelativePathName() const;
 
-			String getFullPathName() const { return mSample->mFile.getFullPathName(); }
+			String getFullPathName() const;
 
-			SampleType getSampleType() const { return mSample->mSampleType; }
+			SampleType getSampleType() const { 
+				jassert(!isNull());
+				return mSample->mSampleType; }
 
-			double getLength() const { return mSample->mLength; }
+			double getLength() const { 
+				jassert(!isNull());
+				return mSample->mLength; }
 
-			StringArray getTags() const { return mSample->mTags; }
+
+
+			StringArray getTags() const { 
+				jassert(!isNull());
+				return mSample->mTags; }
 			void addTag(juce::String tag)
 			{
-				if (!mSample->mTags.contains(tag))
+				if (!isNull())
 				{
-					mSample->mTags.add(tag);
+					if (!mSample->mTags.contains(tag))
+					{
+						mSample->mTags.add(tag);
+						mSample->savePropertiesFile();
+					}
+
 				}
-				mSample->savePropertiesFile();
 			}
 			void removeTag(juce::String tag)
 			{
-				if (mSample->mTags.contains(tag))
+				if (!isNull())
 				{
-					mSample->mTags.remove(mSample->mTags.indexOf(tag, true));
+					if (mSample->mTags.contains(tag))
+					{
+						mSample->mTags.remove(mSample->mTags.indexOf(tag, true));
+						mSample->savePropertiesFile();
+					}
+
 				}
-				mSample->savePropertiesFile();
 			}
 
 			void generateThumbnailAndCache();
+
+			void addChangeListener(ChangeListener* listener)
+			{
+				if (!isNull())
+				{
+					mSample->addChangeListener(listener);
+				}
+			}
+
+			void removeChangeListener(ChangeListener* listener)
+			{
+				if (!isNull())
+				{
+					mSample->removeChangeListener(listener);
+				}
+			}
+
+			void renameFile(String name)
+			{
+				//todo test on old library
+				mSample->mFile.moveFileTo(mSample->mFile.getSiblingFile(name));
+				mSample->mFile = mSample->mFile.getSiblingFile(name);
+			}
 
 			friend bool operator==(Sample::Reference& lhs, Sample::Reference& rhs);
 			friend bool operator!=(Sample::Reference& lhs, Sample::Reference& rhs);
 		private:
 			Sample* mSample;
 		};
+		class List
+		{
+		public:
+			List(const std::vector<Sample::Reference>& list);
+			List();
+			int size() const;
+			void addSample(Sample::Reference sample);
+			void addSamples(const Sample::List& list);
+			void addSamples(std::vector<Sample::Reference> samples);
+			void removeSample(Sample::Reference sample);
+			void removeSample(int index);
+			void removeSamples(std::vector<Sample::Reference> samples);
+			void removeSamples(const Sample::List& list);
+			void clearSamples();
+
+			Sample::Reference operator[](int index) const;
+		private:
+			std::vector<Sample::Reference> mSamples;
+		};
 		Sample();
 		Sample(File);
 		Sample(const Sample&);
 		~Sample();
 
-		AudioThumbnailCache* getAudioThumbnailCache();
+		void loadSample(File& sample);
+		void unloadSample(File& sample);
+		Sample::Reference getSample(File& sample);
+		Sample::List getSamplesInDirectory(File& directory);
+		Sample::List getAllSamples();
 
-		SampleAudioThumbnail* getAudioThumbnail();
 
 		void determineSampleType();
 		void changeListenerCallback(ChangeBroadcaster* source);
@@ -151,13 +212,14 @@ namespace samplify
 		bool isPropertiesFileValid();
 	private:
 		File mFile;
-		File mPropertiesFile; //stores the waveform as an actual file (should be mSampleFile + .samp
+		File mPropertiesFile; 
 		SampleType mSampleType = SampleType::UNDEFINED;
 		bool mSampleTypeConfirmed = false;
 		StringArray mTags;
 		double mLength = -1;
 		std::unique_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		std::unique_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
+		static std::vector<Sample> mSamples;
 	};
 
 	inline bool operator==(Sample::Reference& lhs, Sample::Reference& rhs)

@@ -82,7 +82,6 @@ OBJECTS_APP := \
   $(JUCE_OBJDIR)/SamplifyMainComponent_1f337ba4.o \
   $(JUCE_OBJDIR)/AudioPlayer_39c70138.o \
   $(JUCE_OBJDIR)/SampleLibrary_83e9292.o \
-  $(JUCE_OBJDIR)/SampleList_d99256f1.o \
   $(JUCE_OBJDIR)/Sample_31e5b033.o \
   $(JUCE_OBJDIR)/Fonts_436ea765.o \
   $(JUCE_OBJDIR)/Main_90ebc5c2.o \
@@ -185,11 +184,6 @@ $(JUCE_OBJDIR)/AudioPlayer_39c70138.o: ../../Source/AudioPlayer.cpp
 $(JUCE_OBJDIR)/SampleLibrary_83e9292.o: ../../Source/SampleLibrary.cpp
 	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
 	@echo "Compiling SampleLibrary.cpp"
-	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
-
-$(JUCE_OBJDIR)/SampleList_d99256f1.o: ../../Source/SampleList.cpp
-	-$(V_AT)mkdir -p $(JUCE_OBJDIR)
-	@echo "Compiling SampleList.cpp"
 	$(V_AT)$(CXX) $(JUCE_CXXFLAGS) $(JUCE_CPPFLAGS_APP) $(JUCE_CFLAGS_APP) -o "$@" -c "$<"
 
 $(JUCE_OBJDIR)/Sample_31e5b033.o: ../../Source/Sample.cpp

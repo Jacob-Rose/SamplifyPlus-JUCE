@@ -31,6 +31,9 @@ namespace samplify
 		void resized() override;
 
 		void textEditorTextChanged(TextEditor&) override;
+
+		TextEditor& getSearchBar() { return mSearchBar; }
+		TagExplorer& getTagExplorer() { return mTagExplorer; }
 	private:
 		TagExplorer mTagExplorer;
 		TextEditor mSearchBar;

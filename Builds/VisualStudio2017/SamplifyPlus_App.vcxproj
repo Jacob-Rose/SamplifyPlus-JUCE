@@ -152,7 +152,6 @@
     <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp"/>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp"/>
-    <ClCompile Include="..\..\Source\SampleList.cpp"/>
     <ClCompile Include="..\..\Source\Sample.cpp"/>
     <ClCompile Include="..\..\Source\Fonts.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
@@ -1947,7 +1946,6 @@
     <ClInclude Include="..\..\Source\SamplifyMenuBar.h"/>
     <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\SampleLibrary.h"/>
-    <ClInclude Include="..\..\Source\SampleList.h"/>
     <ClInclude Include="..\..\Source\Sample.h"/>
     <ClInclude Include="..\..\Source\Fonts.h"/>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>

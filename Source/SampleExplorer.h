@@ -31,6 +31,29 @@ namespace samplify
 			SampleContainer* mSampleContainer = nullptr;
 		};
 
+		class SampleSearchbar : public TextEditor, public Button::Listener
+		{
+		public:
+			SampleSearchbar()
+			{
+				addAndMakeVisible(mEraseSearchButton);
+				mEraseSearchButton.setButtonText("Clear");
+				mEraseSearchButton.addListener(this);
+			}
+			void resized() override
+			{
+				mEraseSearchButton.setBoundsRelative(0.8f, 0.2f, 0.1f, 0.6f);
+				TextEditor::resized();
+			}
+
+			void buttonClicked(Button* button)
+			{
+				setText("");
+			}
+		private:
+			TextButton mEraseSearchButton;
+		};
+
 		//============================================================
 		SampleExplorer();
 		~SampleExplorer();
@@ -42,11 +65,12 @@ namespace samplify
 		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
+		TextEditor& getSearchBar() { return mSearchBar; }
 	private:
 		//============================================================
 		ComboBox mFilter;
 		SampleViewport mViewport;
-		TextEditor mSearchBar;
+		SampleSearchbar mSearchBar;
 		SampleContainer mSampleContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleExplorer)
 	};

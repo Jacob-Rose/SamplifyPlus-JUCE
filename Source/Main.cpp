@@ -70,13 +70,11 @@ namespace samplify
 				setResizable(true, true);
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
-				mMainMenuModel = new SamplifyMainMenu();
-				setMenuBar(mMainMenuModel);
+				setMenuBar(&mMainMenuModel);
 			}
 			~MainWindow()
 			{
 				setMenuBar(nullptr);
-				delete mMainMenuModel;
 				clearContentComponent();
 			}
 
@@ -93,7 +91,7 @@ namespace samplify
 			*/
 
 		private:
-			SamplifyMainMenu* mMainMenuModel = nullptr;
+			SamplifyMainMenu mMainMenuModel;
 			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 		};
 

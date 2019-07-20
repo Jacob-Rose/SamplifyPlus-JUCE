@@ -125,10 +125,6 @@
 			isa = PBXBuildFile;
 			fileRef = 227ADF622651A2D499B902B0;
 		};
-		5E0473064051D5A8842ABE91 = {
-			isa = PBXBuildFile;
-			fileRef = 45D955784B106D9A00AFEED3;
-		};
 		86BACAE8126888AB49016262 = {
 			isa = PBXBuildFile;
 			fileRef = 677E5AFA21B45B704AFD7D08;
@@ -348,13 +344,6 @@
 			name = AudioToolbox.framework;
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
-		};
-		45D955784B106D9A00AFEED3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = SampleList.cpp;
-			path = ../../Source/SampleList.cpp;
-			sourceTree = "SOURCE_ROOT";
 		};
 		4716595473E46FB7AE645B6C = {
 			isa = PBXFileReference;
@@ -600,13 +589,6 @@
 			name = "juce_audio_devices";
 			path = "~/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
-		};
-		9E48EB585D9E6333CBEE3807 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = SampleList.h;
-			path = ../../Source/SampleList.h;
-			sourceTree = "SOURCE_ROOT";
 		};
 		A115E354DDF4EFC8ABC9A080 = {
 			isa = PBXFileReference;
@@ -896,7 +878,6 @@
 			children = (
 				C5814A3783A6A3949CA24A73,
 				9ACA130BCE09FB34754C60A5,
-				9E48EB585D9E6333CBEE3807,
 				556F38C1A958A88B758E3E87,
 			);
 			name = Structures;
@@ -979,7 +960,6 @@
 			children = (
 				978DBF90FE5001CA896A212C,
 				227ADF622651A2D499B902B0,
-				45D955784B106D9A00AFEED3,
 				677E5AFA21B45B704AFD7D08,
 			);
 			name = Structures;
@@ -1338,7 +1318,6 @@
 				BE5F8ECDD91689D310D4C316,
 				C873C0F9DB822F4D4F9C3430,
 				F1E4226675BF1179624D028E,
-				5E0473064051D5A8842ABE91,
 				86BACAE8126888AB49016262,
 				BA02DDA189349634C470C097,
 				CDE3E7D35E0F4F68EEC95185,

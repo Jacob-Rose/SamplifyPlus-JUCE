@@ -43,8 +43,8 @@ void TagContainer::updateItems()
 	int deleteCount = mUsedSampleTags.size() - mCurrentTags.size();
 	for (int i = 0; i < deleteCount; i++)
 	{
-		delete mUsedSampleTags[i];
-		mUsedSampleTags.erase(mUsedSampleTags.begin() + i);
+		delete mUsedSampleTags[0];
+		mUsedSampleTags.erase(mUsedSampleTags.begin());
 	}
 	for (int i = 0; i < mCurrentTags.size(); i++)
 	{
@@ -77,7 +77,17 @@ void TagContainer::updateItems()
 			}
 		}
 	}
-	mLineCount = line + 1;
+	if (mUsedSampleTags.size() > 0)
+	{
+		mLineCount = line + 1;
+	}
+
+	float height = 0;
+	if (mUsedSampleTags.size() > 0)
+	{
+		height = mUsedSampleTags[0]->getBounds().getHeight();
+	}
+	setBounds(0, 0, getWidth(), mLineCount * height);
 }
 
 void TagContainer::clearTags()

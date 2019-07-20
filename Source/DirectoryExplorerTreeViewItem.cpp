@@ -1,4 +1,5 @@
 #include "DirectoryExplorerTreeViewItem.h"
+#include "SamplifyMainComponent.h"
 #include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
 
@@ -145,5 +146,6 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 	if (isNowSelected)
 	{
 		SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(mFile);
+		SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer()->resetTags();
 	}
 }

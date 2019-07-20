@@ -2,6 +2,7 @@
 
 #include "SamplifyLookAndFeel.h"
 #include "TagTile.h"
+#include "SamplifyMainComponent.h"
 
 #include <iomanip>
 #include <sstream>
@@ -120,8 +121,12 @@ void SampleTile::paint (Graphics& g)
 			}
 
 		}
+		mTagContainer.setTags(mSample.getTags());
 	}
-
+	else
+	{
+		mTagContainer.setTags(StringArray());
+	}
 }
 
 void SampleTile::resized()
@@ -143,32 +148,40 @@ bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails
 	}
 }
 
-void SampleTile::mouseDown(const MouseEvent& mouseEvent)
+void SampleTile::mouseDown(const MouseEvent& e)
 {
-
+	Rectangle audiowaveRect = getThumbnailRect();
+	if (!audiowaveRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isRightButtonDown())
+	{
+		PopupMenu menu;
+		menu.addItem(1, "Open Q-Editor", false, false);
+		menu.addSeparator();
+		menu.addItem(2, "Rename Sample", false, false);
+		menu.addItem(3, "Delete Sample", false, false);
+		int selection = menu.show();
+	}
 }
 
-void SampleTile::mouseUp(const MouseEvent& mouseEvent)
+void SampleTile::mouseUp(const MouseEvent& e)
 {
 	if (!mSample.isNull())
 	{
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
 		Rectangle audiowaveRect = getThumbnailRect();
-		if (audiowaveRect.contains(mouseEvent.getMouseDownPosition().toFloat()))
+		if (audiowaveRect.contains(e.getMouseDownPosition().toFloat()))
 		{
-			if (mouseEvent.mods.isLeftButtonDown())
+			if (e.mods.isLeftButtonDown())
 			{
 				playSample();
 			}
-			else if (mouseEvent.mods.isRightButtonDown())
+			else if (e.mods.isRightButtonDown())
 			{
 				float rectWidth = audiowaveRect.getWidth();
-				float mouseDownX = mouseEvent.getMouseDownX();
+				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
-
 		}
 	}
 }
@@ -221,22 +234,26 @@ void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 		{
 			mSample.addTag(tagComp->getTag());
 			mTagContainer.setTags(mSample.getTags());
+			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer()->resetTags();
 		}
 	}
 }
 
 void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 {
-  	AudioPlayer* aux = SamplifyProperties::getInstance()->getAudioPlayer();
-	if (aux->getFile() == mSample.getFile())
+	if (!mSample.isNull())
 	{
-		if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
-			aux->getState() == AudioPlayer::TransportState::Playing))
+		AudioPlayer* aux = SamplifyProperties::getInstance()->getAudioPlayer();
+		if (aux->getFile() == mSample.getFile())
 		{
-			aux->removeChangeListener(this);
-		}
+			if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
+				aux->getState() == AudioPlayer::TransportState::Playing))
+			{
+				aux->removeChangeListener(this);
+			}
 
-		repaint();
+			repaint();
+		}
 	}
 }
 
@@ -258,12 +275,7 @@ void SampleTile::setSample(Sample::Reference sample)
 			{
 				sample.generateThumbnailAndCache();
 			}
-			mTagContainer.setTags(sample.getTags());
 		}
-	}
-	else
-	{
-		mTagContainer.setTags(StringArray());
 	}
 	mSample = sample;
 	repaint();

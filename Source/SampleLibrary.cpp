@@ -69,25 +69,11 @@ bool SampleLibrary::containsSample(File file)
 	return false;
 }
 
-void SampleLibrary::sortCurrentSamples(SortingMethod method)
-{
-	if (sortThread != nullptr)
-	{
-		sortThread->stopThread(100);
-		delete sortThread;
-	}
-	/*
-	sortThread = new SortSamplesThread(this, method);
-	sortThread->addListener(this);
-	sortThread->startThread();
-	sendChangeMessage();
-	*/
-}
 
 void SampleLibrary::updateCurrentSamples(File path, String query)
 {
 	mCurrentSamples.clearSamples();
-	SampleList allSamples;
+	Sample::List allSamples;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
 		allSamples.addSample(&mSamples[i]);
@@ -115,7 +101,7 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
-SampleList SampleLibrary::getCurrentSamples()
+Sample::List SampleLibrary::getCurrentSamples()
 {
 	if (updateThread != nullptr)
 	{
@@ -127,6 +113,16 @@ SampleList SampleLibrary::getCurrentSamples()
 	}
 
 	return mCurrentSamples;
+}
+
+Sample::List samplify::SampleLibrary::getAllSamples()
+{
+	Sample::List list;
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		list.addSample(Sample::Reference(&mSamples[i]));
+	}
+	return list;
 }
 
 StringArray SampleLibrary::getAllTags()
@@ -148,7 +144,7 @@ StringArray SampleLibrary::getAllTags()
 	return tags;
 }
 
-void samplify::SampleLibrary::setCurrentSamples(SampleList samples)
+void samplify::SampleLibrary::setCurrentSamples(Sample::List samples)
 {
 	mCurrentSamples = samples;
 	sendChangeMessage();
@@ -197,10 +193,9 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 	}
 	signalThreadShouldExit();
 }
-
+/*
 void samplify::SampleLibrary::SortSamplesThread::run()
 {
-	/*
 	SampleList sorted;
 	SampleList oldList;
 	for (int i = 0; i < mParent->mSamples.size(); i++)
@@ -224,5 +219,6 @@ void samplify::SampleLibrary::SortSamplesThread::run()
 		}
 		mParent->setCurrentSamples(sorted);
 	}
-	*/
+
 }
+*/

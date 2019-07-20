@@ -44,16 +44,6 @@ Sample::~Sample()
 	mThumbnail.reset(nullptr);
 }
 
-AudioThumbnailCache* Sample::getAudioThumbnailCache()
-{
-	return mThumbnailCache.get();
-}
-
-SampleAudioThumbnail * Sample::getAudioThumbnail()
-{
-	return mThumbnail.get();
-}
-
 void Sample::determineSampleType()
 {
 	if (mLength > 4.0)
@@ -117,8 +107,9 @@ void Sample::loadPropertiesFile()
 
 
 
-StringArray samplify::Sample::Reference::getRelativeParentFolders() const
+StringArray Sample::Reference::getRelativeParentFolders() const
 {
+	jassert(!isNull());
 	StringArray folders;
 	File file(mSample->mFile);
 	File root;
@@ -139,8 +130,9 @@ StringArray samplify::Sample::Reference::getRelativeParentFolders() const
 	return folders;
 }
 
-String samplify::Sample::Reference::getRelativePathName() const
+String Sample::Reference::getRelativePathName() const
 {
+	jassert(!isNull());
 	String path = mSample->mFile.getFullPathName();
 	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
@@ -153,9 +145,15 @@ String samplify::Sample::Reference::getRelativePathName() const
 	return mSample->mFile.getFullPathName();
 }
 
+String Sample::Reference::getFullPathName() const
+{
+	jassert(!isNull());
+	return mSample->mFile.getFullPathName();
+}
 
 
-void samplify::Sample::Reference::generateThumbnailAndCache()
+
+void Sample::Reference::generateThumbnailAndCache()
 {
 	if (mSample->mThumbnail == nullptr)
 	{
@@ -172,4 +170,84 @@ void samplify::Sample::Reference::generateThumbnailAndCache()
 		}
 		delete reader;
 	}
+}
+
+samplify::Sample::List::List(const std::vector<Sample::Reference>& list)
+{
+}
+
+samplify::Sample::List::List()
+{
+}
+
+int samplify::Sample::List::size() const
+{
+	return mSamples.size();
+}
+
+void samplify::Sample::List::addSample(Sample::Reference sample)
+{
+	mSamples.push_back(sample);
+}
+
+void samplify::Sample::List::addSamples(const Sample::List& list)
+{
+	for (int i = 0; i < list.size(); i++)
+	{
+		addSample(list[i]);
+	}
+}
+
+void samplify::Sample::List::addSamples(std::vector<Sample::Reference> samples)
+{
+	addSamples(Sample::List(samples));
+}
+
+void samplify::Sample::List::removeSample(Sample::Reference sample)
+{
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		if (mSamples[i] == sample)
+		{
+			removeSample(i);
+			i--;
+			break;
+		}
+	}
+}
+
+void samplify::Sample::List::removeSample(int index)
+{
+	mSamples.erase(mSamples.begin() + index);
+}
+
+void samplify::Sample::List::removeSamples(std::vector<Sample::Reference> samples)
+{
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		for (int j = 0; j < samples.size(); j++)
+		{
+			if (mSamples[i] == samples[j])
+			{
+				removeSample(i);
+				i--;
+				break;
+			}
+		}
+	}
+}
+
+void samplify::Sample::List::removeSamples(const Sample::List& list)
+{
+}
+
+void samplify::Sample::List::clearSamples()
+{
+	mSamples.clear();
+}
+
+Sample::Reference samplify::Sample::List::operator[](int index) const
+{
+	// TODO: insert return statement here
+	return mSamples[index];
 }

@@ -523,9 +523,6 @@
     <ClCompile Include="..\..\Source\SampleLibrary.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\SampleList.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Sample.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
@@ -2509,9 +2506,6 @@
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleLibrary.h">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleList.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Sample.h">

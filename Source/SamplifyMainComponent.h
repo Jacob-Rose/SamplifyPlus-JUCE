@@ -39,16 +39,20 @@ namespace samplify
 		void paint(Graphics&) override;
 		void resized() override;
 
-		AudioPlayer* getAudioPlayer();
+		AudioPlayer& getAudioPlayer() { return *mAudioPlayer.get(); }
 		static SamplifyMainComponent* getInstance();
+		DirectoryExplorer& getDirectoryExplorer() { return *mDirectoryExplorer.get(); }
+		SampleExplorer& getSampleExplorer() { return *mSampleExplorer.get(); }
+		FilterExplorer& getFilterExplorer() { return *mFilterExplorer.get(); }
 
 	private:
 		std::unique_ptr<DirectoryExplorer> mDirectoryExplorer = nullptr;
 		std::unique_ptr<SampleExplorer> mSampleExplorer = nullptr;
 		std::unique_ptr<FilterExplorer> mFilterExplorer = nullptr;
-		static SamplifyMainComponent* mInstance;
 
 		std::unique_ptr<AudioPlayer> mAudioPlayer;
+
+		static SamplifyMainComponent* mInstance;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SamplifyMainComponent)
 	};

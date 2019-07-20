@@ -40,7 +40,6 @@
         <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
           <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
           <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
-          <FILE id="gtjN5O" name="SampleList.h" compile="0" resource="0" file="Source/SampleList.h"/>
           <FILE id="PMF6VZ" name="Sample.h" compile="0" resource="0" file="Source/Sample.h"/>
         </GROUP>
         <FILE id="P5HG2Y" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
@@ -89,7 +88,6 @@
           <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
           <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
                 file="Source/SampleLibrary.cpp"/>
-          <FILE id="NROVwh" name="SampleList.cpp" compile="1" resource="0" file="Source/SampleList.cpp"/>
           <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
         </GROUP>
         <FILE id="nkdBBx" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>

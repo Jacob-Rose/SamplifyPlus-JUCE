@@ -1,4 +1,5 @@
 #include "SamplifyProperties.h"
+#include "SamplifyMainComponent.h"
 
 using namespace samplify;
 
@@ -159,8 +160,21 @@ void SamplifyProperties::addTag(juce::String text)
 		juce::uint8(r.nextInt(Range(0, 256)))));
 }
 
-void samplify::SamplifyProperties::deleteTag(juce::String tag)
+void SamplifyProperties::deleteTag(juce::String tag)
 {
+	Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
+	for (int i = 0; i < allSamps.size(); i++)
+	{
+		//does nothing if not contained
+		allSamps[i].removeTag(tag);
+	}
+	std::map<juce::String, Colour>::iterator it = mSampleTagColors.find(tag);
+	if (it != mSampleTagColors.end())
+	{
+		mSampleTagColors.erase(it);
+		//heavily specialized line, im sorry
+		SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().resized();
+	}
 }
 
 Colour SamplifyProperties::getTagColor(juce::String text)

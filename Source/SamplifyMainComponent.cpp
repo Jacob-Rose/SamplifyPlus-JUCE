@@ -36,6 +36,11 @@ SamplifyMainComponent::~SamplifyMainComponent()
 {
 	//deviceManager.closeAudioDevice();
 	shutdownAudio();
+	if (mInstance == this)
+	{
+		mInstance = nullptr;
+	}
+
 }
 
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)

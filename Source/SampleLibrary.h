@@ -13,7 +13,6 @@
 #include "JuceHeader.h"
 
 #include "Sample.h"
-#include "SampleList.h"
 
 #include <vector>
 
@@ -36,8 +35,6 @@ namespace samplify
 
 		bool containsSample(File file);
 
-		void sortCurrentSamples(SortingMethod method);
-
 		class UpdateSamplesThread : public Thread
 		{
 		public:
@@ -49,23 +46,7 @@ namespace samplify
 			friend class SampleLibrary;
 		private:
 			SampleLibrary* mParent;
-			SampleList mSamples;
-		};
-
-		class SortSamplesThread : public Thread
-		{
-		public:
-			SortSamplesThread(SampleLibrary* parent, SortingMethod method) : Thread("Sort Samples", 0)
-			{
-				mParent = parent;
-				mMethod = method;
-			}
-
-			void run() override;
-		private:
-			SampleList mSamples;
-			SampleLibrary* mParent;
-			SortingMethod mMethod;
+			Sample::List mSamples;
 		};
 
 		void exitSignalSent() override
@@ -76,15 +57,15 @@ namespace samplify
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
-		void setCurrentSamples(SampleList samples);
-		SampleList getCurrentSamples();
+		void setCurrentSamples(Sample::List samples);
+		Sample::List getCurrentSamples();
+		Sample::List getAllSamples();
 		StringArray getAllTags();
 
 	private:
 		UpdateSamplesThread* updateThread = nullptr;
-		SortSamplesThread* sortThread = nullptr;
 		std::vector<Sample> mSamples;
-		SampleList mCurrentSamples;
+		Sample::List mCurrentSamples;
 		File mCurrentDirectory;
 		String mCurrentQuery;
 
