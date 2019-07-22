@@ -15,13 +15,13 @@ AudioPlayer::~AudioPlayer()
 
 void AudioPlayer::play()
 {
-	transportSource.setPosition(mSampleStartT);
+	setRelativeTime(mSampleStartT);
 	changeState(Starting);
 }
 
 void AudioPlayer::reset()
 {
-	transportSource.setPosition(mSampleStartT);
+	setRelativeTime(mSampleStartT);
 }
 
 void AudioPlayer::stop()

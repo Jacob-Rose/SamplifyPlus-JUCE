@@ -187,6 +187,7 @@ void samplify::SampleLibrary::UpdateSamplesThread::run()
 			if (ref.getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
 				mParent->mCurrentSamples.addSample(ref);
+				//mParent->setCurrentSamples();
 			}
 
 		}
