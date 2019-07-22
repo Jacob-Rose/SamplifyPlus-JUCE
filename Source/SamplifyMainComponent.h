@@ -41,14 +41,14 @@ namespace samplify
 
 		AudioPlayer& getAudioPlayer() { return *mAudioPlayer.get(); }
 		static SamplifyMainComponent* getInstance();
-		DirectoryExplorer& getDirectoryExplorer() { return *mDirectoryExplorer.get(); }
-		SampleExplorer& getSampleExplorer() { return *mSampleExplorer.get(); }
-		FilterExplorer& getFilterExplorer() { return *mFilterExplorer.get(); }
+		DirectoryExplorer& getDirectoryExplorer() { return mDirectoryExplorer; }
+		SampleExplorer& getSampleExplorer() { return mSampleExplorer; }
+		FilterExplorer& getFilterExplorer() { return mFilterExplorer; }
 
 	private:
-		std::unique_ptr<DirectoryExplorer> mDirectoryExplorer = nullptr;
-		std::unique_ptr<SampleExplorer> mSampleExplorer = nullptr;
-		std::unique_ptr<FilterExplorer> mFilterExplorer = nullptr;
+		DirectoryExplorer mDirectoryExplorer;
+		SampleExplorer mSampleExplorer;
+		FilterExplorer mFilterExplorer;
 
 		std::unique_ptr<AudioPlayer> mAudioPlayer;
 

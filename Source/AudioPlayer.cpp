@@ -67,7 +67,7 @@ void AudioPlayer::setRelativeTime(double t)
 	float sampleLength = transportSource.getLengthInSeconds();
 	int64 nextReadPos = sampleLength * t * transportSource.getSampleRate();
 	float newPos = transportSource.getLengthInSeconds() * t;
-	transportSource.setPosition(t);
+	transportSource.setNextReadPosition(nextReadPos);
 }
 	
 

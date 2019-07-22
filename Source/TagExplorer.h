@@ -41,6 +41,7 @@ namespace samplify
 			void updateTags(juce::String newSearch);
 			void updateTagContainerBounds();
 			void resetTags();
+			void removeNewTag(juce::String tag);
 
 			void resized() override
 			{
@@ -52,12 +53,13 @@ namespace samplify
 			TagContainer mContainedTags; //all tags for current files in directory with text from search bar contained in it
 			TagContainer mNotContainedTags; //all tags for lower half, only ones with the text in search bar contained in it
 		};
-		Container* getTagContainer() {
-			return &mTagsContainer;
+		Container& getTagContainer() {
+			return mTagsContainer;
 		}
 		void resized() override;
 		void paint(Graphics&) override;
 		void addNewTag();
+		Container& getContainer() { return mTagsContainer; }
 	private:
 
 		TextButton mNewButtonTag;

@@ -146,6 +146,9 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 	if (isNowSelected)
 	{
 		SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(mFile);
-		SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer()->resetTags();
+		if (SamplifyMainComponent::getInstance() != nullptr)
+		{
+			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
+		}
 	}
 }

@@ -44,6 +44,11 @@ void TagExplorer::addNewTag()
 
 }
 
+void samplify::TagExplorer::Container::removeNewTag(juce::String tag)
+{
+	mNewTags.removeTag(tag);
+}
+
 void TagExplorer::Container::paint(Graphics& g)
 {
 	g.fillAll(Colours::bisque);

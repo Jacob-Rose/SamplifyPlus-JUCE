@@ -9,17 +9,14 @@ SamplifyMainComponent::SamplifyMainComponent()
 {
 	mInstance = this;
 	//usingCustomDeviceManager = true;
-    mDirectoryExplorer.reset(new DirectoryExplorer());
-    mSampleExplorer.reset(new SampleExplorer());
-    mFilterExplorer.reset(new FilterExplorer());
 	addKeyListener(this);
 	
 	mAudioPlayer.reset(new AudioPlayer());
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer.get());
 
-	addAndMakeVisible(*mDirectoryExplorer);
-	addAndMakeVisible(*mSampleExplorer);
-	addAndMakeVisible(*mFilterExplorer);
+	addAndMakeVisible(mDirectoryExplorer);
+	addAndMakeVisible(mSampleExplorer);
+	addAndMakeVisible(mFilterExplorer);
     
 	AudioDeviceManager::AudioDeviceSetup adsetup;
 	deviceManager.getAudioDeviceSetup(adsetup);
@@ -36,11 +33,12 @@ SamplifyMainComponent::~SamplifyMainComponent()
 {
 	//deviceManager.closeAudioDevice();
 	shutdownAudio();
+	/*
 	if (mInstance == this)
 	{
 		mInstance = nullptr;
 	}
-
+	*/
 }
 
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
@@ -108,9 +106,9 @@ void SamplifyMainComponent::paint (Graphics& g)
 void SamplifyMainComponent::resized()
 {
 	int widthSegment = getWidth() / 5;
-	mDirectoryExplorer->setBounds(0, 0, widthSegment, getHeight());
-	mSampleExplorer->setBounds(widthSegment, 0, widthSegment * 3, getHeight());
-	mFilterExplorer->setBounds(widthSegment * 4, 0, widthSegment, getHeight());
+	mDirectoryExplorer.setBounds(0, 0, widthSegment, getHeight());
+	mSampleExplorer.setBounds(widthSegment, 0, widthSegment * 3, getHeight());
+	mFilterExplorer.setBounds(widthSegment * 4, 0, widthSegment, getHeight());
 }
 
 SamplifyMainComponent* SamplifyMainComponent::getInstance()

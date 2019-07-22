@@ -28,5 +28,5 @@ void FilterExplorer::resized()
 
 void FilterExplorer::textEditorTextChanged(TextEditor& te)
 {
-	mTagExplorer.getTagContainer()->updateTags(te.getText());
+	mTagExplorer.getTagContainer().updateTags(te.getText());
 }

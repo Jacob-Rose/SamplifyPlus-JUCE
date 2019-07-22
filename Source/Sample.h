@@ -142,7 +142,7 @@ namespace samplify
 
 				}
 			}
-
+			 
 			void generateThumbnailAndCache();
 
 			void addChangeListener(ChangeListener* listener)

@@ -234,7 +234,7 @@ void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 		{
 			mSample.addTag(tagComp->getTag());
 			mTagContainer.setTags(mSample.getTags());
-			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer()->resetTags();
+			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
 		}
 	}
 }
