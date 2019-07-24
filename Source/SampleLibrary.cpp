@@ -48,11 +48,7 @@ void SampleLibrary::addSample(Sample& ref)
 	sendChangeMessage();
 }
 
-void SampleLibrary::removeSample(File file)
-{
-}
-
-void samplify::SampleLibrary::saveSamplePropertyFiles()
+void SampleLibrary::saveSamplePropertyFiles()
 {
 	for (int i = 0; i < mSamples.size(); i++)
 	{
@@ -60,15 +56,16 @@ void samplify::SampleLibrary::saveSamplePropertyFiles()
 	}
 }
 
-void SampleLibrary::clearSamples()
-{
-} 
-
 bool SampleLibrary::containsSample(File file)
 {
 	return false;
 }
 
+
+void SampleLibrary::exitSignalSent()
+{
+	sendChangeMessage();
+}
 
 void SampleLibrary::updateCurrentSamples(File path, String query)
 {
@@ -144,13 +141,13 @@ StringArray SampleLibrary::getAllTags()
 	return tags;
 }
 
-void samplify::SampleLibrary::setCurrentSamples(Sample::List samples)
+void SampleLibrary::setCurrentSamples(Sample::List samples)
 {
 	mCurrentSamples = samples;
 	sendChangeMessage();
 }
 
-void samplify::SampleLibrary::UpdateSamplesThread::run()
+void SampleLibrary::UpdateSamplesThread::run()
 {
 	for (int i = 0; i < mParent->mSamples.size(); i++)
 	{

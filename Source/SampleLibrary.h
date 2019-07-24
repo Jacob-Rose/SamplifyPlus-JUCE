@@ -29,9 +29,9 @@ namespace samplify
 		void addSample(Sample& ref);
 		void addSamples(std::vector<File> files);
 		void addSamples(std::vector<Sample> files);
-		void removeSample(File file);
+		//void removeSample(File file);
 		void saveSamplePropertyFiles();
-		void clearSamples();
+		//void clearSamples();
 
 		bool containsSample(File file);
 
@@ -49,10 +49,7 @@ namespace samplify
 			Sample::List mSamples;
 		};
 
-		void exitSignalSent() override
-		{
-			sendChangeMessage();
-		}
+		void exitSignalSent() override;
 
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);

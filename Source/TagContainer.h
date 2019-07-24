@@ -21,7 +21,7 @@ namespace samplify
 	{
 	public:
 		//========================================================
-		TagContainer();
+		TagContainer(bool updateHeight);
 		~TagContainer();
 
 		void paint(Graphics&) override;
@@ -34,6 +34,7 @@ namespace samplify
 		void clearTags();
 		void removeTag(juce::String tag);
 		void addTag(juce::String tag);
+
 		//======================================================
 		int calculateAllRowsHeight();
 		int getRowCount();
@@ -46,6 +47,8 @@ namespace samplify
 		int mLineCount = 0;
 		int mMaxItems = 20;
 		Font tagFont;
+		bool mIsFull = false;
+		bool mUpdateHeight = false;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagContainer)
 	};

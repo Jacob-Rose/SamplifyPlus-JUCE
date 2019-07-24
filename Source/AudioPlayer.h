@@ -33,6 +33,11 @@ namespace samplify
 		void stop();
 		void toggle();
 
+		void setVolumeMultiply(float gain)
+		{
+			transportSource.setGain(gain);
+		}
+
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;

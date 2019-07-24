@@ -23,11 +23,11 @@ namespace samplify
 	{
 		enum CommandIDs
 		{
-			saveSampleInfo = 0x2000,
+			saveSampleInfo = 0x1000,
 			deleteSampleInfo,
 			addDirectory,
-			removeDirectory,
-			removeAndResetDirectory,
+			removeDirectory = 0x3000, //this is weird
+			removeAndResetDirectory = 0x1003,
 			openHelpPDF,
 			volumeControl
 		};

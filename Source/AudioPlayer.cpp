@@ -27,6 +27,7 @@ void AudioPlayer::reset()
 void AudioPlayer::stop()
 {
 	transportSource.stop();
+	sendChangeMessage();
 }
 
 void samplify::AudioPlayer::toggle()
@@ -68,6 +69,7 @@ void AudioPlayer::setRelativeTime(double t)
 	int64 nextReadPos = sampleLength * t * transportSource.getSampleRate();
 	float newPos = transportSource.getLengthInSeconds() * t;
 	transportSource.setNextReadPosition(nextReadPos);
+	sendChangeMessage();
 }
 	
 
@@ -80,7 +82,7 @@ void AudioPlayer::changeState(TransportState newState)
 		switch (state)
 		{
 		case Stopped:
-			//transportSource.setPosition(0.0f);
+			setRelativeTime(mSampleStartT);
 			break;
 		case Stopping:
 			transportSource.stop();
@@ -128,6 +130,5 @@ void AudioPlayer::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 		bufferToFill.clearActiveBufferRegion();
 		return;
 	}
-	transportSource.getNextAudioBlock(bufferToFill);
-	
+	transportSource.getNextAudioBlock(bufferToFill) ;
 }

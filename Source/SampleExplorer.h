@@ -18,7 +18,11 @@
 
 namespace samplify
 {
-	class SampleExplorer : public Component, public TextEditor::Listener, public ChangeListener, public ComboBox::Listener
+	class SampleExplorer : public Component, 
+		public TextEditor::Listener, 
+		public ChangeListener, 
+		public ComboBox::Listener,
+		public Slider::Listener
 	{
 	public:
 		//============================================================
@@ -54,6 +58,35 @@ namespace samplify
 			TextButton mEraseSearchButton;
 		};
 
+		class Knob270 : public Component
+		{
+		public:
+			Knob270()
+			{
+
+			}
+			~Knob270()
+			{
+
+			}
+
+			void paint(Graphics& g) override
+			{
+
+			}
+
+			void mouseMove(const MouseEvent& e) override
+			{
+				if (e.mods.isLeftButtonDown())
+				{
+					
+				}
+			}
+		private:
+			float mValue;
+
+		};
+
 		//============================================================
 		SampleExplorer();
 		~SampleExplorer();
@@ -64,10 +97,12 @@ namespace samplify
 		void textEditorTextChanged(TextEditor&) override;
 		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
+		void sliderValueChanged(Slider* slider) override;
 
 		TextEditor& getSearchBar() { return mSearchBar; }
 	private:
 		//============================================================
+		Slider mVolume;
 		ComboBox mFilter;
 		SampleViewport mViewport;
 		SampleSearchbar mSearchBar;

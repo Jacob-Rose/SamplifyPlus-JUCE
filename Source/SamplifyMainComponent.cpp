@@ -7,12 +7,13 @@ SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
 SamplifyMainComponent::SamplifyMainComponent() 
 {
+	//mCopyProtection.reset(new SecurityThread());
+	//mCopyProtection.get()->run();
 	mInstance = this;
 	//usingCustomDeviceManager = true;
 	addKeyListener(this);
-	
-	mAudioPlayer.reset(new AudioPlayer());
-	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer.get());
+
+	SamplifyProperties::getInstance()->setAudioPlayer(&mAudioPlayer);
 
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
@@ -27,6 +28,7 @@ SamplifyMainComponent::SamplifyMainComponent()
 	setAudioChannels(0, 2);
 	setupLookAndFeel();
     setSize (600, 400);
+
 }
 
 SamplifyMainComponent::~SamplifyMainComponent()
@@ -43,12 +45,21 @@ SamplifyMainComponent::~SamplifyMainComponent()
 
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
 {
-	if (key.getKeyCode() == key.spaceKey)
+	if (key.getTextCharacter() == 'g')
 	{
-		SamplifyProperties::getInstance()->getAudioPlayer()->toggle();
+		SamplifyProperties::getInstance()->getAudioPlayer()->play();
 		return true;
 	}
-	
+	else if (key.getTextCharacter() == 'h')
+	{
+		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
+		return true;
+	}
+	return false;
+}
+
+void SamplifyMainComponent::setupOutputChannels(int numOutputChannels)
+{
 }
 
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -58,31 +69,26 @@ void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sa
 
 	// You can use this function to initialise any resources you might need,
 	// but be careful - it will be called on the audio thread, not the GUI thread.
-	if (mAudioPlayer != nullptr)
-	{
-		mAudioPlayer->prepareToPlay(samplesPerBlockExpected, sampleRate);
-	}
+	mAudioPlayer.prepareToPlay(samplesPerBlockExpected, sampleRate);
 	// For more details, see the help for AudioProcessor::prepareToPlay()
 }
 
 void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-	if (mAudioPlayer != nullptr)
+	mAudioPlayer.getNextAudioBlock(bufferToFill);
+	/*
+	if (mCopyProtection.get() == nullptr)
 	{
-		mAudioPlayer->getNextAudioBlock(bufferToFill);
+		juce::JUCEApplicationBase::quit();
 	}
+	*/
 }
 
 void SamplifyMainComponent::releaseResources()
 {
 	// This will be called when the audio device stops, or when it is being
 	// restarted due to a setting change.
-	if (mAudioPlayer != nullptr)
-	{
-		mAudioPlayer->releaseResources();
-	}
-
-
+	mAudioPlayer.releaseResources();
 	// For more details, see the help for AudioProcessor::releaseResources()
 }
 

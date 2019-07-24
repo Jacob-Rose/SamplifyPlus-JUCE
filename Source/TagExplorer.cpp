@@ -102,7 +102,7 @@ void TagExplorer::Container::updateTags(juce::String newSearch)
 	
 	mContainedTags.setTags(passedTags);
 	mNotContainedTags.setTags(failedTags);
-	updateTagContainerBounds();
+	//updateTagContainerBounds();
 }
 
 void TagExplorer::Container::updateTagContainerBounds()
@@ -121,7 +121,7 @@ void TagExplorer::Container::updateTagContainerBounds()
 	mNotContainedTags.setBounds(0, cHeight, getWidth(), getHeight());
 	mNotContainedTags.setTopLeftPosition(0, cHeight);
 	cHeight += mNotContainedTags.getBounds().getHeight();
-	setBounds(0, 0, getWidth(),cHeight);
+	//setBounds(0, 0, getWidth(),cHeight);
 	repaint();
 }
 

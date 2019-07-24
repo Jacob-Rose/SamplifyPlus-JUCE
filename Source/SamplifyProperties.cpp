@@ -82,6 +82,24 @@ void SamplifyProperties::cleanup()
 
 void samplify::SamplifyProperties::removeDirectory(File dir)
 {
+	bool found = false;
+	for (int i = 0; i < mDirectories.size(); i++)
+	{
+		if (mDirectories[i] == dir)
+		{
+			mDirectories.erase(mDirectories.begin() + i);
+			found = true;
+		}
+	}
+	Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
+	for (int i = 0; i < allSamps.size(); i++)
+	{
+		if (allSamps[i].getFile().isAChildOf(dir))
+		{
+			allSamps.removeSample(i);
+			i--;
+		}
+	}
 }
 
 void samplify::SamplifyProperties::addDirectory(File dir)

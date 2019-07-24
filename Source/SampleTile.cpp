@@ -9,7 +9,7 @@
 
 using namespace samplify;
 
-SampleTile::SampleTile(Sample::Reference sample)
+SampleTile::SampleTile(Sample::Reference sample) : mTagContainer(false)
 {
 	setRepaintsOnMouseActivity(true);
 	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
@@ -28,6 +28,7 @@ void SampleTile::paint (Graphics& g)
 		Rectangle<float> timeRect = getTimeRect();
 		Rectangle<float> typeRect = getTypeRect();
 		Rectangle<float> thumbnailBounds = getThumbnailRect();
+		float tileCornerRadius = 2.0f;
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
@@ -42,12 +43,11 @@ void SampleTile::paint (Graphics& g)
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
 		}
 		g.setColour(backgroundColor);
-		//g.fillAll(backgroundColor);
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), 8.0f);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius);
 		g.setFont(SAMPLE_TILE_TITLE_FONT);
 		g.setColour(Colours::black);
 		// draw an outline around the component
-		g.drawRoundedRectangle(getLocalBounds().toFloat(), 8.0f, 2.0f);   
+		g.drawRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius, 2.0f);
 		g.drawLine(thumbnailBounds.getTopLeft().x, 
 			thumbnailBounds.getTopLeft().y,
 			0, 
@@ -72,9 +72,6 @@ void SampleTile::paint (Graphics& g)
 		g.drawText(mSample.getFilename(), titleRect, Justification::centredLeft);
 		g.setColour(foregroundColor);
 
-
-		///DRAW SAMPLE TYPE
-
 		switch (mSample.getSampleType())
 		{
 		case Sample::SampleType::ONESHOT:
@@ -92,8 +89,6 @@ void SampleTile::paint (Graphics& g)
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
 		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
 
-
-		//todo
 		Sample::ThumbnailReference thumbnail = mSample.getThumbnail();
 		if (!thumbnail.isNull())
 		{
@@ -134,6 +129,8 @@ void SampleTile::resized()
 	int widthSegment = getWidth() / 4;
 	int heightSegment = getHeight() / 3;
 	mTagContainer.setBounds(getTagRect().toNearestInt());
+	Point<float> tl = getTagRect().getTopLeft();
+	mTagContainer.setTopLeftPosition(tl.toInt());
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)

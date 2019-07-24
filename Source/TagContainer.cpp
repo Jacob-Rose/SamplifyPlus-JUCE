@@ -3,8 +3,9 @@
 
 using namespace samplify;
 
-TagContainer::TagContainer() : tagFont(SAMPLE_TAG_FONT_SIZE)
+TagContainer::TagContainer(bool updateHeight) : tagFont(SAMPLE_TAG_FONT_SIZE)
 {
+	mUpdateHeight = updateHeight;
 }
 
 TagContainer::~TagContainer()
@@ -75,19 +76,20 @@ void TagContainer::updateItems()
 				currentWidth = 0.0f;
 				i--; //redo this next line
 			}
+			if (line * boxWidth > getHeight())
+			{
+				mIsFull = true;
+			}
 		}
 	}
 	if (mUsedSampleTags.size() > 0)
 	{
 		mLineCount = line + 1;
 	}
-
-	float height = 0;
-	if (mUsedSampleTags.size() > 0)
+	if (mUpdateHeight)
 	{
-		height = mUsedSampleTags[0]->getBounds().getHeight();
+		setSize(getWidth(), mLineCount * boxHeight);
 	}
-	setBounds(0, 0, getWidth(), mLineCount * height);
 }
 
 void TagContainer::clearTags()

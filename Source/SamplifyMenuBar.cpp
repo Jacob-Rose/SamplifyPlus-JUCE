@@ -1,4 +1,5 @@
 #include "SamplifyMenuBar.h"
+#include "SamplifyProperties.h"
 
 using namespace samplify;
 
@@ -20,6 +21,7 @@ void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMe
 	case deleteSampleInfo:
 		break;
 	case addDirectory:
+		SamplifyProperties::getInstance()->browseForDirectoryAndAdd();
 		break;
 	case removeDirectory:
 		break;
@@ -27,6 +29,14 @@ void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMe
 		break;
 	case openHelpPDF:
 		break;
+	}
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+	for (int i = 0; i < dirs.size(); i++)
+	{
+		if (menuItemID == removeDirectory + i)
+		{
+			SamplifyProperties::getInstance()->removeDirectory(dirs[i]);
+		}
 	}
 }
 
@@ -37,14 +47,21 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 	PopupMenu menu;
 	if (menuIndex == 0) //Files
 	{
-		menu.addItem(saveSampleInfo, "Save Sample Info");
-		menu.addItem(deleteSampleInfo, "Delete .samp files (dialog select directory)");
+		menu.addItem(saveSampleInfo, "Save Sample Info", false, false);
+		menu.addItem(deleteSampleInfo, "Delete .samp files (dialog select directory)", false, false);
 	}
 	if (menuIndex == 1) //dir
 	{
-		menu.addItem(addDirectory, "Add Directory");
-		menu.addItem(removeDirectory, "Remove Directory");
-		menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
+		menu.addItem(addDirectory, "Add Directory", true, false);
+		//menu.addItem(removeDirectory, "Remove Directory");
+		PopupMenu removeMenu;
+		std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+		for (int i = 0; i < dirs.size(); i++)
+		{
+			removeMenu.addItem(removeDirectory + i, dirs[i].getFullPathName(), true, false);
+		}
+		menu.addSubMenu("Remove Dirs", removeMenu, true);
+		//menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
 	}
 	if (menuIndex == 2)
 	{

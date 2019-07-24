@@ -24,12 +24,11 @@ namespace samplify
 		class Container : public Component
 		{
 		public:
-			Container() : Component()
+			Container() : Component(), mNewTags(true), mContainedTags(true), mNotContainedTags(true)
 			{
 				addAndMakeVisible(mNewTags);
 				addAndMakeVisible(mContainedTags);
 				addAndMakeVisible(mNotContainedTags);
-				updateTags("");
 			}
 			void paint(Graphics& g) override;
 			//this references samplifyproperties
