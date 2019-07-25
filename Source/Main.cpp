@@ -51,7 +51,6 @@ namespace samplify
 
 		void anotherInstanceStarted(const String& commandLine) override
 		{
-			//cannot run two instances
 			quit();
 		}
 		

@@ -24,24 +24,27 @@ SamplifyProperties::~SamplifyProperties()
 File SamplifyProperties::browseForDirectory()
 {
 	FileChooser dirSelector(String("Select Music Directory"), File::getSpecialLocation(File::userHomeDirectory));
-	dirSelector.browseForDirectory();
-	return dirSelector.getResult();
+	if (dirSelector.browseForDirectory())
+	{
+		return dirSelector.getResult();
+	}
+	return File::nonexistent;
 }
 
 void SamplifyProperties::browseForDirectoryAndAdd()
 {
 	File dir = browseForDirectory();
-	mDirectories.push_back(dir);
+	if (dir != File::nonexistent)
+	{
+		addDirectory(dir);
+	}
 }
-
-
-
 
 void SamplifyProperties::cleanupInstance()
 {
 	if (smAppProperties != nullptr)
 	{
-		smAppProperties->saveDirectoriesToPropertiesFile();
+		smAppProperties->savePropertiesFile();
 		delete smAppProperties;
 		smAppProperties = nullptr;
 	}
@@ -65,10 +68,8 @@ SamplifyProperties* SamplifyProperties::getInstance()
 void SamplifyProperties::init()
 {
 	mDirectories = std::vector<File>();
-	loadDirectoriesFromPropertiesFile();
 	mSampleLibrary.reset(new SampleLibrary());
-	LoadSamplesThread loadSamplesThread(mDirectories[0]);
-	loadSamplesThread.runThread();
+	loadPropertiesFile();
 }
 
 void SamplifyProperties::cleanup()
@@ -77,33 +78,33 @@ void SamplifyProperties::cleanup()
 	{
 		mSampleLibrary.reset(nullptr);
 	}
-	
 }
 
-void samplify::SamplifyProperties::removeDirectory(File dir)
+void SamplifyProperties::removeDirectory(File dir)
 {
-	bool found = false;
 	for (int i = 0; i < mDirectories.size(); i++)
 	{
 		if (mDirectories[i] == dir)
 		{
 			mDirectories.erase(mDirectories.begin() + i);
-			found = true;
-		}
-	}
-	Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
-	for (int i = 0; i < allSamps.size(); i++)
-	{
-		if (allSamps[i].getFile().isAChildOf(dir))
-		{
-			allSamps.removeSample(i);
-			i--;
+			Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
+			for (int i = 0; i < allSamps.size(); i++)
+			{
+				if (allSamps[i].getFile().isAChildOf(dir))
+				{
+					mSampleLibrary.get()->removeSample(allSamps[i].getFile());
+					i--;
+				}
+			}
+			return;
 		}
 	}
 }
 
-void samplify::SamplifyProperties::addDirectory(File dir)
+void SamplifyProperties::addDirectory(File dir)
 {
+	mDirectories.push_back(dir);
+	loadSamplesFromDirectory(dir);
 }
 
 void SamplifyProperties::setDirectories(std::vector<File> directories)
@@ -112,21 +113,30 @@ void SamplifyProperties::setDirectories(std::vector<File> directories)
 	mDirectories = directories;
 }
 
-void SamplifyProperties::loadDirectoriesFromPropertiesFile()
+void SamplifyProperties::loadPropertiesFile()
 {
 	PropertiesFile* propFile = mApplicationProperties.getUserSettings();
 	if (propFile->isValidFile())
 	{
 		StringArray propFileLines;
-		
+		//load dirs
 		int dirCount = propFile->getIntValue("directory count");
 		for (int i = 0; i < dirCount; i++)
 		{
-			mDirectories.push_back(File(propFile->getValue("directory "+ i)));
+			addDirectory(File(propFile->getValue("directory "+ i)));
 		}
 		if (mDirectories.size() == 0)
 		{
 			browseForDirectoryAndAdd();
+		}
+		//load tags
+		int tagCount = propFile->getIntValue("tag count");
+		for (int i = 0; i < tagCount; i++)
+		{
+			String tag = propFile->getValue("tag " + i);
+			jassert(tag != "");
+			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
+			addTag(tag, color);
 		}
 	}
 	else
@@ -137,6 +147,8 @@ void SamplifyProperties::loadDirectoriesFromPropertiesFile()
 
 void SamplifyProperties::loadSamplesFromDirectory(File& file)
 {
+	LoadSamplesThread loadSamplesThread(file);
+	loadSamplesThread.runThread();
 }
 
 void SamplifyProperties::loadSamplesFromDirectories(std::vector<File>& dirs)
@@ -147,7 +159,7 @@ void SamplifyProperties::loadSamplesFromDirectories(std::vector<File>& dirs)
 	}
 }
 
-void SamplifyProperties::saveDirectoriesToPropertiesFile()
+void SamplifyProperties::savePropertiesFile()
 {
 	PropertiesFile* propFile = mApplicationProperties.getUserSettings();
 	if (!propFile->isValidFile())
@@ -161,6 +173,19 @@ void SamplifyProperties::saveDirectoriesToPropertiesFile()
 		{
 			propFile->setValue("directory " + i, mDirectories[i].getFullPathName());
 		}
+		int tagCount = 0;
+		StringArray usedTags = mSampleLibrary->getAllTags();
+		std::map<String, Colour>::iterator it = mSampleTagColors.begin();
+		while (it != mSampleTagColors.end())
+		{
+			if (usedTags.contains(it->first))
+			{
+				propFile->setValue("tag " + String(tagCount), &it->first);
+				propFile->setValue("tag " + it->first, &it->second.toString());
+				tagCount++;
+			}
+		}
+		propFile->setValue("tag count", tagCount);
 		propFile->saveIfNeeded();
 	}
 }
@@ -210,7 +235,11 @@ Colour SamplifyProperties::getTagColor(juce::String text)
 
 void SamplifyProperties::clearDirectories()
 {
-	mDirectories.clear();
+	for (int i = 0; i < mDirectories.size(); i++)
+	{
+		//the function modifies mDirectories
+		removeDirectory(mDirectories[0]);
+	}
 }
 
 void SamplifyProperties::LoadSamplesThread::run()

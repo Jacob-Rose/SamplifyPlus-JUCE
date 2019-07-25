@@ -25,7 +25,9 @@ SamplifyMainComponent::SamplifyMainComponent()
 	adsetup.sampleRate = 48000;
 	deviceManager.setAudioDeviceSetup(adsetup, true);
 	//deviceManager.initialise(2,2,0,true,juce::String(), &adsetup);
+	
 	setAudioChannels(0, 2);
+	
 	setupLookAndFeel();
     setSize (600, 400);
 
@@ -58,19 +60,9 @@ bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originati
 	return false;
 }
 
-void SamplifyMainComponent::setupOutputChannels(int numOutputChannels)
-{
-}
-
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-	// This function will be called when the audio device is started, or when
-	// its settings (i.e. sample rate, block size, etc) are changed.
-
-	// You can use this function to initialise any resources you might need,
-	// but be careful - it will be called on the audio thread, not the GUI thread.
 	mAudioPlayer.prepareToPlay(samplesPerBlockExpected, sampleRate);
-	// For more details, see the help for AudioProcessor::prepareToPlay()
 }
 
 void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
@@ -105,7 +97,6 @@ void samplify::SamplifyMainComponent::setupLookAndFeel()
 //==============================================================================
 void SamplifyMainComponent::paint (Graphics& g)
 {
-    // Our component is opaque, so we must completely fill the background with a solid colour
     g.fillAll (getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
 }
 

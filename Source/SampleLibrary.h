@@ -29,7 +29,7 @@ namespace samplify
 		void addSample(Sample& ref);
 		void addSamples(std::vector<File> files);
 		void addSamples(std::vector<Sample> files);
-		//void removeSample(File file);
+		void removeSample(const File& file);
 		void saveSamplePropertyFiles();
 		//void clearSamples();
 

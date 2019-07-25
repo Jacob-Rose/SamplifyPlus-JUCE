@@ -14,6 +14,7 @@
 #include "JuceHeader.h"
 
 #include "SampleContainer.h"
+
 #include "SamplifyProperties.h"
 
 namespace samplify
@@ -21,11 +22,11 @@ namespace samplify
 	class SampleExplorer : public Component, 
 		public TextEditor::Listener, 
 		public ChangeListener, 
-		public ComboBox::Listener,
-		public Slider::Listener
+		public ComboBox::Listener
 	{
 	public:
-		//============================================================
+		///Custom Viewport to add support for the visible area changed method,
+		///needed to check if scrolled to bottom 
 		class SampleViewport : public Viewport
 		{
 		public:
@@ -38,53 +39,12 @@ namespace samplify
 		class SampleSearchbar : public TextEditor, public Button::Listener
 		{
 		public:
-			SampleSearchbar()
-			{
-				addAndMakeVisible(mEraseSearchButton);
-				mEraseSearchButton.setButtonText("Clear");
-				mEraseSearchButton.addListener(this);
-			}
-			void resized() override
-			{
-				mEraseSearchButton.setBoundsRelative(0.8f, 0.2f, 0.1f, 0.6f);
-				TextEditor::resized();
-			}
+			SampleSearchbar();
+			void resized() override;
 
-			void buttonClicked(Button* button)
-			{
-				setText("");
-			}
+			void buttonClicked(Button* button) { setText(""); }
 		private:
 			TextButton mEraseSearchButton;
-		};
-
-		class Knob270 : public Component
-		{
-		public:
-			Knob270()
-			{
-
-			}
-			~Knob270()
-			{
-
-			}
-
-			void paint(Graphics& g) override
-			{
-
-			}
-
-			void mouseMove(const MouseEvent& e) override
-			{
-				if (e.mods.isLeftButtonDown())
-				{
-					
-				}
-			}
-		private:
-			float mValue;
-
 		};
 
 		//============================================================
@@ -97,12 +57,10 @@ namespace samplify
 		void textEditorTextChanged(TextEditor&) override;
 		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
-		void sliderValueChanged(Slider* slider) override;
 
 		TextEditor& getSearchBar() { return mSearchBar; }
 	private:
 		//============================================================
-		Slider mVolume;
 		ComboBox mFilter;
 		SampleViewport mViewport;
 		SampleSearchbar mSearchBar;

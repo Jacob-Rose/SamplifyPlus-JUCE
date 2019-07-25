@@ -46,9 +46,8 @@ namespace samplify
 		void init();
 		void cleanup();
 		//=Saving=================================================
-		void loadDirectoriesFromPropertiesFile();
-		void saveDirectoriesToPropertiesFile();
-		void loadTagColorsFromPropertiesFile();
+		void loadPropertiesFile();
+		void savePropertiesFile();
 		//=Directories==============================================
 		void removeDirectory(File dir);
 		void addDirectory(File dir);
@@ -56,7 +55,7 @@ namespace samplify
 		std::vector<File> getDirectories() { return mDirectories; }
 		void clearDirectories();
 		//=======================================================
-		File browseForDirectory();
+		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
 
 		void loadSamplesFromDirectory(File& file);
@@ -71,6 +70,7 @@ namespace samplify
 		void deleteTag(juce::String tag);
 
 		Colour getTagColor(juce::String text);
+
 	private:
 		//========================================================
 		SamplifyProperties();

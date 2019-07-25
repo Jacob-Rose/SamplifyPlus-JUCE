@@ -18,30 +18,31 @@
 
 namespace samplify
 {
-	class SamplifyMainMenu : public Component,
-							 public MenuBarModel
+	class SamplifyMainMenu : public Component, public MenuBarModel
 	{
+	public:
 		enum CommandIDs
 		{
-			saveSampleInfo = 0x1000,
-			deleteSampleInfo,
-			addDirectory,
-			removeDirectory = 0x3000, //this is weird
-			removeAndResetDirectory = 0x1003,
-			openHelpPDF,
-			volumeControl
+			addDirectory = 0x299,
+			removeSampFiles,
+			setVolume,
+			removeDirectory = 0x3000, //outlier number required for removeDirectory sub-menu
 		};
-		//const CommandID ids[] = { saveSampleInfo, deleteSampleInfo, addDirectory, removeDirectory, openHelpPDF, volumeControl };
-	public:
+
+		class DeleteSamplifyFilesThread : public ThreadWithProgressWindow
+		{
+		public:
+			DeleteSamplifyFilesThread(File dir) : ThreadWithProgressWindow("deleting .samplify", true, false),
+				mDirectory(dir) {}
+			void run() override;
+		private:
+			File mDirectory;
+		};
 		SamplifyMainMenu();
 		//Menu Bar Model Functions
 		StringArray getMenuBarNames() override;
 		PopupMenu getMenuForIndex(int topLevelMenuIndex, const String& menuName) override;
 		void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
-		void menuBarItemsChanged(MenuBarModel* menuBarModel);
-		
-	private:
-
 	};
 }
 #endif

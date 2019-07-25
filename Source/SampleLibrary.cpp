@@ -41,6 +41,20 @@ void SampleLibrary::addSamples(std::vector<Sample> files)
 	}
 }
 
+void SampleLibrary::removeSample(const File& ref)
+{
+	/*
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		if (Sample::Reference(&mSamples[i]).getFile() == ref)
+		{
+			mSamples.erase(mSamples.begin() + i);
+			return;
+		}
+	}
+	*/
+}
+
 void SampleLibrary::addSample(Sample& ref)
 {
 	if (!containsSample(Sample::Reference(&ref).getFile()))

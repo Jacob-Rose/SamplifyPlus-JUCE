@@ -25,10 +25,10 @@ void TagContainer::paint(Graphics& g)
 
 void TagContainer::resized()
 {
-	updateItems();
+	updateItemBounds();
 }
 
-void TagContainer::updateItems()
+void TagContainer::updateItemBounds()
 {
 	int padding = SAMPLE_TAG_TEXT_PADDING;
 
@@ -95,7 +95,7 @@ void TagContainer::updateItems()
 void TagContainer::clearTags()
 {
 	mCurrentTags.clear();
-	updateItems();
+	updateItemBounds();
 }
 
 StringArray TagContainer::getTags()
@@ -106,19 +106,19 @@ StringArray TagContainer::getTags()
 void TagContainer::setTags(StringArray newTags)
 {
 	mCurrentTags = newTags;
-	updateItems();
+	updateItemBounds();
 }
 
 void TagContainer::removeTag(juce::String tag)
 {
 	mCurrentTags.removeString(tag, true);
-	updateItems();
+	updateItemBounds();
 }
 
 void TagContainer::addTag(juce::String tag)
 {
 	mCurrentTags.add(tag);
-	updateItems();
+	updateItemBounds();
 }
 
 int TagContainer::calculateAllRowsHeight()
@@ -136,9 +136,4 @@ int TagContainer::calculateAllRowsHeight()
 int TagContainer::getRowCount()
 {
 	return mLineCount;
-}
-
-void TagContainer::extendItems()
-{
-	mMaxItems += 20;
 }

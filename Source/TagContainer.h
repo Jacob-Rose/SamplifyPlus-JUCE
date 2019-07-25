@@ -27,25 +27,23 @@ namespace samplify
 		void paint(Graphics&) override;
 		void resized() override;
 
-		void updateItems();
-
 		StringArray getTags();
-		void setTags(StringArray newTags);
-		void clearTags();
-		void removeTag(juce::String tag);
 		void addTag(juce::String tag);
+		void setTags(StringArray newTags);
+		void removeTag(juce::String tag);
+		void clearTags();
+
 
 		//======================================================
 		int calculateAllRowsHeight();
 		int getRowCount();
-
-		void extendItems();
 	private:
+
+		void updateItemBounds();
 		//=============================================================================
 		std::vector<TagTile*> mUsedSampleTags;
 		StringArray mCurrentTags; //tags to store in the container
 		int mLineCount = 0;
-		int mMaxItems = 20;
 		Font tagFont;
 		bool mIsFull = false;
 		bool mUpdateHeight = false;

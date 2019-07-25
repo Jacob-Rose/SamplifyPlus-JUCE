@@ -5,54 +5,69 @@ using namespace samplify;
 
 SamplifyMainMenu::SamplifyMainMenu() {}
 
-StringArray samplify::SamplifyMainMenu::getMenuBarNames()
+StringArray SamplifyMainMenu::getMenuBarNames()
 {
-	const char* const names[] = { "Files", "Directories", "Help", nullptr };
-
+	const char* const names[] = { "Directories", "Volume", nullptr };
 	return StringArray(names);
 }
 
-void samplify::SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
+void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
-	switch (menuItemID)
+	if (menuItemID == addDirectory)
 	{
-	case saveSampleInfo:
-		break;
-	case deleteSampleInfo:
-		break;
-	case addDirectory:
 		SamplifyProperties::getInstance()->browseForDirectoryAndAdd();
-		break;
-	case removeDirectory:
-		break;
-	case removeAndResetDirectory:
-		break;
-	case openHelpPDF:
-		break;
 	}
-	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
-	for (int i = 0; i < dirs.size(); i++)
+	else if (menuItemID == setVolume)
 	{
-		if (menuItemID == removeDirectory + i)
+		Slider slider;
+		slider.setRange(0, 2);
+		slider.setBounds(0, 0, 200, 40);
+		DialogWindow::showModalDialog("Set Gain", &slider, nullptr, Colours::slategrey, true, false);
+		SamplifyProperties::getInstance()->getAudioPlayer()->setVolumeMultiply(slider.getValue());
+	}
+	else if (menuItemID == removeSampFiles)
+	{
+		File file = SamplifyProperties::browseForDirectory();
+		if (file != File::nonexistent)
 		{
-			SamplifyProperties::getInstance()->removeDirectory(dirs[i]);
+			bool notLoaded = true;
+			std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+			for (int i = 0; i < dirs.size(); i++)
+			{
+				if (file == dirs[i] || file.isAChildOf(dirs[i]))
+				{
+					notLoaded = false;
+					break;
+				}
+			}
+			if (notLoaded)
+			{
+				SamplifyProperties::getInstance()->removeDirectory(file);
+			}
+			DeleteSamplifyFilesThread deleteThread(file);
+			deleteThread.runThread();
+		}
+	}
+	else
+	{
+		std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+		for (int i = 0; i < dirs.size(); i++)
+		{
+			if (menuItemID == removeDirectory + i)
+			{
+				SamplifyProperties::getInstance()->removeDirectory(dirs[i]);
+			}
 		}
 	}
 }
 
-void samplify::SamplifyMainMenu::menuBarItemsChanged(MenuBarModel* menuBarModel) {}
-
 PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuName)
 {
 	PopupMenu menu;
-	if (menuIndex == 0) //Files
-	{
-		menu.addItem(saveSampleInfo, "Save Sample Info", false, false);
-		menu.addItem(deleteSampleInfo, "Delete .samp files (dialog select directory)", false, false);
-	}
-	if (menuIndex == 1) //dir
+	if (menuIndex == 0) //dir
 	{
 		menu.addItem(addDirectory, "Add Directory", true, false);
+		menu.addItem(removeSampFiles, "Select Directory and Remove Samples");
 		//menu.addItem(removeDirectory, "Remove Directory");
 		PopupMenu removeMenu;
 		std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
@@ -63,10 +78,19 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 		menu.addSubMenu("Remove Dirs", removeMenu, true);
 		//menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
 	}
-	if (menuIndex == 2)
+	else if (menuIndex == 1)
 	{
-		menu.addItem(openHelpPDF, "View Tutorial PDF");
+		menu.addItem(setVolume, "Set Gain", true, false);
 	}
 	menu.addSeparator();
 	return menu;
+}
+
+void SamplifyMainMenu::DeleteSamplifyFilesThread::run()
+{
+	DirectoryIterator iterator(mDirectory, true, "*.samplify");
+	while (iterator.next())
+	{
+		iterator.getFile().deleteFile();
+	}
 }

@@ -32,7 +32,6 @@ namespace samplify
 		void mouseDown(const MouseEvent& e) override;
 		void mouseUp(const MouseEvent& e) override;
 		void mouseDrag(const MouseEvent& e) override;
-
 		void mouseMove(const MouseEvent& e) override;
 
 		bool isInterestedInDragSource(const SourceDetails& dragSourceDetails) override;
@@ -44,8 +43,6 @@ namespace samplify
 
 		void setSample(Sample::Reference);
 		Sample::Reference getSample();
-		//=Operator Overrides===========================================
-		//bool operator==(Sample::Reference ref);
 
 		Rectangle<float> getTitleRect();
 		Rectangle<float> getTypeRect();

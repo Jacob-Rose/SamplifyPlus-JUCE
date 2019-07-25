@@ -193,7 +193,7 @@ namespace samplify
 			std::vector<Sample::Reference> mSamples;
 		};
 		Sample();
-		Sample(File);
+		Sample(const File&);
 		Sample(const Sample&);
 		~Sample();
 

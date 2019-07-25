@@ -29,8 +29,6 @@ namespace samplify
 
 		bool keyPressed(const KeyPress& key, Component* originatingComponent);
 
-		void setupOutputChannels(int numOutputChannels);
-
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void releaseResources() override;
