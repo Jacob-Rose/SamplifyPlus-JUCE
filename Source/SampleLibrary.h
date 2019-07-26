@@ -25,12 +25,11 @@ namespace samplify
 		SampleLibrary(const SampleLibrary&);
 		~SampleLibrary();
 
-		void addSample(File file);
-		void addSample(Sample& ref);
+		void addSample(const File& file);
+		void addSample(std::shared_ptr<Sample> ref);
 		void addSamples(std::vector<File> files);
-		void addSamples(std::vector<Sample> files);
+		void addSamples(std::vector<std::shared_ptr<Sample>> files);
 		void removeSample(const File& file);
-		void saveSamplePropertyFiles();
 		//void clearSamples();
 
 		bool containsSample(File file);
@@ -41,6 +40,7 @@ namespace samplify
 			UpdateSamplesThread(SampleLibrary* parent) : Thread("Update Samples", 0)
 			{
 				mParent = parent;
+				mSamples = parent->getAllSamples();
 			}
 			void run() override;
 			friend class SampleLibrary;
@@ -61,7 +61,7 @@ namespace samplify
 
 	private:
 		UpdateSamplesThread* updateThread = nullptr;
-		std::vector<Sample> mSamples;
+		std::vector<std::shared_ptr<Sample>> mSamples;
 		Sample::List mCurrentSamples;
 		File mCurrentDirectory;
 		String mCurrentQuery;

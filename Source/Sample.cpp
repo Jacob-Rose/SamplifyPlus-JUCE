@@ -4,11 +4,6 @@
 
 using namespace samplify;
 
-Sample::Sample() : mFile(""), mPropertiesFile("")
-{
-	delete this;
-}
-
 Sample::Sample(const File& file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
 {
 	loadPropertiesFile();
@@ -40,8 +35,6 @@ bool Sample::isPropertiesFileValid()
 }
 Sample::~Sample()
 {
-	mThumbnailCache.reset(nullptr);
-	mThumbnail.reset(nullptr);
 }
 
 void Sample::determineSampleType()
@@ -118,8 +111,9 @@ void Sample::loadPropertiesFile()
 StringArray Sample::Reference::getRelativeParentFolders() const
 {
 	jassert(!isNull());
+	std::shared_ptr<Sample> sample = mSample.lock();
 	StringArray folders;
-	File file(mSample->mFile);
+	File file(sample->mFile);
 	File root;
 	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < rootDirs.size(); i++)
@@ -130,10 +124,10 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 			break;
 		}
 	}
-	while (mSample->mFile.isAChildOf(root))
+	while (sample->mFile.isAChildOf(root))
 	{
-		mSample->mFile = mSample->mFile.getParentDirectory();
-		folders.add(mSample->mFile.getFileName());
+		sample->mFile = sample->mFile.getParentDirectory();
+		folders.add(sample->mFile.getFileName());
 	}
 	return folders;
 }
@@ -141,7 +135,8 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 String Sample::Reference::getRelativePathName() const
 {
 	jassert(!isNull());
-	String path = mSample->mFile.getFullPathName();
+	std::shared_ptr<Sample> sample = mSample.lock();
+	String path = sample->mFile.getFullPathName();
 	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
@@ -150,34 +145,87 @@ String Sample::Reference::getRelativePathName() const
 			return path.substring(dirs[i].getFullPathName().length());
 		}
 	}
-	return mSample->mFile.getFullPathName();
+	return sample->mFile.getFullPathName();
 }
 
 String Sample::Reference::getFullPathName() const
 {
 	jassert(!isNull());
-	return mSample->mFile.getFullPathName();
+	return mSample.lock()->mFile.getFullPathName();
 }
 
 
 
+void Sample::Reference::addTag(juce::String tag)
+{
+	if (!isNull())
+	{
+		std::shared_ptr<Sample> sample = mSample.lock();
+		if (!sample->mTags.contains(tag))
+		{
+			sample->mTags.add(tag);
+			sample->savePropertiesFile();
+		}
+
+	}
+}
+
+void Sample::Reference::removeTag(juce::String tag)
+{
+	if (!isNull())
+	{
+		std::shared_ptr<Sample> sample = mSample.lock();
+		if (sample->mTags.contains(tag))
+		{
+			sample->mTags.remove(sample->mTags.indexOf(tag, true));
+			sample->savePropertiesFile();
+		}
+	}
+}
 void Sample::Reference::generateThumbnailAndCache()
 {
-	if (mSample->mThumbnail == nullptr)
+	if (!isNull())
 	{
-		mSample->mThumbnailCache.reset(new AudioThumbnailCache(1));
+		std::shared_ptr<Sample> sample = mSample.lock();
+		sample->mThumbnailCache = std::make_shared<AudioThumbnailCache>(1);
 		AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
-		mSample->mThumbnail.reset(new SampleAudioThumbnail(512, *afm, *mSample->mThumbnailCache));
-		mSample->mThumbnail->addChangeListener(mSample);
-
-		AudioFormatReader* reader = afm->createReaderFor(mSample->mFile);
+		sample->mThumbnail = std::make_shared<SampleAudioThumbnail>(512, *afm, *sample->mThumbnailCache);
+		sample->mThumbnail->addChangeListener(sample->getChangeListener());
+		AudioFormatReader* reader = afm->createReaderFor(sample->mFile);
 		if (reader != nullptr)
 		{
-			mSample->mThumbnail->setSource(new FileInputSource(mSample->mFile));
-			mSample->mLength = (float)reader->lengthInSamples / reader->sampleRate;
+			sample->mThumbnail->setSource(new FileInputSource(sample->mFile));
+			sample->mLength = (float)reader->lengthInSamples / reader->sampleRate;
 		}
 		delete reader;
 	}
+	
+}
+
+void Sample::Reference::addChangeListener(ChangeListener* listener)
+{
+	if (!isNull())
+	{
+		std::shared_ptr<Sample> sample = mSample.lock();
+		sample->addChangeListener(listener);
+	}
+}
+
+void Sample::Reference::removeChangeListener(ChangeListener* listener)
+{
+	if (!isNull())
+	{
+		std::shared_ptr<Sample> sample = mSample.lock();
+		sample->removeChangeListener(listener);
+	}
+}
+
+void Sample::Reference::renameFile(String name)
+{
+	//todo test on old library
+	std::shared_ptr<Sample> sample = mSample.lock();
+	sample->mFile.moveFileTo(sample->mFile.getSiblingFile(name));
+	sample->mFile = sample->mFile.getSiblingFile(name);
 }
 
 Sample::List::List(const std::vector<Sample::Reference>& list)

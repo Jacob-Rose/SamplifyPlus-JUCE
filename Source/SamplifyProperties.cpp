@@ -261,7 +261,7 @@ void SamplifyProperties::LoadSamplesThread::run()
 
 	for (int i = 0; i < count; i++)
 	{
-		Sample ref(mFiles[i]);
+		std::shared_ptr<Sample> ref = std::make_shared<Sample>(mFiles[i]);
 		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
 		setProgress(((float)i)/count);
 		setStatusMessage("calculating sample info...");

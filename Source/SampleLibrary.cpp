@@ -17,12 +17,15 @@ SampleLibrary::~SampleLibrary()
 }
 
 
-void SampleLibrary::addSample(File file)
+void SampleLibrary::addSample(const File& file)
 {
 	//check if already exist
-	Sample ref(file);
-	if(!containsSample(file))
+	if (!containsSample(file))
+	{
+		std::shared_ptr<Sample> ref = std::make_shared<Sample>(file);
 		mSamples.push_back(ref);
+	}
+
 }
 
 void SampleLibrary::addSamples(std::vector<File> files)
@@ -33,7 +36,7 @@ void SampleLibrary::addSamples(std::vector<File> files)
 	}
 }
 
-void SampleLibrary::addSamples(std::vector<Sample> files)
+void SampleLibrary::addSamples(std::vector<std::shared_ptr<Sample>> files)
 {
 	for (int i = 0; i < files.size(); i++)
 	{
@@ -55,23 +58,24 @@ void SampleLibrary::removeSample(const File& ref)
 	*/
 }
 
-void SampleLibrary::addSample(Sample& ref)
+void SampleLibrary::addSample(std::shared_ptr<Sample> ref)
 {
-	if (!containsSample(Sample::Reference(&ref).getFile()))
-		mSamples.push_back(ref);
-	sendChangeMessage();
-}
-
-void SampleLibrary::saveSamplePropertyFiles()
-{
-	for (int i = 0; i < mSamples.size(); i++)
+	if (!containsSample(Sample::Reference(ref).getFile()))
 	{
-		mSamples[i].savePropertiesFile();
+		mSamples.push_back(ref);
+		sendChangeMessage();
 	}
 }
 
 bool SampleLibrary::containsSample(File file)
 {
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		if (Sample::Reference(mSamples[i]).getFile() == file)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -87,7 +91,7 @@ void SampleLibrary::updateCurrentSamples(File path, String query)
 	Sample::List allSamples;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		allSamples.addSample(&mSamples[i]);
+		allSamples.addSample(Sample::Reference(mSamples[i]));
 	}
 	mCurrentQuery = query;
 	mCurrentDirectory = path;
@@ -131,7 +135,7 @@ Sample::List samplify::SampleLibrary::getAllSamples()
 	Sample::List list;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		list.addSample(Sample::Reference(&mSamples[i]));
+		list.addSample(Sample::Reference(mSamples[i]));
 	}
 	return list;
 }
@@ -142,7 +146,7 @@ StringArray SampleLibrary::getAllTags()
 	StringArray tags = StringArray();
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		StringArray sTags = Sample::Reference(&mSamples[i]).getTags();
+		StringArray sTags = Sample::Reference(mSamples[i]).getTags();
 		for (int j = 0; j < sTags.size(); j++)
 		{
 			if (!tags.contains(sTags[j]))
@@ -163,11 +167,13 @@ void SampleLibrary::setCurrentSamples(Sample::List samples)
 
 void SampleLibrary::UpdateSamplesThread::run()
 {
-	for (int i = 0; i < mParent->mSamples.size(); i++)
+	Sample::List newList;
+	for (int i = 0; i < mSamples.size(); i++)
 	{
 		if (threadShouldExit())
 			break;
-		Sample::Reference ref = Sample::Reference(&mParent->mSamples[i]);
+		Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
+
 		if (ref.getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
 		{
 			bool isValid = true;
@@ -197,12 +203,13 @@ void SampleLibrary::UpdateSamplesThread::run()
 			}
 			if (ref.getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
-				mParent->mCurrentSamples.addSample(ref);
+				newList.addSample(ref);
 				//mParent->setCurrentSamples();
 			}
 
 		}
 	}
+	mParent->setCurrentSamples(newList);
 	signalThreadShouldExit();
 }
 /*

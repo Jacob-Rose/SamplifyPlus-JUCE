@@ -29,11 +29,10 @@ namespace samplify
 		class ThumbnailReference
 		{
 		public:
-			ThumbnailReference(SampleAudioThumbnail* ref)
+			ThumbnailReference(std::shared_ptr<SampleAudioThumbnail>& ref) : mThumbnail(ref)
 			{
-				mThumbnail = ref;
 			}
-			bool isNull() const { return mThumbnail == nullptr; }
+			bool isNull() const { return mThumbnail.expired(); }
 
 			void drawChannel(Graphics& g,
 				const Rectangle<int>& area,
@@ -42,9 +41,9 @@ namespace samplify
 				int channelNum,
 				float verticalZoomFactor)
 			{
-				if (mThumbnail != nullptr)
+				if (!isNull())
 				{
-					mThumbnail->drawChannel(g, area, startTimeSeconds, endTimeSeconds, channelNum, verticalZoomFactor);
+					mThumbnail.lock()->drawChannel(g, area, startTimeSeconds, endTimeSeconds, channelNum, verticalZoomFactor);
 				}
 			}
 			void drawChannels(Graphics& g,
@@ -53,51 +52,63 @@ namespace samplify
 				double endTimeSeconds,
 				float verticalZoomFactor)
 			{
-				if (mThumbnail != nullptr)
+				if (!isNull())
 				{
-					mThumbnail->drawChannels(g, area, startTimeSeconds, endTimeSeconds, verticalZoomFactor);
+					mThumbnail.lock()->drawChannels(g, area, startTimeSeconds, endTimeSeconds, verticalZoomFactor);
 				}
 			}
 
 			bool isFullyLoaded() const
 			{
-				return mThumbnail->isFullyLoaded();
+				jassert(!isNull());
+				return mThumbnail.lock()->isFullyLoaded();
 			}
 
 			int getNumChannels() const
 			{
-				return mThumbnail->getNumChannels();
+				jassert(!isNull());
+				return mThumbnail.lock()->getNumChannels();
 			}
 
 			double getTotalLength() const
 			{
-				return mThumbnail->getTotalLength();
+				jassert(!isNull());
+				return mThumbnail.lock()->getTotalLength();
 			}
 		private:
-			SampleAudioThumbnail* mThumbnail = nullptr;
+			std::weak_ptr<SampleAudioThumbnail> mThumbnail;
 		};
 		class Reference
 		{
 		public:
-			Reference(Sample* sample) {
+			Reference(std::shared_ptr<Sample> sample) {
 				mSample = sample;
+			}
+			Reference(nullptr_t null) : mSample()
+			{
+				jassert(isNull());
 			}
 			Reference(const Sample::Reference& ref)
 			{
 				mSample = ref.mSample;
 			}
-			~Reference()
-			{
-				//mSample = nullptr;
-			}
 			
-			bool isNull() const { return mSample == nullptr; }
+			bool isNull() const { return mSample.expired(); }
 
 
-			ThumbnailReference getThumbnail() const { return ThumbnailReference(mSample->mThumbnail.get()); }
-			File getFile() const { return mSample->mFile; }
+			ThumbnailReference getThumbnail() const 
+			{ 
+				return ThumbnailReference(mSample.lock()->mThumbnail); 
+			}
+			File getFile() const 
+			{ 
+				return mSample.lock()->mFile; 
+			}
 
-			String getFilename() const { return mSample->mFile.getFileName(); }
+			String getFilename() const 
+			{ 
+				return mSample.lock()->mFile.getFileName(); 
+			}
 
 			StringArray getRelativeParentFolders() const;
 
@@ -105,73 +116,38 @@ namespace samplify
 
 			String getFullPathName() const;
 
-			SampleType getSampleType() const { 
+			Sample::SampleType getSampleType() const 
+			{ 
 				jassert(!isNull());
-				return mSample->mSampleType; }
+				return mSample.lock()->mSampleType; 
+			}
 
-			double getLength() const { 
+			double getLength() const
+			{ 
 				jassert(!isNull());
-				return mSample->mLength; }
+				return mSample.lock()->mLength; 
+			}
 
 
 
 			StringArray getTags() const { 
 				jassert(!isNull());
-				return mSample->mTags; }
-			void addTag(juce::String tag)
-			{
-				if (!isNull())
-				{
-					if (!mSample->mTags.contains(tag))
-					{
-						mSample->mTags.add(tag);
-						mSample->savePropertiesFile();
-					}
-
-				}
-			}
-			void removeTag(juce::String tag)
-			{
-				if (!isNull())
-				{
-					if (mSample->mTags.contains(tag))
-					{
-						mSample->mTags.remove(mSample->mTags.indexOf(tag, true));
-						mSample->savePropertiesFile();
-					}
-
-				}
-			}
+				return mSample.lock()->mTags; }
+			void addTag(juce::String tag);
+			void removeTag(juce::String tag);
 			 
 			void generateThumbnailAndCache();
+		
+			void addChangeListener(ChangeListener* listener);
 
-			void addChangeListener(ChangeListener* listener)
-			{
-				if (!isNull())
-				{
-					mSample->addChangeListener(listener);
-				}
-			}
+			void removeChangeListener(ChangeListener* listener);
 
-			void removeChangeListener(ChangeListener* listener)
-			{
-				if (!isNull())
-				{
-					mSample->removeChangeListener(listener);
-				}
-			}
-
-			void renameFile(String name)
-			{
-				//todo test on old library
-				mSample->mFile.moveFileTo(mSample->mFile.getSiblingFile(name));
-				mSample->mFile = mSample->mFile.getSiblingFile(name);
-			}
+			void renameFile(String name);
 
 			friend bool operator==(Sample::Reference& lhs, Sample::Reference& rhs);
 			friend bool operator!=(Sample::Reference& lhs, Sample::Reference& rhs);
 		private:
-			Sample* mSample;
+			std::weak_ptr<Sample> mSample;
 		};
 		class List
 		{
@@ -192,20 +168,13 @@ namespace samplify
 		private:
 			std::vector<Sample::Reference> mSamples;
 		};
-		Sample();
 		Sample(const File&);
 		Sample(const Sample&);
 		~Sample();
 
-		void loadSample(File& sample);
-		void unloadSample(File& sample);
-		Sample::Reference getSample(File& sample);
-		Sample::List getSamplesInDirectory(File& directory);
-		Sample::List getAllSamples();
-
-
 		void determineSampleType();
 		void changeListenerCallback(ChangeBroadcaster* source);
+		ChangeListener* getChangeListener() { return this; }
 		void savePropertiesFile();
 		void loadPropertiesFile();
 		/*Checks if file both exist and has same or older version number*/
@@ -217,22 +186,21 @@ namespace samplify
 		bool mSampleTypeConfirmed = false;
 		StringArray mTags;
 		double mLength = -1;
-		std::unique_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
-		std::unique_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
-		static std::vector<Sample> mSamples;
+		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
+		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
 	};
 
 	inline bool operator==(Sample::Reference& lhs, Sample::Reference& rhs)
 	{
-		if (lhs.mSample != nullptr && rhs.mSample != nullptr)
+		if (!lhs.isNull() && !rhs.isNull())
 		{
 			return lhs.getFile() == rhs.getFile();
 		}
 		else
 		{
-			if (lhs.mSample == nullptr)
+			if (lhs.isNull())
 			{
-				if (rhs.mSample == nullptr)
+				if (rhs.isNull())
 				{
 					return true;
 				}
