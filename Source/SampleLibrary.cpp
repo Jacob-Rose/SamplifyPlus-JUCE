@@ -1,4 +1,5 @@
 #include "SampleLibrary.h"
+#include "SamplifyMainComponent.h"
 
 using namespace samplify;
 
@@ -46,16 +47,40 @@ void SampleLibrary::addSamples(std::vector<std::shared_ptr<Sample>> files)
 
 void SampleLibrary::removeSample(const File& ref)
 {
-	/*
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		if (Sample::Reference(&mSamples[i]).getFile() == ref)
+		if (Sample::Reference(mSamples[i]).getFile() == ref)
 		{
 			mSamples.erase(mSamples.begin() + i);
 			return;
 		}
 	}
-	*/
+}
+
+void SampleLibrary::sortSamples(Sample::SortMethod method)
+{
+	if (currentUpdateThread.get() != nullptr)
+	{
+		currentUpdateThread->stopThread(1000);
+	}
+	currentUpdateThread.reset(new SortSamplesThread(this, method));
+	currentUpdateThread->startThread();
+	currentUpdateThread->addListener(this);
+}
+
+void SampleLibrary::randomizeSamples()
+{
+	Sample::List newSamps;
+	Sample::List currentSamples = getCurrentSamples();
+	srand(time(NULL));
+	while(currentSamples.size() > 0)
+	{
+		int ranInt = rand();
+		int randIndex = ranInt % currentSamples.size();
+		newSamps.addSample(currentSamples[randIndex]);
+		currentSamples.removeSample(randIndex);
+	}
+	setCurrentSamples(newSamps);
 }
 
 void SampleLibrary::addSample(std::shared_ptr<Sample> ref)
@@ -85,24 +110,25 @@ void SampleLibrary::exitSignalSent()
 	sendChangeMessage();
 }
 
+void SampleLibrary::checkThreadFinished()
+{
+	if (currentUpdateThread.get() != nullptr && !currentUpdateThread.get()->isThreadRunning())
+	{
+		currentUpdateThread.reset(nullptr);
+	}
+}
+
 void SampleLibrary::updateCurrentSamples(File path, String query)
 {
-	mCurrentSamples.clearSamples();
-	Sample::List allSamples;
-	for (int i = 0; i < mSamples.size(); i++)
-	{
-		allSamples.addSample(Sample::Reference(mSamples[i]));
-	}
 	mCurrentQuery = query;
 	mCurrentDirectory = path;
-	if (updateThread != nullptr)
+	if (currentUpdateThread != nullptr)
 	{
-		updateThread->stopThread(1000);
-		delete updateThread;
+		currentUpdateThread->stopThread(1000);
 	}
-	updateThread = new UpdateSamplesThread(this);
-	updateThread->startThread();
-	updateThread->addListener(this);
+	currentUpdateThread.reset(new UpdateSamplesThread(this));
+	currentUpdateThread->startThread();
+	currentUpdateThread->addListener(this);
 
 }
 
@@ -116,14 +142,16 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
+
+
 Sample::List SampleLibrary::getCurrentSamples()
 {
-	if (updateThread != nullptr)
+	if (currentUpdateThread != nullptr)
 	{
-		if (!updateThread->isThreadRunning())
+		if (!currentUpdateThread->isThreadRunning())
 		{
-			delete updateThread;
-			updateThread = nullptr;
+			currentUpdateThread.get()->waitForThreadToExit(1000);
+			currentUpdateThread.reset(nullptr);
 		}
 	}
 
@@ -132,10 +160,12 @@ Sample::List SampleLibrary::getCurrentSamples()
 
 Sample::List samplify::SampleLibrary::getAllSamples()
 {
+	checkThreadFinished();
 	Sample::List list;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		list.addSample(Sample::Reference(mSamples[i]));
+		const Sample::Reference ref = Sample::Reference(mSamples[i]);
+		list.addSample(ref);
 	}
 	return list;
 }
@@ -154,25 +184,38 @@ StringArray SampleLibrary::getAllTags()
 				tags.add(sTags[j]);
 			}
 		}
-		
 	}
 	return tags;
 }
 
-void SampleLibrary::setCurrentSamples(Sample::List samples)
+void SampleLibrary::setCurrentSamples(Sample::List samples, bool shouldSendChangeMessage)
 {
 	mCurrentSamples = samples;
-	sendChangeMessage();
+	checkThreadFinished();
+	
+	if (shouldSendChangeMessage)
+	{
+		sendChangeMessage();
+	}
 }
 
 void SampleLibrary::UpdateSamplesThread::run()
 {
-	Sample::List newList;
+	bool successful = true;
+	Sample::SortMethod method = (Sample::SortMethod::None);
+	if(SamplifyMainComponent::getInstance() != nullptr)
+	{
+		method = SamplifyMainComponent::getInstance()->getSampleExplorer().getCurrentSort();
+	}
+	auto* newList = Sample::SortedLists::getSpecializedList(method);
 	for (int i = 0; i < mSamples.size(); i++)
 	{
 		if (threadShouldExit())
+		{
+			successful = false;
 			break;
-		Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
+		}
+		const Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
 
 		if (ref.getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
 		{
@@ -203,41 +246,39 @@ void SampleLibrary::UpdateSamplesThread::run()
 			}
 			if (ref.getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
-				newList.addSample(ref);
-				//mParent->setCurrentSamples();
+				newList->addSample(ref);
 			}
-
 		}
 	}
-	mParent->setCurrentSamples(newList);
-	signalThreadShouldExit();
-}
-/*
-void samplify::SampleLibrary::SortSamplesThread::run()
-{
-	SampleList sorted;
-	SampleList oldList;
-	for (int i = 0; i < mParent->mSamples.size(); i++)
+	if (successful)
 	{
-		oldList.addSample(&mParent->mSamples[i]);
+		mParent->setCurrentSamples(*newList);
+		signalThreadShouldExit();
 	}
-	for (int i = 0; i < oldList.getSamples().size(); i++)
+}
+
+void SampleLibrary::SortSamplesThread::run()
+{
+	auto* sorted = Sample::SortedLists::getSpecializedList(mMethod);
+	bool successful = true;
+	while(mSamples.size() > 0)
 	{
-		if (threadShouldExit())
+		if (currentThreadShouldExit())
 		{
-			mParent->setCurrentSamples(oldList);
+			successful = false;
+			mParent->setCurrentSamples(*sorted + mSamples, false);
 			break;
 		}
-		Sample* lowest = &mParent->mSamples[i];
-		for (int j = 0; j < mParent->mSamples.size(); j++)
-		{
-			if (SampleList::getSortBool(&mParent->mSamples[i], lowest, mMethod))
-			{
-				lowest = &mParent->mSamples[j];
-			}
-		}
-		mParent->setCurrentSamples(sorted);
+		sorted->addSample(mSamples[0]);
+		mSamples.removeSample(0);
+		mParent->setCurrentSamples(*sorted, false);
+	}
+	if (successful)
+	{
+		mParent->setCurrentSamples(*sorted);
 	}
 
+	delete sorted;
+
 }
-*/
+

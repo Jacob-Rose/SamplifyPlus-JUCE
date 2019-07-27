@@ -48,6 +48,26 @@ void SampleExplorer::textEditorTextChanged(TextEditor& e)
 
 void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 {
+	if (mFilter.getSelectedId() == 1)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(Sample::SortMethod::Alphabetical);
+	}
+	else if (mFilter.getSelectedId() == 2)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(Sample::SortMethod::ReverseAlphabetical);
+	}
+	else if(mFilter.getSelectedId() == 3)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(Sample::SortMethod::Newest);
+	}
+	else if(mFilter.getSelectedId() == 4)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(Sample::SortMethod::Oldest);
+	}
+	else if (mFilter.getSelectedId() == 5)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(Sample::SortMethod::Random);
+	}
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)

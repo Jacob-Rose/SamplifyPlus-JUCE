@@ -30,6 +30,8 @@ namespace samplify
 		void addSamples(std::vector<File> files);
 		void addSamples(std::vector<std::shared_ptr<Sample>> files);
 		void removeSample(const File& file);
+		void sortSamples(Sample::SortMethod method);
+		void randomizeSamples();
 		//void clearSamples();
 
 		bool containsSample(File file);
@@ -37,7 +39,7 @@ namespace samplify
 		class UpdateSamplesThread : public Thread
 		{
 		public:
-			UpdateSamplesThread(SampleLibrary* parent) : Thread("Update Samples", 0)
+			UpdateSamplesThread(SampleLibrary* parent) : Thread("updateSamples", 0)
 			{
 				mParent = parent;
 				mSamples = parent->getAllSamples();
@@ -48,19 +50,38 @@ namespace samplify
 			SampleLibrary* mParent;
 			Sample::List mSamples;
 		};
+		
+		class SortSamplesThread : public Thread
+		{
+		public:
+			SortSamplesThread(SampleLibrary* parent, Sample::SortMethod method) : Thread("sortSamples", 0) {
+				mParent = parent;
+				mSamples = parent->getCurrentSamples();
+				mMethod = method;
+			}
+			void run() override;
+			friend class SampleLibrary;
+		private:
+			Sample::SortMethod mMethod;
+			SampleLibrary* mParent;
+			Sample::List mSamples;
+		};
 
 		void exitSignalSent() override;
-
+		void checkThreadFinished();
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
-		void setCurrentSamples(Sample::List samples);
+		void setCurrentSamples(Sample::List samples, bool shouldSendChangeMessage = true);
+
+		bool isUpdating() const { return currentUpdateThread.get() != nullptr; }
+		
 		Sample::List getCurrentSamples();
 		Sample::List getAllSamples();
 		StringArray getAllTags();
 
 	private:
-		UpdateSamplesThread* updateThread = nullptr;
+		std::unique_ptr<Thread> currentUpdateThread = nullptr;
 		std::vector<std::shared_ptr<Sample>> mSamples;
 		Sample::List mCurrentSamples;
 		File mCurrentDirectory;
@@ -69,4 +90,5 @@ namespace samplify
 		JUCE_LEAK_DETECTOR(SampleLibrary)
 	};
 }
+
 #endif

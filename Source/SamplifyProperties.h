@@ -77,7 +77,7 @@ namespace samplify
 		~SamplifyProperties();
 		//========================================================
 		ApplicationProperties mApplicationProperties;
-		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr;
+		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr; //this should be unique_ptr
 		std::map<juce::String, Colour> mSampleTagColors;
 		std::vector<File> mDirectories = std::vector<File>();
 		AudioPlayer* mAudioPlayer = nullptr;

@@ -22,12 +22,14 @@ SampleTile::~SampleTile()
 }
 void SampleTile::paint (Graphics& g)
 {
+	SamplifyProperties::getInstance()->getSampleLibrary()->checkThreadFinished();
 	if (!mSample.isNull())
 	{
-		Rectangle<float> titleRect = getTitleRect();
-		Rectangle<float> timeRect = getTimeRect();
-		Rectangle<float> typeRect = getTypeRect();
-		Rectangle<float> thumbnailBounds = getThumbnailRect();
+		const Rectangle<float> titleRect = getTitleRect();
+		const Rectangle<float> timeRect = getTimeRect();
+		const Rectangle<float> typeRect = getTypeRect();
+		const Rectangle<float> thumbnailRect = getThumbnailRect();
+		const Rectangle<float> parentDirRect = getParentDirRect();
 		float tileCornerRadius = 2.0f;
 		//setup colors to use
 		Colour backgroundColor;
@@ -48,8 +50,8 @@ void SampleTile::paint (Graphics& g)
 		g.setColour(Colours::black);
 		// draw an outline around the component
 		g.drawRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius, 2.0f);
-		g.drawLine(thumbnailBounds.getTopLeft().x, 
-			thumbnailBounds.getTopLeft().y,
+		g.drawLine(thumbnailRect.getTopLeft().x, 
+			thumbnailRect.getTopLeft().y,
 			0, 
 			getWidth(), 
 			2.0f);
@@ -68,8 +70,13 @@ void SampleTile::paint (Graphics& g)
 			typeRect.getBottomRight().x,
 			typeRect.getBottomRight().y,
 			2.0f);
+		g.drawLine(parentDirRect.getTopLeft().x,
+			parentDirRect.getTopLeft().y,
+			parentDirRect.getTopRight().x,
+			parentDirRect.getTopRight().y);
 		g.setColour(Colours::darkslategrey);
 		g.drawText(mSample.getFilename(), titleRect, Justification::centredLeft);
+		g.drawText(mSample.getRelativeParentFolders()[0], parentDirRect, Justification::centred);
 		g.setColour(foregroundColor);
 
 		switch (mSample.getSampleType())
@@ -94,18 +101,18 @@ void SampleTile::paint (Graphics& g)
 		{
 			if (thumbnail.getNumChannels() != 0)
 			{
-				thumbnail.drawChannel(g, thumbnailBounds.toNearestInt(), 0.0, thumbnail.getTotalLength(), 0, 1.0f);
+				thumbnail.drawChannel(g, thumbnailRect.toNearestInt(), 0.0, thumbnail.getTotalLength(), 0, 1.0f);
 			}
 		}
 		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getFile() == mSample.getFile())
+		if (auxPlayer->getFile() == mSample.getFile() && auxPlayer->getFile() != File::nonexistent)
 		{
 			float startT = auxPlayer->getStartCueRelative();
 			float currentT = auxPlayer->getRelativeTime();
-			float startX = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * startT);
-			float currentX = thumbnailBounds.getTopLeft().x + ((thumbnailBounds.getTopRight().x - thumbnailBounds.getTopLeft().x) * currentT);
-			float y1 = thumbnailBounds.getTopLeft().y;
-			float y2 = thumbnailBounds.getBottomLeft().y;
+			float startX = thumbnailRect.getTopLeft().x + ((thumbnailRect.getTopRight().x - thumbnailRect.getTopLeft().x) * startT);
+			float currentX = thumbnailRect.getTopLeft().x + ((thumbnailRect.getTopRight().x - thumbnailRect.getTopLeft().x) * currentT);
+			float y1 = thumbnailRect.getTopLeft().y;
+			float y2 = thumbnailRect.getBottomLeft().y;
 			g.setColour(Colours::black);
 			g.drawLine(startX, y1, startX, y2, 1.0f);
 			if (auxPlayer->getState() == AudioPlayer::TransportState::Playing)
@@ -115,6 +122,11 @@ void SampleTile::paint (Graphics& g)
 				repaint();
 			}
 
+		}
+		if (SamplifyProperties::getInstance()->getSampleLibrary()->isUpdating())
+		{
+			g.setColour(Colours::black);
+			g.drawText("UPDATING", getLocalBounds(), Justification::centred);
 		}
 		mTagContainer.setTags(mSample.getTags());
 	}
@@ -126,11 +138,7 @@ void SampleTile::paint (Graphics& g)
 
 void SampleTile::resized()
 {
-	int widthSegment = getWidth() / 4;
-	int heightSegment = getHeight() / 3;
 	mTagContainer.setBounds(getTagRect().toNearestInt());
-	Point<float> tl = getTagRect().getTopLeft();
-	mTagContainer.setTopLeftPosition(tl.toInt());
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)
@@ -165,8 +173,9 @@ void SampleTile::mouseUp(const MouseEvent& e)
 	{
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
-		Rectangle audiowaveRect = getThumbnailRect();
-		if (audiowaveRect.contains(e.getMouseDownPosition().toFloat()))
+		Rectangle thumbnailRect = getThumbnailRect();
+		Rectangle parentDirRect = getParentDirRect();
+		if (thumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 		{
 			if (e.mods.isLeftButtonDown())
 			{
@@ -174,11 +183,21 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			}
 			else if (e.mods.isRightButtonDown())
 			{
-				float rectWidth = audiowaveRect.getWidth();
+				float rectWidth = thumbnailRect.getWidth();
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
+		}
+		if (parentDirRect.contains(e.getMouseDownPosition().toFloat()))
+		{
+			PopupMenu menu;
+			StringArray parentDirs = mSample.getRelativeParentFolders();
+			for (int i = 0; i < parentDirs.size(); i++)
+			{
+				menu.addItem(i + 1, parentDirs[i]);
+			}
+			menu.show();
 		}
 	}
 }

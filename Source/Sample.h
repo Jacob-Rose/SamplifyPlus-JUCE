@@ -20,6 +20,16 @@ namespace samplify
 	class Sample : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
+		enum SortMethod
+		{
+			None = -1,
+			Alphabetical,
+			ReverseAlphabetical,
+			Newest,
+			Oldest,
+			Random
+		};
+
 		enum SampleType
 		{
 			UNDEFINED,
@@ -95,18 +105,20 @@ namespace samplify
 			
 			bool isNull() const { return mSample.expired(); }
 
-
 			ThumbnailReference getThumbnail() const 
 			{ 
+				jassert(!isNull());
 				return ThumbnailReference(mSample.lock()->mThumbnail); 
 			}
 			File getFile() const 
 			{ 
+				jassert(!isNull());
 				return mSample.lock()->mFile; 
 			}
 
 			String getFilename() const 
 			{ 
+				jassert(!isNull());
 				return mSample.lock()->mFile.getFileName(); 
 			}
 
@@ -116,23 +128,11 @@ namespace samplify
 
 			String getFullPathName() const;
 
-			Sample::SampleType getSampleType() const 
-			{ 
-				jassert(!isNull());
-				return mSample.lock()->mSampleType; 
-			}
+			Sample::SampleType getSampleType() const;
 
-			double getLength() const
-			{ 
-				jassert(!isNull());
-				return mSample.lock()->mLength; 
-			}
+			double getLength() const;
 
-
-
-			StringArray getTags() const { 
-				jassert(!isNull());
-				return mSample.lock()->mTags; }
+			StringArray getTags() const;
 			void addTag(juce::String tag);
 			void removeTag(juce::String tag);
 			 
@@ -144,30 +144,99 @@ namespace samplify
 
 			void renameFile(String name);
 
-			friend bool operator==(Sample::Reference& lhs, Sample::Reference& rhs);
-			friend bool operator!=(Sample::Reference& lhs, Sample::Reference& rhs);
+			friend bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs);
+			friend bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs);
 		private:
 			std::weak_ptr<Sample> mSample;
 		};
 		class List
 		{
 		public:
+
 			List(const std::vector<Sample::Reference>& list);
 			List();
 			int size() const;
-			void addSample(Sample::Reference sample);
+			virtual void addSample(const Sample::Reference& sample);
 			void addSamples(const Sample::List& list);
-			void addSamples(std::vector<Sample::Reference> samples);
+			void addSamples(const std::vector<Sample::Reference>& samples);
 			void removeSample(Sample::Reference sample);
 			void removeSample(int index);
 			void removeSamples(std::vector<Sample::Reference> samples);
 			void removeSamples(const Sample::List& list);
 			void clearSamples();
 
+
 			Sample::Reference operator[](int index) const;
-		private:
+			friend Sample::List operator+(const Sample::List& lhs, const Sample::List& rhs);
+		protected:
 			std::vector<Sample::Reference> mSamples;
+
+			JUCE_LEAK_DETECTOR(List);
 		};
+
+		class SortedLists
+		{
+		public:
+			class Alphabetical : public List
+			{
+			public:
+				Alphabetical() {}
+				void addSample(const Sample::Reference& sample) override;
+			private:
+			};
+			class RevAlphabetical : public List
+			{
+			public:
+				RevAlphabetical() {}
+				void addSample(const Sample::Reference& sample) override;
+			private:
+			};
+			class Newest : public List
+			{
+			public:
+				Newest() {}
+				void addSample(const Sample::Reference& sample) override;
+			private:
+			};
+			class Oldest : public List
+			{
+			public:
+				Oldest() {}
+				void addSample(const Sample::Reference& sample) override;
+			};
+			class Random : public List //is random sorted? this exetsential question i dont care about but it fits here well
+			{
+			public:
+				Random() {}
+				void addSample(const Sample::Reference& sample) override;
+			};
+			static Sample::List* getSpecializedList(SortMethod method)
+			{
+				switch (method)
+				{
+				case SortMethod::Alphabetical:
+					return new Alphabetical();
+					break;
+				case SortMethod::ReverseAlphabetical:
+					return new RevAlphabetical();
+					break;
+				case SortMethod::Newest:
+					return new Newest();
+					break;
+				case SortMethod::Oldest:
+					return new Oldest();
+					break;
+				case SortMethod::Random:
+					return new Random();
+					break;
+				case SortMethod::None:
+					return new List();
+					break;
+				}
+			}
+		};
+		
+
 		Sample(const File&);
 		Sample(const Sample&);
 		~Sample();
@@ -179,6 +248,8 @@ namespace samplify
 		void loadPropertiesFile();
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
+
+		static bool getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method);
 	private:
 		File mFile;
 		File mPropertiesFile; 
@@ -190,7 +261,7 @@ namespace samplify
 		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
 	};
 
-	inline bool operator==(Sample::Reference& lhs, Sample::Reference& rhs)
+	inline bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs)
 	{
 		if (!lhs.isNull() && !rhs.isNull())
 		{
@@ -214,9 +285,17 @@ namespace samplify
 		}
 
 	}
-	inline bool operator!=(Sample::Reference& lhs, Sample::Reference& rhs)
+	inline bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs)
 	{
 		return !(lhs==rhs);
+	}
+
+	inline Sample::List operator+(const Sample::List& lhs, const Sample::List& rhs)
+	{
+		Sample::List combined;
+		combined.addSamples(lhs);
+		combined.addSamples(rhs);
+		return combined;
 	}
 }
 #endif
