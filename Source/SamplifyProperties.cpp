@@ -77,6 +77,8 @@ void SamplifyProperties::cleanup()
 	if (mIsInit)
 	{
 		mSampleLibrary.reset(nullptr);
+		mAudioPlayer->stop();
+		delete mAudioPlayer;
 	}
 }
 
@@ -99,18 +101,21 @@ void SamplifyProperties::removeDirectory(File dir)
 			return;
 		}
 	}
+	sendChangeMessage();
 }
 
 void SamplifyProperties::addDirectory(File dir)
 {
 	mDirectories.push_back(dir);
 	loadSamplesFromDirectory(dir);
+	sendChangeMessage();
 }
 
 void SamplifyProperties::setDirectories(std::vector<File> directories)
 {
 	clearDirectories();
 	mDirectories = directories;
+	sendChangeMessage();
 }
 
 void SamplifyProperties::loadPropertiesFile()
@@ -136,7 +141,7 @@ void SamplifyProperties::loadPropertiesFile()
 			String tag = propFile->getValue("tag " + i);
 			jassert(tag != "");
 			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
-			addTag(tag, color);
+			mTagLibrary.addTag(tag, color);
 		}
 	}
 	else
@@ -175,8 +180,8 @@ void SamplifyProperties::savePropertiesFile()
 		}
 		int tagCount = 0;
 		StringArray usedTags = mSampleLibrary->getAllTags();
-		std::map<String, Colour>::iterator it = mSampleTagColors.begin();
-		while (it != mSampleTagColors.end())
+		std::map<String, Colour>::iterator it = mTagLibrary.mSampleTagColors.begin();
+		while (it != mTagLibrary.mSampleTagColors.end())
 		{
 			if (usedTags.contains(it->first))
 			{
@@ -190,12 +195,12 @@ void SamplifyProperties::savePropertiesFile()
 	}
 }
 
-void SamplifyProperties::addTag(juce::String text, Colour color)
+void SamplifyProperties::TagLibrary::addTag(juce::String text, Colour color)
 {
 	mSampleTagColors[text] = color;
 }
 
-void SamplifyProperties::addTag(juce::String text)
+void SamplifyProperties::TagLibrary::addTag(juce::String text)
 {
 	Random& r = Random::getSystemRandom();
 	addTag(text, Colour(juce::uint8(r.nextInt(Range(0, 256))),
@@ -203,9 +208,35 @@ void SamplifyProperties::addTag(juce::String text)
 		juce::uint8(r.nextInt(Range(0, 256)))));
 }
 
-void SamplifyProperties::deleteTag(juce::String tag)
+void SamplifyProperties::TagLibrary::renameTag(juce::String currentTagName, juce::String desiredName)
 {
-	Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
+	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.get()->getAllSamples();
+	Sample::List taggedSamps;
+	for (int i = 0; i < allSamps.size(); i++)
+	{
+		//does nothing if not contained
+		if (allSamps[i].getTags().contains(currentTagName))
+		{
+			taggedSamps.addSample(allSamps[i]);
+			allSamps[i].removeTag(currentTagName);
+		}
+	}
+	std::map<juce::String, Colour>::iterator it = mSampleTagColors.find(currentTagName);
+	if (it != mSampleTagColors.end())
+	{
+		mSampleTagColors[desiredName] = it->second;
+		mSampleTagColors.erase(it);
+		//heavily specialized line, im sorry
+	}
+	for (int i = 0; i < taggedSamps.size(); i++)
+	{
+		taggedSamps[i].addTag(desiredName);
+	}
+}
+
+void SamplifyProperties::TagLibrary::deleteTag(juce::String tag)
+{
+	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.get()->getAllSamples();
 	for (int i = 0; i < allSamps.size(); i++)
 	{
 		//does nothing if not contained
@@ -220,7 +251,7 @@ void SamplifyProperties::deleteTag(juce::String tag)
 	}
 }
 
-Colour SamplifyProperties::getTagColor(juce::String text)
+Colour SamplifyProperties::TagLibrary::getTagColor(juce::String text)
 {
 	if (mSampleTagColors.find(text) != mSampleTagColors.end())
 	{

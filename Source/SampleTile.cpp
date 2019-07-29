@@ -197,7 +197,13 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			{
 				menu.addItem(i + 1, parentDirs[i]);
 			}
-			menu.show();
+			int choice = menu.show();
+			File newDir = mSample.getFile();
+			for (int i = 0; i < choice; i++)
+			{
+				newDir = newDir.getParentDirectory();
+			}
+			SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(newDir);
 		}
 	}
 }

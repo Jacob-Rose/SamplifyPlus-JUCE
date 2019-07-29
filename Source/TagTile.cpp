@@ -25,7 +25,7 @@ void TagTile::paint (Graphics& g)
 {
 	if (mTag != "")
 	{
-		Colour mainColor = SamplifyProperties::getInstance()->getTagColor(mTag);
+		Colour mainColor = SamplifyProperties::getInstance()->getTagLibrary().getTagColor(mTag);
 		g.setColour(mainColor);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), 1.0f);   // draw an outline around the component
 		g.setColour(mainColor.darker());
@@ -97,7 +97,7 @@ void TagTile::mouseUp(const MouseEvent& e)
 				else if (selection == 2)
 				{
 					//todo add confirm screen
-					SamplifyProperties::getInstance()->deleteTag(mTag);
+					SamplifyProperties::getInstance()->getTagLibrary().deleteTag(mTag);
 					if (SamplifyMainComponent::getInstance() != nullptr)
 					{
 						SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().removeNewTag(mTag);
@@ -111,7 +111,7 @@ void TagTile::mouseUp(const MouseEvent& e)
 	}
 }
 
-void samplify::TagTile::mouseDrag(const MouseEvent& e)
+void TagTile::mouseDrag(const MouseEvent& e)
 {
 	startDragging("Tags", this, juce::Image().null, true);
 }

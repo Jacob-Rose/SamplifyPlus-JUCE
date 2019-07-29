@@ -24,7 +24,7 @@
 
 namespace samplify
 {
-	class SamplifyProperties : public ApplicationProperties
+	class SamplifyProperties : public ApplicationProperties, public ChangeBroadcaster
 	{
 	public:
 		//=======================================================
@@ -36,6 +36,21 @@ namespace samplify
 			void run();
 		private:
 			File mDirectory;
+		};
+
+		class TagLibrary
+		{
+		public:
+			void addTag(juce::String tag, Colour color);
+			void addTag(juce::String tag);
+			void renameTag(juce::String currentTagName, juce::String desiredName);
+			void deleteTag(juce::String tag);
+			StringArray getAllTags();
+
+			Colour getTagColor(juce::String text);
+			friend SamplifyProperties;
+		private:
+			std::map<juce::String, Colour> mSampleTagColors;
 		};
 
 		//=Instance Handling========================================
@@ -64,13 +79,8 @@ namespace samplify
 		SampleLibrary* getSampleLibrary() { return mSampleLibrary.get(); }
 		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }
 		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
+		TagLibrary& getTagLibrary() { return mTagLibrary; }
 		//=======================================================
-		void addTag(juce::String tag, Colour color);
-		void addTag(juce::String tag);
-		void deleteTag(juce::String tag);
-
-		Colour getTagColor(juce::String text);
-
 	private:
 		//========================================================
 		SamplifyProperties();
@@ -78,7 +88,7 @@ namespace samplify
 		//========================================================
 		ApplicationProperties mApplicationProperties;
 		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr; //this should be unique_ptr
-		std::map<juce::String, Colour> mSampleTagColors;
+		TagLibrary mTagLibrary;
 		std::vector<File> mDirectories = std::vector<File>();
 		AudioPlayer* mAudioPlayer = nullptr;
 		//========================================================

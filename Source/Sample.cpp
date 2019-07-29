@@ -126,8 +126,8 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 	}
 	while (file.isAChildOf(root))
 	{
-		folders.add(sample->mFile.getFileName());
 		file = file.getParentDirectory();
+		folders.add(file.getFileName());
 	}
 	return folders;
 }

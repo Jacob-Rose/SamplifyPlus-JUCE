@@ -75,7 +75,10 @@ namespace samplify
 		void setCurrentSamples(Sample::List samples, bool shouldSendChangeMessage = true);
 
 		bool isUpdating() const { return currentUpdateThread.get() != nullptr; }
-		
+		void cancelUpdate() {
+			currentUpdateThread.get()->stopThread(1000);
+			currentUpdateThread.reset(nullptr);
+		}
 		Sample::List getCurrentSamples();
 		Sample::List getAllSamples();
 		StringArray getAllTags();
