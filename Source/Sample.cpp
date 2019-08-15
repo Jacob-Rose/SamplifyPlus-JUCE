@@ -17,18 +17,6 @@ Sample::Sample(const File& file) : mFile(file), mPropertiesFile(file.getFullPath
 	}
 }
 
-Sample::Sample(const Sample& s)
-{
-	mFile = s.mFile;
-	mPropertiesFile = s.mPropertiesFile;
-	mLength = s.mLength;
-	mSampleType = s.mSampleType;
-	mSampleTypeConfirmed = s.mSampleTypeConfirmed;
-	mTags = s.mTags;
-	mThumbnail = nullptr;
-	mThumbnailCache = nullptr;
-}
-
 bool Sample::isPropertiesFileValid()
 {
 	return mPropertiesFile.existsAsFile();

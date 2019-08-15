@@ -64,6 +64,7 @@ namespace samplify
 		TextButton mNewButtonTag;
 		Viewport mTagViewport;
 		Container mTagsContainer;
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagExplorer)
 	};
 }
 #endif

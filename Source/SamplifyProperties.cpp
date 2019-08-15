@@ -28,13 +28,13 @@ File SamplifyProperties::browseForDirectory()
 	{
 		return dirSelector.getResult();
 	}
-	return File::nonexistent;
+	return File();
 }
 
 void SamplifyProperties::browseForDirectoryAndAdd()
 {
 	File dir = browseForDirectory();
-	if (dir != File::nonexistent)
+	if (dir.exists())
 	{
 		addDirectory(dir);
 	}
@@ -78,7 +78,6 @@ void SamplifyProperties::cleanup()
 	{
 		mSampleLibrary.reset(nullptr);
 		mAudioPlayer->stop();
-		delete mAudioPlayer;
 	}
 }
 
@@ -153,7 +152,14 @@ void SamplifyProperties::loadPropertiesFile()
 void SamplifyProperties::loadSamplesFromDirectory(File& file)
 {
 	LoadSamplesThread loadSamplesThread(file);
-	loadSamplesThread.runThread();
+	if (file.exists())
+	{
+		loadSamplesThread.runThread();
+	}
+	else
+	{
+		AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "Directory No Longer Exist", "The directory has failed to be found, please retry the program to load it in, for now the samples have not been loaded");
+	}
 }
 
 void SamplifyProperties::loadSamplesFromDirectories(std::vector<File>& dirs)
@@ -186,7 +192,7 @@ void SamplifyProperties::savePropertiesFile()
 			if (usedTags.contains(it->first))
 			{
 				propFile->setValue("tag " + String(tagCount), &it->first);
-				propFile->setValue("tag " + it->first, &it->second.toString());
+				propFile->setValue("tag " + it->first, it->second.toString());
 				tagCount++;
 			}
 		}

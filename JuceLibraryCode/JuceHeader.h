@@ -28,6 +28,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
 #include <juce_opengl/juce_opengl.h>
+#include <juce_product_unlocking/juce_product_unlocking.h>
 #include <juce_video/juce_video.h>
 
 
@@ -41,8 +42,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "SamplifyPlus";
-    const char* const  companyName    = "";
-    const char* const  versionString  = "1.0.0";
-    const int          versionNumber  = 0x10000;
+    const char* const  companyName    = "Samplify";
+    const char* const  versionString  = "0.8.5";
+    const int          versionNumber  = 0x805;
 }
 #endif

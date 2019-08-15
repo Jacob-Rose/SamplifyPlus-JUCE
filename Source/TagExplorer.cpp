@@ -51,7 +51,7 @@ void samplify::TagExplorer::Container::removeNewTag(juce::String tag)
 
 void TagExplorer::Container::paint(Graphics& g)
 {
-	g.fillAll(Colours::bisque);
+	//g.fillAll(Colours::bisque);
 	String firstLine = "New Tags:";
 	float cHeight = 0.0f;
 	g.drawText(firstLine, Rectangle<float>(0.0f, cHeight, getWidth(), infoFont.getHeight()), Justification::centred);

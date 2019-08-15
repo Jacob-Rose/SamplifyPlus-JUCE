@@ -45,12 +45,13 @@ namespace samplify
 			void addTag(juce::String tag);
 			void renameTag(juce::String currentTagName, juce::String desiredName);
 			void deleteTag(juce::String tag);
-			StringArray getAllTags();
+			//StringArray getAllTags();
 
 			Colour getTagColor(juce::String text);
 			friend SamplifyProperties;
 		private:
 			std::map<juce::String, Colour> mSampleTagColors;
+			JUCE_LEAK_DETECTOR(TagLibrary);
 		};
 
 		//=Instance Handling========================================
@@ -77,8 +78,9 @@ namespace samplify
 		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
 		SampleLibrary* getSampleLibrary() { return mSampleLibrary.get(); }
-		void setAudioPlayer(AudioPlayer* ap) { mAudioPlayer = ap; }
-		AudioPlayer* getAudioPlayer() { return mAudioPlayer; }
+		/*Take control of AP so it will be handeled*/
+		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
+		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
 		TagLibrary& getTagLibrary() { return mTagLibrary; }
 		//=======================================================
 	private:
@@ -90,7 +92,7 @@ namespace samplify
 		std::unique_ptr<SampleLibrary> mSampleLibrary = nullptr; //this should be unique_ptr
 		TagLibrary mTagLibrary;
 		std::vector<File> mDirectories = std::vector<File>();
-		AudioPlayer* mAudioPlayer = nullptr;
+		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;
 		bool mIsInit = false;

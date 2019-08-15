@@ -36,58 +36,6 @@ namespace samplify
 			ONESHOT,
 			LOOP
 		};
-		class ThumbnailReference
-		{
-		public:
-			ThumbnailReference(std::shared_ptr<SampleAudioThumbnail>& ref) : mThumbnail(ref)
-			{
-			}
-			bool isNull() const { return mThumbnail.expired(); }
-
-			void drawChannel(Graphics& g,
-				const Rectangle<int>& area,
-				double startTimeSeconds,
-				double endTimeSeconds,
-				int channelNum,
-				float verticalZoomFactor)
-			{
-				if (!isNull())
-				{
-					mThumbnail.lock()->drawChannel(g, area, startTimeSeconds, endTimeSeconds, channelNum, verticalZoomFactor);
-				}
-			}
-			void drawChannels(Graphics& g,
-				const Rectangle<int>& area,
-				double startTimeSeconds,
-				double endTimeSeconds,
-				float verticalZoomFactor)
-			{
-				if (!isNull())
-				{
-					mThumbnail.lock()->drawChannels(g, area, startTimeSeconds, endTimeSeconds, verticalZoomFactor);
-				}
-			}
-
-			bool isFullyLoaded() const
-			{
-				jassert(!isNull());
-				return mThumbnail.lock()->isFullyLoaded();
-			}
-
-			int getNumChannels() const
-			{
-				jassert(!isNull());
-				return mThumbnail.lock()->getNumChannels();
-			}
-
-			double getTotalLength() const
-			{
-				jassert(!isNull());
-				return mThumbnail.lock()->getTotalLength();
-			}
-		private:
-			std::weak_ptr<SampleAudioThumbnail> mThumbnail;
-		};
 		class Reference
 		{
 		public:
@@ -105,10 +53,10 @@ namespace samplify
 			
 			bool isNull() const { return mSample.expired(); }
 
-			ThumbnailReference getThumbnail() const 
+			SampleAudioThumbnail::Reference getThumbnail() const 
 			{ 
 				jassert(!isNull());
-				return ThumbnailReference(mSample.lock()->mThumbnail); 
+				return SampleAudioThumbnail::Reference(mSample.lock()->mThumbnail); 
 			}
 			File getFile() const 
 			{ 
@@ -148,11 +96,11 @@ namespace samplify
 			friend bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs);
 		private:
 			std::weak_ptr<Sample> mSample;
+			JUCE_LEAK_DETECTOR(Sample::Reference)
 		};
 		class List
 		{
 		public:
-
 			List(const std::vector<Sample::Reference>& list);
 			List();
 			int size() const;
@@ -165,15 +113,13 @@ namespace samplify
 			void removeSamples(const Sample::List& list);
 			void clearSamples();
 
-
 			Sample::Reference operator[](int index) const;
 			friend Sample::List operator+(const Sample::List& lhs, const Sample::List& rhs);
 		protected:
 			std::vector<Sample::Reference> mSamples;
 
-			JUCE_LEAK_DETECTOR(List);
+			JUCE_LEAK_DETECTOR(List)
 		};
-
 		class SortedLists
 		{
 		public:
@@ -210,35 +156,33 @@ namespace samplify
 				Random() {}
 				void addSample(const Sample::Reference& sample) override;
 			};
-			static Sample::List* getSpecializedList(SortMethod method)
+			static Sample::List getSpecializedList(SortMethod method)
 			{
 				switch (method)
 				{
 				case SortMethod::Alphabetical:
-					return new Alphabetical();
+					return Alphabetical();
 					break;
 				case SortMethod::ReverseAlphabetical:
-					return new RevAlphabetical();
+					return RevAlphabetical();
 					break;
 				case SortMethod::Newest:
-					return new Newest();
+					return Newest();
 					break;
 				case SortMethod::Oldest:
-					return new Oldest();
+					return Oldest();
 					break;
 				case SortMethod::Random:
-					return new Random();
+					return Random();
 					break;
 				case SortMethod::None:
-					return new List();
+					return List();
 					break;
 				}
 			}
 		};
-		
 
 		Sample(const File&);
-		Sample(const Sample&);
 		~Sample();
 
 		void determineSampleType();
@@ -259,6 +203,7 @@ namespace samplify
 		double mLength = -1;
 		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Sample)
 	};
 
 	inline bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs)
@@ -289,7 +234,7 @@ namespace samplify
 	{
 		return !(lhs==rhs);
 	}
-
+	
 	inline Sample::List operator+(const Sample::List& lhs, const Sample::List& rhs)
 	{
 		Sample::List combined;
@@ -297,5 +242,6 @@ namespace samplify
 		combined.addSamples(rhs);
 		return combined;
 	}
+	
 }
 #endif

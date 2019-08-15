@@ -22,7 +22,6 @@ namespace samplify
 	{
 	public:
 		SampleLibrary();
-		SampleLibrary(const SampleLibrary&);
 		~SampleLibrary();
 
 		void addSample(const File& file);
@@ -42,7 +41,7 @@ namespace samplify
 			UpdateSamplesThread(SampleLibrary* parent) : Thread("updateSamples", 0)
 			{
 				mParent = parent;
-				mSamples = parent->getAllSamples();
+				mSamples = mParent->getAllSamples();
 			}
 			void run() override;
 			friend class SampleLibrary;
@@ -56,7 +55,7 @@ namespace samplify
 		public:
 			SortSamplesThread(SampleLibrary* parent, Sample::SortMethod method) : Thread("sortSamples", 0) {
 				mParent = parent;
-				mSamples = parent->getCurrentSamples();
+				mSamples = mParent->getCurrentSamples();
 				mMethod = method;
 			}
 			void run() override;
@@ -90,7 +89,7 @@ namespace samplify
 		File mCurrentDirectory;
 		String mCurrentQuery;
 
-		JUCE_LEAK_DETECTOR(SampleLibrary)
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};
 }
 

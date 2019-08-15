@@ -12,8 +12,8 @@ SamplifyMainComponent::SamplifyMainComponent()
 	mInstance = this;
 	//usingCustomDeviceManager = true;
 	addKeyListener(this);
-
-	SamplifyProperties::getInstance()->setAudioPlayer(&mAudioPlayer);
+	mAudioPlayer = std::make_shared<AudioPlayer>();
+	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer);
 
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
@@ -62,12 +62,19 @@ bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originati
 
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-	mAudioPlayer.prepareToPlay(samplesPerBlockExpected, sampleRate);
+	if (mAudioPlayer != nullptr)
+	{
+		mAudioPlayer->prepareToPlay(samplesPerBlockExpected, sampleRate);
+	}
 }
 
 void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-	mAudioPlayer.getNextAudioBlock(bufferToFill);
+	if (mAudioPlayer != nullptr)
+	{
+		mAudioPlayer->getNextAudioBlock(bufferToFill);
+	}
+	
 	/*
 	if (mCopyProtection.get() == nullptr)
 	{
@@ -80,7 +87,11 @@ void SamplifyMainComponent::releaseResources()
 {
 	// This will be called when the audio device stops, or when it is being
 	// restarted due to a setting change.
-	mAudioPlayer.releaseResources();
+	if (mAudioPlayer != nullptr)
+	{
+		mAudioPlayer->releaseResources();
+	}
+	
 	// For more details, see the help for AudioProcessor::releaseResources()
 }
 

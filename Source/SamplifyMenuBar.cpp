@@ -28,7 +28,7 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	else if (menuItemID == removeSampFiles)
 	{
 		File file = SamplifyProperties::browseForDirectory();
-		if (file != File::nonexistent)
+		if (file.exists())
 		{
 			bool notLoaded = true;
 			std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();

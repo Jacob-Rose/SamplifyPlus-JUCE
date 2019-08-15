@@ -66,13 +66,13 @@ namespace samplify
 		SampleExplorer& getSampleExplorer() { return mSampleExplorer; }
 		FilterExplorer& getFilterExplorer() { return mFilterExplorer; }
 
-		AudioPlayer& getAudioPlayer() { return mAudioPlayer; }
+		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
 	private:
 		DirectoryExplorer mDirectoryExplorer;
 		SampleExplorer mSampleExplorer;
 		FilterExplorer mFilterExplorer;
 
-		AudioPlayer mAudioPlayer;
+		std::shared_ptr<AudioPlayer> mAudioPlayer;
 		//std::unique_ptr<SecurityThread> mCopyProtection;
 		static SamplifyMainComponent* mInstance;
 

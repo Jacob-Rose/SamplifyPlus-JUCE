@@ -96,7 +96,7 @@ void SampleTile::paint (Graphics& g)
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
 		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
 
-		Sample::ThumbnailReference thumbnail = mSample.getThumbnail();
+		SampleAudioThumbnail::Reference thumbnail = mSample.getThumbnail();
 		if (!thumbnail.isNull())
 		{
 			if (thumbnail.getNumChannels() != 0)
@@ -104,8 +104,8 @@ void SampleTile::paint (Graphics& g)
 				thumbnail.drawChannel(g, thumbnailRect.toNearestInt(), 0.0, thumbnail.getTotalLength(), 0, 1.0f);
 			}
 		}
-		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getFile() == mSample.getFile() && auxPlayer->getFile() != File::nonexistent)
+		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
+		if (auxPlayer->getFile() == mSample.getFile())
 		{
 			float startT = auxPlayer->getStartCueRelative();
 			float currentT = auxPlayer->getRelativeTime();
@@ -232,7 +232,7 @@ void SampleTile::playSample(float t)
 {
 	if (!mSample.isNull())
 	{
-		AudioPlayer* auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
+		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
 		if (auxPlayer->getFile() != mSample.getFile())
 		{
 			auxPlayer->loadFile(mSample);
@@ -265,7 +265,7 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 {
 	if (!mSample.isNull())
 	{
-		AudioPlayer* aux = SamplifyProperties::getInstance()->getAudioPlayer();
+		std::shared_ptr<AudioPlayer> aux = SamplifyProperties::getInstance()->getAudioPlayer();
 		if (aux->getFile() == mSample.getFile())
 		{
 			if (!(aux->getState() == AudioPlayer::TransportState::Starting ||

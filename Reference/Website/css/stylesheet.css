@@ -1,0 +1,16 @@
+* {
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"
+}
+
+.header-base {
+	background-image: url("../images/record-jumbotron.jpg");
+	background-position: center;
+    background-attachment: fixed;
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover; 
+	height: 100%;
+	width: 100%;
+	background-color: var(--main-color-light);
+}

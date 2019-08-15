@@ -63,12 +63,11 @@ void AudioPlayer::setRelativeTime(double t)
 {
 	t = std::clamp(t, 0.0, 1.0);
 	mSampleStartT = t;
-	float currentPos = transportSource.getCurrentPosition();
-	int64 currentReadPos = transportSource.getNextReadPosition();
+	//float currentPos = transportSource.getCurrentPosition();
+	//int64 currentReadPos = transportSource.getNextReadPosition();
 	float sampleLength = transportSource.getLengthInSeconds();
-	int64 nextReadPos = sampleLength * t * transportSource.getSampleRate();
-	float newPos = transportSource.getLengthInSeconds() * t;
-	transportSource.setNextReadPosition(nextReadPos);
+	float newPos = sampleLength * t;
+	transportSource.setPosition(newPos);
 	sendChangeMessage();
 }
 	

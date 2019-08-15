@@ -7,16 +7,9 @@ SampleLibrary::SampleLibrary()
 {
 }
 
-SampleLibrary::SampleLibrary(const SampleLibrary&)
-{
-	
-}
-
 SampleLibrary::~SampleLibrary()
 {
-
 }
-
 
 void SampleLibrary::addSample(const File& file)
 {
@@ -26,7 +19,6 @@ void SampleLibrary::addSample(const File& file)
 		std::shared_ptr<Sample> ref = std::make_shared<Sample>(file);
 		mSamples.push_back(ref);
 	}
-
 }
 
 void SampleLibrary::addSamples(std::vector<File> files)
@@ -126,10 +118,10 @@ void SampleLibrary::updateCurrentSamples(File path, String query)
 	{
 		currentUpdateThread->stopThread(1000);
 	}
+	//std::weak_ptr<SampleLibrary> sharedThis = std::make_shared<SampleLibrary>(this);
 	currentUpdateThread.reset(new UpdateSamplesThread(this));
 	currentUpdateThread->startThread();
 	currentUpdateThread->addListener(this);
-
 }
 
 void SampleLibrary::updateCurrentSamples(File path)
@@ -142,29 +134,23 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
-
-
 Sample::List SampleLibrary::getCurrentSamples()
 {
-	if (currentUpdateThread != nullptr)
+	if (currentUpdateThread != nullptr && !currentUpdateThread->isThreadRunning())
 	{
-		if (!currentUpdateThread->isThreadRunning())
-		{
-			currentUpdateThread.get()->waitForThreadToExit(1000);
-			currentUpdateThread.reset(nullptr);
-		}
+		currentUpdateThread.get()->waitForThreadToExit(1000);
+		currentUpdateThread.reset(nullptr);
 	}
-
 	return mCurrentSamples;
 }
 
-Sample::List samplify::SampleLibrary::getAllSamples()
+Sample::List SampleLibrary::getAllSamples()
 {
 	checkThreadFinished();
 	Sample::List list;
 	for (int i = 0; i < mSamples.size(); i++)
 	{
-		const Sample::Reference ref = Sample::Reference(mSamples[i]);
+		Sample::Reference ref = Sample::Reference(mSamples[i]);
 		list.addSample(ref);
 	}
 	return list;
@@ -207,16 +193,10 @@ void SampleLibrary::UpdateSamplesThread::run()
 	{
 		method = SamplifyMainComponent::getInstance()->getSampleExplorer().getCurrentSort();
 	}
-	auto* newList = Sample::SortedLists::getSpecializedList(method);
-	for (int i = 0; i < mSamples.size(); i++)
+	auto newList = Sample::SortedLists::getSpecializedList(method);
+	for (int i = 0; i < mSamples.size() && !threadShouldExit(); i++)
 	{
-		if (threadShouldExit())
-		{
-			successful = false;
-			break;
-		}
-		const Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
-
+		Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
 		if (ref.getFile().isAChildOf(mParent->mCurrentDirectory) || !mParent->mCurrentDirectory.exists())
 		{
 			bool isValid = true;
@@ -236,49 +216,36 @@ void SampleLibrary::UpdateSamplesThread::run()
 					tag = tmpQuery.substring(first + 1, last);
 					tmpQuery = tmpQuery.substring(last + 1, tmpQuery.length() - (last + 1));
 				}
-
 				isValid = ref.getTags().contains(tag) && isValid;
-
-			}
-			if (isValid)
-			{
-				int i = 0;
 			}
 			if (ref.getFullPathName().containsIgnoreCase(tmpQuery) && isValid)
 			{
-				newList->addSample(ref);
+				newList.addSample(ref);
 			}
 		}
 	}
-	if (successful)
+	if (!threadShouldExit())
 	{
-		mParent->setCurrentSamples(*newList);
+		mParent->setCurrentSamples(newList);
 		signalThreadShouldExit();
 	}
 }
 
 void SampleLibrary::SortSamplesThread::run()
 {
-	auto* sorted = Sample::SortedLists::getSpecializedList(mMethod);
-	bool successful = true;
-	while(mSamples.size() > 0)
+	auto sorted = Sample::SortedLists::getSpecializedList(mMethod);
+	while(mSamples.size() > 0 && !currentThreadShouldExit())
 	{
-		if (currentThreadShouldExit())
-		{
-			successful = false;
-			mParent->setCurrentSamples(*sorted + mSamples, false);
-			break;
-		}
-		sorted->addSample(mSamples[0]);
+		sorted.addSample(mSamples[0]);
 		mSamples.removeSample(0);
-		mParent->setCurrentSamples(*sorted, false);
+		mParent->setCurrentSamples(sorted, false);
 	}
-	if (successful)
+	if (threadShouldExit())
 	{
-		mParent->setCurrentSamples(*sorted);
+		mParent->setCurrentSamples(sorted + mSamples, false);
 	}
-
-	delete sorted;
-
+	else
+	{
+		mParent->setCurrentSamples(sorted, false);
+	}
 }
-

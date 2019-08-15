@@ -25,6 +25,18 @@ namespace samplify
 			Stopping,
 			Starting
 		};
+
+		struct CuePoint
+		{
+		public:
+			Sample::Reference mSample;
+			double mStartTime;
+			CuePoint(Sample::Reference sample, double startTime) : mSample(sample)
+			{
+				mStartTime = startTime;
+				jassert(startTime > 0 && startTime < sample.getLength());
+			}
+		};
 		AudioPlayer();
 		~AudioPlayer();
 
