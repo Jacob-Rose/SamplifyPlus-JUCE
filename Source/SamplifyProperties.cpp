@@ -66,7 +66,6 @@ SamplifyProperties* SamplifyProperties::getInstance()
 void SamplifyProperties::init()
 {
 	mDirectories = std::vector<File>();
-	mSampleLibrary = std::make_shared<SampleLibrary>();
 	loadPropertiesFile();
 	mIsInit = true;
 }
@@ -87,12 +86,12 @@ void SamplifyProperties::removeDirectory(File dir)
 		if (mDirectories[i] == dir)
 		{
 			mDirectories.erase(mDirectories.begin() + i);
-			Sample::List allSamps = mSampleLibrary.get()->getAllSamples();
+			Sample::List allSamps = mSampleLibrary.getAllSamples();
 			for (int i = 0; i < allSamps.size(); i++)
 			{
 				if (allSamps[i].getFile().isAChildOf(dir))
 				{
-					mSampleLibrary.get()->removeSample(allSamps[i].getFile());
+					mSampleLibrary.removeSample(allSamps[i].getFile());
 					i--;
 				}
 			}
@@ -184,7 +183,7 @@ void SamplifyProperties::savePropertiesFile()
 			propFile->setValue("directory " + i, mDirectories[i].getFullPathName());
 		}
 		int tagCount = 0;
-		StringArray usedTags = mSampleLibrary->getAllTags();
+		StringArray usedTags = mSampleLibrary.getAllTags();
 		std::map<String, Colour>::iterator it = mTagLibrary.mSampleTagColors.begin();
 		while (it != mTagLibrary.mSampleTagColors.end())
 		{
@@ -215,7 +214,7 @@ void SamplifyProperties::TagLibrary::addTag(juce::String text)
 
 void SamplifyProperties::TagLibrary::renameTag(juce::String currentTagName, juce::String desiredName)
 {
-	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.get()->getAllSamples();
+	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
 	Sample::List taggedSamps;
 	for (int i = 0; i < allSamps.size(); i++)
 	{
@@ -241,7 +240,7 @@ void SamplifyProperties::TagLibrary::renameTag(juce::String currentTagName, juce
 
 void SamplifyProperties::TagLibrary::deleteTag(juce::String tag)
 {
-	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.get()->getAllSamples();
+	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
 	for (int i = 0; i < allSamps.size(); i++)
 	{
 		//does nothing if not contained
@@ -298,7 +297,7 @@ void SamplifyProperties::LoadSamplesThread::run()
 	for (int i = 0; i < count; i++)
 	{
 		std::shared_ptr<Sample> ref = std::make_shared<Sample>(mFiles[i]);
-		SamplifyProperties::getInstance()->getSampleLibrary()->addSample(ref);
+		SamplifyProperties::getInstance()->getSampleLibrary().addSample(ref);
 		setProgress(((float)i)/count);
 		setStatusMessage("calculating sample info...");
 	}

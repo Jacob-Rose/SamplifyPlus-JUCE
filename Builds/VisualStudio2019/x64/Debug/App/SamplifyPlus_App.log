@@ -1,4 +1,4 @@
-﻿  SampleExplorer.cpp
+﻿  DirectoryExplorerTreeViewItem.cpp
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(45,24): warning C4100:  'null': unreferenced formal parameter
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
@@ -6,6 +6,13 @@ C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): wa
 C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener'
 C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component'
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter
-C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.cpp(31,39): warning C4100:  'g': unreferenced formal parameter
-C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.cpp(54,64): warning C4100:  'source': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float'
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(51,87): warning C4458:  declaration of 'y' hides class member
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.h(587,9): message :  see declaration of 'juce::TreeViewItem::y'
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,79): warning C4239:  nonstandard extension used: 'argument': conversion from 'juce::File' to 'juce::File &'
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,79): message :  A non-const reference may only be bound to an lvalue
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(51,87): warning C4100:  'y': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(51,80): warning C4100:  'x': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(96,40): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(96,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
   SamplifyPlus_App.vcxproj -> C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe

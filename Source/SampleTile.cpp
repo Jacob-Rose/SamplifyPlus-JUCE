@@ -22,7 +22,7 @@ SampleTile::~SampleTile()
 }
 void SampleTile::paint (Graphics& g)
 {
-	SamplifyProperties::getInstance()->getSampleLibrary()->checkThreadFinished();
+	SamplifyProperties::getInstance()->getSampleLibrary().checkThreadFinished();
 	if (!mSample.isNull())
 	{
 		const Rectangle<float> titleRect = getTitleRect();
@@ -117,7 +117,7 @@ void SampleTile::paint (Graphics& g)
 			}
 
 		}
-		if (SamplifyProperties::getInstance()->getSampleLibrary()->isUpdating())
+		if (SamplifyProperties::getInstance()->getSampleLibrary().isUpdating())
 		{
 			g.setColour(Colours::black);
 			g.drawText("UPDATING", getLocalBounds(), Justification::centred);
@@ -199,7 +199,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				{
 					newDir = newDir.getParentDirectory();
 				}
-				SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(newDir);
+				SamplifyProperties::getInstance()->getSampleLibrary().updateCurrentSamples(newDir);
 			}
 		}
 	}

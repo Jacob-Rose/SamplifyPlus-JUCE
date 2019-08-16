@@ -38,7 +38,7 @@ namespace samplify
 			File mDirectory;
 		};
 
-		class TagLibrary
+		class TagLibrary : public ChangeBroadcaster
 		{
 		public:
 			void addTag(juce::String tag, Colour color);
@@ -77,7 +77,7 @@ namespace samplify
 		void loadSamplesFromDirectory(File& file);
 		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
-		std::shared_ptr<SampleLibrary> getSampleLibrary() { return mSampleLibrary; }
+		SampleLibrary& getSampleLibrary() { return mSampleLibrary; }
 		/*Take control of AP so it will be handeled*/
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
@@ -90,7 +90,7 @@ namespace samplify
 		~SamplifyProperties();
 		//========================================================
 		ApplicationProperties mApplicationProperties;
-		std::shared_ptr<SampleLibrary> mSampleLibrary = nullptr; //this should be unique_ptr
+		SampleLibrary mSampleLibrary; //this should be unique_ptr
 		TagLibrary mTagLibrary;
 		std::vector<File> mDirectories = std::vector<File>();
 		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;

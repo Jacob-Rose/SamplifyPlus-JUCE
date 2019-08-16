@@ -67,13 +67,13 @@ void TagExplorer::Container::paint(Graphics& g)
 
 void TagExplorer::Container::updateTags(juce::String newSearch)
 {
-	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
+	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary().getAllTags();
 	//remove all new tags that have been used now
 	resetTags();
 	StringArray passedTags; //in dir
 	StringArray failedTags; //not in dir
 	//StringArray currentSampleTags = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
-	Sample::List currentSamps = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
+	Sample::List currentSamps = SamplifyProperties::getInstance()->getSampleLibrary().getCurrentSamples();
 	
 	for (int i = 0; i < allTags.size(); i++)
 	{
@@ -127,7 +127,7 @@ void TagExplorer::Container::updateTagContainerBounds()
 
 void TagExplorer::Container::resetTags()
 {
-	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary()->getAllTags();
+	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary().getAllTags();
 	for (int i = 0; i < mNewTags.getTags().size(); i++)
 	{
 		if (allTags.contains(mNewTags.getTags()[i]))
