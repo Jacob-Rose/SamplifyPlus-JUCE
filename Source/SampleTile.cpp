@@ -29,8 +29,7 @@ void SampleTile::paint (Graphics& g)
 		const Rectangle<float> timeRect = getTimeRect();
 		const Rectangle<float> typeRect = getTypeRect();
 		const Rectangle<float> thumbnailRect = getThumbnailRect();
-		const Rectangle<float> parentDirRect = getParentDirRect();
-		float tileCornerRadius = 2.0f;
+		float tileCornerRadius = 6.0f;
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
@@ -70,13 +69,8 @@ void SampleTile::paint (Graphics& g)
 			typeRect.getBottomRight().x,
 			typeRect.getBottomRight().y,
 			2.0f);
-		g.drawLine(parentDirRect.getTopLeft().x,
-			parentDirRect.getTopLeft().y,
-			parentDirRect.getTopRight().x,
-			parentDirRect.getTopRight().y);
 		g.setColour(Colours::darkslategrey);
 		g.drawText(mSample.getFilename(), titleRect, Justification::centredLeft);
-		g.drawText(mSample.getRelativeParentFolders()[0], parentDirRect, Justification::centred);
 		g.setColour(foregroundColor);
 
 		switch (mSample.getSampleType())
@@ -174,7 +168,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
 		Rectangle thumbnailRect = getThumbnailRect();
-		Rectangle parentDirRect = getParentDirRect();
+		Rectangle titleRect = getTitleRect();
 		if (thumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 		{
 			if (e.mods.isLeftButtonDown())
@@ -189,7 +183,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
 		}
-		if (parentDirRect.contains(e.getMouseDownPosition().toFloat()))
+		if (titleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 		{
 			PopupMenu menu;
 			StringArray parentDirs = mSample.getRelativeParentFolders();
@@ -198,12 +192,15 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				menu.addItem(i + 1, parentDirs[i]);
 			}
 			int choice = menu.show();
-			File newDir = mSample.getFile();
-			for (int i = 0; i < choice; i++)
+			if (choice != 0)
 			{
-				newDir = newDir.getParentDirectory();
+				File newDir = mSample.getFile();
+				for (int i = 0; i < choice; i++)
+				{
+					newDir = newDir.getParentDirectory();
+				}
+				SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(newDir);
 			}
-			SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(newDir);
 		}
 	}
 }
@@ -311,7 +308,7 @@ Sample::Reference SampleTile::getSample()
 
 Rectangle<float> SampleTile::getTitleRect()
 {
-	return Rectangle<float>(0,0,getWidth() * 0.66, SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
+	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
 }
 
 Rectangle<float> SampleTile::getTypeRect()
@@ -334,9 +331,4 @@ Rectangle<float> SampleTile::getTagRect()
 {
 	float startX = getTypeRect().getWidth() + getTimeRect().getWidth();
 	return Rectangle<float>(startX, getTitleRect().getHeight(), getWidth() - startX, getTypeRect().getHeight());
-}
-
-Rectangle<float> samplify::SampleTile::getParentDirRect()
-{
-	return Rectangle<float>(getWidth() * 0.66f, 0, getWidth() * 0.33, SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
 }

@@ -44,11 +44,9 @@ void SamplifyProperties::cleanupInstance()
 {
 	if (smAppProperties != nullptr)
 	{
-		smAppProperties->savePropertiesFile();
 		delete smAppProperties;
 		smAppProperties = nullptr;
 	}
-
 }
 
 void SamplifyProperties::initInstance()
@@ -68,16 +66,17 @@ SamplifyProperties* SamplifyProperties::getInstance()
 void SamplifyProperties::init()
 {
 	mDirectories = std::vector<File>();
-	mSampleLibrary.reset(new SampleLibrary());
+	mSampleLibrary = std::make_shared<SampleLibrary>();
 	loadPropertiesFile();
+	mIsInit = true;
 }
 
 void SamplifyProperties::cleanup()
 {
 	if (mIsInit)
 	{
-		mSampleLibrary.reset(nullptr);
 		mAudioPlayer->stop();
+		mIsInit = false;
 	}
 }
 

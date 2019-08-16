@@ -51,7 +51,6 @@ namespace samplify
 		Rectangle<float> getTimeRect();
 		Rectangle<float> getThumbnailRect();
 		Rectangle<float> getTagRect();
-		Rectangle<float> getParentDirRect();
 
 	private:
 		Sample::Reference mSample = nullptr;

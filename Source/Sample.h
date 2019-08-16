@@ -198,8 +198,9 @@ namespace samplify
 		File mFile;
 		File mPropertiesFile; 
 		SampleType mSampleType = SampleType::UNDEFINED;
-		bool mSampleTypeConfirmed = false;
 		StringArray mTags;
+		std::map<juce::String, double> mCuePoints;
+		juce::String mInformationDescription;
 		double mLength = -1;
 		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;

@@ -4,15 +4,15 @@
 
 using namespace samplify;
 
-Sample::Sample(const File& file) : mFile(file), mPropertiesFile(file.getFullPathName() + ".samplify")
+Sample::Sample(const File& file) : mFile(file), mPropertiesFile(SamplifyProperties::getInstance()->getApplicationProperties().getUserSettings()->getFile().getFullPathName() +  file.getFullPathName())
 {
-	loadPropertiesFile();
-	if (isPropertiesFileValid())
+	if (mPropertiesFile.exists())
 	{
 		loadPropertiesFile();
 	}
 	else
 	{
+		//todo add what to do for new files
 		determineSampleType();
 	}
 }
@@ -42,7 +42,6 @@ void Sample::determineSampleType()
 		mThumbnail.get()->getApproximateMinMax(0, (mThumbnail.get()->getTotalLength() / 8)*7, 0, lhsMin, lhsMax);
 		mThumbnail.get()->getApproximateMinMax((mThumbnail.get()->getTotalLength() / 8)*7, mThumbnail.get()->getTotalLength() / 8, 0, rhsMin, rhsMax);
 	}
-	
 }
 
 void Sample::changeListenerCallback(ChangeBroadcaster * source)
@@ -65,33 +64,33 @@ void Sample::savePropertiesFile()
 	{
 		mPropertiesFile.appendText(mTags[i] + "\n");
 	}
-	
+	mPropertiesFile.appendText("#TAGEND");
+	//TODO save cue points
+	mPropertiesFile.appendText("#CUEEND");
 }
 
 void Sample::loadPropertiesFile()
 {
-	if (mPropertiesFile.existsAsFile())
+	jassert(mPropertiesFile.exists());
+	StringArray propFileLines;
+	mPropertiesFile.readLines(propFileLines);
+	int savedVersion = std::stoi(propFileLines[0].toStdString());
+	int line = 1;
+	while (propFileLines[line].toStdString() != "#TAGEND")
 	{
-		StringArray propFileLines;
-		mPropertiesFile.readLines(propFileLines);
-		if (std::stoi(propFileLines[0].toStdString()) <= ProjectInfo::versionNumber)
-		{
-			int tagCount = std::stoi(propFileLines[1].toStdString());
-			for (int i = 0; i < tagCount; i++)
-			{
-				String tag = propFileLines[i + 2];
-				if (!mTags.contains(tag))
-				{
-					mTags.add(tag);
-				}
-				
-			}
-		}
-		else
-		{
-			//mPropertiesFile.deleteFile();
-		}
+		mTags.add(propFileLines[line]);
+		line++;
 	}
+	line++;
+	while (propFileLines[line].toStdString() != "#CUEEND")
+	{
+		juce::String cueName = propFileLines[line];
+		line++;
+		double cueTime = std::stod(propFileLines[line].toStdString());
+		line++;
+		mCuePoints[cueName] = cueTime;
+	}
+	line++;
 }
 
 
