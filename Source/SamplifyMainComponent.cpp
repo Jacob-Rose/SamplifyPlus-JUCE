@@ -30,7 +30,6 @@ SamplifyMainComponent::SamplifyMainComponent()
 	
 	setupLookAndFeel();
     setSize (600, 400);
-
 }
 
 SamplifyMainComponent::~SamplifyMainComponent()

@@ -50,21 +50,7 @@ bool DirectoryExplorerTreeViewItem::isInterestedInFileDrag(const StringArray& fi
 
 void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x, int y)
 {
-	for (int i = 0; i < files.size(); i++)
-	{
-		if (!mShouldUseFile)
-		{
-			File file(files[i]);
-			if (file.isDirectory())
-			{
-				SamplifyProperties::getInstance()->loadSamplesFromDirectory(File(files[i]));
-			}
-		}
-		else
-		{
-
-		}
-	}
+	//todo handle adding directories
 }
 
 void samplify::DirectoryExplorerTreeViewItem::setName(String name)

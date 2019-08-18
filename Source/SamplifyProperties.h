@@ -15,6 +15,7 @@
 #include "JuceHeader.h"
 
 #include "AudioPlayer.h"
+#include "DirectoryLibrary.h"
 #include "SampleLibrary.h"
 #include "TagDrawer.h"
 
@@ -24,19 +25,11 @@
 
 namespace samplify
 {
-	class SamplifyProperties : public ApplicationProperties, public ChangeBroadcaster
+	class SamplifyProperties : public ApplicationProperties
 	{
 	public:
 		//=======================================================
-		class LoadSamplesThread : public ThreadWithProgressWindow
-		{
-		public:
-			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false), 
-				mDirectory(file) {}
-			void run();
-		private:
-			File mDirectory;
-		};
+		
 
 		class TagLibrary : public ChangeBroadcaster
 		{
@@ -65,34 +58,24 @@ namespace samplify
 		void loadPropertiesFile();
 		void savePropertiesFile();
 		//=Directories==============================================
-		void removeDirectory(File dir);
-		void addDirectory(File dir);
-		void setDirectories(std::vector<File> directories);
-		std::vector<File> getDirectories() { return mDirectories; }
-		void clearDirectories();
+
 		//=======================================================
 		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
-
-		void loadSamplesFromDirectory(File& file);
-		void loadSamplesFromDirectories(std::vector<File>&);
 		//=======================================================
-		SampleLibrary& getSampleLibrary() { return mSampleLibrary; }
-		/*Take control of AP so it will be handeled*/
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
 		TagLibrary& getTagLibrary() { return mTagLibrary; }
-		ApplicationProperties& getApplicationProperties() { return mApplicationProperties; }
+		SampleLibrary& getSampleLibrary() { return mSampleLibrary; }
+		DirectoryLibrary& getDirectoryLibrary() { return mDirectoryLibrary; }
 		//=======================================================
 	private:
 		//========================================================
 		SamplifyProperties();
 		~SamplifyProperties();
-		//========================================================
-		ApplicationProperties mApplicationProperties;
-		SampleLibrary mSampleLibrary; //this should be unique_ptr
+		SampleLibrary mSampleLibrary;
 		TagLibrary mTagLibrary;
-		std::vector<File> mDirectories = std::vector<File>();
+		DirectoryLibrary mDirectoryLibrary;
 		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;

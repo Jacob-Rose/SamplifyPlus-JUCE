@@ -134,6 +134,40 @@ void SampleLibrary::updateCurrentSamples(String query)
 	updateCurrentSamples(mCurrentDirectory, query);
 }
 
+void SampleLibrary::changeListenerCallback(ChangeBroadcaster* source)
+{
+	if (DirectoryLibrary* dirLib = dynamic_cast<DirectoryLibrary*>(source))
+	{
+		//directory added
+		if (dirLib->getDirectories().size() > dirLib->getLastDirectories().size())
+		{
+			std::vector<File> addedDirs = dirLib->getDirectories();
+			for (int i = 0; i < dirLib->getLastDirectories().size(); i++)
+			{
+				for (int j = 0; j < addedDirs.size(); j++)
+				{
+					if (addedDirs[j] == dirLib->getLastDirectories()[i])
+					{
+						addedDirs.erase(addedDirs.begin() + j);
+					}
+				}
+			}
+			for (int i = 0; i < addedDirs.size(); i++)
+			{
+				if (addedDirs[i].exists())
+				{
+					LoadSamplesThread loadSamplesThread(addedDirs[i]);
+					loadSamplesThread.runThread();
+				}
+				else
+				{
+					AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "Directory No Longer Exist", "The directory has failed to be found, please retry the program to load it in, for now the samples have not been loaded");
+				}
+			}
+		}
+	}
+}
+
 Sample::List SampleLibrary::getCurrentSamples()
 {
 	if (currentUpdateThread != nullptr && !currentUpdateThread->isThreadRunning())
@@ -233,7 +267,7 @@ void SampleLibrary::UpdateSamplesThread::run()
 
 void SampleLibrary::SortSamplesThread::run()
 {
-	auto sorted = Sample::SortedLists::getSpecializedList(mMethod);
+	Sample::List sorted = Sample::SortedLists::getSpecializedList(mMethod);
 	while(mSamples.size() > 0 && !currentThreadShouldExit())
 	{
 		sorted.addSample(mSamples[0]);
@@ -248,4 +282,31 @@ void SampleLibrary::SortSamplesThread::run()
 	{
 		mParent->setCurrentSamples(sorted, false);
 	}
+}
+
+void SampleLibrary::LoadSamplesThread::run()
+{
+	DirectoryIterator iterator(mDirectory, true, "*.wav");
+	int count = 0;
+	std::vector<File> mFiles;
+
+	while (iterator.next())
+	{
+		if (threadShouldExit())
+			break;
+		//todo remove counter
+		mFiles.push_back(iterator.getFile());
+		setProgress(iterator.getEstimatedProgress());
+		count++;
+		setStatusMessage("loading... " + iterator.getFile().getFileName());
+	}
+
+	for (int i = 0; i < count; i++)
+	{
+		std::shared_ptr<Sample> ref = std::make_shared<Sample>(mFiles[i]);
+		SamplifyProperties::getInstance()->getSampleLibrary().addSample(ref);
+		setProgress(((float)i) / count);
+		setStatusMessage("calculating sample info...");
+	}
+
 }

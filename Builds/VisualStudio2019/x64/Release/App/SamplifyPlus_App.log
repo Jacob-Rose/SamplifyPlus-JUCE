@@ -1,0 +1,21 @@
+﻿  DirectoryExplorer.cpp
+  SamplifyMainComponent.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(44,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(44,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorer.cpp(16,42): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyMainComponent.cpp(47,72): warning C4100:  'originatingComponent': unreferenced formal parameter
+  Generating code
+  Not all modules are compiled with -Gy (function comdat), build without incremental LTCG.
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.cpp(365): warning C4715: 'samplify::Sample::getSortBool': not all control paths return a value
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(183): warning C4715: 'samplify::Sample::SortedLists::getSpecializedList': not all control paths return a value
+  Finished generating code
+  SamplifyPlus_App.vcxproj -> C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Release\App\SamplifyPlus.exe

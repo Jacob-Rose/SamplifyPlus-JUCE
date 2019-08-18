@@ -17,6 +17,9 @@
     <Filter Include="SamplifyPlus\Source\Header\Components\SampleExplorer">
       <UniqueIdentifier>{D2C9ED75-ED34-2FEF-1539-88EFEA7B1542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SamplifyPlus\Source\Header\Components\AudioPlayerComponent">
+      <UniqueIdentifier>{33CE5DC2-8B37-77EC-2DDB-7576C847DDD7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SamplifyPlus\Source\Header\Components">
       <UniqueIdentifier>{2272D0AF-FD03-D53A-6B4A-53D88BA89667}</UniqueIdentifier>
     </Filter>
@@ -40,6 +43,9 @@
     </Filter>
     <Filter Include="SamplifyPlus\Source\Defs\Components\SampleExplorer">
       <UniqueIdentifier>{1A1B434B-24BE-90EC-6F56-D22510EEECDE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamplifyPlus\Source\Defs\Components\AudioPlayerComponent">
+      <UniqueIdentifier>{93EC0AE7-1E32-B1ED-DC86-9C8AE1BD1A5B}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamplifyPlus\Source\Defs\Components">
       <UniqueIdentifier>{4D1A5CC0-144E-3C85-B9EC-105595C6A8B5}</UniqueIdentifier>
@@ -523,6 +529,9 @@
     <ClCompile Include="..\..\Source\SampleTile.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\AudioPlayerComponent.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Components\AudioPlayerComponent</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components</Filter>
     </ClCompile>
@@ -530,6 +539,9 @@
       <Filter>SamplifyPlus\Source\Defs\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp">
+      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DirectoryLibrary.cpp">
       <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp">
@@ -2556,11 +2568,17 @@
     <ClInclude Include="..\..\Source\SampleTile.h">
       <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\AudioPlayerComponent.h">
+      <Filter>SamplifyPlus\Source\Header\Components\AudioPlayerComponent</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
       <Filter>SamplifyPlus\Source\Header\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
       <Filter>SamplifyPlus\Source\Header\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DirectoryLibrary.h">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>

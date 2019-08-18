@@ -27,13 +27,13 @@ DirectoryExplorer::DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 {
 	DirectoryExplorerTreeViewItem* root = new DirectoryExplorerTreeViewItem("All Directories");
 	setRootItem(root);
-	root->setSelected(true, true);
-	std::vector<File> paths = SamplifyProperties::getInstance()->getDirectories();
+	std::vector<File> paths = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < paths.size(); i++)
 	{
 		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(paths[i]);
 		root->addSubItem(item);
 	}
+	root->setSelected(true, true);
 }
 
 DirectoryExplorer::DirectoryExplorerTreeView::~DirectoryExplorerTreeView()

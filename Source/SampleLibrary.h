@@ -18,9 +18,20 @@
 
 namespace samplify
 {
-	class SampleLibrary : public ChangeBroadcaster, public Thread::Listener
+	class SampleLibrary : public ChangeBroadcaster, public Thread::Listener, public ChangeListener
 	{
 	public:
+
+		class LoadSamplesThread : public ThreadWithProgressWindow
+		{
+		public:
+			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false),
+				mDirectory(file) {}
+			void run();
+		private:
+			File mDirectory;
+		};
+
 		SampleLibrary();
 		~SampleLibrary();
 
@@ -78,6 +89,7 @@ namespace samplify
 			currentUpdateThread.get()->stopThread(1000);
 			currentUpdateThread.reset(nullptr);
 		}
+		void changeListenerCallback(ChangeBroadcaster* source) override;
 		Sample::List getCurrentSamples();
 		Sample::List getAllSamples();
 		StringArray getAllTags();
@@ -92,5 +104,4 @@ namespace samplify
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};
 }
-
 #endif

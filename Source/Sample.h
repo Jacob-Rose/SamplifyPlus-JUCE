@@ -29,7 +29,6 @@ namespace samplify
 			Oldest,
 			Random
 		};
-
 		enum SampleType
 		{
 			UNDEFINED,
@@ -91,6 +90,8 @@ namespace samplify
 			void removeChangeListener(ChangeListener* listener);
 
 			void renameFile(String name);
+
+			
 
 			friend bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs);
 			friend bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs);
@@ -192,7 +193,7 @@ namespace samplify
 		void loadPropertiesFile();
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
-
+		static File getPropertiesFile(const File& sampleFile);
 		static bool getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method);
 	private:
 		File mFile;

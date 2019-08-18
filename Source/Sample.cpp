@@ -4,7 +4,8 @@
 
 using namespace samplify;
 
-Sample::Sample(const File& file) : mFile(file), mPropertiesFile(SamplifyProperties::getInstance()->getApplicationProperties().getUserSettings()->getFile().getFullPathName() +  file.getFullPathName())
+Sample::Sample(const File& file) : mFile(file),
+mPropertiesFile(getPropertiesFile(mFile))
 {
 	if (mPropertiesFile.exists())
 	{
@@ -102,7 +103,7 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 	StringArray folders;
 	File file(sample->mFile);
 	File root;
-	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectories();
+	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < rootDirs.size(); i++)
 	{
 		if (file.isAChildOf(rootDirs[i]))
@@ -124,7 +125,7 @@ String Sample::Reference::getRelativePathName() const
 	jassert(!isNull());
 	std::shared_ptr<Sample> sample = mSample.lock();
 	String path = sample->mFile.getFullPathName();
-	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectories();
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
 		if (path.contains(dirs[i].getFullPathName()))
@@ -171,7 +172,6 @@ void Sample::Reference::addTag(juce::String tag)
 			sample->mTags.add(tag);
 			sample->savePropertiesFile();
 		}
-
 	}
 }
 
@@ -231,6 +231,16 @@ void Sample::Reference::renameFile(String name)
 	std::shared_ptr<Sample> sample = mSample.lock();
 	sample->mFile.moveFileTo(sample->mFile.getSiblingFile(name));
 	sample->mFile = sample->mFile.getSiblingFile(name);
+}
+
+File samplify::Sample::getPropertiesFile(const File& sampleFile)
+{
+	String rootDir = sampleFile.getRelativePathFrom(SamplifyProperties::getInstance()->getDirectoryLibrary().getRelativeDirectoryForFile(sampleFile));
+	File f(SamplifyProperties::getInstance()->getUserSettings()->getFile().getParentDirectory().getFullPathName()
+		+ File::getSeparatorString()
+		+ rootDir.substring(0,rootDir.lastIndexOf("."))
+		+ ".samplify");
+	return f;
 }
 
 Sample::List::List(const std::vector<Sample::Reference>& list)
@@ -394,6 +404,7 @@ void Sample::SortedLists::Oldest::addSample(const Sample::Reference& sample)
 }
 void Sample::SortedLists::Random::addSample(const Sample::Reference& sample)
 {
+	/*todo fix bug
 	if (mSamples.size() > 0)
 	{
 		int randPlace = rand() % mSamples.size();
@@ -403,5 +414,6 @@ void Sample::SortedLists::Random::addSample(const Sample::Reference& sample)
 	{
 		mSamples.push_back(sample);
 	}
-	
+	*/
+	mSamples.push_back(sample);
 }
