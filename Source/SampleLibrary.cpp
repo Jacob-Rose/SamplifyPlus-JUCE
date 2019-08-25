@@ -308,5 +308,5 @@ void SampleLibrary::LoadSamplesThread::run()
 		setProgress(((float)i) / count);
 		setStatusMessage("calculating sample info...");
 	}
-
+	SamplifyProperties::getInstance()->getSampleLibrary().refreshCurrentSamples();
 }

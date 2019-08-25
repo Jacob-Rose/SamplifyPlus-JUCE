@@ -102,9 +102,36 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 			}
 		}
 		g.setFont(12);
-		g.drawText(mFile.getFileName(), 0, 0, width, height, Justification::centredLeft, true);
+		Rectangle<float> checkBoxRect = Rectangle<float>(0, 0, height, height);
+		float checkBoxCornerWidth = 4.0f;
+		switch (mCheckStatus)
+		{
+		case NotLoaded:
+			g.setColour(Colours::lightpink);
+			break;
+		case Mixed:
+		case Enabled:
+			g.setColour(SamplifyMainComponent::getInstance()->getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID));
+			break;
+		case Disabled:
+			g.setColour(Colours::white);
+			break;
+		}
+		g.fillRoundedRectangle(checkBoxRect, checkBoxCornerWidth);
+		g.setColour(Colours::black);
+		g.drawRoundedRectangle(checkBoxRect, checkBoxCornerWidth, 1.0f);
+		g.drawText(mFile.getFileName(), height, 0, width, height, Justification::centredLeft, true);
 	}
 
+}
+
+void DirectoryExplorerTreeViewItem::updateCheckAndChainParent()
+{
+	if (getNumSubItems() > 0)
+	{
+
+	}
+	((DirectoryExplorerTreeViewItem*)getParentItem())->updateCheckAndChainParent();
 }
 
 void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
@@ -127,6 +154,31 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 	}
 }
 
+void DirectoryExplorerTreeViewItem::itemClicked(const MouseEvent& e)
+{
+	int itemHeight = getItemHeight();
+	int itemXPos = getItemPosition(false).getX();
+	int xPos = e.getMouseDownPosition().getX() - itemXPos;
+	if (xPos < itemHeight)
+	{
+		itemCheckCycled();
+	}
+}
+
+void DirectoryExplorerTreeViewItem::itemCheckCycled()
+{
+	switch (mCheckStatus)
+	{
+	case Mixed:
+	case Enabled:
+		setCheckStatus(Disabled);
+		break;
+	case Disabled:
+		setCheckStatus(Enabled);
+		break;
+	}
+}
+
 void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 {
 	if (isNowSelected)
@@ -136,5 +188,27 @@ void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
 		{
 			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
 		}
+	}
+}
+
+void DirectoryExplorerTreeViewItem::setCheckStatus(CheckStatus newCheckStatus)
+{
+	if (newCheckStatus != mCheckStatus)
+	{
+		if (newCheckStatus == Disabled)
+		{
+			for (int i = 0; i < getNumSubItems(); i++)
+			{
+				((DirectoryExplorerTreeViewItem*)getSubItem(i))->setCheckStatus(Disabled);
+			}
+		}
+		else if (newCheckStatus == Enabled)
+		{
+			for (int i = 0; i < getNumSubItems(); i++)
+			{
+				((DirectoryExplorerTreeViewItem*)getSubItem(i))->setCheckStatus(Enabled);
+			}
+		}
+		updateCheckAndChainParent();
 	}
 }

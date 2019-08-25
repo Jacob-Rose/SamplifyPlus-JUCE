@@ -79,6 +79,10 @@ namespace samplify
 
 		void exitSignalSent() override;
 		void checkThreadFinished();
+		void refreshCurrentSamples()
+		{
+			updateCurrentSamples(mCurrentDirectory, mCurrentQuery);
+		}
 		void updateCurrentSamples(File path, String query);
 		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);

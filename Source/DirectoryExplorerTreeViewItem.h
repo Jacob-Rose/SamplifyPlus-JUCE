@@ -18,6 +18,13 @@ namespace samplify
 	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget
 	{
 	public:
+		enum CheckStatus
+		{
+			NotLoaded = -1,
+			Enabled,
+			Disabled,
+			Mixed,
+		};
 		DirectoryExplorerTreeViewItem(File file);
 		DirectoryExplorerTreeViewItem(String string);
 		~DirectoryExplorerTreeViewItem();
@@ -34,16 +41,19 @@ namespace samplify
 		String getName();
 
 		void paintItem(Graphics& g, int width, int height) override;
-
+		void updateCheckAndChainParent();
 		void itemOpennessChanged(bool isNowOpen) override;
-
+		void itemClicked(const MouseEvent& e) override;
+		void itemCheckCycled();
 		void itemSelectionChanged(bool isNowSelected) override;
+
+		void setCheckStatus(CheckStatus newCheckStatus);
 
 	private:
 		File mFile;
 		String mText;
 		bool mShouldUseFile = true;
-
+		CheckStatus mCheckStatus;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)
 	};
 }
