@@ -5,12 +5,13 @@ using namespace samplify;
 
 DirectoryExplorer::DirectoryExplorer()
 {
-	mDirectoryTree.reset(new DirectoryExplorerTreeView());
-	addAndMakeVisible(*mDirectoryTree);
+	addAndMakeVisible(mDirectoryTree);
+	refresh();
 }
 
 DirectoryExplorer::~DirectoryExplorer()
 {
+	mDirectoryTree.deleteRootItem();
 }
 
 void DirectoryExplorer::paint (Graphics& g)
@@ -20,13 +21,21 @@ void DirectoryExplorer::paint (Graphics& g)
 
 void DirectoryExplorer::resized()
 {
-	mDirectoryTree->setBounds(getLocalBounds());
+	mDirectoryTree.setBounds(getLocalBounds());
 }
 
-DirectoryExplorer::DirectoryExplorerTreeView::DirectoryExplorerTreeView()
+void DirectoryExplorer::refresh()
 {
-	DirectoryExplorerTreeViewItem* root = new DirectoryExplorerTreeViewItem("All Directories");
-	setRootItem(root);
+	TreeViewItem* root = mDirectoryTree.getRootItem();
+	if (root == nullptr)
+	{
+		root = new DirectoryExplorerTreeViewItem("All Directories");
+		mDirectoryTree.setRootItem(root);
+	}
+	else
+	{
+		root->clearSubItems();
+	}
 	std::vector<File> paths = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < paths.size(); i++)
 	{
@@ -36,8 +45,10 @@ DirectoryExplorer::DirectoryExplorerTreeView::DirectoryExplorerTreeView()
 	root->setSelected(true, true);
 }
 
-DirectoryExplorer::DirectoryExplorerTreeView::~DirectoryExplorerTreeView()
+void DirectoryExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	deleteRootItem();
-
+	if (DirectoryLibrary * dl = dynamic_cast<DirectoryLibrary*>(source))
+	{
+		refresh();
+	}
 }

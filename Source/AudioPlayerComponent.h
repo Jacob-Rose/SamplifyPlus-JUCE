@@ -19,7 +19,11 @@ namespace samplify
 	class AudioPlayerComponent : public Component
 	{
 	public:
+		AudioPlayerComponent();
+		~AudioPlayerComponent();
 	private:
+		ShapeButton mPlayButton;
+		ComboBox mCueSelector;
 	};
 }
 #endif

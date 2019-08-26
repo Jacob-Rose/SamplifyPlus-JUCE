@@ -25,7 +25,7 @@
 
 namespace samplify
 {
-	class SamplifyProperties : public ApplicationProperties
+	class SamplifyProperties : public ApplicationProperties, public ChangeListener
 	{
 	public:
 		//=======================================================
@@ -57,9 +57,10 @@ namespace samplify
 		//=Saving=================================================
 		void loadPropertiesFile();
 		void savePropertiesFile();
-		//=Directories==============================================
+		void saveDirectoriesInPropertiesFile();
+		void saveTagsInPropertiesFile();
+		void changeListenerCallback(ChangeBroadcaster* source);
 
-		//=======================================================
 		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
 		//=======================================================

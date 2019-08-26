@@ -41,19 +41,21 @@ namespace samplify
 		String getName();
 
 		void paintItem(Graphics& g, int width, int height) override;
-		void updateCheckAndChainParent();
+		void updateChildrenItems(CheckStatus checkStatus);
+		void updateParentItems();
 		void itemOpennessChanged(bool isNowOpen) override;
 		void itemClicked(const MouseEvent& e) override;
 		void itemCheckCycled();
 		void itemSelectionChanged(bool isNowSelected) override;
 
+		CheckStatus getCheckStatus() { return mCheckStatus; }
 		void setCheckStatus(CheckStatus newCheckStatus);
 
 	private:
 		File mFile;
 		String mText;
 		bool mShouldUseFile = true;
-		CheckStatus mCheckStatus;
+		CheckStatus mCheckStatus = Disabled;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)
 	};
 }

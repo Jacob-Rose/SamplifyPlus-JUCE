@@ -125,22 +125,57 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 
 }
 
-void DirectoryExplorerTreeViewItem::updateCheckAndChainParent()
+void DirectoryExplorerTreeViewItem::updateChildrenItems(CheckStatus status)
+{
+	for (int i = 0; i < getNumSubItems(); i++)
+	{
+		static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->setCheckStatus(status);
+		static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->updateChildrenItems(status);
+	}
+}
+
+void DirectoryExplorerTreeViewItem::updateParentItems()
 {
 	if (getNumSubItems() > 0)
 	{
-
+		bool foundChecked = false;
+		bool foundUnchecked = false;
+		for (int i = 0; i < getNumSubItems(); i++)
+		{
+			if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Enabled)
+			{
+				foundChecked = true;
+			}
+			else if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Disabled)
+			{
+				foundUnchecked = true;
+			}
+			else
+			{
+				foundChecked = true;
+				foundUnchecked = true;
+			}
+		}
+		if (foundChecked && foundUnchecked)
+		{
+			mCheckStatus = Mixed;
+		}
+		else if (foundChecked)
+		{
+			mCheckStatus = Enabled;
+		}
+		else
+		{
+			mCheckStatus = Disabled;
+		}
+		static_cast<DirectoryExplorerTreeViewItem*>(getParentItem())->updateParentItems();
 	}
-	((DirectoryExplorerTreeViewItem*)getParentItem())->updateCheckAndChainParent();
 }
 
 void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 {
 	if (isNowOpen)
 	{
-		// if we've not already done so, we'll now add the tree's sub-items. You could
-		// also choose to delete the existing ones and refresh them if that's more suitable
-		// in your app.
 		if (getNumSubItems() == 0)
 		{
 			Array<File> files;
@@ -149,6 +184,14 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 			{
 				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(files[i]);  
 				addSubItem(item);
+				if (mCheckStatus == Enabled || mCheckStatus == Disabled)
+				{
+					item->setCheckStatus(mCheckStatus);
+				}
+				else
+				{
+					item->setCheckStatus(Enabled);
+				}
 			}
 		}
 	}
@@ -201,14 +244,12 @@ void DirectoryExplorerTreeViewItem::setCheckStatus(CheckStatus newCheckStatus)
 			{
 				((DirectoryExplorerTreeViewItem*)getSubItem(i))->setCheckStatus(Disabled);
 			}
+			updateParentItems();
 		}
 		else if (newCheckStatus == Enabled)
 		{
-			for (int i = 0; i < getNumSubItems(); i++)
-			{
-				((DirectoryExplorerTreeViewItem*)getSubItem(i))->setCheckStatus(Enabled);
-			}
+			updateChildrenItems(Enabled);
 		}
-		updateCheckAndChainParent();
+		
 	}
 }

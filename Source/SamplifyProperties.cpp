@@ -15,6 +15,7 @@ SamplifyProperties::SamplifyProperties()
 	propFileOptions.storageFormat = PropertiesFile::StorageFormat::storeAsXML;
 	setStorageParameters(propFileOptions);
 	mDirectoryLibrary.addChangeListener(&mSampleLibrary);
+	mDirectoryLibrary.addChangeListener(this);
 }
 
 SamplifyProperties::~SamplifyProperties()
@@ -113,6 +114,12 @@ void SamplifyProperties::loadPropertiesFile()
 
 void SamplifyProperties::savePropertiesFile()
 {
+	saveDirectoriesInPropertiesFile();
+	
+}
+
+void SamplifyProperties::saveDirectoriesInPropertiesFile()
+{
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
@@ -121,6 +128,20 @@ void SamplifyProperties::savePropertiesFile()
 		{
 			propFile->setValue("directory " + i, mDirectoryLibrary.getDirectories()[i].getFullPathName());
 		}
+		propFile->saveIfNeeded();
+	}
+	else
+	{
+		throw "Properties File is not valid file";
+	}
+
+}
+
+void samplify::SamplifyProperties::saveTagsInPropertiesFile()
+{
+	PropertiesFile* propFile = getUserSettings();
+	if (propFile->isValidFile())
+	{
 		int tagCount = 0;
 		StringArray usedTags = mSampleLibrary.getAllTags();
 		std::map<String, Colour>::iterator it = mTagLibrary.mSampleTagColors.begin();
@@ -135,6 +156,18 @@ void SamplifyProperties::savePropertiesFile()
 		}
 		propFile->setValue("tag count", tagCount);
 		propFile->saveIfNeeded();
+	}
+	else
+	{
+		throw "Properties File is not valid file";
+	}
+}
+
+void SamplifyProperties::changeListenerCallback(ChangeBroadcaster* source)
+{
+	if (DirectoryLibrary * dirLib = dynamic_cast<DirectoryLibrary*>(source))
+	{
+		saveDirectoriesInPropertiesFile();
 	}
 }
 

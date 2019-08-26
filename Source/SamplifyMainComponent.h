@@ -20,7 +20,7 @@
 
 namespace samplify
 {
-	class SamplifyMainComponent : public AudioAppComponent, public KeyListener
+	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener
 	{
 	public:
 		//=====================================================
@@ -28,7 +28,7 @@ namespace samplify
 		~SamplifyMainComponent();
 
 		bool keyPressed(const KeyPress& key, Component* originatingComponent);
-
+		void changeListenerCallback(ChangeBroadcaster* source);
 		void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void releaseResources() override;

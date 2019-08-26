@@ -24,7 +24,6 @@ C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeVi
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(105,58): warning C4244:         [
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(105,58): warning C4244:             ValueType=float
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(105,58): warning C4244:         ]
-C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(159,19): warning C4458:  declaration of 'itemHeight' hides class member
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(204,19): warning C4458:  declaration of 'itemHeight' hides class member
 C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.h(587,16): message :  see declaration of 'juce::TreeViewItem::itemHeight'
-C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.h(587,16): message : C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(135) : warning C4717: 'samplify::DirectoryExplorerTreeViewItem::updateCheckAndChainParent': recursive on all control paths, function will cause runtime stack overflow
   SamplifyPlus_App.vcxproj -> C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe
