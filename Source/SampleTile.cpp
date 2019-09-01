@@ -308,7 +308,7 @@ Sample::Reference SampleTile::getSample()
 
 Rectangle<float> SampleTile::getTitleRect()
 {
-	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 2.0f);
+	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
 }
 
 Rectangle<float> SampleTile::getTypeRect()

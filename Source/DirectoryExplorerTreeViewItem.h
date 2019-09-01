@@ -46,7 +46,6 @@ namespace samplify
 		void itemOpennessChanged(bool isNowOpen) override;
 		void itemClicked(const MouseEvent& e) override;
 		void itemCheckCycled();
-		void itemSelectionChanged(bool isNowSelected) override;
 
 		CheckStatus getCheckStatus() { return mCheckStatus; }
 		void setCheckStatus(CheckStatus newCheckStatus);

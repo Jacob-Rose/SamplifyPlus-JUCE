@@ -9,12 +9,21 @@ DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
 {
 	mFile = file;
 	mShouldUseFile = true;
+	if (!mFile.exists())
+	{
+		mCheckStatus = NotLoaded;
+	}
+	else
+	{
+		mCheckStatus = Enabled;
+	}
 }
 
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(String string)
-{
+{ //this is only used for the root item
 	mText = string;
 	mShouldUseFile = false;
+	mCheckStatus = Enabled;
 }
 
 DirectoryExplorerTreeViewItem::~DirectoryExplorerTreeViewItem()
@@ -53,7 +62,7 @@ void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x
 	//todo handle adding directories
 }
 
-void samplify::DirectoryExplorerTreeViewItem::setName(String name)
+void DirectoryExplorerTreeViewItem::setName(String name)
 {
 	mFile = File(name);
 }
@@ -78,8 +87,10 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 		if (isSelected())
 		{
 			Colour c = getOwnerView()->getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID);
+			g.setColour(c.brighter(0.5));
+			g.fillRoundedRectangle(0, 0, width, height, 4.0f);
 			g.setColour(c);
-			g.fillRoundedRectangle(0, 0, width, height, 1.0f);
+			g.drawRoundedRectangle(0, 0, width, height, 4.0f, 1.0f);
 			if (c.getPerceivedBrightness() > 0.5f)
 			{
 				g.setColour(Colours::black);
@@ -102,7 +113,8 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 			}
 		}
 		g.setFont(12);
-		Rectangle<float> checkBoxRect = Rectangle<float>(0, 0, height, height);
+		float padding = 2.0f;
+		Rectangle<float> checkBoxRect = Rectangle<float>(padding, padding, height - (padding*2), height-(padding*2));
 		float checkBoxCornerWidth = 4.0f;
 		switch (mCheckStatus)
 		{
@@ -110,17 +122,42 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 			g.setColour(Colours::lightpink);
 			break;
 		case Mixed:
+			g.setColour(Colours::grey);
+			break;
 		case Enabled:
-			g.setColour(SamplifyMainComponent::getInstance()->getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID));
+			g.setColour(SamplifyMainComponent::getInstance()->getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID));
 			break;
 		case Disabled:
 			g.setColour(Colours::white);
 			break;
 		}
 		g.fillRoundedRectangle(checkBoxRect, checkBoxCornerWidth);
+		switch (mCheckStatus)
+		{
+		case NotLoaded:
+			FontAwesome::drawCenterd(g, FontAwesome_Xing, checkBoxRect.getHeight() - (padding*4), Colours::white, checkBoxRect.toNearestInt());
+			break;
+		case Mixed:
+			FontAwesome::drawCenterd(g, FontAwesome_Square, checkBoxRect.getHeight() - (padding * 4), Colours::white, checkBoxRect.toNearestInt());
+			break;
+		case Enabled:
+			FontAwesome::drawCenterd(g, FontAwesome_Check, checkBoxRect.getHeight() - (padding * 4), Colours::white, checkBoxRect.toNearestInt());
+			break;
+		case Disabled:
+			break;
+		}
 		g.setColour(Colours::black);
 		g.drawRoundedRectangle(checkBoxRect, checkBoxCornerWidth, 1.0f);
-		g.drawText(mFile.getFileName(), height, 0, width, height, Justification::centredLeft, true);
+		juce::String text;
+		if (mShouldUseFile)
+		{
+			text = mFile.getFileName();
+		}
+		else
+		{
+			text = mText;
+		}
+		g.drawText(text, height, 0, width, height, Justification::centredLeft, true);
 	}
 
 }
@@ -150,10 +187,14 @@ void DirectoryExplorerTreeViewItem::updateParentItems()
 			{
 				foundUnchecked = true;
 			}
-			else
+			else if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Mixed)
 			{
 				foundChecked = true;
 				foundUnchecked = true;
+			}
+			else
+			{
+				//not loaded, ignore
 			}
 		}
 		if (foundChecked && foundUnchecked)
@@ -168,7 +209,11 @@ void DirectoryExplorerTreeViewItem::updateParentItems()
 		{
 			mCheckStatus = Disabled;
 		}
-		static_cast<DirectoryExplorerTreeViewItem*>(getParentItem())->updateParentItems();
+		repaintItem();
+	}
+	if (DirectoryExplorerTreeViewItem * p = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
+	{
+		p->updateParentItems();
 	}
 }
 
@@ -222,34 +267,19 @@ void DirectoryExplorerTreeViewItem::itemCheckCycled()
 	}
 }
 
-void DirectoryExplorerTreeViewItem::itemSelectionChanged(bool isNowSelected)
-{
-	if (isNowSelected)
-	{
-		SamplifyProperties::getInstance()->getSampleLibrary().updateCurrentSamples(mFile);
-		if (SamplifyMainComponent::getInstance() != nullptr)
-		{
-			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
-		}
-	}
-}
-
 void DirectoryExplorerTreeViewItem::setCheckStatus(CheckStatus newCheckStatus)
 {
-	if (newCheckStatus != mCheckStatus)
+	if (newCheckStatus != mCheckStatus && mCheckStatus != NotLoaded)
 	{
-		if (newCheckStatus == Disabled)
+		if (newCheckStatus == Disabled || newCheckStatus == Enabled)
 		{
-			for (int i = 0; i < getNumSubItems(); i++)
+			mCheckStatus = newCheckStatus;
+			updateChildrenItems(newCheckStatus);
+			if (DirectoryExplorerTreeViewItem * p = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
 			{
-				((DirectoryExplorerTreeViewItem*)getSubItem(i))->setCheckStatus(Disabled);
+				p->updateParentItems();
 			}
-			updateParentItems();
 		}
-		else if (newCheckStatus == Enabled)
-		{
-			updateChildrenItems(Enabled);
-		}
-		
+		repaintItem();
 	}
 }

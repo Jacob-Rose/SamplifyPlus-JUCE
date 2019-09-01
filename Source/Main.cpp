@@ -32,11 +32,11 @@ namespace samplify
 		//==============================================================================
 		void initialise(const String& commandLine) override
 		{
-			Time timeToKill = Time(2019, 8, 1, 12, 0); //month is between 0-11
+			Time timeToKill = Time(2019, 10, 1, 12, 0); //month is between 0-11
 			Time cTime = Time::getCurrentTime();
 			if (cTime.toMilliseconds() > timeToKill.toMilliseconds())
 			{
-				AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "App Beta Expired", "The Application has passed its usage date of Sep.1.19 12:00PM. The application will now close. \nThank you for your participation. To recieve an updated version please contact beta@samplify.app with feedback about your experience. \nThis is one of my few ways to ensure security and encourage more feedback from participants.");
+				AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "App Beta Expired", "The Application has passed its usage date of Nov.1.19 12:00PM. The application will now close. \nThank you for your participation. To recieve an updated version please contact beta@samplify.app with feedback about your experience. \nThis is one of my few ways to ensure security and encourage more feedback from participants.");
 				quit();
 			}
 			else

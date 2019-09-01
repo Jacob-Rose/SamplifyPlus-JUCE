@@ -40,8 +40,16 @@ void Sample::determineSampleType()
 	{
 		float peak = mThumbnail.get()->getApproximatePeak();
 		float lhsMin, lhsMax, rhsMin, rhsMax;
-		mThumbnail.get()->getApproximateMinMax(0, (mThumbnail.get()->getTotalLength() / 8)*7, 0, lhsMin, lhsMax);
-		mThumbnail.get()->getApproximateMinMax((mThumbnail.get()->getTotalLength() / 8)*7, mThumbnail.get()->getTotalLength() / 8, 0, rhsMin, rhsMax);
+		mThumbnail.get()->getApproximateMinMax(0, (mThumbnail.get()->getTotalLength() / 4), 0, lhsMin, lhsMax);
+		mThumbnail.get()->getApproximateMinMax((mThumbnail.get()->getTotalLength() / 4)*3, mThumbnail.get()->getTotalLength() / 4, 0, rhsMin, rhsMax);
+		if (lhsMax / 4 > rhsMax)
+		{
+			mSampleType = SampleType::ONESHOT;
+		}
+		else
+		{
+			mSampleType = SampleType::LOOP;
+		}
 	}
 }
 

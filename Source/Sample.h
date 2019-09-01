@@ -31,7 +31,7 @@ namespace samplify
 		};
 		enum SampleType
 		{
-			UNDEFINED,
+			UNDEFINED = -1,
 			ONESHOT,
 			LOOP
 		};

@@ -35,28 +35,6 @@ namespace samplify
 
 		void setupLookAndFeel();
 
-		class SecurityThread : public Thread
-		{
-		public:
-			SecurityThread() : Thread("sT", 0) {
-				setPriority(0);
-			}
-			~SecurityThread() {}
-			void checkIfValid()
-			{
-				if (hash != "12231")
-				{
-					delete this;
-				}
-			}
-			void run() override
-			{
-				checkIfValid();
-			}
-		private:
-			const juce::String hash = "12231";
-		};
-
 		//==============================================================================
 		void paint(Graphics&) override;
 		void resized() override;
@@ -73,7 +51,6 @@ namespace samplify
 		FilterExplorer mFilterExplorer;
 
 		std::shared_ptr<AudioPlayer> mAudioPlayer;
-		//std::unique_ptr<SecurityThread> mCopyProtection;
 		static SamplifyMainComponent* mInstance;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SamplifyMainComponent)
