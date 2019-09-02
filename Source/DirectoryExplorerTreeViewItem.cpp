@@ -132,19 +132,28 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 			break;
 		}
 		g.fillRoundedRectangle(checkBoxRect, checkBoxCornerWidth);
-		switch (mCheckStatus)
+		if (mCheckStatus == NotLoaded)
 		{
-		case NotLoaded:
-			FontAwesome::drawCenterd(g, FontAwesome_Xing, checkBoxRect.getHeight() - (padding*4), Colours::white, checkBoxRect.toNearestInt());
-			break;
-		case Mixed:
-			FontAwesome::drawCenterd(g, FontAwesome_Square, checkBoxRect.getHeight() - (padding * 4), Colours::white, checkBoxRect.toNearestInt());
-			break;
-		case Enabled:
-			FontAwesome::drawCenterd(g, FontAwesome_Check, checkBoxRect.getHeight() - (padding * 4), Colours::white, checkBoxRect.toNearestInt());
-			break;
-		case Disabled:
-			break;
+			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/cross.svg");
+			static std::unique_ptr<Drawable> cross = Drawable::createFromSVGFile(crossFile);
+			cross.get()->replaceColour(Colours::black, Colours::white);
+			cross.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+		}
+		else if (mCheckStatus == Enabled)
+		{
+			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/check.svg");
+			static std::unique_ptr<Drawable> check = Drawable::createFromSVGFile(crossFile);
+			check.get()->replaceColour(Colours::black, Colours::white);
+			check.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+		}
+		else if (mCheckStatus == Mixed)
+		{
+			g.setColour(Colours::white);
+			g.fillRoundedRectangle(checkBoxRect.getProportion(Rectangle<float>(0.25f, 0.25f, 0.5f, 0.5f)), 2.0f);
+		}
+		else //disabled
+		{
+
 		}
 		g.setColour(Colours::black);
 		g.drawRoundedRectangle(checkBoxRect, checkBoxCornerWidth, 1.0f);

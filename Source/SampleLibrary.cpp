@@ -102,6 +102,8 @@ void SampleLibrary::exitSignalSent()
 	sendChangeMessage();
 }
 
+
+
 void SampleLibrary::checkThreadFinished()
 {
 	if (currentUpdateThread.get() != nullptr && !currentUpdateThread.get()->isThreadRunning())

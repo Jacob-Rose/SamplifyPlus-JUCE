@@ -53,7 +53,6 @@ namespace samplify
 			{
 				SamplifyProperties::getInstance()->getSampleLibrary().cancelUpdate();
 			}
-			FontAwesome::deleteInstance();
 			SamplifyProperties::cleanupInstance();
 		}
 

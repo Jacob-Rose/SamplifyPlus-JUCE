@@ -157,10 +157,6 @@
 			isa = PBXBuildFile;
 			fileRef = 1341EE58AE99FF529116AA16;
 		};
-		B6B0CE3EE6BF55C45DEC8374 = {
-			isa = PBXBuildFile;
-			fileRef = 59592A23BD1FB82D2C6D5685;
-		};
 		84E8840F9F81644A1B832716 = {
 			isa = PBXBuildFile;
 			fileRef = 72D8EDB036E7071BE6C713BB;
@@ -305,13 +301,6 @@
 			path = System/Library/Frameworks/DiscRecording.framework;
 			sourceTree = SDKROOT;
 		};
-		2BCDF08692B9DB89A2A61910 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "danlin_fontawesome";
-			path = "~/modules/danlin_fontawesome";
-			sourceTree = "<absolute>";
-		};
 		2CE1E0A38D64CEEDD35220EC = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -422,13 +411,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = Sample.h;
 			path = ../../Source/Sample.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		59592A23BD1FB82D2C6D5685 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.objcpp;
-			name = "include_danlin_fontawesome.mm";
-			path = "../../JuceLibraryCode/include_danlin_fontawesome.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
 		5B2FAD2D1277AF4E648532E1 = {
@@ -1083,7 +1065,6 @@
 		DB8757B3283C7AEF66EF598A = {
 			isa = PBXGroup;
 			children = (
-				2BCDF08692B9DB89A2A61910,
 				C0D686D13917A3BB2350A45C,
 				9D3159C19C20B5E33A1AA19D,
 				A115E354DDF4EFC8ABC9A080,
@@ -1107,7 +1088,6 @@
 			isa = PBXGroup;
 			children = (
 				C7740818D153D006A4CC7E90,
-				59592A23BD1FB82D2C6D5685,
 				72D8EDB036E7071BE6C713BB,
 				E15BF77E5DF811FEB95949CE,
 				7A850E904A718EA17101C103,
@@ -1209,7 +1189,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"$(HOME)/modules",
 					"$(HOME)/JUCE/modules",
 					"$(inherited)",
 				);
@@ -1253,7 +1232,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"$(HOME)/modules",
 					"$(HOME)/JUCE/modules",
 					"$(inherited)",
 				);
@@ -1413,7 +1391,6 @@
 				CDE3E7D35E0F4F68EEC95185,
 				95BBEF5D1A3F2FFAA16E7366,
 				8E6B91F2B617728F069DC893,
-				B6B0CE3EE6BF55C45DEC8374,
 				84E8840F9F81644A1B832716,
 				5F0954CE852F058FA27A66B5,
 				8849B94FD5BCF2822DCD6C34,

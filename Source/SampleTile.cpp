@@ -76,10 +76,9 @@ void SampleTile::paint (Graphics& g)
 		switch (mSample.getSampleType())
 		{
 		case Sample::SampleType::ONESHOT:
-			FontAwesome::drawCenterd(g, FontAwesome_Share, 30.0f, foregroundColor, typeRect.toNearestInt());
-			break;
+			//todo draw
 		case Sample::SampleType::LOOP:
-			FontAwesome::drawCenterd(g, FontAwesome_Refresh, 30.0f, foregroundColor, typeRect.toNearestInt());
+			//todo draw
 			break;
 		default:
 			break;
@@ -313,22 +312,22 @@ Rectangle<float> SampleTile::getTitleRect()
 
 Rectangle<float> SampleTile::getTypeRect()
 {
-	return Rectangle<float>(0, getTitleRect().getHeight(), getWidth() / 5, getWidth() / 5);
+	return Rectangle<float>(0, getHeight() - (getWidth() /5), getWidth() / 5, getWidth() / 5);
 }
 
 Rectangle<float> SampleTile::getTimeRect()
 {
-	return Rectangle<float>(getWidth() / 5, getTitleRect().getHeight(), getWidth()/5, getWidth()/5);
+	return Rectangle<float>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth()/5, getWidth()/5);
 }
 
 Rectangle<float> SampleTile::getThumbnailRect()
 {
-	float startY = getTitleRect().getHeight() + getTypeRect().getHeight();
-	return Rectangle<float>(0, startY, getWidth(), getHeight() - startY);
+	float startY = getTitleRect().getHeight();
+	return Rectangle<float>(0, startY, getWidth(), getHeight() - (startY + (getWidth() /5)));
 }
 
 Rectangle<float> SampleTile::getTagRect()
 {
 	float startX = getTypeRect().getWidth() + getTimeRect().getWidth();
-	return Rectangle<float>(startX, getTitleRect().getHeight(), getWidth() - startX, getTypeRect().getHeight());
+	return Rectangle<float>((getWidth()/5) * 2, getHeight() - (getWidth() /5), getWidth()/5, getWidth()/5);
 }
