@@ -553,6 +553,9 @@
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
       <Filter>SamplifyPlus\Source\Defs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyCore.cpp">
+      <Filter>SamplifyPlus</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
     </ClCompile>
@@ -2576,6 +2579,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyProperties.h">
       <Filter>SamplifyPlus\Source\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyCore.h">
+      <Filter>SamplifyPlus</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>

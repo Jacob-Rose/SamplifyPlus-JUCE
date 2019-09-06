@@ -159,6 +159,7 @@
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp"/>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyCore.cpp"/>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1988,6 +1989,7 @@
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>
     <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\SamplifyProperties.h"/>
+    <ClInclude Include="..\..\Source\SamplifyCore.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

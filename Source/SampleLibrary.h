@@ -18,6 +18,32 @@
 
 namespace samplify
 {
+
+	class SampleDirectory
+	{
+	public:
+		SampleDirectory(const File& file);
+		~SampleDirectory();
+		enum Status
+		{
+			NotLoaded = -1,
+			Enabled,
+			Disabled,
+			Mixed
+		};
+		Sample::List getAllNestedSamples();
+		Sample::List getAllSearchSamples(juce::String query);
+		Status getStatus() { return mStatus; }
+		File getDirectory() { return mDirectory; }
+		bool shouldLoadContainedSamples() { return mLoadContainedSamples; }
+	private:
+		File mDirectory;
+		Status mStatus;
+		bool mLoadContainedSamples = true;
+		std::vector<SampleDirectory> mChildDirectories;
+		std::vector<std::shared_ptr<Sample>> mSamplesInDirectory;
+		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleDirectory);
+	};
 	class SampleLibrary : public ChangeBroadcaster, public Thread::Listener, public ChangeListener
 	{
 	public:
@@ -60,34 +86,10 @@ namespace samplify
 			SampleLibrary* mParent;
 			Sample::List mSamples;
 		};
-		
-		class SortSamplesThread : public Thread
-		{
-		public:
-			SortSamplesThread(SampleLibrary* parent, Sample::SortMethod method) : Thread("sortSamples", 0) {
-				mParent = parent;
-				mSamples = mParent->getCurrentSamples();
-				mMethod = method;
-			}
-			void run() override;
-			friend class SampleLibrary;
-		private:
-			Sample::SortMethod mMethod;
-			SampleLibrary* mParent;
-			Sample::List mSamples;
-		};
+	//todo add sorting
 
 		void exitSignalSent() override;
 		void checkThreadFinished();
-		void refreshCurrentSamples()
-		{
-			updateCurrentSamples(mCurrentDirectory, mCurrentQuery);
-		}
-		void updateCurrentSamples(File path, String query);
-		void updateCurrentSamples(File path);
-		void updateCurrentSamples(String query);
-		void setCurrentSamples(Sample::List samples, bool shouldSendChangeMessage = true);
-
 		bool isUpdating() const { return currentUpdateThread.get() != nullptr; }
 		void cancelUpdate() {
 			currentUpdateThread.get()->stopThread(1000);
@@ -100,10 +102,7 @@ namespace samplify
 
 	private:
 		std::unique_ptr<Thread> currentUpdateThread = nullptr;
-		std::vector<std::shared_ptr<Sample>> mSamples;
-		Sample::List mCurrentSamples;
-		File mCurrentDirectory;
-		String mCurrentQuery;
+		std::vector<SampleDirectory> mSampleDirectories;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};

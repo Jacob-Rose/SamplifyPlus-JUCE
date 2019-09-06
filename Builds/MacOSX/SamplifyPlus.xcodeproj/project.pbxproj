@@ -157,6 +157,10 @@
 			isa = PBXBuildFile;
 			fileRef = 1341EE58AE99FF529116AA16;
 		};
+		002B22B14C8FE90E5B2022AF = {
+			isa = PBXBuildFile;
+			fileRef = 209FD86D87ECFDE20A2EADA0;
+		};
 		84E8840F9F81644A1B832716 = {
 			isa = PBXBuildFile;
 			fileRef = 72D8EDB036E7071BE6C713BB;
@@ -224,6 +228,13 @@
 			path = ../../Source/DirectoryExplorer.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		07C4BB79F143D1C7AB62BE5C = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SamplifyCore.h;
+			path = ../../Source/SamplifyCore.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		0879EABE71C6A8A1C9FF19B4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -271,6 +282,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = CollectionExplorer.cpp;
 			path = ../../Source/CollectionExplorer.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		209FD86D87ECFDE20A2EADA0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SamplifyCore.cpp;
+			path = ../../Source/SamplifyCore.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		227ADF622651A2D499B902B0 = {
@@ -1058,6 +1076,8 @@
 			isa = PBXGroup;
 			children = (
 				0FF46B2C570D1813960294EF,
+				209FD86D87ECFDE20A2EADA0,
+				07C4BB79F143D1C7AB62BE5C,
 			);
 			name = SamplifyPlus;
 			sourceTree = "<group>";
@@ -1391,6 +1411,7 @@
 				CDE3E7D35E0F4F68EEC95185,
 				95BBEF5D1A3F2FFAA16E7366,
 				8E6B91F2B617728F069DC893,
+				002B22B14C8FE90E5B2022AF,
 				84E8840F9F81644A1B832716,
 				5F0954CE852F058FA27A66B5,
 				8849B94FD5BCF2822DCD6C34,

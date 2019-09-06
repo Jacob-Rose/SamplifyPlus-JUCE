@@ -91,8 +91,6 @@ namespace samplify
 
 			void renameFile(String name);
 
-			
-
 			friend bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs);
 			friend bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs);
 		private:
@@ -186,6 +184,7 @@ namespace samplify
 		Sample(const File&);
 		~Sample();
 
+		bool isContainedInSearch(juce::String query);
 		void determineSampleType();
 		void changeListenerCallback(ChangeBroadcaster* source);
 		ChangeListener* getChangeListener() { return this; }

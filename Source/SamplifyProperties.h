@@ -29,23 +29,6 @@ namespace samplify
 	{
 	public:
 		//=======================================================
-		
-
-		class TagLibrary : public ChangeBroadcaster
-		{
-		public:
-			void addTag(juce::String tag, Colour color);
-			void addTag(juce::String tag);
-			void renameTag(juce::String currentTagName, juce::String desiredName);
-			void deleteTag(juce::String tag);
-			//StringArray getAllTags();
-
-			Colour getTagColor(juce::String text);
-			friend SamplifyProperties;
-		private:
-			std::map<juce::String, Colour> mSampleTagColors;
-			JUCE_LEAK_DETECTOR(TagLibrary);
-		};
 
 		//=Instance Handling========================================
 		static void initInstance();
@@ -57,11 +40,8 @@ namespace samplify
 		//=Saving=================================================
 		void loadPropertiesFile();
 		void savePropertiesFile();
-		void saveDirectoriesInPropertiesFile();
-		void saveTagsInPropertiesFile();
 		void changeListenerCallback(ChangeBroadcaster* source);
 
-		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
 		//=======================================================
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }

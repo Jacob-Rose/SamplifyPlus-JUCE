@@ -25,12 +25,7 @@ SamplifyProperties::~SamplifyProperties()
 
 File SamplifyProperties::browseForDirectory()
 {
-	FileChooser dirSelector(String("Select Music Directory"), File::getSpecialLocation(File::userHomeDirectory));
-	if (dirSelector.browseForDirectory())
-	{
-		return dirSelector.getResult();
-	}
-	return File();
+	
 }
 
 void SamplifyProperties::browseForDirectoryAndAdd()

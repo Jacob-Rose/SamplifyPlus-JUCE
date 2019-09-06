@@ -28,7 +28,6 @@ namespace samplify
 		void resized() override;
 		void refresh();
 		void changeListenerCallback(ChangeBroadcaster* source);
-
 	private:
 		//============================================================
 		TreeView mDirectoryTree;

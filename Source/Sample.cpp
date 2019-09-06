@@ -26,6 +26,17 @@ Sample::~Sample()
 {
 }
 
+bool samplify::Sample::isContainedInSearch(juce::String query)
+{
+	if (mFile.getFileName().containsIgnoreCase(query) 
+		|| mTags.contains(query) 
+		|| mTags.contains(query.substring(1)))
+	{
+		return true;
+	}
+	return false;
+}
+
 void Sample::determineSampleType()
 {
 	if (mLength > 4.0)

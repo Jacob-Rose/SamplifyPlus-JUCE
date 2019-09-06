@@ -111,6 +111,9 @@
               file="Source/SamplifyProperties.cpp"/>
       </GROUP>
     </GROUP>
+    <FILE id="xUiP21" name="SamplifyCore.cpp" compile="1" resource="0"
+          file="Source/SamplifyCore.cpp"/>
+    <FILE id="Dnrs7a" name="SamplifyCore.h" compile="0" resource="0" file="Source/SamplifyCore.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">

@@ -14,7 +14,7 @@
 
 #include "SamplifyMainComponent.h"
 #include "SamplifyMenuBar.h"
-#include "SamplifyProperties.h"
+#include "SamplifyCore.h"
 #include "Sample.h"
 
 namespace samplify
@@ -49,11 +49,6 @@ namespace samplify
 		void shutdown() override
 		{
 			mainWindow = nullptr; // (deletes our window)
-			if (SamplifyProperties::getInstance()->getSampleLibrary().isUpdating())
-			{
-				SamplifyProperties::getInstance()->getSampleLibrary().cancelUpdate();
-			}
-			SamplifyProperties::cleanupInstance();
 		}
 
 		//==============================================================================
