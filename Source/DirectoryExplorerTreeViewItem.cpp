@@ -1,6 +1,5 @@
 #include "DirectoryExplorerTreeViewItem.h"
 #include "SamplifyMainComponent.h"
-#include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
