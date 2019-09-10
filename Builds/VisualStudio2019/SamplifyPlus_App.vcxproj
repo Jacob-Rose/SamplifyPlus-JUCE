@@ -138,28 +138,26 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CollectionExplorer.cpp"/>
-    <ClCompile Include="..\..\Source\FilterExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp"/>
     <ClCompile Include="..\..\Source\TagContainer.cpp"/>
     <ClCompile Include="..\..\Source\TagExplorer.cpp"/>
     <ClCompile Include="..\..\Source\TagTile.cpp"/>
-    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp"/>
-    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp"/>
     <ClCompile Include="..\..\Source\SampleContainer.cpp"/>
-    <ClCompile Include="..\..\Source\SampleExplorer.cpp"/>
     <ClCompile Include="..\..\Source\SampleTile.cpp"/>
-    <ClCompile Include="..\..\Source\AudioPlayerComponent.cpp"/>
-    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp"/>
-    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp"/>
-    <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\DirectoryLibrary.cpp"/>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp"/>
     <ClCompile Include="..\..\Source\Sample.cpp"/>
-    <ClCompile Include="..\..\Source\Fonts.cpp"/>
-    <ClCompile Include="..\..\Source\Main.cpp"/>
+    <ClCompile Include="..\..\Source\SampleList.cpp"/>
     <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp"/>
-    <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
+    <ClCompile Include="..\..\Source\FilterExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\SampleExplorer.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp"/>
     <ClCompile Include="..\..\Source\SamplifyCore.cpp"/>
+    <ClCompile Include="..\..\Source\Main.cpp"/>
+    <ClCompile Include="..\..\Source\SamplifyProperties.cpp"/>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1968,7 +1966,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CollectionExplorer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h"/>
     <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h"/>
     <ClInclude Include="..\..\Source\FilterExplorer.h"/>
@@ -1978,14 +1975,13 @@
     <ClInclude Include="..\..\Source\SampleContainer.h"/>
     <ClInclude Include="..\..\Source\SampleExplorer.h"/>
     <ClInclude Include="..\..\Source\SampleTile.h"/>
-    <ClInclude Include="..\..\Source\AudioPlayerComponent.h"/>
     <ClInclude Include="..\..\Source\SamplifyMainComponent.h"/>
     <ClInclude Include="..\..\Source\SamplifyMenuBar.h"/>
     <ClInclude Include="..\..\Source\DirectoryLibrary.h"/>
     <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\SampleLibrary.h"/>
     <ClInclude Include="..\..\Source\Sample.h"/>
-    <ClInclude Include="..\..\Source\Fonts.h"/>
+    <ClInclude Include="..\..\Source\SampleList.h"/>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h"/>
     <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h"/>
     <ClInclude Include="..\..\Source\SamplifyProperties.h"/>

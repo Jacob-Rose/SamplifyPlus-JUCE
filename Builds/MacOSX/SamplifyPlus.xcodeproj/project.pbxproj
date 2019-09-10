@@ -73,13 +73,13 @@
 			isa = PBXBuildFile;
 			fileRef = BAABEE7737DDF081CACD401D;
 		};
-		D7D9CCFD8688E649F4488433 = {
+		A613E443925FC4C701F98098 = {
 			isa = PBXBuildFile;
-			fileRef = 209B1D2701171C760DAC258D;
+			fileRef = 04AAEBDE0752A9A266EF4E03;
 		};
-		8A391C578EBD0E51956B8D53 = {
+		2350870B78FE972769754749 = {
 			isa = PBXBuildFile;
-			fileRef = 89868A6E8DF471FF9B0ECAD7;
+			fileRef = 93BA1890518ED70FE78437A4;
 		};
 		893D9B6F76CCCDB25802714D = {
 			isa = PBXBuildFile;
@@ -93,45 +93,21 @@
 			isa = PBXBuildFile;
 			fileRef = 164951D558B2DBD73EBCDDAE;
 		};
-		A613E443925FC4C701F98098 = {
-			isa = PBXBuildFile;
-			fileRef = 04AAEBDE0752A9A266EF4E03;
-		};
-		2350870B78FE972769754749 = {
-			isa = PBXBuildFile;
-			fileRef = 93BA1890518ED70FE78437A4;
-		};
 		A4BB4395898A1C809550EDB4 = {
 			isa = PBXBuildFile;
 			fileRef = 65F1CA2E96D88A4EB06CC834;
-		};
-		41D1BD1567EBF54C8C591396 = {
-			isa = PBXBuildFile;
-			fileRef = 2028F6E683B3C2BD5C6D87D9;
 		};
 		55888F08ABC771E38180619C = {
 			isa = PBXBuildFile;
 			fileRef = B6EFBA288043B83D48750B00;
 		};
-		4FEC0596A54BD8AA4045ECF5 = {
+		C8E45CD20CCC067D59BDE11C = {
 			isa = PBXBuildFile;
-			fileRef = FF6FC4F001E18B2C5AE2B6C3;
-		};
-		CBB20DD6C97BE807762313A4 = {
-			isa = PBXBuildFile;
-			fileRef = AEF3D965B9C36327E5E05CCA;
-		};
-		BE5F8ECDD91689D310D4C316 = {
-			isa = PBXBuildFile;
-			fileRef = 850AD1C9B17FBBC10791C998;
+			fileRef = 5B2FAD2D1277AF4E648532E1;
 		};
 		C873C0F9DB822F4D4F9C3430 = {
 			isa = PBXBuildFile;
 			fileRef = 978DBF90FE5001CA896A212C;
-		};
-		C8E45CD20CCC067D59BDE11C = {
-			isa = PBXBuildFile;
-			fileRef = 5B2FAD2D1277AF4E648532E1;
 		};
 		F1E4226675BF1179624D028E = {
 			isa = PBXBuildFile;
@@ -141,25 +117,41 @@
 			isa = PBXBuildFile;
 			fileRef = 677E5AFA21B45B704AFD7D08;
 		};
-		BA02DDA189349634C470C097 = {
+		5E0473064051D5A8842ABE91 = {
 			isa = PBXBuildFile;
-			fileRef = 7D3BDCCA95600205B658E8A3;
-		};
-		CDE3E7D35E0F4F68EEC95185 = {
-			isa = PBXBuildFile;
-			fileRef = 8A8F5B7B4E0EF582F1F26413;
+			fileRef = 45D955784B106D9A00AFEED3;
 		};
 		95BBEF5D1A3F2FFAA16E7366 = {
 			isa = PBXBuildFile;
 			fileRef = 6A8C46C4C0FDADAF5EC7B41F;
 		};
-		8E6B91F2B617728F069DC893 = {
+		8A391C578EBD0E51956B8D53 = {
 			isa = PBXBuildFile;
-			fileRef = 1341EE58AE99FF529116AA16;
+			fileRef = 89868A6E8DF471FF9B0ECAD7;
+		};
+		41D1BD1567EBF54C8C591396 = {
+			isa = PBXBuildFile;
+			fileRef = 2028F6E683B3C2BD5C6D87D9;
+		};
+		CBB20DD6C97BE807762313A4 = {
+			isa = PBXBuildFile;
+			fileRef = AEF3D965B9C36327E5E05CCA;
+		};
+		BE5F8ECDD91689D310D4C316 = {
+			isa = PBXBuildFile;
+			fileRef = 850AD1C9B17FBBC10791C998;
 		};
 		002B22B14C8FE90E5B2022AF = {
 			isa = PBXBuildFile;
 			fileRef = 209FD86D87ECFDE20A2EADA0;
+		};
+		CDE3E7D35E0F4F68EEC95185 = {
+			isa = PBXBuildFile;
+			fileRef = 8A8F5B7B4E0EF582F1F26413;
+		};
+		8E6B91F2B617728F069DC893 = {
+			isa = PBXBuildFile;
+			fileRef = 1341EE58AE99FF529116AA16;
 		};
 		84E8840F9F81644A1B832716 = {
 			isa = PBXBuildFile;
@@ -277,13 +269,6 @@
 			path = ../../Source/SampleExplorer.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		209B1D2701171C760DAC258D = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = CollectionExplorer.cpp;
-			path = ../../Source/CollectionExplorer.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		209FD86D87ECFDE20A2EADA0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -303,13 +288,6 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = SamplifyProperties.h;
 			path = ../../Source/SamplifyProperties.h;
-			sourceTree = "SOURCE_ROOT";
-		};
-		2993DA0771BF8B1B6352CB9A = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = AudioPlayerComponent.h;
-			path = ../../Source/AudioPlayerComponent.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		29D627ADE8A9E14ADD08DC80 = {
@@ -354,13 +332,6 @@
 			path = System/Library/Frameworks/WebKit.framework;
 			sourceTree = SDKROOT;
 		};
-		3964186BFFC666BEA5632B96 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = Fonts.h;
-			path = ../../Source/Fonts.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		39DC8E347D75AF7C8CF05374 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -389,11 +360,11 @@
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
 		};
-		4716595473E46FB7AE645B6C = {
+		45D955784B106D9A00AFEED3 = {
 			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = CollectionExplorer.h;
-			path = ../../Source/CollectionExplorer.h;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SampleList.cpp;
+			path = ../../Source/SampleList.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		4A6472EF21BC2F4B690518B3 = {
@@ -536,13 +507,6 @@
 			path = ../../Source/SampleContainer.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		7D3BDCCA95600205B658E8A3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = Fonts.cpp;
-			path = ../../Source/Fonts.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		7F4A402E373B9B4563102513 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -626,6 +590,13 @@
 			name = "juce_audio_devices";
 			path = "~/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
+		};
+		9E48EB585D9E6333CBEE3807 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SampleList.h;
+			path = ../../Source/SampleList.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		A115E354DDF4EFC8ABC9A080 = {
 			isa = PBXFileReference;
@@ -865,13 +836,6 @@
 			path = "~/JUCE/modules/juce_data_structures";
 			sourceTree = "<absolute>";
 		};
-		FF6FC4F001E18B2C5AE2B6C3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = AudioPlayerComponent.cpp;
-			path = ../../Source/AudioPlayerComponent.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		FFF5796540201B86B6578179 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -879,19 +843,13 @@
 			path = "~/JUCE/modules/juce_core";
 			sourceTree = "<absolute>";
 		};
-		012DDF54464955625941D545 = {
-			isa = PBXGroup;
-			children = (
-				4716595473E46FB7AE645B6C,
-			);
-			name = CollectionExplorer;
-			sourceTree = "<group>";
-		};
 		5611D42D0BCA7516CA9913B3 = {
 			isa = PBXGroup;
 			children = (
 				39DC8E347D75AF7C8CF05374,
 				A83E3F37741CEE67005FF23E,
+				04AAEBDE0752A9A266EF4E03,
+				93BA1890518ED70FE78437A4,
 			);
 			name = DirectoryExplorer;
 			sourceTree = "<group>";
@@ -902,6 +860,9 @@
 				B33E30E96061E5DC4DD53256,
 				721990AE68D72AB9C3EAC8CC,
 				B77353C417D53D48FC0DD549,
+				3B6F9AF4617FE2E23B219945,
+				630E6BFCCDFDDEB5E03D0333,
+				164951D558B2DBD73EBCDDAE,
 			);
 			name = TagExplorer;
 			sourceTree = "<group>";
@@ -919,28 +880,20 @@
 			isa = PBXGroup;
 			children = (
 				7C9707F83FD5434BBC993160,
+				65F1CA2E96D88A4EB06CC834,
 				14BC89D747726A9AF4102800,
 				8EF543DE97F4969EB5C39E66,
+				B6EFBA288043B83D48750B00,
 			);
 			name = SampleExplorer;
-			sourceTree = "<group>";
-		};
-		D57EF91FA381C0A255B1FE19 = {
-			isa = PBXGroup;
-			children = (
-				2993DA0771BF8B1B6352CB9A,
-			);
-			name = AudioPlayerComponent;
 			sourceTree = "<group>";
 		};
 		3081C4B63750A16ADCE229F7 = {
 			isa = PBXGroup;
 			children = (
-				012DDF54464955625941D545,
 				5611D42D0BCA7516CA9913B3,
 				3A1B78C362B199F3571AD48E,
 				253ED2FDA926F00B8DA402C4,
-				D57EF91FA381C0A255B1FE19,
 				FC23FD37BA34F4ACD45E7154,
 				2CE1E0A38D64CEEDD35220EC,
 			);
@@ -951,123 +904,36 @@
 			isa = PBXGroup;
 			children = (
 				B8F5A17D31B3D4A7AA497CDF,
-				C5814A3783A6A3949CA24A73,
-				9ACA130BCE09FB34754C60A5,
-				556F38C1A958A88B758E3E87,
-			);
-			name = Structures;
-			sourceTree = "<group>";
-		};
-		EC2D248683FF5F086FDCD7ED = {
-			isa = PBXGroup;
-			children = (
-				3081C4B63750A16ADCE229F7,
-				C4E7652EF70FB1EE961FA9CE,
-				3964186BFFC666BEA5632B96,
-				CD2E1FC0651B895F5673991A,
-				EDD7C9092891FD30DF7A6A1D,
-				232DDC330942E87B3037775A,
-			);
-			name = Header;
-			sourceTree = "<group>";
-		};
-		1CBF0657085B70559FEDFCE6 = {
-			isa = PBXGroup;
-			children = (
-				209B1D2701171C760DAC258D,
-			);
-			name = CollectionExplorer;
-			sourceTree = "<group>";
-		};
-		D3033698AB508BFEDE086DAF = {
-			isa = PBXGroup;
-			children = (
-				3B6F9AF4617FE2E23B219945,
-				630E6BFCCDFDDEB5E03D0333,
-				164951D558B2DBD73EBCDDAE,
-			);
-			name = TagExplorer;
-			sourceTree = "<group>";
-		};
-		2342DAF26213D9EB50D0DB7A = {
-			isa = PBXGroup;
-			children = (
-				89868A6E8DF471FF9B0ECAD7,
-				D3033698AB508BFEDE086DAF,
-			);
-			name = FilterExplorer;
-			sourceTree = "<group>";
-		};
-		D17B2F388EC5A15CB2B51537 = {
-			isa = PBXGroup;
-			children = (
-				2342DAF26213D9EB50D0DB7A,
-				04AAEBDE0752A9A266EF4E03,
-				93BA1890518ED70FE78437A4,
-			);
-			name = DirectoryExplorer;
-			sourceTree = "<group>";
-		};
-		4D14845099AB96042263DD3F = {
-			isa = PBXGroup;
-			children = (
-				65F1CA2E96D88A4EB06CC834,
-				2028F6E683B3C2BD5C6D87D9,
-				B6EFBA288043B83D48750B00,
-			);
-			name = SampleExplorer;
-			sourceTree = "<group>";
-		};
-		186D9B1673DDA4A99B465C11 = {
-			isa = PBXGroup;
-			children = (
-				FF6FC4F001E18B2C5AE2B6C3,
-			);
-			name = AudioPlayerComponent;
-			sourceTree = "<group>";
-		};
-		FEF7AE143B278F10E8FC87FD = {
-			isa = PBXGroup;
-			children = (
-				1CBF0657085B70559FEDFCE6,
-				D17B2F388EC5A15CB2B51537,
-				4D14845099AB96042263DD3F,
-				186D9B1673DDA4A99B465C11,
-				AEF3D965B9C36327E5E05CCA,
-				850AD1C9B17FBBC10791C998,
-			);
-			name = Components;
-			sourceTree = "<group>";
-		};
-		C6B70DE83C8D4C4C23749DF2 = {
-			isa = PBXGroup;
-			children = (
-				978DBF90FE5001CA896A212C,
 				5B2FAD2D1277AF4E648532E1,
+				C5814A3783A6A3949CA24A73,
+				978DBF90FE5001CA896A212C,
+				9ACA130BCE09FB34754C60A5,
 				227ADF622651A2D499B902B0,
+				556F38C1A958A88B758E3E87,
 				677E5AFA21B45B704AFD7D08,
+				45D955784B106D9A00AFEED3,
+				9E48EB585D9E6333CBEE3807,
 			);
 			name = Structures;
-			sourceTree = "<group>";
-		};
-		2476D5BF446CC697B193DC28 = {
-			isa = PBXGroup;
-			children = (
-				FEF7AE143B278F10E8FC87FD,
-				C6B70DE83C8D4C4C23749DF2,
-				7D3BDCCA95600205B658E8A3,
-				8A8F5B7B4E0EF582F1F26413,
-				6A8C46C4C0FDADAF5EC7B41F,
-				1341EE58AE99FF529116AA16,
-			);
-			name = Defs;
 			sourceTree = "<group>";
 		};
 		0FF46B2C570D1813960294EF = {
 			isa = PBXGroup;
 			children = (
-				EC2D248683FF5F086FDCD7ED,
-				2476D5BF446CC697B193DC28,
+				3081C4B63750A16ADCE229F7,
+				C4E7652EF70FB1EE961FA9CE,
+				CD2E1FC0651B895F5673991A,
+				6A8C46C4C0FDADAF5EC7B41F,
+				EDD7C9092891FD30DF7A6A1D,
+				232DDC330942E87B3037775A,
+				89868A6E8DF471FF9B0ECAD7,
+				2028F6E683B3C2BD5C6D87D9,
+				AEF3D965B9C36327E5E05CCA,
+				850AD1C9B17FBBC10791C998,
+				209FD86D87ECFDE20A2EADA0,
+				07C4BB79F143D1C7AB62BE5C,
+				8A8F5B7B4E0EF582F1F26413,
+				1341EE58AE99FF529116AA16,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1076,8 +942,6 @@
 			isa = PBXGroup;
 			children = (
 				0FF46B2C570D1813960294EF,
-				209FD86D87ECFDE20A2EADA0,
-				07C4BB79F143D1C7AB62BE5C,
 			);
 			name = SamplifyPlus;
 			sourceTree = "<group>";
@@ -1390,28 +1254,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7D9CCFD8688E649F4488433,
-				8A391C578EBD0E51956B8D53,
+				A613E443925FC4C701F98098,
+				2350870B78FE972769754749,
 				893D9B6F76CCCDB25802714D,
 				528A4E8035FAD3EDCDD486AA,
 				4608C69FE4803B1A4C41062F,
-				A613E443925FC4C701F98098,
-				2350870B78FE972769754749,
 				A4BB4395898A1C809550EDB4,
-				41D1BD1567EBF54C8C591396,
 				55888F08ABC771E38180619C,
-				4FEC0596A54BD8AA4045ECF5,
-				CBB20DD6C97BE807762313A4,
-				BE5F8ECDD91689D310D4C316,
-				C873C0F9DB822F4D4F9C3430,
 				C8E45CD20CCC067D59BDE11C,
+				C873C0F9DB822F4D4F9C3430,
 				F1E4226675BF1179624D028E,
 				86BACAE8126888AB49016262,
-				BA02DDA189349634C470C097,
-				CDE3E7D35E0F4F68EEC95185,
+				5E0473064051D5A8842ABE91,
 				95BBEF5D1A3F2FFAA16E7366,
-				8E6B91F2B617728F069DC893,
+				8A391C578EBD0E51956B8D53,
+				41D1BD1567EBF54C8C591396,
+				CBB20DD6C97BE807762313A4,
+				BE5F8ECDD91689D310D4C316,
 				002B22B14C8FE90E5B2022AF,
+				CDE3E7D35E0F4F68EEC95185,
+				8E6B91F2B617728F069DC893,
 				84E8840F9F81644A1B832716,
 				5F0954CE852F058FA27A66B5,
 				8849B94FD5BCF2822DCD6C34,

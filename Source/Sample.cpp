@@ -4,24 +4,20 @@
 
 using namespace samplify;
 
-Sample::Sample(const File& file) : mFile(file),
-mPropertiesFile(getPropertiesFile(mFile))
+Sample::Sample(const File& file) : 
+	mFile(file),
+	mPropertiesFile(getPropertiesFileFromSampleFile(mFile))
 {
 	if (mPropertiesFile.exists())
 	{
-		loadPropertiesFile();
+		loadMetadata(); //if metadata is invalid, generateFirstMetadata() is called
 	}
 	else
 	{
-		//todo add what to do for new files
-		determineSampleType();
+		generateMetadata();
 	}
 }
 
-bool Sample::isPropertiesFileValid()
-{
-	return mPropertiesFile.existsAsFile();
-}
 Sample::~Sample()
 {
 }
@@ -71,7 +67,7 @@ void Sample::changeListenerCallback(ChangeBroadcaster * source)
 }
 
 
-void Sample::savePropertiesFile()
+void Sample::saveMetadata()
 {
 	if (mPropertiesFile.existsAsFile())
 	{
@@ -85,32 +81,33 @@ void Sample::savePropertiesFile()
 		mPropertiesFile.appendText(mTags[i] + "\n");
 	}
 	mPropertiesFile.appendText("#TAGEND");
-	//TODO save cue points
-	mPropertiesFile.appendText("#CUEEND");
 }
 
-void Sample::loadPropertiesFile()
+void Sample::loadMetadata()
 {
 	jassert(mPropertiesFile.exists());
 	StringArray propFileLines;
 	mPropertiesFile.readLines(propFileLines);
 	int savedVersion = std::stoi(propFileLines[0].toStdString());
-	int line = 1;
-	while (propFileLines[line].toStdString() != "#TAGEND")
+	if (ProjectInfo::versionNumber == savedVersion)
 	{
-		mTags.add(propFileLines[line]);
+		int line = 1;
+		while (propFileLines[line].toStdString() != "#TAGEND")
+		{
+			mTags.add(propFileLines[line]);
+			line++;
+		}
 		line++;
 	}
-	line++;
-	while (propFileLines[line].toStdString() != "#CUEEND")
+	else
 	{
-		juce::String cueName = propFileLines[line];
-		line++;
-		double cueTime = std::stod(propFileLines[line].toStdString());
-		line++;
-		mCuePoints[cueName] = cueTime;
+		mPropertiesFile.deleteFile();
 	}
-	line++;
+	
+}
+
+void Sample::generateMetadata()
+{
 }
 
 
@@ -189,7 +186,7 @@ void Sample::Reference::addTag(juce::String tag)
 		if (!sample->mTags.contains(tag))
 		{
 			sample->mTags.add(tag);
-			sample->savePropertiesFile();
+			sample->saveMetadata();
 		}
 	}
 }
@@ -202,28 +199,9 @@ void Sample::Reference::removeTag(juce::String tag)
 		if (sample->mTags.contains(tag))
 		{
 			sample->mTags.remove(sample->mTags.indexOf(tag, true));
-			sample->savePropertiesFile();
+			sample->saveMetadata();
 		}
 	}
-}
-void Sample::Reference::generateThumbnailAndCache()
-{
-	if (!isNull())
-	{
-		std::shared_ptr<Sample> sample = mSample.lock();
-		sample->mThumbnailCache = std::make_shared<AudioThumbnailCache>(1);
-		AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
-		sample->mThumbnail = std::make_shared<SampleAudioThumbnail>(512, *afm, *sample->mThumbnailCache);
-		sample->mThumbnail->addChangeListener(sample->getChangeListener());
-		AudioFormatReader* reader = afm->createReaderFor(sample->mFile);
-		if (reader != nullptr)
-		{
-			sample->mThumbnail->setSource(new FileInputSource(sample->mFile));
-			sample->mLength = (float)reader->lengthInSamples / reader->sampleRate;
-		}
-		delete reader;
-	}
-	
 }
 
 void Sample::Reference::addChangeListener(ChangeListener* listener)
@@ -252,7 +230,7 @@ void Sample::Reference::renameFile(String name)
 	sample->mFile = sample->mFile.getSiblingFile(name);
 }
 
-File samplify::Sample::getPropertiesFile(const File& sampleFile)
+File Sample::getPropertiesFileFromSampleFile(const File& sampleFile)
 {
 	String rootDir = sampleFile.getRelativePathFrom(SamplifyProperties::getInstance()->getDirectoryLibrary().getRelativeDirectoryForFile(sampleFile));
 	File f(SamplifyProperties::getInstance()->getUserSettings()->getFile().getParentDirectory().getFullPathName()
@@ -260,179 +238,4 @@ File samplify::Sample::getPropertiesFile(const File& sampleFile)
 		+ rootDir.substring(0,rootDir.lastIndexOf("."))
 		+ ".samplify");
 	return f;
-}
-
-Sample::List::List(const std::vector<Sample::Reference>& list)
-{
-	addSamples(list);
-}
-
-Sample::List::List()
-{
-}
-
-int Sample::List::size() const
-{
-	return mSamples.size();
-}
-
-void Sample::List::addSample(const Sample::Reference& sample)
-{
-	mSamples.push_back(sample);
-}
-
-void Sample::List::addSamples(const Sample::List& list)
-{
-	for (int i = 0; i < list.size(); i++)
-	{
-		addSample(list[i]);
-	}
-}
-
-void Sample::List::addSamples(const std::vector<Sample::Reference>& samples)
-{
-	addSamples(Sample::List(samples));
-}
-
-void Sample::List::removeSample(Sample::Reference sample)
-{
-	for (int i = 0; i < mSamples.size(); i++)
-	{
-		if (mSamples[i] == sample)
-		{
-			removeSample(i);
-			break;
-		}
-	}
-}
-
-void Sample::List::removeSample(int index)
-{
-	mSamples.erase(mSamples.begin() + index);
-}
-
-void Sample::List::removeSamples(std::vector<Sample::Reference> samples)
-{
-	for (int i = 0; i < mSamples.size(); i++)
-	{
-		for (int j = 0; j < samples.size(); j++)
-		{
-			if (mSamples[i] == samples[j])
-			{
-				removeSample(i);
-				i--;
-				break;
-			}
-		}
-	}
-}
-
-void Sample::List::removeSamples(const Sample::List& list)
-{
-	for (int i = 0; i < list.size(); i++)
-	{
-		removeSample(list[i]);
-	}
-}
-
-void Sample::List::clearSamples()
-{
-	mSamples.clear();
-}
-
-Sample::Reference Sample::List::operator[](int index) const
-{
-	return mSamples[index];
-}
-
-bool Sample::getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method)
-{
-	switch (method)
-	{
-	case Sample::SortMethod::Alphabetical:
-		if (lhs.getFilename().compareNatural(rhs.getFilename()) > 0)
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::ReverseAlphabetical:
-		if (rhs.getFilename().compareNatural(rhs.getFilename()) < 0)
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Newest:
-		if (lhs.getFile().getCreationTime() > rhs.getFile().getCreationTime())
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Oldest:
-		if (lhs.getFile().getCreationTime() < rhs.getFile().getCreationTime())
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Random:
-		return false;
-		break;
-	}
-}
-void Sample::SortedLists::Alphabetical::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Alphabetical))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-
-void Sample::SortedLists::RevAlphabetical::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::ReverseAlphabetical))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-
-void Sample::SortedLists::Newest::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Newest))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-
-void Sample::SortedLists::Oldest::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Oldest))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-void Sample::SortedLists::Random::addSample(const Sample::Reference& sample)
-{
-	/*todo fix bug
-	if (mSamples.size() > 0)
-	{
-		int randPlace = rand() % mSamples.size();
-		mSamples.insert(mSamples.begin() + randPlace, sample);
-	}
-	else
-	{
-		mSamples.push_back(sample);
-	}
-	*/
-	mSamples.push_back(sample);
 }
