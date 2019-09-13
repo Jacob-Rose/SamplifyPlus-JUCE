@@ -112,23 +112,20 @@ void Sample::generateMetadata()
 
 
 
-StringArray Sample::Reference::getRelativeParentFolders() const
+StringArray Sample::getRelativeParentFolders() const
 {
-	jassert(!isNull());
-	std::shared_ptr<Sample> sample = mSample.lock();
 	StringArray folders;
-	File file(sample->mFile);
 	File root;
 	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < rootDirs.size(); i++)
 	{
-		if (file.isAChildOf(rootDirs[i]))
+		if (mFile.isAChildOf(rootDirs[i]))
 		{
 			root = rootDirs[i];
 			break;
 		}
 	}
-	while (file.isAChildOf(root))
+	while (mFile.isAChildOf(root))
 	{
 		file = file.getParentDirectory();
 		folders.add(file.getFileName());
@@ -136,11 +133,9 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 	return folders;
 }
 
-String Sample::Reference::getRelativePathName() const
+String Sample::getRelativePathName() const
 {
-	jassert(!isNull());
-	std::shared_ptr<Sample> sample = mSample.lock();
-	String path = sample->mFile.getFullPathName();
+	String path = mFile.getFullPathName();
 	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
@@ -149,25 +144,22 @@ String Sample::Reference::getRelativePathName() const
 			return path.substring(dirs[i].getFullPathName().length());
 		}
 	}
-	return sample->mFile.getFullPathName();
+	return mFile.getFullPathName();
 }
 
-String Sample::Reference::getFullPathName() const
+String Sample::getFullPathName() const
 {
-	jassert(!isNull());
-	return mSample.lock()->mFile.getFullPathName();
+	return mFile.getFullPathName();
 }
 
-Sample::SampleType Sample::Reference::getSampleType() const
+Sample::SampleType Sample::getSampleType() const
 {
-	jassert(!isNull());
-	return mSample.lock()->mSampleType;
+	return mSampleType;
 }
 
-double Sample::Reference::getLength() const
+double Sample::getLength() const
 {
-	jassert(!isNull());
-	return mSample.lock()->mLength;
+	return mLength;
 }
 
 

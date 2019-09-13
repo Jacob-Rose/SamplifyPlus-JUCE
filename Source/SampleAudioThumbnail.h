@@ -90,7 +90,7 @@ namespace samplify
 			std::weak_ptr<SampleAudioThumbnail> mThumbnail;
 		};
 	private:
-
+		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleAudioThumbnail)
 	};
 }
