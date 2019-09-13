@@ -101,9 +101,11 @@ namespace samplify
 	private:
 		std::unique_ptr<Thread> currentUpdateThread = nullptr;
 		std::vector<std::shared_ptr<Sample>> mSamples;
-		Sample::List mCurrentSamples;
+		Sample::List mCurrentSamples; //to remove
 		File mCurrentDirectory;
 		String mCurrentQuery;
+
+		//SampleDirectoryManager mDirectoryManager;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};

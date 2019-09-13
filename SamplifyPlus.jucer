@@ -7,10 +7,6 @@
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
       <GROUP id="{974D5208-70BA-3D73-E5C1-78386F7A5477}" name="Header">
         <GROUP id="{46F4462A-8686-92A7-7F54-2E3E581D68AA}" name="Components">
-          <GROUP id="{63632B92-3D83-3C3E-D8CC-3101D961035A}" name="CollectionExplorer">
-            <FILE id="bzJtmR" name="CollectionExplorer.h" compile="0" resource="0"
-                  file="Source/CollectionExplorer.h"/>
-          </GROUP>
           <GROUP id="{6D756A5D-BEDC-B84D-237C-6DA4C22DA49B}" name="DirectoryExplorer">
             <FILE id="ULN1cJ" name="DirectoryExplorer.h" compile="0" resource="0"
                   file="Source/DirectoryExplorer.h"/>
@@ -33,23 +29,24 @@
                   file="Source/SampleExplorer.h"/>
             <FILE id="IuE5nP" name="SampleTile.h" compile="0" resource="0" file="Source/SampleTile.h"/>
           </GROUP>
-          <GROUP id="{42EB033C-21B2-83B7-82DA-BD5D5C0BF0EC}" name="AudioPlayerComponent">
-            <FILE id="QdB3LB" name="AudioPlayerComponent.h" compile="0" resource="0"
-                  file="Source/AudioPlayerComponent.h"/>
-          </GROUP>
           <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
                 file="Source/SamplifyMainComponent.h"/>
           <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
                 file="Source/SamplifyMenuBar.h"/>
         </GROUP>
         <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
+          <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+          <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+          <FILE id="w0zlQW" name="DirectoryLibrary.cpp" compile="1" resource="0"
+                file="Source/DirectoryLibrary.cpp"/>
           <FILE id="mRa5qf" name="DirectoryLibrary.h" compile="0" resource="0"
                 file="Source/DirectoryLibrary.h"/>
-          <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+          <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
+                file="Source/SampleLibrary.cpp"/>
           <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
           <FILE id="PMF6VZ" name="Sample.h" compile="0" resource="0" file="Source/Sample.h"/>
+          <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
         </GROUP>
-        <FILE id="P5HG2Y" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
               file="Source/SampleAudioThumbnail.h"/>
         <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
@@ -59,10 +56,6 @@
       </GROUP>
       <GROUP id="{1C07D502-DED7-1A09-B8CB-10BFFE8BBC44}" name="Defs">
         <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
-          <GROUP id="{FD361608-951D-94F1-0141-6E7C470A207D}" name="CollectionExplorer">
-            <FILE id="AgmoB7" name="CollectionExplorer.cpp" compile="1" resource="0"
-                  file="Source/CollectionExplorer.cpp"/>
-          </GROUP>
           <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
             <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
               <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
@@ -86,24 +79,11 @@
                   file="Source/SampleExplorer.cpp"/>
             <FILE id="gajHaQ" name="SampleTile.cpp" compile="1" resource="0" file="Source/SampleTile.cpp"/>
           </GROUP>
-          <GROUP id="{3E03FD95-9168-10CD-07AA-B86E518CB93F}" name="AudioPlayerComponent">
-            <FILE id="nuKgEI" name="AudioPlayerComponent.cpp" compile="1" resource="0"
-                  file="Source/AudioPlayerComponent.cpp"/>
-          </GROUP>
           <FILE id="eN9IwM" name="SamplifyMenuBar.cpp" compile="1" resource="0"
                 file="Source/SamplifyMenuBar.cpp"/>
           <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
                 file="Source/SamplifyMainComponent.cpp"/>
         </GROUP>
-        <GROUP id="{79C14502-3025-0432-3989-D402AD2C61DB}" name="Structures">
-          <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
-          <FILE id="w0zlQW" name="DirectoryLibrary.cpp" compile="1" resource="0"
-                file="Source/DirectoryLibrary.cpp"/>
-          <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
-                file="Source/SampleLibrary.cpp"/>
-          <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
-        </GROUP>
-        <FILE id="nkdBBx" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
         <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
         <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
               file="Source/SampleAudioThumbnail.cpp"/>
@@ -111,6 +91,16 @@
               file="Source/SamplifyProperties.cpp"/>
       </GROUP>
     </GROUP>
+    <FILE id="vs29Ra" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
+    <FILE id="qdsnAj" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
+    <FILE id="t0BTRU" name="SampleDirectory.cpp" compile="1" resource="0"
+          file="Source/SampleDirectory.cpp"/>
+    <FILE id="QqDZSd" name="SampleDirectory.h" compile="0" resource="0"
+          file="Source/SampleDirectory.h"/>
+    <FILE id="uJvWLc" name="SampleDirectoryManager.cpp" compile="1" resource="0"
+          file="Source/SampleDirectoryManager.cpp"/>
+    <FILE id="k7qQ0C" name="SampleDirectoryManager.h" compile="0" resource="0"
+          file="Source/SampleDirectoryManager.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">

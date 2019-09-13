@@ -2,9 +2,6 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SamplifyPlus\Source\Header\Components\CollectionExplorer">
-      <UniqueIdentifier>{5F5C4842-435C-4E88-89E5-7CFD8ACF3902}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SamplifyPlus\Source\Header\Components\DirectoryExplorer">
       <UniqueIdentifier>{9BD0C60F-1628-4A44-B180-9C4FE7B1EF39}</UniqueIdentifier>
     </Filter>
@@ -17,9 +14,6 @@
     <Filter Include="SamplifyPlus\Source\Header\Components\SampleExplorer">
       <UniqueIdentifier>{D2C9ED75-ED34-2FEF-1539-88EFEA7B1542}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Components\AudioPlayerComponent">
-      <UniqueIdentifier>{33CE5DC2-8B37-77EC-2DDB-7576C847DDD7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SamplifyPlus\Source\Header\Components">
       <UniqueIdentifier>{2272D0AF-FD03-D53A-6B4A-53D88BA89667}</UniqueIdentifier>
     </Filter>
@@ -28,9 +22,6 @@
     </Filter>
     <Filter Include="SamplifyPlus\Source\Header">
       <UniqueIdentifier>{59233B42-8A7C-60F0-AA69-EF374AB91E1C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\CollectionExplorer">
-      <UniqueIdentifier>{48C2AF7F-DF25-B30A-09F0-5027CCF1245C}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer">
       <UniqueIdentifier>{A59B2949-F9B7-BE63-B8A6-74FCC850F537}</UniqueIdentifier>
@@ -44,14 +35,8 @@
     <Filter Include="SamplifyPlus\Source\Defs\Components\SampleExplorer">
       <UniqueIdentifier>{1A1B434B-24BE-90EC-6F56-D22510EEECDE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\AudioPlayerComponent">
-      <UniqueIdentifier>{93EC0AE7-1E32-B1ED-DC86-9C8AE1BD1A5B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SamplifyPlus\Source\Defs\Components">
       <UniqueIdentifier>{4D1A5CC0-144E-3C85-B9EC-105595C6A8B5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Structures">
-      <UniqueIdentifier>{AD8D8BFD-4102-2AD0-FDCA-5EEC021DC41F}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamplifyPlus\Source\Defs">
       <UniqueIdentifier>{6FF545C8-CE59-4677-4BAF-7D5FA17B6358}</UniqueIdentifier>
@@ -490,8 +475,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\CollectionExplorer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\CollectionExplorer</Filter>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DirectoryLibrary.cpp">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleLibrary.cpp">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Sample.cpp">
+      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FilterExplorer.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer</Filter>
@@ -520,29 +514,11 @@
     <ClCompile Include="..\..\Source\SampleTile.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\AudioPlayerComponent.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\AudioPlayerComponent</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
       <Filter>SamplifyPlus\Source\Defs\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryLibrary.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleLibrary.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Sample.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Fonts.cpp">
-      <Filter>SamplifyPlus\Source\Defs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>SamplifyPlus\Source\Defs</Filter>
@@ -552,6 +528,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
       <Filter>SamplifyPlus\Source\Defs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Fonts.cpp">
+      <Filter>SamplifyPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleDirectory.cpp">
+      <Filter>SamplifyPlus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleDirectoryManager.cpp">
+      <Filter>SamplifyPlus</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
@@ -2514,9 +2499,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\CollectionExplorer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\CollectionExplorer</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryExplorer.h">
       <Filter>SamplifyPlus\Source\Header\Components\DirectoryExplorer</Filter>
     </ClInclude>
@@ -2544,19 +2526,16 @@
     <ClInclude Include="..\..\Source\SampleTile.h">
       <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\AudioPlayerComponent.h">
-      <Filter>SamplifyPlus\Source\Header\Components\AudioPlayerComponent</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
       <Filter>SamplifyPlus\Source\Header\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
       <Filter>SamplifyPlus\Source\Header\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DirectoryLibrary.h">
+    <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\AudioPlayer.h">
+    <ClInclude Include="..\..\Source\DirectoryLibrary.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleLibrary.h">
@@ -2564,9 +2543,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Sample.h">
       <Filter>SamplifyPlus\Source\Header\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Fonts.h">
-      <Filter>SamplifyPlus\Source\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
       <Filter>SamplifyPlus\Source\Header</Filter>
@@ -2576,6 +2552,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\SamplifyProperties.h">
       <Filter>SamplifyPlus\Source\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Fonts.h">
+      <Filter>SamplifyPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleDirectory.h">
+      <Filter>SamplifyPlus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleDirectoryManager.h">
+      <Filter>SamplifyPlus</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
