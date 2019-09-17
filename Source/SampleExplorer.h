@@ -60,7 +60,6 @@ namespace samplify
 
 		TextEditor& getSearchBar() { return mSearchBar; }
 		SampleContainer& getSampleContainer() { return mSampleContainer; }
-		Sample::SortMethod getCurrentSort() { return (Sample::SortMethod)(mFilter.getSelectedId() - 1); }
 	private:
 		//============================================================
 		ComboBox mFilter;

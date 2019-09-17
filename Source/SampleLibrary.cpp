@@ -49,6 +49,7 @@ void SampleLibrary::removeSample(const File& ref)
 	}
 }
 
+/*
 void SampleLibrary::sortSamples(Sample::SortMethod method)
 {
 	if (currentUpdateThread.get() != nullptr)
@@ -59,6 +60,7 @@ void SampleLibrary::sortSamples(Sample::SortMethod method)
 	currentUpdateThread->startThread();
 	currentUpdateThread->addListener(this);
 }
+*/
 
 void SampleLibrary::randomizeSamples()
 {
@@ -224,12 +226,7 @@ void SampleLibrary::setCurrentSamples(Sample::List samples, bool shouldSendChang
 void SampleLibrary::UpdateSamplesThread::run()
 {
 	bool successful = true;
-	Sample::SortMethod method = (Sample::SortMethod::None);
-	if(SamplifyMainComponent::getInstance() != nullptr)
-	{
-		method = SamplifyMainComponent::getInstance()->getSampleExplorer().getCurrentSort();
-	}
-	auto newList = Sample::SortedLists::getSpecializedList(method);
+	Sample::List newList = Sample::List();
 	for (int i = 0; i < mSamples.size() && !threadShouldExit(); i++)
 	{
 		Sample::Reference ref = Sample::Reference(mParent->mSamples[i]);
@@ -267,6 +264,7 @@ void SampleLibrary::UpdateSamplesThread::run()
 	}
 }
 
+/*
 void SampleLibrary::SortSamplesThread::run()
 {
 	Sample::List sorted = Sample::SortedLists::getSpecializedList(mMethod);
@@ -285,6 +283,7 @@ void SampleLibrary::SortSamplesThread::run()
 		mParent->setCurrentSamples(sorted, false);
 	}
 }
+*/
 
 void SampleLibrary::LoadSamplesThread::run()
 {

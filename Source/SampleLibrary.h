@@ -15,6 +15,7 @@
 #include "Sample.h"
 
 #include <vector>
+#include "SampleDirectoryManager.h"
 
 namespace samplify
 {
@@ -40,7 +41,6 @@ namespace samplify
 		void addSamples(std::vector<File> files);
 		void addSamples(std::vector<std::shared_ptr<Sample>> files);
 		void removeSample(const File& file);
-		void sortSamples(Sample::SortMethod method);
 		void randomizeSamples();
 		//void clearSamples();
 
@@ -57,22 +57,6 @@ namespace samplify
 			void run() override;
 			friend class SampleLibrary;
 		private:
-			SampleLibrary* mParent;
-			Sample::List mSamples;
-		};
-		
-		class SortSamplesThread : public Thread
-		{
-		public:
-			SortSamplesThread(SampleLibrary* parent, Sample::SortMethod method) : Thread("sortSamples", 0) {
-				mParent = parent;
-				mSamples = mParent->getCurrentSamples();
-				mMethod = method;
-			}
-			void run() override;
-			friend class SampleLibrary;
-		private:
-			Sample::SortMethod mMethod;
 			SampleLibrary* mParent;
 			Sample::List mSamples;
 		};
@@ -105,7 +89,7 @@ namespace samplify
 		File mCurrentDirectory;
 		String mCurrentQuery;
 
-		//SampleDirectoryManager mDirectoryManager;
+		SampleDirectoryManager mDirectoryManager;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};

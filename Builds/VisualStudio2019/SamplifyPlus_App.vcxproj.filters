@@ -1,45 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SamplifyPlus\Source\Header\Components\DirectoryExplorer">
-      <UniqueIdentifier>{9BD0C60F-1628-4A44-B180-9C4FE7B1EF39}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Structures">
+      <UniqueIdentifier>{232F886B-6920-B0C4-8A96-2FB03B7B2F2F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer">
-      <UniqueIdentifier>{C42BF115-5439-6DA2-EB5F-2C3880324AAD}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer">
+      <UniqueIdentifier>{437CE007-144E-1789-C024-DD53A513A3B6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Components\FilterExplorer">
-      <UniqueIdentifier>{2A96B1CB-30D0-5545-9AA2-9BDC87BA429F}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer">
+      <UniqueIdentifier>{32183519-04CE-471B-B704-F384112B95DF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Components\SampleExplorer">
-      <UniqueIdentifier>{D2C9ED75-ED34-2FEF-1539-88EFEA7B1542}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Components\DirectoryExplorer">
+      <UniqueIdentifier>{2E53FA9D-B1E9-5331-4F27-4AD724F583E3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Components">
-      <UniqueIdentifier>{2272D0AF-FD03-D53A-6B4A-53D88BA89667}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Components\SampleExplorer">
+      <UniqueIdentifier>{E2C63313-10F5-785D-AB2C-A1A8DFB91649}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SamplifyPlus\Source\Header\Structures">
-      <UniqueIdentifier>{3535B5E3-CD0F-67B8-E73A-A42BA8AD40F3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Header">
-      <UniqueIdentifier>{59233B42-8A7C-60F0-AA69-EF374AB91E1C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer">
-      <UniqueIdentifier>{A59B2949-F9B7-BE63-B8A6-74FCC850F537}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer">
-      <UniqueIdentifier>{9C5184A7-73BA-839B-64A0-951BC64E8A61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\DirectoryExplorer">
-      <UniqueIdentifier>{2C78F4DD-51B9-F332-01C0-DF55E74C9A79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components\SampleExplorer">
-      <UniqueIdentifier>{1A1B434B-24BE-90EC-6F56-D22510EEECDE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs\Components">
-      <UniqueIdentifier>{4D1A5CC0-144E-3C85-B9EC-105595C6A8B5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SamplifyPlus\Source\Defs">
-      <UniqueIdentifier>{6FF545C8-CE59-4677-4BAF-7D5FA17B6358}</UniqueIdentifier>
+    <Filter Include="SamplifyPlus\Source\Components">
+      <UniqueIdentifier>{0E5C0B5E-6E3F-0509-A655-5ABD4E19DF3F}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamplifyPlus\Source">
       <UniqueIdentifier>{CCB45F1F-AAB3-46DD-45B6-0CB230C95C59}</UniqueIdentifier>
@@ -476,67 +454,64 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DirectoryLibrary.cpp">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleLibrary.cpp">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Sample.cpp">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\FilterExplorer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagContainer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagExplorer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagTile.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\DirectoryExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleContainer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleExplorer.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleTile.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components\SampleExplorer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
-      <Filter>SamplifyPlus\Source\Defs\Components</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
-      <Filter>SamplifyPlus\Source\Defs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp">
-      <Filter>SamplifyPlus\Source\Defs</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SamplifyProperties.cpp">
-      <Filter>SamplifyPlus\Source\Defs</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Fonts.cpp">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleDirectory.cpp">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\SampleDirectoryManager.cpp">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Sample.cpp">
+      <Filter>SamplifyPlus\Source\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FilterExplorer.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagContainer.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagExplorer.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagTile.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DirectoryExplorer.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DirectoryExplorerTreeViewItem.cpp">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleContainer.cpp">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleExplorer.cpp">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleTile.cpp">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyMenuBar.cpp">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SamplifyMainComponent.cpp">
+      <Filter>SamplifyPlus\Source\Components</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.cpp">
       <Filter>JUCE Modules\juce_audio_basics\buffers</Filter>
@@ -637,9 +612,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\juce_audio_basics.cpp">
       <Filter>JUCE Modules\juce_audio_basics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\juce_audio_basics.mm">
-      <Filter>JUCE Modules\juce_audio_basics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\audio_io\juce_AudioDeviceManager.cpp">
       <Filter>JUCE Modules\juce_audio_devices\audio_io</Filter>
     </ClCompile>
@@ -653,9 +625,6 @@
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.cpp">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiOutput.cpp">
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\juce_android_Audio.cpp">
@@ -710,9 +679,6 @@
       <Filter>JUCE Modules\juce_audio_devices\sources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\juce_audio_devices.cpp">
-      <Filter>JUCE Modules\juce_audio_devices</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_devices\juce_audio_devices.mm">
       <Filter>JUCE Modules\juce_audio_devices</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_formats\codecs\flac\libFLAC\bitmath.c">
@@ -883,9 +849,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_formats\juce_audio_formats.cpp">
       <Filter>JUCE Modules\juce_audio_formats</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_formats\juce_audio_formats.mm">
-      <Filter>JUCE Modules\juce_audio_formats</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\format\juce_AudioPluginFormat.cpp">
       <Filter>JUCE Modules\juce_audio_processors\format</Filter>
     </ClCompile>
@@ -961,9 +924,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst\vstpresetfile.cpp">
       <Filter>JUCE Modules\juce_audio_processors\format_types\VST3_SDK\public.sdk\source\vst</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\format_types\juce_AudioUnitPluginFormat.mm">
-      <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\format_types\juce_LADSPAPluginFormat.cpp">
       <Filter>JUCE Modules\juce_audio_processors\format_types</Filter>
     </ClCompile>
@@ -1018,9 +978,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\utilities\juce_AudioParameterInt.cpp">
       <Filter>JUCE Modules\juce_audio_processors\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorParameters.cpp">
-      <Filter>JUCE Modules\juce_audio_processors\utilities</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\utilities\juce_AudioProcessorParameterWithID.cpp">
       <Filter>JUCE Modules\juce_audio_processors\utilities</Filter>
     </ClCompile>
@@ -1031,9 +988,6 @@
       <Filter>JUCE Modules\juce_audio_processors\utilities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\juce_audio_processors.cpp">
-      <Filter>JUCE Modules\juce_audio_processors</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_processors\juce_audio_processors.mm">
       <Filter>JUCE Modules\juce_audio_processors</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\audio_cd\juce_AudioCDReader.cpp">
@@ -1060,22 +1014,10 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_android_BluetoothMidiDevicePairingDialogue.cpp">
       <Filter>JUCE Modules\juce_audio_utils\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_ios_BluetoothMidiDevicePairingDialogue.mm">
-      <Filter>JUCE Modules\juce_audio_utils\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_linux_AudioCDReader.cpp">
       <Filter>JUCE Modules\juce_audio_utils\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_linux_BluetoothMidiDevicePairingDialogue.cpp">
-      <Filter>JUCE Modules\juce_audio_utils\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_mac_AudioCDBurner.mm">
-      <Filter>JUCE Modules\juce_audio_utils\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_mac_AudioCDReader.mm">
-      <Filter>JUCE Modules\juce_audio_utils\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_mac_BluetoothMidiDevicePairingDialogue.mm">
       <Filter>JUCE Modules\juce_audio_utils\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\native\juce_win_BluetoothMidiDevicePairingDialogue.cpp">
@@ -1094,9 +1036,6 @@
       <Filter>JUCE Modules\juce_audio_utils\players</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\juce_audio_utils.cpp">
-      <Filter>JUCE Modules\juce_audio_utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_utils\juce_audio_utils.mm">
       <Filter>JUCE Modules\juce_audio_utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\containers\juce_AbstractFifo.cpp">
@@ -1229,21 +1168,6 @@
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_linux_Threads.cpp">
-      <Filter>JUCE Modules\juce_core\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_mac_Files.mm">
-      <Filter>JUCE Modules\juce_core\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_mac_Network.mm">
-      <Filter>JUCE Modules\juce_core\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_mac_Strings.mm">
-      <Filter>JUCE Modules\juce_core\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_mac_SystemStats.mm">
-      <Filter>JUCE Modules\juce_core\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_mac_Threads.mm">
       <Filter>JUCE Modules\juce_core\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\native\juce_posix_NamedPipe.cpp">
@@ -1417,9 +1341,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\juce_core.cpp">
       <Filter>JUCE Modules\juce_core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\juce_core.mm">
-      <Filter>JUCE Modules\juce_core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
       <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
     </ClCompile>
@@ -1439,9 +1360,6 @@
       <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.cpp">
-      <Filter>JUCE Modules\juce_cryptography</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.mm">
       <Filter>JUCE Modules\juce_cryptography</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
@@ -1469,9 +1387,6 @@
       <Filter>JUCE Modules\juce_data_structures\values</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
-      <Filter>JUCE Modules\juce_data_structures</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.mm">
       <Filter>JUCE Modules\juce_data_structures</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
@@ -1510,13 +1425,7 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\native\juce_android_Messaging.cpp">
       <Filter>JUCE Modules\juce_events\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\native\juce_ios_MessageManager.mm">
-      <Filter>JUCE Modules\juce_events\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\native\juce_linux_Messaging.cpp">
-      <Filter>JUCE Modules\juce_events\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\native\juce_mac_MessageManager.mm">
       <Filter>JUCE Modules\juce_events\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\native\juce_win32_Messaging.cpp">
@@ -1532,9 +1441,6 @@
       <Filter>JUCE Modules\juce_events\timers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\juce_events.cpp">
-      <Filter>JUCE Modules\juce_events</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\juce_events.mm">
       <Filter>JUCE Modules\juce_events</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\colour\juce_Colour.cpp">
@@ -1819,12 +1725,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_linux_IconHelpers.cpp">
       <Filter>JUCE Modules\juce_graphics\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_mac_CoreGraphicsContext.mm">
-      <Filter>JUCE Modules\juce_graphics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_mac_Fonts.mm">
-      <Filter>JUCE Modules\juce_graphics\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_mac_IconHelpers.cpp">
       <Filter>JUCE Modules\juce_graphics\native</Filter>
     </ClCompile>
@@ -1847,9 +1747,6 @@
       <Filter>JUCE Modules\juce_graphics\placement</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\juce_graphics.cpp">
-      <Filter>JUCE Modules\juce_graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\juce_graphics.mm">
       <Filter>JUCE Modules\juce_graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\application\juce_Application.cpp">
@@ -2005,9 +1902,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\layout\juce_GridItem.cpp">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\layout\juce_GridUnitTests.cpp">
-      <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\layout\juce_GroupComponent.cpp">
       <Filter>JUCE Modules\juce_gui_basics\layout</Filter>
     </ClCompile>
@@ -2119,15 +2013,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_ios_ContentSharer.cpp">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_ios_FileChooser.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_ios_UIViewComponentPeer.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_ios_Windowing.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_linux_FileChooser.cpp">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
@@ -2138,21 +2023,6 @@
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_linux_X11_Windowing.cpp">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_mac_FileChooser.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_mac_MainMenu.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_mac_MouseCursor.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_mac_NSViewComponentPeer.mm">
-      <Filter>JUCE Modules\juce_gui_basics\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_mac_Windowing.mm">
       <Filter>JUCE Modules\juce_gui_basics\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\native\juce_win32_DragAndDrop.cpp">
@@ -2278,9 +2148,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\juce_gui_basics.cpp">
       <Filter>JUCE Modules\juce_gui_basics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\juce_gui_basics.mm">
-      <Filter>JUCE Modules\juce_gui_basics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\code_editor\juce_CodeDocument.cpp">
       <Filter>JUCE Modules\juce_gui_extra\code_editor</Filter>
     </ClCompile>
@@ -2341,9 +2208,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_ios_PushNotifications.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_ios_UIViewComponent.mm">
-      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_linux_X11_SystemTrayIcon.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
@@ -2353,19 +2217,10 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_linux_XEmbedComponent.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_mac_AppleRemote.mm">
-      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_mac_NSViewComponent.mm">
-      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_mac_PushNotifications.cpp">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_mac_SystemTrayIcon.cpp">
-      <Filter>JUCE Modules\juce_gui_extra\native</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_mac_WebBrowserComponent.mm">
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\native\juce_win32_ActiveXComponent.cpp">
@@ -2378,9 +2233,6 @@
       <Filter>JUCE Modules\juce_gui_extra\native</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.cpp">
-      <Filter>JUCE Modules\juce_gui_extra</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_extra\juce_gui_extra.mm">
       <Filter>JUCE Modules\juce_gui_extra</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_opengl\opengl\juce_OpenGLContext.cpp">
@@ -2413,9 +2265,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_opengl\juce_opengl.cpp">
       <Filter>JUCE Modules\juce_opengl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_opengl\juce_opengl.mm">
-      <Filter>JUCE Modules\juce_opengl</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_product_unlocking\in_app_purchases\juce_InAppPurchases.cpp">
       <Filter>JUCE Modules\juce_product_unlocking\in_app_purchases</Filter>
     </ClCompile>
@@ -2437,9 +2286,6 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_product_unlocking\juce_product_unlocking.cpp">
       <Filter>JUCE Modules\juce_product_unlocking</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_product_unlocking\juce_product_unlocking.mm">
-      <Filter>JUCE Modules\juce_product_unlocking</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_video\capture\juce_CameraDevice.cpp">
       <Filter>JUCE Modules\juce_video\capture</Filter>
     </ClCompile>
@@ -2447,9 +2293,6 @@
       <Filter>JUCE Modules\juce_video\playback</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_video\juce_video.cpp">
-      <Filter>JUCE Modules\juce_video</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_video\juce_video.mm">
       <Filter>JUCE Modules\juce_video</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
@@ -2497,70 +2340,73 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_video.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\SampleAudioThumbnail.cpp">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\DirectoryExplorer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\DirectoryExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">
-      <Filter>SamplifyPlus\Source\Header\Components\DirectoryExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\FilterExplorer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagContainer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagExplorer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagTile.h">
-      <Filter>SamplifyPlus\Source\Header\Components\FilterExplorer\TagExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleContainer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleExplorer.h">
-      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleTile.h">
-      <Filter>SamplifyPlus\Source\Header\Components\SampleExplorer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
-      <Filter>SamplifyPlus\Source\Header\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
-      <Filter>SamplifyPlus\Source\Header\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\AudioPlayer.h">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DirectoryLibrary.h">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleLibrary.h">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Sample.h">
-      <Filter>SamplifyPlus\Source\Header\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
-      <Filter>SamplifyPlus\Source\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h">
-      <Filter>SamplifyPlus\Source\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SamplifyProperties.h">
-      <Filter>SamplifyPlus\Source\Header</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Fonts.h">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleDirectory.h">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\SampleDirectoryManager.h">
-      <Filter>SamplifyPlus</Filter>
+      <Filter>SamplifyPlus\Source\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleAudioThumbnail.h">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyLookAndFeel.h">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyProperties.h">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FilterExplorer.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagContainer.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagExplorer.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagTile.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer\FilterExplorer\TagExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DirectoryExplorer.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DirectoryExplorerTreeViewItem.h">
+      <Filter>SamplifyPlus\Source\Components\DirectoryExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleContainer.h">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleExplorer.h">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleTile.h">
+      <Filter>SamplifyPlus\Source\Components\SampleExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyMainComponent.h">
+      <Filter>SamplifyPlus\Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SamplifyMenuBar.h">
+      <Filter>SamplifyPlus\Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -2700,13 +2546,7 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiDevices.h">
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiInput.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiMessageCollector.h">
-      <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_devices\midi_io\juce_MidiOutput.h">
       <Filter>JUCE Modules\juce_audio_devices\midi_io</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\juce_ios_Audio.h">

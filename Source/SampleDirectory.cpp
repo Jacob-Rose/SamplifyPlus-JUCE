@@ -9,7 +9,8 @@
 */
 
 #include "SampleDirectory.h"
+using namespace samplify;
 
-SampleDirectory::SampleDirectory(File file)
+SampleDirectory::SampleDirectory(File dir)
 {
 }

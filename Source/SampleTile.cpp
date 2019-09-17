@@ -89,12 +89,12 @@ void SampleTile::paint (Graphics& g)
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
 		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
 
-		SampleAudioThumbnail::Reference thumbnail = mSample.getThumbnail();
-		if (!thumbnail.isNull())
+		std::shared_ptr<SampleAudioThumbnail> thumbnail = mSample.getThumbnail();
+		if (thumbnail->isFullyLoaded())
 		{
-			if (thumbnail.getNumChannels() != 0)
+			if (thumbnail->getNumChannels() != 0)
 			{
-				thumbnail.drawChannel(g, thumbnailRect.toNearestInt(), 0.0, thumbnail.getTotalLength(), 0, 1.0f);
+				thumbnail->drawChannel(g, thumbnailRect.toNearestInt(), 0.0, thumbnail->getTotalLength(), 0, 1.0f);
 			}
 		}
 		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
@@ -289,10 +289,7 @@ void SampleTile::setSample(Sample::Reference sample)
 		}
 		if (yes)
 		{
-			if (sample.getThumbnail().isNull())
-			{
-				sample.generateThumbnailAndCache();
-			}
+			sample.generateThumbnailAndCache();
 		}
 	}
 	mSample = sample;
