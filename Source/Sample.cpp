@@ -333,7 +333,7 @@ Sample::Reference Sample::List::operator[](int index) const
 {
 	return mSamples[index];
 }
-
+/*
 bool Sample::getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method)
 {
 	switch (method)
@@ -422,6 +422,7 @@ void Sample::SortedLists::Random::addSample(const Sample::Reference& sample)
 	{
 		mSamples.push_back(sample);
 	}
-	*/
+	
 	mSamples.push_back(sample);
 }
+*/

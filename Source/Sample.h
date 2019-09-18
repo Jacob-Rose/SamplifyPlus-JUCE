@@ -20,15 +20,6 @@ namespace samplify
 	class Sample : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
-		enum SortMethod
-		{
-			None = -1,
-			Alphabetical,
-			ReverseAlphabetical,
-			Newest,
-			Oldest,
-			Random
-		};
 		enum SampleType
 		{
 			UNDEFINED = -1,
@@ -52,10 +43,10 @@ namespace samplify
 			
 			bool isNull() const { return mSample.expired(); }
 
-			SampleAudioThumbnail::Reference getThumbnail() const 
+			std::shared_ptr<SampleAudioThumbnail> getThumbnail() const 
 			{ 
 				jassert(!isNull());
-				return SampleAudioThumbnail::Reference(mSample.lock()->mThumbnail); 
+				return mSample.lock()->mThumbnail; 
 			}
 			File getFile() const 
 			{ 
@@ -121,67 +112,6 @@ namespace samplify
 
 			JUCE_LEAK_DETECTOR(List)
 		};
-		class SortedLists
-		{
-		public:
-			class Alphabetical : public List
-			{
-			public:
-				Alphabetical() {}
-				void addSample(const Sample::Reference& sample) override;
-			private:
-			};
-			class RevAlphabetical : public List
-			{
-			public:
-				RevAlphabetical() {}
-				void addSample(const Sample::Reference& sample) override;
-			private:
-			};
-			class Newest : public List
-			{
-			public:
-				Newest() {}
-				void addSample(const Sample::Reference& sample) override;
-			private:
-			};
-			class Oldest : public List
-			{
-			public:
-				Oldest() {}
-				void addSample(const Sample::Reference& sample) override;
-			};
-			class Random : public List //is random sorted? this exetsential question i dont care about but it fits here well
-			{
-			public:
-				Random() {}
-				void addSample(const Sample::Reference& sample) override;
-			};
-			static Sample::List getSpecializedList(SortMethod method)
-			{
-				switch (method)
-				{
-				case SortMethod::Alphabetical:
-					return Alphabetical();
-					break;
-				case SortMethod::ReverseAlphabetical:
-					return RevAlphabetical();
-					break;
-				case SortMethod::Newest:
-					return Newest();
-					break;
-				case SortMethod::Oldest:
-					return Oldest();
-					break;
-				case SortMethod::Random:
-					return Random();
-					break;
-				case SortMethod::None:
-					return List();
-					break;
-				}
-			}
-		};
 
 		Sample(const File&);
 		~Sample();
@@ -194,7 +124,6 @@ namespace samplify
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
 		static File getPropertiesFile(const File& sampleFile);
-		static bool getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method);
 	private:
 		File mFile;
 		File mPropertiesFile; 

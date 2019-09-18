@@ -1,3 +1,66 @@
+<<<<<<< HEAD
 ﻿  SampleDirectory.cpp
 C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(44,24): warning C4100:  'null': unreferenced formal parameter
   SamplifyPlus_App.vcxproj -> C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe
+=======
+﻿  SampleDirectoryManager.cpp
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(27,92): warning C4100:  'dir': unreferenced formal parameter
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:  nonstandard extension used: 'argument': conversion from '_Ty' to 'std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         and
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): message :  A non-const reference may only be bound to an lvalue
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoker_functor::_Call<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :  see reference to function template instantiation 'samplify::Sample::List std::invoke<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Ty=samplify::SampleDirectory,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored_explicit<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String,0,1,2>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&,std::integer_sequence<unsigned __int64,0,1,2>)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  while compiling class template member function 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :  see reference to class template instantiation 'std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         ]
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :  see reference to function template instantiation 'std::future<samplify::Sample::List> std::async<samplify::Sample::List(__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),const std::vector<_Ty,std::allocator<_Ty>>&,juce::String&>(std::launch,_Fty,const std::vector<_Ty,std::allocator<_Ty>> &,juce::String &)' being compiled
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         with
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         [
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Ty=samplify::SampleDirectory,
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         ]
+  SamplifyPlus_App.vcxproj -> C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe
+>>>>>>> origin/implemention

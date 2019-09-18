@@ -48,7 +48,8 @@ void SampleExplorer::textEditorTextChanged(TextEditor& e)
 
 void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 {
-	SamplifyProperties::getInstance()->getSampleLibrary().sortSamples((Sample::SortMethod)comboBoxThatHasChanged->getSelectedId());
+	//todo add sorting in again
+	//SamplifyProperties::getInstance()->getSampleLibrary().sortSamples((Sample::SortMethod)comboBoxThatHasChanged->getSelectedId());
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)

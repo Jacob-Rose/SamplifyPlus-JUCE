@@ -21,13 +21,18 @@ namespace samplify
 	class SampleDirectory
 	{
 	public:
+<<<<<<< HEAD
 		SampleDirectory(File file);
 
 		Sample::List getChildSamplesRecursive();
+=======
+		SampleDirectory(File dir);
+		friend class SampleDirectoryManager; //used to optimze callback function later, not necessary though could call recursive
+>>>>>>> origin/implemention
 	private:
 		File mDirectory;
-		bool mIncludeChildSamples; //if the folder should load its own samples when getsamples is called
-		std::vector<std::shared_ptr<Sample>> mChildSamples;
+		bool mIncludeChildSamples = true; //if the folder should load its own samples when getsamples is called
+		std::vector<std::shared_ptr<Sample>> mChildSamples; //safer
 		std::vector<SampleDirectory> mChildDirectories;
 	};
 }
