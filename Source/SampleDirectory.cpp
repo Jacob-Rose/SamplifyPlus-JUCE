@@ -10,12 +10,8 @@
 
 #include "SampleDirectory.h"
 using namespace samplify;
-<<<<<<< HEAD
-SampleDirectory::SampleDirectory(File file)
-=======
 
-SampleDirectory::SampleDirectory(File dir)
->>>>>>> origin/implemention
+SampleDirectory::SampleDirectory(File file)
 {
 	//add all child directories as sampleDirectory, then recursively all them do the same for all child folders
 	DirectoryIterator dirIter = DirectoryIterator(file, false, "*", File::findDirectories);

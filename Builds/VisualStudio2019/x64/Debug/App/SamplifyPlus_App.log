@@ -1,66 +1,353 @@
-<<<<<<< HEAD
-﻿  SampleDirectory.cpp
-C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(44,24): warning C4100:  'null': unreferenced formal parameter
+﻿  AudioPlayer.cpp
+  DirectoryExplorer.cpp
+  DirectoryExplorerTreeViewItem.cpp
+  DirectoryLibrary.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\AudioPlayer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\AudioPlayer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.cpp(68,21): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.cpp(69,15): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorer.cpp(17,42): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,87): warning C4458:  declaration of 'y' hides class member
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.h(587,9): message :  see declaration of 'juce::TreeViewItem::y' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,87): warning C4100:  'y': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,80): warning C4100:  'x': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(60,69): warning C4100:  'files': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(91,40): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(91,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(93,40): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(93,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\DirectoryExplorerTreeViewItem.cpp(256,19): warning C4458:  declaration of 'itemHeight' hides class member
+  FilterExplorer.cpp
+  Main.cpp
+  Sample.cpp
+  SampleAudioThumbnail.cpp
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\widgets\juce_TreeView.h(587,16): message :  see declaration of 'juce::TreeViewItem::itemHeight' (compiling source file ..\..\Source\DirectoryExplorerTreeViewItem.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\FilterExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\FilterExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\FilterExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\FilterExplorer.cpp(18,39): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\Main.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Main.cpp(33,33): warning C4100:  'commandLine': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Main.cpp(65,45): warning C4100:  'commandLine': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\Sample.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\Sample.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\Sample.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\SampleAudioThumbnail.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(23,26): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(18,152): warning C4100:  'verticalZoomFactor': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(20,8): warning C4189:  'peak': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(43,20): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,65): warning C4244:  'argument': conversion from 'float' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,65): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,65): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,65): warning C4244:             ValueType=int
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,65): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,34): warning C4244:  'argument': conversion from 'float' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,34): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,34): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,34): warning C4244:             ValueType=int
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleAudioThumbnail.cpp(46,34): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.cpp(41,9): warning C4189:  'peak': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.cpp(56,57): warning C4100:  'source': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.cpp(86,6): warning C4189:  'savedVersion': local variable is initialized but not referenced
+  SampleContainer.cpp
+  SampleDirectory.cpp
+  SampleDirectoryManager.cpp
+  SampleExplorer.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.cpp(265,24): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleDirectory.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(9,1): warning C4005:  'JUCE_ENABLE_REPAINT_DEBUGGING': macro redefinition
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\juce_gui_basics.h(67): message :  see previous definition of 'JUCE_ENABLE_REPAINT_DEBUGGING' (compiling source file ..\..\Source\SampleContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(23,40): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(39,14): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(42,31): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(42,61): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(61,16): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(60,15): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(59,24): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(58,38): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(115,42): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(121,16): warning C4244:  'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(111,6): warning C4189:  'columns': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(129,43): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleContainer.cpp(136,20): warning C4244:  'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(27,92): warning C4100:  'dir': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SampleExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.cpp(31,39): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.cpp(49,48): warning C4100:  'comboBoxThatHasChanged': unreferenced formal parameter
+  SampleLibrary.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.cpp(55,64): warning C4100:  'source': unreferenced formal parameter
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:  nonstandard extension used: 'argument': conversion from '_Ty' to 'std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         and
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): message :  A non-const reference may only be bound to an lvalue (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoker_functor::_Call<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :  see reference to function template instantiation 'samplify::Sample::List std::invoke<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Ty=samplify::SampleDirectory,
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored_explicit<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String,0,1,2>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&,std::integer_sequence<unsigned __int64,0,1,2>)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  while compiling class template member function 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :  see reference to class template instantiation 'std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>' being compiled
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Ty=samplify::SampleDirectory
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         ] (compiling source file ..\..\Source\SampleDirectoryManager.cpp)
+  SampleTile.cpp
+  SamplifyMainComponent.cpp
+  SamplifyMenuBar.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :  see reference to function template instantiation 'std::future<samplify::Sample::List> std::async<samplify::Sample::List(__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),const std::vector<_Ty,std::allocator<_Ty>>&,juce::String&>(std::launch,_Fty,const std::vector<_Ty,std::allocator<_Ty>> &,juce::String &)' being compiled
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Ty=samplify::SampleDirectory,
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SampleLibrary.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleLibrary.cpp(69,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleLibrary.cpp(228,7): warning C4189:  'successful': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SampleTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(15,55): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(15,10): warning C4244:  'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(55,12): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(159,7): warning C4189:  'selection': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(180,22): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(167,7): warning C4189:  'widthSegment': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(168,7): warning C4189:  'heightSegment': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(207,56): warning C4100:  'e': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(217,47): warning C4100:  'e': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(260,60): warning C4100:  'source': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(307,38): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(307,38): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(307,38): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(307,38): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(307,38): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,87): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,87): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,87): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,87): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,87): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,71): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,71): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,71): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,71): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,71): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,41): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,41): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,41): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,41): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(312,41): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,98): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,98): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,98): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,98): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,98): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,84): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,84): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,84): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,84): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,84): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,54): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,54): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,54): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,54): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,54): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,37): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,37): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,37): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,37): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(317,37): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(323,45): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(323,45): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(323,45): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(323,45): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(323,45): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,101): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,101): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,101): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,101): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,101): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,87): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,87): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,87): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,87): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,87): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,58): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,58): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,58): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,58): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,58): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,41): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,41): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,41): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,41): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(329,41): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.cpp(328,8): warning C4189:  'startX': local variable is initialized but not referenced
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\SamplifyMainComponent.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyMainComponent.cpp(47,72): warning C4100:  'originatingComponent': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyMenuBar.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMenuBar.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyMenuBar.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyMenuBar.cpp(26,89): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyMenuBar.cpp(14,61): warning C4100:  'topLevelMenuIndex': unreferenced formal parameter
+  SamplifyProperties.cpp
+  TagContainer.cpp
+  TagExplorer.cpp
+  TagTile.cpp
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyMenuBar.cpp(64,74): warning C4100:  'menuName': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\SamplifyProperties.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\TagContainer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(21,36): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(33,14): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(35,17): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(38,19): warning C4244:  'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(44,64): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(52,19): warning C4244:  'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(67,51): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(69,38): warning C4244:  '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagContainer.cpp(76,20): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\TagExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\TagExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\TagExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\TagExplorer.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(31,35): warning C4100:  'g': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(57,64): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(57,64): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(57,64): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(57,64): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(57,64): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(61,65): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(61,65): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(61,65): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(61,65): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(61,65): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(65,64): warning C4244:  'argument': conversion from 'int' to 'ValueType', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(65,64): warning C4244:         with
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(65,64): warning C4244:         [
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(65,64): warning C4244:             ValueType=float
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(65,64): warning C4244:         ]
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(113,24): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(114,33): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(117,30): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(118,39): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(121,33): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagExplorer.cpp(122,42): warning C4244:  'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(61,73): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\AudioPlayer.h(62,40): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleTile.h(22,28): warning C4584:  'samplify::SampleTile': base-class 'juce::MouseListener' is already a base-class of 'juce::Component' (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\mouse\juce_MouseListener.h(39): message :  see declaration of 'juce::MouseListener' (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\JUCE\modules\juce_gui_basics\components\juce_Component.h(36): message :  see declaration of 'juce::Component' (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SamplifyLookAndFeel.h(31,46): warning C4305:  'initializing': truncation from 'double' to 'float' (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\SampleExplorer.h(45,31): warning C4100:  'button': unreferenced formal parameter (compiling source file ..\..\Source\TagTile.cpp)
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagTile.cpp(54,43): warning C4100:  'e': unreferenced formal parameter
+C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Source\TagTile.cpp(114,43): warning C4100:  'e': unreferenced formal parameter
+  LINK : C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\\SamplifyPlus.exe not found or not built by the last incremental link; performing full link
+include_juce_video.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_product_unlocking.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_opengl.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_gui_extra.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_gui_basics.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_graphics.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_events.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_data_structures.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_cryptography.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_core.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_audio_utils.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_audio_processors.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_audio_formats.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_audio_devices.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+include_juce_audio_basics.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
+Fonts.obj : warning LNK4204: 'C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\vc142.pdb' is missing debugging information for referencing module; linking object as if no debug info
   SamplifyPlus_App.vcxproj -> C:\Users\jacob\Documents\_REPOS\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe
-=======
-﻿  SampleDirectoryManager.cpp
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\Sample.h(35,24): warning C4100:  'null': unreferenced formal parameter
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(27,92): warning C4100:  'dir': unreferenced formal parameter
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:  nonstandard extension used: 'argument': conversion from '_Ty' to 'std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &'
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>>
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         and
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): warning C4239:         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457,1): message :  A non-const reference may only be bound to an lvalue
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoker_functor::_Call<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory,
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :  see reference to function template instantiation 'samplify::Sample::List std::invoke<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(_Callable &&,std::vector<_Ty,std::allocator<_Ty>> &&,juce::String &&) noexcept(false)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Ty=samplify::SampleDirectory,
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :             _Callable=samplify::Sample::List (__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(519): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored_explicit<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String,0,1,2>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&,std::integer_sequence<unsigned __int64,0,1,2>)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\mutex(526): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  see reference to function template instantiation 'samplify::Sample::List std::_Invoke_stored<samplify::Sample::List(__cdecl *)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String>(std::tuple<samplify::Sample::List (__cdecl *)(std::vector<_Ty,std::allocator<_Ty>> &,juce::String),std::vector<_Ty,std::allocator<_Ty>>,juce::String> &&)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :  while compiling class template member function 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)'
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1532): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :  see reference to function template instantiation 'samplify::Sample::List std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>::operator ()(void)' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\type_traits(1457): message :         ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :  see reference to class template instantiation 'std::_Fake_no_copy_callable_adapter<_Fty,const std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String &>' being compiled
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         with
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         [
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String),
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :             _Ty=samplify::SampleDirectory
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.22.27905\include\future(1554): message :         ]
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :  see reference to function template instantiation 'std::future<samplify::Sample::List> std::async<samplify::Sample::List(__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<_Ty>> &,juce::String),const std::vector<_Ty,std::allocator<_Ty>>&,juce::String&>(std::launch,_Fty,const std::vector<_Ty,std::allocator<_Ty>> &,juce::String &)' being compiled
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         with
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         [
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Ty=samplify::SampleDirectory,
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :             _Fty=samplify::Sample::List (__cdecl &)(std::vector<samplify::SampleDirectory,std::allocator<samplify::SampleDirectory>> &,juce::String)
-C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Source\SampleDirectoryManager.cpp(34): message :         ]
-  SamplifyPlus_App.vcxproj -> C:\Users\Student\Documents\Jake_Repos\SamplifyPlus-JUCE\Builds\VisualStudio2019\x64\Debug\App\SamplifyPlus.exe
->>>>>>> origin/implemention
