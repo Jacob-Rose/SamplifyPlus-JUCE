@@ -11,14 +11,19 @@
 #ifndef SAMPLEDIRECTORY_H
 #define SAMPLEDIRECTORY_H
 #include <JuceHeader.h>
-#include "Sample.h"
+
 #include <vector>
+
+#include "Sample.h"
+
 namespace samplify
 {
 	class SampleDirectory
 	{
 	public:
 		SampleDirectory(File file);
+
+		Sample::List getChildSamplesRecursive();
 	private:
 		File mDirectory;
 		bool mIncludeChildSamples; //if the folder should load its own samples when getsamples is called
