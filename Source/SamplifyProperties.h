@@ -18,6 +18,7 @@
 #include "DirectoryLibrary.h"
 #include "SampleDirectoryManager.h"
 #include "SampleLibrary.h"
+#include "TagLibrary.h"
 #include "TagDrawer.h"
 
 #include <map>
@@ -29,26 +30,6 @@ namespace samplify
 	class SamplifyProperties : public ApplicationProperties, public ChangeListener
 	{
 	public:
-		//=======================================================
-		
-
-		class TagLibrary : public ChangeBroadcaster
-		{
-		public:
-			TagLibrary(std::shared_ptr<SampleDirectoryManager> manager);
-			void addTag(juce::String tag, Colour color);
-			void addTag(juce::String tag);
-			void renameTag(juce::String currentTagName, juce::String desiredName);
-			void deleteTag(juce::String tag);
-			//StringArray getAllTags();
-
-			Colour getTagColor(juce::String text);
-			friend SamplifyProperties;
-		private:
-			std::map<juce::String, Colour> mSampleTagColors;
-			std::shared_ptr<SampleDirectoryManager> mManager;
-			JUCE_LEAK_DETECTOR(TagLibrary);
-		};
 
 		//=Instance Handling========================================
 		static void initInstance();

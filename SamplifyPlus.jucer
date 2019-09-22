@@ -34,6 +34,8 @@
         <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
       </GROUP>
       <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
+        <FILE id="u2qOs0" name="TagLibrary.cpp" compile="1" resource="0" file="Source/TagLibrary.cpp"/>
+        <FILE id="l18XJb" name="TagLibrary.h" compile="0" resource="0" file="Source/TagLibrary.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
               file="Source/SampleAudioThumbnail.h"/>
         <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
@@ -81,6 +83,9 @@
               file="Source/SamplifyMenuBar.cpp"/>
         <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
               file="Source/SamplifyMainComponent.h"/>
+        <FILE id="g93wLS" name="SamplifyCore.cpp" compile="1" resource="0"
+              file="Source/SamplifyCore.cpp"/>
+        <FILE id="FS5ds6" name="SamplifyCore.h" compile="0" resource="0" file="Source/SamplifyCore.h"/>
         <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
               file="Source/SamplifyMenuBar.h"/>
         <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
