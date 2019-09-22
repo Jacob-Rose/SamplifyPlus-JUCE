@@ -14,8 +14,6 @@ SamplifyProperties::SamplifyProperties()
 	propFileOptions.ignoreCaseOfKeyNames = true;
 	propFileOptions.storageFormat = PropertiesFile::StorageFormat::storeAsXML;
 	setStorageParameters(propFileOptions);
-	mDirectoryLibrary.addChangeListener(&mSampleLibrary);
-	mDirectoryLibrary.addChangeListener(this);
 }
 
 SamplifyProperties::~SamplifyProperties()
@@ -38,7 +36,7 @@ void SamplifyProperties::browseForDirectoryAndAdd()
 	File dir = browseForDirectory();
 	if (dir.exists())
 	{
-		mDirectoryLibrary.addDirectory(dir);
+		mDirectoryManager->addDirectory(dir);
 	}
 }
 
@@ -67,6 +65,9 @@ SamplifyProperties* SamplifyProperties::getInstance()
 
 void SamplifyProperties::init()
 {
+	mDirectoryManager = std::make_shared<SampleDirectoryManager>();
+	mSampleLibrary = std::make_shared<SampleLibrary>(mDirectoryManager);
+	mTagLibrary = std::make_shared<TagLibrary>(mDirectoryManager);
 	loadPropertiesFile();
 	mIsInit = true;
 }
@@ -90,9 +91,9 @@ void SamplifyProperties::loadPropertiesFile()
 		int dirCount = propFile->getIntValue("directory count");
 		for (int i = 0; i < dirCount; i++)
 		{
-			mDirectoryLibrary.addDirectory(File(propFile->getValue("directory "+ i)));
+			mDirectoryManager->addDirectory(File(propFile->getValue("directory "+ i)));
 		}
-		if (mDirectoryLibrary.getDirectories().size() == 0)
+		if (mDirectoryManager->getCount() == 0)
 		{
 			browseForDirectoryAndAdd();
 		}
@@ -103,7 +104,7 @@ void SamplifyProperties::loadPropertiesFile()
 			String tag = propFile->getValue("tag " + i);
 			jassert(tag != "");
 			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
-			mTagLibrary.addTag(tag, color);
+			mTagLibrary->addTag(tag, color);
 		}
 	}
 	else
@@ -123,10 +124,10 @@ void SamplifyProperties::saveDirectoriesInPropertiesFile()
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
-		propFile->setValue("directory count", (int)mDirectoryLibrary.getDirectories().size());
-		for (int i = 0; i < mDirectoryLibrary.getDirectories().size(); i++)
+		propFile->setValue("directory count", (int)mDirectoryManager->getCount());
+		for (int i = 0; i < mDirectoryManager->getCount(); i++)
 		{
-			propFile->setValue("directory " + i, mDirectoryLibrary.getDirectories()[i].getFullPathName());
+			propFile->setValue("directory " + i, mDirectoryManager->getSampleDirectory(i)->getFile().getFullPathName());
 		}
 		propFile->saveIfNeeded();
 	}
@@ -142,6 +143,7 @@ void samplify::SamplifyProperties::saveTagsInPropertiesFile()
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
+		/*
 		int tagCount = 0;
 		StringArray usedTags = mSampleLibrary.getAllTags();
 		std::map<String, Colour>::iterator it = mTagLibrary.mSampleTagColors.begin();
@@ -156,6 +158,7 @@ void samplify::SamplifyProperties::saveTagsInPropertiesFile()
 		}
 		propFile->setValue("tag count", tagCount);
 		propFile->saveIfNeeded();
+		*/
 	}
 	else
 	{
@@ -169,6 +172,11 @@ void SamplifyProperties::changeListenerCallback(ChangeBroadcaster* source)
 	{
 		saveDirectoriesInPropertiesFile();
 	}
+}
+
+SamplifyProperties::TagLibrary::TagLibrary(std::shared_ptr<SampleDirectoryManager> manager)
+{
+	mManager = manager;
 }
 
 void SamplifyProperties::TagLibrary::addTag(juce::String text, Colour color)
@@ -186,7 +194,8 @@ void SamplifyProperties::TagLibrary::addTag(juce::String text)
 
 void SamplifyProperties::TagLibrary::renameTag(juce::String currentTagName, juce::String desiredName)
 {
-	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
+	/*
+	//Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
 	Sample::List taggedSamps;
 	for (int i = 0; i < allSamps.size(); i++)
 	{
@@ -208,10 +217,12 @@ void SamplifyProperties::TagLibrary::renameTag(juce::String currentTagName, juce
 	{
 		taggedSamps[i].addTag(desiredName);
 	}
+	*/
 }
 
 void SamplifyProperties::TagLibrary::deleteTag(juce::String tag)
 {
+	/*
 	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
 	for (int i = 0; i < allSamps.size(); i++)
 	{
@@ -225,6 +236,7 @@ void SamplifyProperties::TagLibrary::deleteTag(juce::String tag)
 		//heavily specialized line, im sorry
 		SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().resized();
 	}
+	*/
 }
 
 Colour SamplifyProperties::TagLibrary::getTagColor(juce::String text)

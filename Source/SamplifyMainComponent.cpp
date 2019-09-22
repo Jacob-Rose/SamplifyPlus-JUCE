@@ -5,7 +5,7 @@ using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
-SamplifyMainComponent::SamplifyMainComponent() 
+SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager())
 {
 	//mCopyProtection.reset(new SecurityThread());
 	//mCopyProtection.get()->run();
@@ -25,7 +25,6 @@ SamplifyMainComponent::SamplifyMainComponent()
 	adsetup.sampleRate = 48000;
 	deviceManager.setAudioDeviceSetup(adsetup, true);
 	//deviceManager.initialise(2,2,0,true,juce::String(), &adsetup);
-	SamplifyProperties::getInstance()->getDirectoryLibrary().addChangeListener(&mDirectoryExplorer);
 	setAudioChannels(0, 2);
 	
 	setupLookAndFeel();

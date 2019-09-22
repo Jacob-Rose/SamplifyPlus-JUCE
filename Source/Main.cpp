@@ -49,10 +49,6 @@ namespace samplify
 		void shutdown() override
 		{
 			mainWindow = nullptr; // (deletes our window)
-			if (SamplifyProperties::getInstance()->getSampleLibrary().isUpdating())
-			{
-				SamplifyProperties::getInstance()->getSampleLibrary().cancelUpdate();
-			}
 			SamplifyProperties::cleanupInstance();
 		}
 

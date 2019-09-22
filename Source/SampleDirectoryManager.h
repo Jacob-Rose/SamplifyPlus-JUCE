@@ -19,16 +19,27 @@ namespace samplify
 	class SampleDirectoryManager : public ChangeBroadcaster
 	{
 	public:
+		void addDirectory(const File& dir);
+		void removeDirectory(const File& dir);
+		int getCount() { return mRootDirectories.size(); }
+		std::vector<File> getDirectories();
+		File getRelativeDirectoryForFile(const File& sampleFile) const {
+			for (int i = 0; i < mRootDirectories.size(); i++)
+			{
+				if (sampleFile.isAChildOf(mRootDirectories[i]->getFile()))
+				{
+					return mRootDirectories[i]->getFile();
+				}
+			}
+			return File();
+		}
+		std::shared_ptr<SampleDirectory> getSampleDirectory(int index) { return mRootDirectories[index]; }
 
-		void addDirectory();
-		void removeDirectory();
-
-		Sample::List getAllQueriedSamples(juce::String query) const;
-		static Sample::List getAllSamples(std::vector<SampleDirectory>& dir, juce::String query);
-		std::future<Sample::List> getAllQueriedSamplesAsync(juce::String query) const;
+		static Sample::List getAllSamples(std::vector<std::shared_ptr<SampleDirectory>>& dir, juce::String query, bool ignoreCheckSystem);
+		std::future<Sample::List> getAllSamplesAsync(juce::String query = "", bool ignoreCheckSystem = false) const;
 	private:
 
-		std::vector<SampleDirectory> mRootDirectories;
+		std::vector<std::shared_ptr<SampleDirectory>> mRootDirectories;
 	};
 }
 #endif

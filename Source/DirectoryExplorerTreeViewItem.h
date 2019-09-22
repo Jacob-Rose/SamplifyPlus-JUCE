@@ -13,11 +13,15 @@
 
 #include "JuceHeader.h"
 
+#include "SampleDirectory.h"
+
 namespace samplify
 {
 	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget
 	{
 	public:
+		const juce::String containedSamplesTitle = "Contained Samples";
+		
 		enum CheckStatus
 		{
 			NotLoaded = -1,
@@ -25,7 +29,8 @@ namespace samplify
 			Disabled,
 			Mixed,
 		};
-		DirectoryExplorerTreeViewItem(File file);
+
+		DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir);
 		DirectoryExplorerTreeViewItem(String string);
 		~DirectoryExplorerTreeViewItem();
 
@@ -37,7 +42,6 @@ namespace samplify
 		//if the samples are in the root directory, just move them
 		//else then add samples to sample library
 
-		void setName(String name);
 		String getName();
 
 		void paintItem(Graphics& g, int width, int height) override;
@@ -51,10 +55,12 @@ namespace samplify
 		void setCheckStatus(CheckStatus newCheckStatus);
 
 	private:
-		File mFile;
+		std::shared_ptr<SampleDirectory> mSampleDirectory;
 		String mText;
 		bool mShouldUseFile = true;
 		CheckStatus mCheckStatus = Disabled;
+
+		
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)
 	};
 }

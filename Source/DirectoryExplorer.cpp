@@ -3,8 +3,9 @@
 
 using namespace samplify;
 
-DirectoryExplorer::DirectoryExplorer()
+DirectoryExplorer::DirectoryExplorer(std::shared_ptr<SampleDirectoryManager> manager)
 {
+	mSampleDirectory = manager;
 	addAndMakeVisible(mDirectoryTree);
 	refresh();
 }
@@ -36,10 +37,9 @@ void DirectoryExplorer::refresh()
 	{
 		root->clearSubItems();
 	}
-	std::vector<File> paths = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
-	for (int i = 0; i < paths.size(); i++)
+	for (int i = 0; i < mSampleDirectory->getCount(); i++)
 	{
-		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(paths[i]);
+		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(mSampleDirectory->getSampleDirectory(i));
 		root->addSubItem(item);
 	}
 	root->setSelected(true, true);

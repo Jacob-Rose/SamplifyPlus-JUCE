@@ -17,7 +17,7 @@ SampleDirectory::SampleDirectory(File file)
 	DirectoryIterator dirIter = DirectoryIterator(file, false, "*", File::findDirectories);
 	while (dirIter.next())
 	{
-		mChildDirectories.push_back(SampleDirectory(dirIter.getFile()));
+		mChildDirectories.push_back(std::make_shared<SampleDirectory>(dirIter.getFile()));
 	}
 
 	//add all child samples in the actual folder
@@ -29,7 +29,35 @@ SampleDirectory::SampleDirectory(File file)
 
 }
 
-Sample::List samplify::SampleDirectory::getChildSamplesRecursive()
+Sample::List samplify::SampleDirectory::getChildSamplesRecursive(bool ignoreCheckSystem)
 {
-	return Sample::List();
+	Sample::List list;
+	for (int i = 0; i < mChildDirectories.size(); i++)
+	{
+		list += mChildDirectories[i]->getChildSamplesRecursive(ignoreCheckSystem);
+	}
+	if (ignoreCheckSystem || mIncludeChildSamples)
+	{
+		for (int i = 0; i < mChildSamples.size(); i++)
+		{
+			list.addSample(Sample::Reference(mChildSamples[i]));
+		}
+	}
+	return list;
+}
+
+Sample::List samplify::SampleDirectory::getChildSamples()
+{
+	Sample::List list;
+	for (int i = 0; i < mChildSamples.size(); i++)
+	{
+		list.addSample(Sample::Reference(mChildSamples[i]));
+	}
+	return list;
+	
+}
+
+std::shared_ptr<SampleDirectory> samplify::SampleDirectory::getChildDirectory(int index)
+{
+	return mChildDirectories[index];
 }

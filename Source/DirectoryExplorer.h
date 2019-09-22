@@ -21,7 +21,7 @@ namespace samplify
 	{
 	public:
 		//============================================================
-		DirectoryExplorer();
+		DirectoryExplorer(std::shared_ptr<SampleDirectoryManager> manager);
 		~DirectoryExplorer();
 
 		void paint(Graphics&) override;
@@ -31,6 +31,7 @@ namespace samplify
 
 	private:
 		//============================================================
+		std::shared_ptr<SampleDirectoryManager> mSampleDirectory;
 		TreeView mDirectoryTree;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorer)
 	};

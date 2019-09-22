@@ -22,7 +22,6 @@ SampleTile::~SampleTile()
 }
 void SampleTile::paint (Graphics& g)
 {
-	SamplifyProperties::getInstance()->getSampleLibrary().checkThreadFinished();
 	if (!mSample.isNull())
 	{
 		const Rectangle<float> titleRect = getTitleRect();
@@ -116,11 +115,6 @@ void SampleTile::paint (Graphics& g)
 			}
 
 		}
-		if (SamplifyProperties::getInstance()->getSampleLibrary().isUpdating())
-		{
-			g.setColour(Colours::black);
-			g.drawText("UPDATING", getLocalBounds(), Justification::centred);
-		}
 		mTagContainer.setTags(mSample.getTags());
 	}
 	else
@@ -191,15 +185,6 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				menu.addItem(i + 1, parentDirs[i]);
 			}
 			int choice = menu.show();
-			if (choice != 0)
-			{
-				File newDir = mSample.getFile();
-				for (int i = 0; i < choice; i++)
-				{
-					newDir = newDir.getParentDirectory();
-				}
-				SamplifyProperties::getInstance()->getSampleLibrary().updateCurrentSamples(newDir);
-			}
 		}
 	}
 }

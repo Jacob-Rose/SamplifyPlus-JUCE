@@ -111,7 +111,7 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 	StringArray folders;
 	File file(sample->mFile);
 	File root;
-	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
+	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
 	for (int i = 0; i < rootDirs.size(); i++)
 	{
 		if (file.isAChildOf(rootDirs[i]))
@@ -133,7 +133,7 @@ String Sample::Reference::getRelativePathName() const
 	jassert(!isNull());
 	std::shared_ptr<Sample> sample = mSample.lock();
 	String path = sample->mFile.getFullPathName();
-	std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
+	std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
 	for (int i = 0; i < dirs.size(); i++)
 	{
 		if (path.contains(dirs[i].getFullPathName()))
@@ -243,7 +243,7 @@ void Sample::Reference::renameFile(String name)
 
 File samplify::Sample::getPropertiesFile(const File& sampleFile)
 {
-	String rootDir = sampleFile.getRelativePathFrom(SamplifyProperties::getInstance()->getDirectoryLibrary().getRelativeDirectoryForFile(sampleFile));
+	String rootDir = sampleFile.getRelativePathFrom(SamplifyProperties::getInstance()->getSampleDirectoryManager()->getRelativeDirectoryForFile(sampleFile));
 	File f(SamplifyProperties::getInstance()->getUserSettings()->getFile().getParentDirectory().getFullPathName()
 		+ File::getSeparatorString()
 		+ rootDir.substring(0,rootDir.lastIndexOf("."))
@@ -327,6 +327,26 @@ void Sample::List::removeSamples(const Sample::List& list)
 void Sample::List::clearSamples()
 {
 	mSamples.clear();
+}
+
+void samplify::Sample::List::randomize()
+{
+	std::vector<Sample::Reference> newSamps;
+	Sample::List currentSamples = mSamples;
+	srand(time(NULL));
+	while (currentSamples.size() > 0)
+	{
+		int ranInt = rand();
+		int randIndex = ranInt % currentSamples.size();
+		newSamps.push_back(currentSamples[randIndex]);
+		currentSamples.removeSample(randIndex);
+	}
+	mSamples = newSamps;
+}
+
+void Sample::List::operator+=(const Sample::List& toAdd)
+{
+	addSamples(toAdd);
 }
 
 Sample::Reference Sample::List::operator[](int index) const

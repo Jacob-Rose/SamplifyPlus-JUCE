@@ -19,77 +19,26 @@
 
 namespace samplify
 {
-	class SampleLibrary : public ChangeBroadcaster, public Thread::Listener, public ChangeListener
+	class SampleLibrary : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
-
-		class LoadSamplesThread : public ThreadWithProgressWindow
-		{
-		public:
-			LoadSamplesThread(File file) : ThreadWithProgressWindow("loading samples...", true, false),
-				mDirectory(file) {}
-			void run();
-		private:
-			File mDirectory;
-		};
-
-		SampleLibrary();
+		SampleLibrary(std::shared_ptr<SampleDirectoryManager> manager);
 		~SampleLibrary();
 
-		void addSample(const File& file);
-		void addSample(std::shared_ptr<Sample> ref);
-		void addSamples(std::vector<File> files);
-		void addSamples(std::vector<std::shared_ptr<Sample>> files);
-		void removeSample(const File& file);
-		void randomizeSamples();
-		//void clearSamples();
-
-		bool containsSample(File file);
-
-		class UpdateSamplesThread : public Thread
-		{
-		public:
-			UpdateSamplesThread(SampleLibrary* parent) : Thread("updateSamples", 0)
-			{
-				mParent = parent;
-				mSamples = mParent->getAllSamples();
-			}
-			void run() override;
-			friend class SampleLibrary;
-		private:
-			SampleLibrary* mParent;
-			Sample::List mSamples;
-		};
-
-		void exitSignalSent() override;
-		void checkThreadFinished();
 		void refreshCurrentSamples()
 		{
-			updateCurrentSamples(mCurrentDirectory, mCurrentQuery);
+			updateCurrentSamples(mCurrentQuery);
 		}
-		void updateCurrentSamples(File path, String query);
-		void updateCurrentSamples(File path);
 		void updateCurrentSamples(String query);
-		void setCurrentSamples(Sample::List samples, bool shouldSendChangeMessage = true);
-
-		bool isUpdating() const { return currentUpdateThread.get() != nullptr; }
-		void cancelUpdate() {
-			currentUpdateThread.get()->stopThread(1000);
-			currentUpdateThread.reset(nullptr);
-		}
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 		Sample::List getCurrentSamples();
-		Sample::List getAllSamples();
-		StringArray getAllTags();
 
 	private:
-		std::unique_ptr<Thread> currentUpdateThread = nullptr;
-		std::vector<std::shared_ptr<Sample>> mSamples;
-		Sample::List mCurrentSamples; //to remove
-		File mCurrentDirectory;
+		std::unique_ptr<std::future<Sample::List>> updateSampleFuture;
+		Sample::List mCurrentSamples;
 		String mCurrentQuery;
 
-		SampleDirectoryManager mDirectoryManager;
+		std::shared_ptr<SampleDirectoryManager> mDirectoryManager;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SampleLibrary)
 	};

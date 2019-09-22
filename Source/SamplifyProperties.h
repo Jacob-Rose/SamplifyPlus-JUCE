@@ -16,6 +16,7 @@
 
 #include "AudioPlayer.h"
 #include "DirectoryLibrary.h"
+#include "SampleDirectoryManager.h"
 #include "SampleLibrary.h"
 #include "TagDrawer.h"
 
@@ -34,6 +35,7 @@ namespace samplify
 		class TagLibrary : public ChangeBroadcaster
 		{
 		public:
+			TagLibrary(std::shared_ptr<SampleDirectoryManager> manager);
 			void addTag(juce::String tag, Colour color);
 			void addTag(juce::String tag);
 			void renameTag(juce::String currentTagName, juce::String desiredName);
@@ -44,6 +46,7 @@ namespace samplify
 			friend SamplifyProperties;
 		private:
 			std::map<juce::String, Colour> mSampleTagColors;
+			std::shared_ptr<SampleDirectoryManager> mManager;
 			JUCE_LEAK_DETECTOR(TagLibrary);
 		};
 
@@ -66,17 +69,17 @@ namespace samplify
 		//=======================================================
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
-		TagLibrary& getTagLibrary() { return mTagLibrary; }
-		SampleLibrary& getSampleLibrary() { return mSampleLibrary; }
-		DirectoryLibrary& getDirectoryLibrary() { return mDirectoryLibrary; }
+		std::shared_ptr<TagLibrary> getTagLibrary() { return mTagLibrary; }
+		std::shared_ptr<SampleLibrary> getSampleLibrary() { return mSampleLibrary; }
+		std::shared_ptr<SampleDirectoryManager> getSampleDirectoryManager() { return mDirectoryManager; }
 		//=======================================================
 	private:
 		//========================================================
 		SamplifyProperties();
 		~SamplifyProperties();
-		SampleLibrary mSampleLibrary;
-		TagLibrary mTagLibrary;
-		DirectoryLibrary mDirectoryLibrary;
+		std::shared_ptr<SampleLibrary> mSampleLibrary = nullptr;
+		std::shared_ptr<TagLibrary> mTagLibrary = nullptr;
+		std::shared_ptr<SampleDirectoryManager> mDirectoryManager = nullptr;
 		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;

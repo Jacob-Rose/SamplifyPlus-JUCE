@@ -3,13 +3,14 @@
 #include "SamplifyProperties.h"
 #include "SamplifyLookAndFeel.h"
 
+
 using namespace samplify;
 
-DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(File file)
+DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir)
 {
-	mFile = file;
+	mSampleDirectory = dir;
 	mShouldUseFile = true;
-	if (!mFile.exists())
+	if (!mSampleDirectory->getFile().exists())
 	{
 		mCheckStatus = NotLoaded;
 	}
@@ -39,7 +40,7 @@ bool DirectoryExplorerTreeViewItem::mightContainSubItems()
 {
 	if (mShouldUseFile)
 	{
-		return mFile.containsSubDirectories();
+		return mSampleDirectory->getFile().containsSubDirectories();
 	}
 	else
 	{
@@ -62,16 +63,11 @@ void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x
 	//todo handle adding directories
 }
 
-void DirectoryExplorerTreeViewItem::setName(String name)
-{
-	mFile = File(name);
-}
-
 String DirectoryExplorerTreeViewItem::getName()
 {
 	if (mShouldUseFile)
 	{
-		return mFile.getFileName();
+		return mSampleDirectory->getFile().getFileName();
 	}
 	else
 	{
@@ -160,7 +156,7 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 		juce::String text;
 		if (mShouldUseFile)
 		{
-			text = mFile.getFileName();
+			text = mSampleDirectory->getFile().getFileName();
 		}
 		else
 		{
@@ -233,10 +229,10 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 		if (getNumSubItems() == 0)
 		{
 			Array<File> files;
-			int childDirCount = mFile.findChildFiles(files, 1, false);
+			int childDirCount = mSampleDirectory->getChildDirectoryCount();
 			for (int i = 0; i < childDirCount; i++)
 			{
-				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(files[i]);  
+				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(mSampleDirectory->getChildDirectory(i));  
 				addSubItem(item);
 				if (mCheckStatus == Enabled || mCheckStatus == Disabled)
 				{
@@ -283,11 +279,20 @@ void DirectoryExplorerTreeViewItem::setCheckStatus(CheckStatus newCheckStatus)
 		if (newCheckStatus == Disabled || newCheckStatus == Enabled)
 		{
 			mCheckStatus = newCheckStatus;
-			updateChildrenItems(newCheckStatus);
+			if (mText == containedSamplesTitle)
+			{
+
+			}
+			else
+			{
+				updateChildrenItems(newCheckStatus);
+			}
 			if (DirectoryExplorerTreeViewItem * p = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
 			{
 				p->updateParentItems();
 			}
+			
+			
 		}
 		repaintItem();
 	}

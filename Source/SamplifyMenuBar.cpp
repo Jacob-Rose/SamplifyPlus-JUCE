@@ -31,7 +31,7 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 		if (file.exists())
 		{
 			bool notLoaded = true;
-			std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
+			std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
 			for (int i = 0; i < dirs.size(); i++)
 			{
 				if (file == dirs[i] || file.isAChildOf(dirs[i]))
@@ -42,7 +42,7 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 			}
 			if (notLoaded)
 			{
-				SamplifyProperties::getInstance()->getDirectoryLibrary().removeDirectory(file);
+				SamplifyProperties::getInstance()->getSampleDirectoryManager()->removeDirectory(file);
 			}
 			DeleteSamplifyFilesThread deleteThread(file);
 			deleteThread.runThread();
@@ -50,12 +50,12 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	}
 	else
 	{
-		std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
+		std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
 		for (int i = 0; i < dirs.size(); i++)
 		{
 			if (menuItemID == removeDirectory + i)
 			{
-				SamplifyProperties::getInstance()->getDirectoryLibrary().removeDirectory(dirs[i]);
+				SamplifyProperties::getInstance()->getSampleDirectoryManager()->removeDirectory(dirs[i]);
 			}
 		}
 	}
@@ -70,7 +70,7 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 		menu.addItem(removeSampFiles, "Select Directory and Remove Samples");
 		//menu.addItem(removeDirectory, "Remove Directory");
 		PopupMenu removeMenu;
-		std::vector<File> dirs = SamplifyProperties::getInstance()->getDirectoryLibrary().getDirectories();
+		std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
 		for (int i = 0; i < dirs.size(); i++)
 		{
 			removeMenu.addItem(removeDirectory + i, dirs[i].getFullPathName(), true, false);

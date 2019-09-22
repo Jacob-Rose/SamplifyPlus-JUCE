@@ -105,6 +105,9 @@ namespace samplify
 			void removeSamples(const Sample::List& list);
 			void clearSamples();
 
+			void randomize();
+
+			void operator+=(const Sample::List& toAdd);
 			Sample::Reference operator[](int index) const;
 			friend Sample::List operator+(const Sample::List& lhs, const Sample::List& rhs);
 		protected:
