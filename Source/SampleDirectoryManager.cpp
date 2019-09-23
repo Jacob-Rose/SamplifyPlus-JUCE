@@ -14,6 +14,7 @@ using namespace samplify;
 void SampleDirectoryManager::addDirectory(const File& dir)
 {
 	mRootDirectories.push_back(std::make_shared<SampleDirectory>(dir));
+	sendChangeMessage();
 }
 
 void SampleDirectoryManager::removeDirectory(const File& dir)
@@ -43,9 +44,9 @@ Sample::List samplify::SampleDirectoryManager::getAllSamples(std::vector<std::sh
 	Sample::List list;
 	for (int i = 0; i < dirs.size(); i++)
 	{
-		list += dirs[i]->getChildSamplesRecursive(ignoreCheckSystem);
+		list += dirs[i]->getChildSamplesRecursive(query, ignoreCheckSystem);
 	}
-	return Sample::List();
+	return list;
 }
 
 std::future<Sample::List> SampleDirectoryManager::getAllSamplesAsync(juce::String query, bool ignoreCheckSystem) const

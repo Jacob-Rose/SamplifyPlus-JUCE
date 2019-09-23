@@ -19,7 +19,6 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
-	mFilter.addListener(this);
 	//mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
@@ -44,12 +43,6 @@ void SampleExplorer::resized()
 void SampleExplorer::textEditorTextChanged(TextEditor& e)
 {
 	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples(e.getText());
-}
-
-void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
-{
-	//todo add sorting in again
-	//SamplifyProperties::getInstance()->getSampleLibrary().sortSamples((Sample::SortMethod)comboBoxThatHasChanged->getSelectedId());
 }
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)

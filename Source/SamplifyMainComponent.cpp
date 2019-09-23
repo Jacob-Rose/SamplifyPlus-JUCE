@@ -26,7 +26,7 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 	deviceManager.setAudioDeviceSetup(adsetup, true);
 	//deviceManager.initialise(2,2,0,true,juce::String(), &adsetup);
 	setAudioChannels(0, 2);
-	
+	SamplifyProperties::getInstance()->getSampleDirectoryManager()->addChangeListener(&mDirectoryExplorer);
 	setupLookAndFeel();
     setSize (600, 400);
 }

@@ -67,7 +67,7 @@ void SamplifyProperties::init()
 {
 	mDirectoryManager = std::make_shared<SampleDirectoryManager>();
 	mSampleLibrary = std::make_shared<SampleLibrary>(mDirectoryManager);
-	mTagLibrary = std::make_shared<TagLibrary>(mDirectoryManager);
+	mTagLibrary = std::make_shared<TagLibrary>();
 	loadPropertiesFile();
 	mIsInit = true;
 }

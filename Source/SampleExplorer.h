@@ -21,8 +21,7 @@ namespace samplify
 {
 	class SampleExplorer : public Component, 
 		public TextEditor::Listener, 
-		public ChangeListener, 
-		public ComboBox::Listener
+		public ChangeListener
 	{
 	public:
 		///Custom Viewport to add support for the visible area changed method,
@@ -55,7 +54,6 @@ namespace samplify
 		void resized() override;
 
 		void textEditorTextChanged(TextEditor&) override;
-		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
 		TextEditor& getSearchBar() { return mSearchBar; }

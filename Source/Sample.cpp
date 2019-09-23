@@ -22,6 +22,14 @@ bool Sample::isPropertiesFileValid()
 {
 	return mPropertiesFile.existsAsFile();
 }
+bool samplify::Sample::isQueryValid(juce::String query)
+{
+	if(mFile.getFullPathName().containsIgnoreCase(query) || mTags.contains("#" + query))
+	{
+		return true;
+	}
+	return false;
+}
 Sample::~Sample()
 {
 }

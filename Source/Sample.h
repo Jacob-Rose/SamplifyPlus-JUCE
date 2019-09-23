@@ -126,6 +126,7 @@ namespace samplify
 		void loadPropertiesFile();
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
+		bool isQueryValid(juce::String query); //used in search
 		static File getPropertiesFile(const File& sampleFile);
 	private:
 		File mFile;

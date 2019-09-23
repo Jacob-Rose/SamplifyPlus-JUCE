@@ -26,21 +26,23 @@ SampleDirectory::SampleDirectory(File file)
 	{
 		mChildSamples.push_back(std::make_shared<Sample>(sampleIter.getFile()));
 	}
-
+	mDirectory = file;
 }
 
-Sample::List samplify::SampleDirectory::getChildSamplesRecursive(bool ignoreCheckSystem)
+Sample::List samplify::SampleDirectory::getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem)
 {
 	Sample::List list;
+
 	for (int i = 0; i < mChildDirectories.size(); i++)
 	{
-		list += mChildDirectories[i]->getChildSamplesRecursive(ignoreCheckSystem);
+		list += mChildDirectories[i]->getChildSamplesRecursive(query, ignoreCheckSystem);
 	}
 	if (ignoreCheckSystem || mIncludeChildSamples)
 	{
 		for (int i = 0; i < mChildSamples.size(); i++)
 		{
-			list.addSample(Sample::Reference(mChildSamples[i]));
+			if(mChildSamples[i]->isQueryValid(query))
+				list.addSample(Sample::Reference(mChildSamples[i]));
 		}
 	}
 	return list;

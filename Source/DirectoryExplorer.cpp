@@ -7,6 +7,7 @@ DirectoryExplorer::DirectoryExplorer(std::shared_ptr<SampleDirectoryManager> man
 {
 	mSampleDirectory = manager;
 	addAndMakeVisible(mDirectoryTree);
+	manager->addChangeListener(this);
 	refresh();
 }
 

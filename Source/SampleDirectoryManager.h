@@ -39,7 +39,7 @@ namespace samplify
 		std::future<Sample::List> getAllSamplesAsync(juce::String query = "", bool ignoreCheckSystem = false) const;
 	private:
 
-		std::vector<std::shared_ptr<SampleDirectory>> mRootDirectories;
+		std::vector<std::shared_ptr<SampleDirectory>> mRootDirectories = std::vector<std::shared_ptr<SampleDirectory>>();
 	};
 }
 #endif
