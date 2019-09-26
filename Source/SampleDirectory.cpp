@@ -11,14 +11,15 @@
 #include "SampleDirectory.h"
 using namespace samplify;
 
-SampleDirectory::SampleDirectory(File file)
+SampleDirectory::SampleDirectory(File file, ChangeListener* parent)
 {
 	//add all child directories as sampleDirectory, then recursively all them do the same for all child folders
 	DirectoryIterator dirIter = DirectoryIterator(file, false, "*", File::findDirectories);
 	while (dirIter.next())
 	{
-		mChildDirectories.push_back(std::make_shared<SampleDirectory>(dirIter.getFile()));
+		mChildDirectories.push_back(std::make_shared<SampleDirectory>(dirIter.getFile(), parent));
 	}
+	addChangeListener(parent);
 
 	//add all child samples in the actual folder
 	DirectoryIterator sampleIter = DirectoryIterator(file, false, "*.wav", File::findFiles);

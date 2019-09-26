@@ -18,7 +18,7 @@
 
 namespace samplify
 {
-	class SampleDirectory
+	class SampleDirectory: public ChangeBroadcaster
 	{
 	public:
 		enum CheckStatus
@@ -29,7 +29,7 @@ namespace samplify
 			Mixed,
 		};
 
-		SampleDirectory(File file/*, std::weak_ptr<SampleDirectory parent*/);
+		SampleDirectory(File file, ChangeListener* parent);
 		File getFile() const { return mDirectory; }
 		Sample::List getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem);
 		Sample::List getChildSamples();

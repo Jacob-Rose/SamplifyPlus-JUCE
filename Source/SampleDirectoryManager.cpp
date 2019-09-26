@@ -13,7 +13,7 @@ using namespace samplify;
 
 void SampleDirectoryManager::addDirectory(const File& dir)
 {
-	mRootDirectories.push_back(std::make_shared<SampleDirectory>(dir));
+	mRootDirectories.push_back(std::make_shared<SampleDirectory>(dir, this));
 	sendChangeMessage();
 }
 
@@ -39,7 +39,12 @@ std::vector<File> samplify::SampleDirectoryManager::getDirectories()
 	return dirs;
 }
 
-Sample::List samplify::SampleDirectoryManager::getAllSamples(std::vector<std::shared_ptr<SampleDirectory>>& dirs, juce::String query, bool ignoreCheckSystem)
+void samplify::SampleDirectoryManager::changeListenerCallback(ChangeBroadcaster* source)
+{
+	sendChangeMessage();
+}
+
+Sample::List SampleDirectoryManager::getAllSamples(std::vector<std::shared_ptr<SampleDirectory>>& dirs, juce::String query, bool ignoreCheckSystem)
 {
 	Sample::List list;
 	for (int i = 0; i < dirs.size(); i++)
