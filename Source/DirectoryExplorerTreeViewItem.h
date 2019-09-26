@@ -45,7 +45,7 @@ namespace samplify
 		String getName();
 
 		void paintItem(Graphics& g, int width, int height) override;
-		void updateChildrenItems(CheckStatus checkStatus);
+		void updateChildrenItems(CheckStatus status);
 		void updateParentItems();
 		void itemOpennessChanged(bool isNowOpen) override;
 		void itemClicked(const MouseEvent& e) override;

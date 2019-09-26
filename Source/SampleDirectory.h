@@ -34,6 +34,8 @@ namespace samplify
 		Sample::List getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem);
 		Sample::List getChildSamples();
 
+		void updateChildrenItems(CheckStatus checkStatus);
+
 		CheckStatus getCheckStatus() { return mCheckStatus; }
 		int getChildDirectoryCount() { return mChildDirectories.size(); }
 		std::shared_ptr<SampleDirectory> getChildDirectory(int index);
