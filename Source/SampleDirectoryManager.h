@@ -16,7 +16,7 @@
 #include "SampleDirectory.h"
 namespace samplify
 {
-	class SampleDirectoryManager : public ChangeBroadcaster
+	class SampleDirectoryManager : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
 		void addDirectory(const File& dir);
@@ -33,6 +33,8 @@ namespace samplify
 			}
 			return File();
 		}
+		void changeListenerCallback(ChangeBroadcaster* source) override;
+
 		std::shared_ptr<SampleDirectory> getSampleDirectory(int index) { return mRootDirectories[index]; }
 
 		static Sample::List getAllSamples(std::vector<std::shared_ptr<SampleDirectory>>& dir, juce::String query, bool ignoreCheckSystem);
