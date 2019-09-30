@@ -41,6 +41,10 @@ std::vector<File> samplify::SampleDirectoryManager::getDirectories()
 
 void samplify::SampleDirectoryManager::changeListenerCallback(ChangeBroadcaster* source)
 {
+	for (int i = 0; i < mRootDirectories.size(); i++)
+	{
+		mRootDirectories[i]->recursiveRefresh();
+	}
 	sendChangeMessage();
 }
 

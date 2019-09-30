@@ -18,17 +18,16 @@
 
 namespace samplify
 {
+	enum class CheckStatus
+	{
+		NotLoaded = -1,
+		Enabled,
+		Disabled,
+		Mixed,
+	};
 	class SampleDirectory: public ChangeBroadcaster
 	{
 	public:
-		enum CheckStatus
-		{
-			NotLoaded = -1,
-			Enabled,
-			Disabled,
-			Mixed,
-		};
-
 		SampleDirectory(File file, ChangeListener* parent);
 		File getFile() const { return mDirectory; }
 		Sample::List getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem);
@@ -36,13 +35,18 @@ namespace samplify
 
 		void updateChildrenItems(CheckStatus checkStatus);
 
+		void cycleCurrentCheck();
+
+		void setCheckStatus(CheckStatus newCheckStatus);
 		CheckStatus getCheckStatus() { return mCheckStatus; }
 		int getChildDirectoryCount() { return mChildDirectories.size(); }
+
+		void recursiveRefresh();
 		std::shared_ptr<SampleDirectory> getChildDirectory(int index);
 		friend class DirectoryExplorerTreeViewItem;
 		friend class SampleDirectoryManager; //used to optimze callback function later, not necessary though could call recursive
 	private:
-		CheckStatus mCheckStatus;
+		CheckStatus mCheckStatus = CheckStatus::Enabled;
 		File mDirectory;
 		bool mIncludeChildSamples = true; //if the folder should load its own samples when getsamples is called
 		std::vector<std::shared_ptr<Sample>> mChildSamples; //safer

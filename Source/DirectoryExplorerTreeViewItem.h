@@ -17,18 +17,10 @@
 
 namespace samplify
 {
-	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget
+	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget, public ChangeListener
 	{
 	public:
 		const juce::String containedSamplesTitle = "Contained Samples";
-		
-		enum CheckStatus
-		{
-			NotLoaded = -1,
-			Enabled,
-			Disabled,
-			Mixed,
-		};
 
 		DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir);
 		DirectoryExplorerTreeViewItem(String string);
@@ -37,28 +29,26 @@ namespace samplify
 		bool mightContainSubItems() override;
 		bool isInterestedInFileDrag(const StringArray& files) override;
 		void filesDropped(const StringArray& files, int x, int y) override;
+		void changeListenerCallback(ChangeBroadcaster* source) override;
 
+		void paintItem(Graphics& g, int width, int height) override;
+		void itemOpennessChanged(bool isNowOpen) override;
+		void itemClicked(const MouseEvent& e) override;
+
+		void refreshChildrenPaint();
 		//todo allow external drag drop of files/folders into the directory
 		//if the samples are in the root directory, just move them
 		//else then add samples to sample library
 
 		String getName();
 
-		void paintItem(Graphics& g, int width, int height) override;
-		void updateChildrenItems(CheckStatus status);
-		void updateParentItems();
-		void itemOpennessChanged(bool isNowOpen) override;
-		void itemClicked(const MouseEvent& e) override;
+		
 		void itemCheckCycled();
-
-		CheckStatus getCheckStatus() { return mCheckStatus; }
-		void setCheckStatus(CheckStatus newCheckStatus);
 
 	private:
 		std::shared_ptr<SampleDirectory> mSampleDirectory;
 		String mText;
 		bool mShouldUseFile = true;
-		CheckStatus mCheckStatus = Disabled;
 
 		
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorerTreeViewItem)

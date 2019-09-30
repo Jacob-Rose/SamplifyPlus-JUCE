@@ -13,6 +13,14 @@ using namespace samplify;
 
 SampleDirectory::SampleDirectory(File file, ChangeListener* parent)
 {
+	if (file.exists())
+	{
+		mCheckStatus = CheckStatus::Enabled;
+	}
+	else
+	{
+		mCheckStatus = CheckStatus::NotLoaded;
+	}
 	//add all child directories as sampleDirectory, then recursively all them do the same for all child folders
 	DirectoryIterator dirIter = DirectoryIterator(file, false, "*", File::findDirectories);
 	while (dirIter.next())
@@ -58,6 +66,73 @@ Sample::List samplify::SampleDirectory::getChildSamples()
 	}
 	return list;
 	
+}
+
+void SampleDirectory::updateChildrenItems(CheckStatus checkStatus)
+{
+	mCheckStatus = checkStatus;
+	for (int i = 0; i < mChildDirectories.size(); i++)
+	{
+		mChildDirectories[i]->updateChildrenItems(checkStatus);
+	}
+}
+
+void SampleDirectory::cycleCurrentCheck()
+{
+	switch (mCheckStatus)
+	{
+	case CheckStatus::Mixed:
+	case CheckStatus::Enabled:
+		setCheckStatus(CheckStatus::Disabled);
+		break;
+	case CheckStatus::Disabled:
+		setCheckStatus(CheckStatus::Enabled);
+		break;
+	}
+}
+
+void samplify::SampleDirectory::setCheckStatus(CheckStatus newCheckStatus)
+{
+	updateChildrenItems(newCheckStatus);
+	sendChangeMessage();
+}
+
+void samplify::SampleDirectory::recursiveRefresh()
+{
+	for (int i = 0; i < mChildDirectories.size(); i++)
+	{
+		mChildDirectories[i]->recursiveRefresh();
+	}
+	bool foundDisabled = false;
+	bool foundEnabled = false;
+	for (int i = 0; i < mChildDirectories.size(); i++)
+	{
+		if (mChildDirectories[i]->getCheckStatus() == CheckStatus::Mixed)
+		{
+			foundDisabled = true;
+			foundEnabled = true;
+		}
+		else if (mChildDirectories[i]->getCheckStatus() == CheckStatus::Disabled)
+		{
+			foundDisabled = true;
+		}
+		else if (mChildDirectories[i]->getCheckStatus() == CheckStatus::Enabled)
+		{
+			foundEnabled = true;
+		}
+		if (foundEnabled && foundDisabled)
+		{
+			mCheckStatus = CheckStatus::Mixed;
+		}
+		else if (foundEnabled)
+		{
+			mCheckStatus = CheckStatus::Enabled;
+		}
+		else if (foundDisabled)
+		{
+			mCheckStatus = CheckStatus::Disabled;
+		}
+	}
 }
 
 std::shared_ptr<SampleDirectory> samplify::SampleDirectory::getChildDirectory(int index)

@@ -52,4 +52,8 @@ void DirectoryExplorer::changeListenerCallback(ChangeBroadcaster* source)
 	{
 		refresh();
 	}
+	else if (SampleDirectoryManager* sdm = dynamic_cast<SampleDirectoryManager*>(source))
+	{
+		((DirectoryExplorerTreeViewItem*)mDirectoryTree.getRootItem())->refreshChildrenPaint();
+	}
 }

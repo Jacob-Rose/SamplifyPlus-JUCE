@@ -9,22 +9,14 @@ using namespace samplify;
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir)
 {
 	mSampleDirectory = dir;
+	mSampleDirectory->addChangeListener(this);
 	mShouldUseFile = true;
-	if (!mSampleDirectory->getFile().exists())
-	{
-		mCheckStatus = NotLoaded;
-	}
-	else
-	{
-		mCheckStatus = Enabled;
-	}
 }
 
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(String string)
 { //this is only used for the root item
 	mText = string;
 	mShouldUseFile = false;
-	mCheckStatus = Enabled;
 }
 
 DirectoryExplorerTreeViewItem::~DirectoryExplorerTreeViewItem()
@@ -63,6 +55,11 @@ void DirectoryExplorerTreeViewItem::filesDropped(const StringArray& files, int x
 	//todo handle adding directories
 }
 
+void samplify::DirectoryExplorerTreeViewItem::changeListenerCallback(ChangeBroadcaster* source)
+{
+	repaintItem();
+}
+
 String DirectoryExplorerTreeViewItem::getName()
 {
 	if (mShouldUseFile)
@@ -78,7 +75,7 @@ String DirectoryExplorerTreeViewItem::getName()
 void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int height)
 {
 	//check if not added yet, dont draw
-	if (getOwnerView() != nullptr)
+	if (getOwnerView() != nullptr && mShouldUseFile)
 	{
 		if (isSelected())
 		{
@@ -112,37 +109,37 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 		float padding = 2.0f;
 		Rectangle<float> checkBoxRect = Rectangle<float>(padding, padding, height - (padding*2), height-(padding*2));
 		float checkBoxCornerWidth = 4.0f;
-		switch (mCheckStatus)
+		switch (mSampleDirectory->getCheckStatus())
 		{
-		case NotLoaded:
+		case CheckStatus::NotLoaded:
 			g.setColour(Colours::lightpink);
 			break;
-		case Mixed:
+		case CheckStatus::Mixed:
 			g.setColour(Colours::grey);
 			break;
-		case Enabled:
+		case CheckStatus::Enabled:
 			g.setColour(SamplifyMainComponent::getInstance()->getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID));
 			break;
-		case Disabled:
+		case CheckStatus::Disabled:
 			g.setColour(Colours::white);
 			break;
 		}
 		g.fillRoundedRectangle(checkBoxRect, checkBoxCornerWidth);
-		if (mCheckStatus == NotLoaded)
+		if (mSampleDirectory->getCheckStatus() == CheckStatus::NotLoaded)
 		{
 			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/cross.svg");
 			static std::unique_ptr<Drawable> cross = Drawable::createFromSVGFile(crossFile);
 			cross.get()->replaceColour(Colours::black, Colours::white);
 			cross.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
 		}
-		else if (mCheckStatus == Enabled)
+		else if (mSampleDirectory->getCheckStatus() == CheckStatus::Enabled)
 		{
 			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/check.svg");
 			static std::unique_ptr<Drawable> check = Drawable::createFromSVGFile(crossFile);
 			check.get()->replaceColour(Colours::black, Colours::white);
 			check.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
 		}
-		else if (mCheckStatus == Mixed)
+		else if (mSampleDirectory->getCheckStatus() == CheckStatus::Mixed)
 		{
 			g.setColour(Colours::white);
 			g.fillRoundedRectangle(checkBoxRect.getProportion(Rectangle<float>(0.25f, 0.25f, 0.5f, 0.5f)), 2.0f);
@@ -167,61 +164,6 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 
 }
 
-void DirectoryExplorerTreeViewItem::updateChildrenItems(CheckStatus status)
-{
-	for (int i = 0; i < getNumSubItems(); i++)
-	{
-		static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->setCheckStatus(status);
-		static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->updateChildrenItems(status);
-	}
-}
-
-void DirectoryExplorerTreeViewItem::updateParentItems()
-{
-	if (getNumSubItems() > 0)
-	{
-		bool foundChecked = false;
-		bool foundUnchecked = false;
-		for (int i = 0; i < getNumSubItems(); i++)
-		{
-			if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Enabled)
-			{
-				foundChecked = true;
-			}
-			else if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Disabled)
-			{
-				foundUnchecked = true;
-			}
-			else if (static_cast<DirectoryExplorerTreeViewItem*>(getSubItem(i))->getCheckStatus() == Mixed)
-			{
-				foundChecked = true;
-				foundUnchecked = true;
-			}
-			else
-			{
-				//not loaded, ignore
-			}
-		}
-		if (foundChecked && foundUnchecked)
-		{
-			mCheckStatus = Mixed;
-		}
-		else if (foundChecked)
-		{
-			mCheckStatus = Enabled;
-		}
-		else
-		{
-			mCheckStatus = Disabled;
-		}
-		repaintItem();
-	}
-	if (DirectoryExplorerTreeViewItem * p = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
-	{
-		p->updateParentItems();
-	}
-}
-
 void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 {
 	if (isNowOpen)
@@ -234,14 +176,6 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 			{
 				DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(mSampleDirectory->getChildDirectory(i));  
 				addSubItem(item);
-				if (mCheckStatus == Enabled || mCheckStatus == Disabled)
-				{
-					item->setCheckStatus(mCheckStatus);
-				}
-				else
-				{
-					item->setCheckStatus(Enabled);
-				}
 			}
 		}
 	}
@@ -258,42 +192,16 @@ void DirectoryExplorerTreeViewItem::itemClicked(const MouseEvent& e)
 	}
 }
 
-void DirectoryExplorerTreeViewItem::itemCheckCycled()
+void samplify::DirectoryExplorerTreeViewItem::refreshChildrenPaint()
 {
-	switch (mCheckStatus)
+	repaintItem();
+	for (int i = 0; i < getNumSubItems(); i++)
 	{
-	case Mixed:
-	case Enabled:
-		setCheckStatus(Disabled);
-		break;
-	case Disabled:
-		setCheckStatus(Enabled);
-		break;
+		((DirectoryExplorerTreeViewItem*)getSubItem(i))->refreshChildrenPaint();
 	}
 }
 
-void DirectoryExplorerTreeViewItem::setCheckStatus(CheckStatus newCheckStatus)
+void DirectoryExplorerTreeViewItem::itemCheckCycled()
 {
-	if (newCheckStatus != mCheckStatus && mCheckStatus != NotLoaded)
-	{
-		if (newCheckStatus == Disabled || newCheckStatus == Enabled)
-		{
-			mCheckStatus = newCheckStatus;
-			if (mText == containedSamplesTitle)
-			{
-
-			}
-			else
-			{
-				updateChildrenItems(newCheckStatus);
-			}
-			if (DirectoryExplorerTreeViewItem * p = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
-			{
-				p->updateParentItems();
-			}
-			
-			
-		}
-		repaintItem();
-	}
+	mSampleDirectory->cycleCurrentCheck();
 }
