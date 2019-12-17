@@ -15,10 +15,15 @@ SampleLibrary::~SampleLibrary()
 void SampleLibrary::updateCurrentSamples(String query)
 {
 	mCurrentQuery = query;
-	std::future<Sample::List> future = mDirectoryManager->getAllSamplesAsync(query);
-	future.wait();
-	if (future.valid())
-		mCurrentSamples = future.get();
+	if (updateSampleFuture != nullptr)
+	{
+		updateSampleFuture->_Abandon();
+		updateSampleFuture = nullptr;
+	}
+	updateSampleFuture = std::make_unique<std::future<Sample::List>>(mDirectoryManager->getAllSamplesAsync(query));
+	updateSampleFuture->wait();
+	if (updateSampleFuture->valid())
+		mCurrentSamples = updateSampleFuture->get();
 	sendChangeMessage();
 }
 

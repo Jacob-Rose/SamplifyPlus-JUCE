@@ -41,6 +41,10 @@ SampleDirectory::SampleDirectory(File file, ChangeListener* parent)
 Sample::List samplify::SampleDirectory::getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem)
 {
 	Sample::List list;
+	if (mCheckStatus == CheckStatus::Disabled || mCheckStatus == CheckStatus::NotLoaded)
+	{
+		return list;
+	}
 
 	for (int i = 0; i < mChildDirectories.size(); i++)
 	{

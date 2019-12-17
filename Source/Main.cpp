@@ -32,7 +32,8 @@ namespace samplify
 		//==============================================================================
 		void initialise(const String& commandLine) override
 		{
-			Time timeToKill = Time(2019, 10, 1, 12, 0); //month is between 0-11
+			/*
+			Time timeToKill = Time(2021, 10, 1, 12, 0); //month is between 0-11
 			Time cTime = Time::getCurrentTime();
 			if (cTime.toMilliseconds() > timeToKill.toMilliseconds())
 			{
@@ -41,9 +42,10 @@ namespace samplify
 			}
 			else
 			{
+			*/
 				SamplifyProperties::initInstance();
 				mainWindow.reset(new MainWindow(getApplicationName()));
-			}
+			//}
 		}
 
 		void shutdown() override
