@@ -5,39 +5,39 @@
 
 A File Manager based around music production and samples.
 
-Music production has hundreds of great tools to allow creators to make new and amazing things, but searching for the right sounding sample when creators have libraries of thousands of files is impossible in modern softwares like Ableton Live and FL Studio.
+Music production has hundreds of great tools to allow creators to make new and amazing things, but searching for the right sounding sample when creators have libraries of thousands of files is very difficult in modern softwares like Ableton Live and FL Studio.
 
-File organization is not the solution for these projects, but Tags.
+File organization is not the only solution for these projects, but properly organizing and labeling samples.
 Tags allow users to label each sample with certain traits that they can define. Label a sample with the tags *kick*, *short*, *trigger* and search for multiple tags at once to find the sample for the situation.
 
 Optimized file loading prevents crashes, only loads supported files, and after a first launch it takes only seconds to start up.
 
 Easy drag and drop from Samplify into your preferred DAW, similar to dragging it in from any OS File Explorer.
 
+[Samplify Site](https://www.samplify.app)
+
 ### JUCE Library
 
 My first attempt with using the JUCE library.
 
-A port of my Samplify Project created in WPF using C#. I wanted more control over when each sample box draws and when each samples waveform is calculated.
+The library offers many tools that make it easier than ever to create an audio application.
 
-There is a memory leak on program quit, need to fix at some point.
+Juce will allow an easy port to a VST, simplier cryptography and copy protection as well as online authorization. Also allows cross platform support that is required as music production device market share is split between Windows and Mac.
 
 ## Features
 ![SamplifyImage1](https://i.imgur.com/GoQHlHo.png)
-- Sample Folder Selection
+> The version with images published is very out of date, massive rebuild has been completed and more features are being added.
 - Directory View of Folders
 - Waveform View of Files
 - Drag and Drop ability
-- Program variable to change color
-- Program variable to change size of everything
+- Tag system
+- File sticky notes, easy ways to save a file for later and any ideas had with the file
 
 ![SamplifyImage1](https://i.imgur.com/LbgovDd.png)
 
 ### Future Plans
 
-- Tag Browser instead of folders, allow searching through tags
-- Cleanup code
-- Comment Code
+- TBA (right now the issue is more of protecting my IP, so features will be announced on release
 
 
 ## Learning Outcomes
@@ -47,10 +47,6 @@ There is a memory leak on program quit, need to fix at some point.
 - Learned to use JUCE library
 - Gained skill in C++ and standard library features included in it
 
-**NOTE IF USE:**
-
-Project currently creates a copy of each file with a .samp extension. This will hopefully be changed to a single folder that can be deleted, but currently there is an included .bat file to delete all sample files. Put this file in your sample directory and run.
-
 
 __Goal of project was to create a new sample browser for music producers.__
 
@@ -58,14 +54,7 @@ Tha main mechanic that I wanted from a sample browser was a waveform view and a 
 
 
 
-I needed to hard code in the sample library location and never added the ability to change it once its set. Saves to system registry.
-
-Old project, need to work on more :ok_hand:
-
-**PLEASE NOTE:**
-
-I made this project after my first year at Champlain College. The architecture is not as clear as I want it to be.
-This project is also before I commented anything well if at all, bad habits die hard. Will hopefully add some at some point.
+Current passion project, working on as I can. Hopefully beta release with online authorization soon! :ok_hand:
 
 
 ### Legal
