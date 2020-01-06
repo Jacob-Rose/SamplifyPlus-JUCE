@@ -5,19 +5,20 @@ using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
-SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager())
+SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager()),
+												unlockForm(authorizationStatus)
 {
-	//mCopyProtection.reset(new SecurityThread());
-	//mCopyProtection.get()->run();
+	setupLookAndFeel();
 	mInstance = this;
-	//usingCustomDeviceManager = true;
 	addKeyListener(this);
 	mAudioPlayer = std::make_shared<AudioPlayer>();
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer);
 
+
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
 	addAndMakeVisible(mFilterExplorer);
+	//addAndMakeVisible(unlockForm);
     
 	AudioDeviceManager::AudioDeviceSetup adsetup;
 	deviceManager.getAudioDeviceSetup(adsetup);
@@ -27,8 +28,9 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 	//deviceManager.initialise(2,2,0,true,juce::String(), &adsetup);
 	setAudioChannels(0, 2);
 	SamplifyProperties::getInstance()->getSampleDirectoryManager()->addChangeListener(&mDirectoryExplorer);
-	setupLookAndFeel();
+
     setSize (600, 400);
+	startTimer(100);
 }
 
 SamplifyMainComponent::~SamplifyMainComponent()
@@ -128,4 +130,23 @@ void SamplifyMainComponent::resized()
 SamplifyMainComponent* SamplifyMainComponent::getInstance()
 {
 	return mInstance;
+}
+
+void samplify::SamplifyMainComponent::timerCallback()
+{
+	if (!isUnlocked && authorizationStatus.isUnlocked())
+	{
+		isUnlocked = true;
+		unlockApp();
+	}
+}
+
+void samplify::SamplifyMainComponent::unlockApp()
+{
+
+}
+
+bool samplify::SamplifyMainComponent::isAppUnlocked()
+{
+	return authorizationStatus.isUnlocked();
 }

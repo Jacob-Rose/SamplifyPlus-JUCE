@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.4"
+<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.5"
               cppLanguageStandard="17" companyName="Samplify" companyWebsite="samplify.app"
               companyEmail="jake@samplify.app" version="0.8.5">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
@@ -90,8 +90,16 @@
               file="Source/SamplifyMenuBar.h"/>
         <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
               file="Source/SamplifyMainComponent.cpp"/>
+        <FILE id="SpOKxT" name="ServerAuthStatus.h" compile="0" resource="0"
+              file="Source/ServerAuthStatus.h"/>
+        <FILE id="RolRvl" name="ServerAuthStatus.cpp" compile="1" resource="0"
+              file="Source/ServerAuthStatus.cpp"/>
       </GROUP>
     </GROUP>
+    <FILE id="srHuQY" name="ServerAuthUnlockComponent.cpp" compile="1"
+          resource="0" file="Source/ServerAuthUnlockComponent.cpp"/>
+    <FILE id="Zgd6Gf" name="ServerAuthUnlockComponent.h" compile="0" resource="0"
+          file="Source/ServerAuthUnlockComponent.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">
