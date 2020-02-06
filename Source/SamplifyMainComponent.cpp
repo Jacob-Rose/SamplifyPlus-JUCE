@@ -18,7 +18,7 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
 	addAndMakeVisible(mFilterExplorer);
-	//addAndMakeVisible(unlockForm);
+	addAndMakeVisible(unlockForm);
     
 	AudioDeviceManager::AudioDeviceSetup adsetup;
 	deviceManager.getAudioDeviceSetup(adsetup);
@@ -62,7 +62,7 @@ bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originati
 
 void SamplifyMainComponent::changeListenerCallback(ChangeBroadcaster* source)
 {
-	if (DirectoryLibrary * dl = dynamic_cast<DirectoryLibrary*>(source))
+	if (SampleDirectoryManager* dl = dynamic_cast<SampleDirectoryManager*>(source))
 	{
 		SamplifyProperties::getInstance()->savePropertiesFile();
 	}

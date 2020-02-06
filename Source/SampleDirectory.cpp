@@ -77,7 +77,7 @@ void SampleDirectory::updateChildrenItems(CheckStatus checkStatus)
 	mCheckStatus = checkStatus;
 	for (int i = 0; i < mChildDirectories.size(); i++)
 	{
-		mChildDirectories[i]->updateChildrenItems(checkStatus);
+		mChildDirectories[i]->setCheckStatus(checkStatus);
 	}
 }
 
@@ -93,6 +93,7 @@ void SampleDirectory::cycleCurrentCheck()
 		setCheckStatus(CheckStatus::Enabled);
 		break;
 	}
+	
 }
 
 void samplify::SampleDirectory::setCheckStatus(CheckStatus newCheckStatus)

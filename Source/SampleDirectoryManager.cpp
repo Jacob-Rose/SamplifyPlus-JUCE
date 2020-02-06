@@ -27,6 +27,7 @@ void SampleDirectoryManager::removeDirectory(const File& dir)
 			break;
 		}
 	}
+	sendChangeMessage();
 }
 
 std::vector<File> samplify::SampleDirectoryManager::getDirectories()

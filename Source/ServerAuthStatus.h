@@ -16,7 +16,7 @@
 
 namespace samplify
 {
-	class ServerAuthStatus : public TracktionMarketplaceStatus
+	class ServerAuthStatus : public OnlineUnlockStatus
 	{
 	public:
 		String getProductID() override

@@ -1,6 +1,6 @@
 #include "DirectoryLibrary.h"
 using namespace samplify;
-
+/*
 void DirectoryLibrary::setDirectories(std::vector<File> directories)
 {
 	mLastDirectories = mDirectories;
@@ -39,3 +39,4 @@ void DirectoryLibrary::clearDirectories()
 	}
 	sendChangeMessage();
 }
+*/

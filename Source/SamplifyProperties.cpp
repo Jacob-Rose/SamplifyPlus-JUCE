@@ -77,6 +77,7 @@ void SamplifyProperties::cleanup()
 	if (mIsInit)
 	{
 		mAudioPlayer->stop();
+		savePropertiesFile();
 		mIsInit = false;
 	}
 }
@@ -145,7 +146,7 @@ void samplify::SamplifyProperties::saveTagsInPropertiesFile()
 
 void SamplifyProperties::changeListenerCallback(ChangeBroadcaster* source)
 {
-	if (DirectoryLibrary * dirLib = dynamic_cast<DirectoryLibrary*>(source))
+	if (SampleDirectoryManager* dirLib = dynamic_cast<SampleDirectoryManager*>(source))
 	{
 		saveDirectoriesInPropertiesFile();
 	}

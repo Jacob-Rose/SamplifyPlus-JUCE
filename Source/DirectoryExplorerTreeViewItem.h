@@ -41,7 +41,6 @@ namespace samplify
 		//else then add samples to sample library
 
 		String getName();
-
 		
 		void itemCheckCycled();
 

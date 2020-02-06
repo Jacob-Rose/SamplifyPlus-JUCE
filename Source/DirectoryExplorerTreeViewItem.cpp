@@ -183,12 +183,32 @@ void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 
 void DirectoryExplorerTreeViewItem::itemClicked(const MouseEvent& e)
 {
-	int itemHeight = getItemHeight();
-	int itemXPos = getItemPosition(false).getX();
-	int xPos = e.getMouseDownPosition().getX() - itemXPos;
-	if (xPos < itemHeight)
+	if (getParentItem() != nullptr)
 	{
-		itemCheckCycled();
+		if (e.mods.isLeftButtonDown())
+		{
+			int itemHeight = getItemHeight();
+			int itemXPos = getItemPosition(false).getX();
+			int xPos = e.getMouseDownPosition().getX() - itemXPos;
+			if (xPos < itemHeight)
+			{
+				itemCheckCycled();
+			}
+		}
+		else if (e.mods.isRightButtonDown())
+		{
+			PopupMenu dirOptions;
+			dirOptions.addItem(1, "Select Exclusively");
+			int selection = dirOptions.show();
+			if (selection == 1)
+			{
+				if (DirectoryExplorerTreeViewItem* dirTVI = dynamic_cast<DirectoryExplorerTreeViewItem*>(getParentItem()))
+				{
+					dirTVI->mSampleDirectory->setCheckStatus(CheckStatus::Disabled);
+				}
+				mSampleDirectory->setCheckStatus(CheckStatus::Enabled);
+			}
+		}
 	}
 }
 

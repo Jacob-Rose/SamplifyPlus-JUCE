@@ -16,6 +16,7 @@
 #include "SampleDirectory.h"
 namespace samplify
 {
+	//This is Identical to Directory library, possibly a newer version, investigate and remove one
 	class SampleDirectoryManager : public ChangeBroadcaster, public ChangeListener
 	{
 	public:

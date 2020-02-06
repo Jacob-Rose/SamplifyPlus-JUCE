@@ -13,6 +13,7 @@
 #include "JuceHeader.h"
 namespace samplify
 {
+	/*
 	class DirectoryLibrary : public ChangeBroadcaster
 	{
 	public:
@@ -37,5 +38,6 @@ namespace samplify
 		std::vector<File> mLastDirectories; //to determine change
 		JUCE_LEAK_DETECTOR(DirectoryLibrary)
 	};
+	*/
 }
 #endif

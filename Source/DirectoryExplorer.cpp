@@ -48,12 +48,15 @@ void DirectoryExplorer::refresh()
 
 void DirectoryExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	if (DirectoryLibrary * dl = dynamic_cast<DirectoryLibrary*>(source))
+	/*
+	if (DirectoryLibrary* dl = dynamic_cast<DirectoryLibrary*>(source))
 	{
 		refresh();
 	}
-	else if (SampleDirectoryManager* sdm = dynamic_cast<SampleDirectoryManager*>(source))
+	
+	else*/ if (SampleDirectoryManager* sdm = dynamic_cast<SampleDirectoryManager*>(source))
 	{
-		((DirectoryExplorerTreeViewItem*)mDirectoryTree.getRootItem())->refreshChildrenPaint();
+		refresh();
+		//((DirectoryExplorerTreeViewItem*)mDirectoryTree.getRootItem())->refreshChildrenPaint();
 	}
 }

@@ -10,6 +10,8 @@
 
 #include "ServerAuthStatus.h"
 
+using namespace samplify;
+
 String samplify::ServerAuthStatus::readReplyFromWebserver(const String& email, const String& password)
 {
 	URL url(getServerAuthenticationURL()
