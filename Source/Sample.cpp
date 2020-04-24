@@ -84,7 +84,7 @@ void Sample::savePropertiesFile()
 		}
 		mPropertiesFile.appendText("#TAGEND");
 		//TODO save cue points
-		mPropertiesFile.appendText("#CUEEND");
+		//mPropertiesFile.appendText("#CUEEND");
 		mPropertiesFile.appendText(mColor.toString());
 	}
 	
@@ -96,24 +96,35 @@ void Sample::loadPropertiesFile()
 	StringArray propFileLines;
 	mPropertiesFile.readLines(propFileLines);
 	int savedVersion = std::stoi(propFileLines[0].toStdString());
-	int line = 1; //read the first line to verify version
-	while (propFileLines[line].toStdString() != "#TAGEND")
+	if (savedVersion == ProjectInfo::versionNumber)
 	{
-		mTags.add(propFileLines[line]);
+		int line = 1; //read the first line to verify version
+		while (propFileLines[line].toStdString() != "#TAGEND")
+		{
+			mTags.add(propFileLines[line]);
+			line++;
+		}
+		line++;
+		/*
+		while (propFileLines[line].toStdString() != "#CUEEND")
+		{
+			juce::String cueName = propFileLines[line];
+			line++;
+			double cueTime = std::stod(propFileLines[line].toStdString());
+			line++;
+			//mCuePoints[cueName] = cueTime;
+		}
+		line++; //cueend line++
+		*/
+		mColor = Colour::fromString(propFileLines[line]);
 		line++;
 	}
-	line++; 
-	while (propFileLines[line].toStdString() != "#CUEEND")
+	else
 	{
-		juce::String cueName = propFileLines[line];
-		line++;
-		double cueTime = std::stod(propFileLines[line].toStdString());
-		line++;
-		mCuePoints[cueName] = cueTime;
+		//todo UpgradeSave() need to add
+
 	}
-	line++; //cueend line++
-	mColor = Colour::fromString(propFileLines[line]);
-	line++;
+	
 }
 
 
@@ -162,6 +173,18 @@ String Sample::Reference::getFullPathName() const
 {
 	jassert(!isNull());
 	return mSample.lock()->mFile.getFullPathName();
+}
+
+String Sample::Reference::getInfoText() const
+{
+	jassert(!isNull());
+	return mSample.lock()->mInformationDescription;
+}
+
+void Sample::Reference::setInfoText(String newText) const
+{
+	jassert(!isNull());
+	mSample.lock()->mInformationDescription = newText;
 }
 
 Sample::SampleType Sample::Reference::getSampleType() const

@@ -35,6 +35,10 @@
       </GROUP>
       <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
         <FILE id="u2qOs0" name="TagLibrary.cpp" compile="1" resource="0" file="Source/TagLibrary.cpp"/>
+        <FILE id="eKhF05" name="SamplePlayerComponent.h" compile="0" resource="0"
+              file="Source/SamplePlayerComponent.h"/>
+        <FILE id="LVGUGi" name="SamplePlayerComponent.cpp" compile="1" resource="0"
+              file="Source/SamplePlayerComponent.cpp"/>
         <FILE id="l18XJb" name="TagLibrary.h" compile="0" resource="0" file="Source/TagLibrary.h"/>
         <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
               file="Source/SampleAudioThumbnail.h"/>

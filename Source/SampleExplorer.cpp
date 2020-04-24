@@ -19,8 +19,6 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
-	//mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
-	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 SampleExplorer::~SampleExplorer()

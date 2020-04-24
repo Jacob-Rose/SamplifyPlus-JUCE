@@ -65,6 +65,9 @@ namespace samplify
 			String getRelativePathName() const;
 
 			String getFullPathName() const;
+			
+			String getInfoText() const;
+			void setInfoText(String newText) const;
 
 			Sample::SampleType getSampleType() const;
 
@@ -82,12 +85,10 @@ namespace samplify
 
 			void renameFile(String name);
 
-			
-
 			friend bool operator==(const Sample::Reference& lhs, const Sample::Reference& rhs);
 			friend bool operator!=(const Sample::Reference& lhs, const Sample::Reference& rhs);
 		private:
-			std::weak_ptr<Sample> mSample;
+			std::weak_ptr<Sample> mSample; //weak pointer for saftey
 			JUCE_LEAK_DETECTOR(Sample::Reference)
 		};
 		class List
@@ -133,7 +134,7 @@ namespace samplify
 		File mPropertiesFile; 
 		SampleType mSampleType = SampleType::UNDEFINED;
 		StringArray mTags;
-		std::map<juce::String, double> mCuePoints;
+		//std::map<juce::String, double> mCuePoints;
 		juce::String mInformationDescription;
 		double mLength = -1;
 		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;

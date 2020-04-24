@@ -5,8 +5,7 @@ using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
-SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager()),
-												unlockForm(authorizationStatus)
+SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager())
 {
 	setupLookAndFeel();
 	mInstance = this;
@@ -18,8 +17,10 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
 	addAndMakeVisible(mFilterExplorer);
-	addAndMakeVisible(unlockForm);
+	addAndMakeVisible(mSamplePlayer);
+	//addAndMakeVisible(unlockForm);
     
+	//Setup Audio
 	AudioDeviceManager::AudioDeviceSetup adsetup;
 	deviceManager.getAudioDeviceSetup(adsetup);
 	adsetup.bufferSize = 512;
@@ -27,10 +28,15 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 	deviceManager.setAudioDeviceSetup(adsetup, true);
 	//deviceManager.initialise(2,2,0,true,juce::String(), &adsetup);
 	setAudioChannels(0, 2);
-	SamplifyProperties::getInstance()->getSampleDirectoryManager()->addChangeListener(&mDirectoryExplorer);
 
+	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(&mSampleExplorer);
+	SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(&mSamplePlayer);
+	SamplifyProperties::getInstance()->getSampleDirectoryManager()->addChangeListener(&mDirectoryExplorer);
     setSize (600, 400);
-	startTimer(100);
+	//startTimer(100);
+
+	//initial load
+	SamplifyProperties::getInstance()->getSampleLibrary()->updateCurrentSamples("");
 }
 
 SamplifyMainComponent::~SamplifyMainComponent()
@@ -47,6 +53,7 @@ SamplifyMainComponent::~SamplifyMainComponent()
 
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
 {
+	//pause/play controls
 	if (key.getTextCharacter() == 'g')
 	{
 		SamplifyProperties::getInstance()->getAudioPlayer()->play();
@@ -93,14 +100,10 @@ void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& buff
 
 void SamplifyMainComponent::releaseResources()
 {
-	// This will be called when the audio device stops, or when it is being
-	// restarted due to a setting change.
 	if (mAudioPlayer != nullptr)
 	{
 		mAudioPlayer->releaseResources();
 	}
-	
-	// For more details, see the help for AudioProcessor::releaseResources()
 }
 
 void samplify::SamplifyMainComponent::setupLookAndFeel()
@@ -124,7 +127,8 @@ void SamplifyMainComponent::resized()
 	int widthSegment = getWidth() / 5;
 	mDirectoryExplorer.setBounds(0, 0, widthSegment, getHeight());
 	mSampleExplorer.setBounds(widthSegment, 0, widthSegment * 3, getHeight());
-	mFilterExplorer.setBounds(widthSegment * 4, 0, widthSegment, getHeight());
+	mFilterExplorer.setBounds(widthSegment * 4, getHeight() / 2, widthSegment, getHeight()/2);
+	mSamplePlayer.setBounds(widthSegment * 4, 0, widthSegment, getHeight()/2);
 }
 
 SamplifyMainComponent* SamplifyMainComponent::getInstance()
@@ -132,21 +136,13 @@ SamplifyMainComponent* SamplifyMainComponent::getInstance()
 	return mInstance;
 }
 
-void samplify::SamplifyMainComponent::timerCallback()
+void SamplifyMainComponent::timerCallback()
 {
+	/*
 	if (!isUnlocked && authorizationStatus.isUnlocked())
 	{
 		isUnlocked = true;
 		unlockApp();
 	}
-}
-
-void samplify::SamplifyMainComponent::unlockApp()
-{
-
-}
-
-bool samplify::SamplifyMainComponent::isAppUnlocked()
-{
-	return authorizationStatus.isUnlocked();
+	*/
 }

@@ -6,7 +6,7 @@ AudioPlayer::AudioPlayer()
 {
 	formatManager.registerBasicFormats();
 	transportSource.addChangeListener(this);
-	state = Stopped;
+	state = TransportState::Stopped;
 }
 
 AudioPlayer::~AudioPlayer()
@@ -16,7 +16,7 @@ AudioPlayer::~AudioPlayer()
 void AudioPlayer::play()
 {
 	setRelativeTime(mSampleStartT);
-	changeState(Starting);
+	changeState(TransportState::Starting);
 }
 
 void AudioPlayer::reset()
@@ -32,14 +32,14 @@ void AudioPlayer::stop()
 
 void samplify::AudioPlayer::toggle()
 {
-	if (state == Playing)
+	if (state == TransportState::Playing)
 	{
-		changeState(Stopping);
+		changeState(TransportState::Stopping);
 	}
-	else if (state == Stopped)
+	else if (state == TransportState::Stopped)
 	{
 		reset();
-		changeState(Starting);
+		changeState(TransportState::Starting);
 	}
 }
 
@@ -48,9 +48,9 @@ void AudioPlayer::changeListenerCallback(ChangeBroadcaster* source)
 	if (source == &transportSource)
 	{
 		if (transportSource.isPlaying())
-			changeState(Playing);
+			changeState(TransportState::Playing);
 		else
-			changeState(Stopped);
+			changeState(TransportState::Stopped);
 	}
 }
 
@@ -80,40 +80,36 @@ void AudioPlayer::changeState(TransportState newState)
 
 		switch (state)
 		{
-		case Stopped:
+		case TransportState::Stopped:
 			setRelativeTime(mSampleStartT);
 			break;
-		case Stopping:
+		case TransportState::Stopping:
 			transportSource.stop();
 			break;
-		case Playing:
+		case TransportState::Playing:
 			break;
-		case Starting:
+		case TransportState::Starting:
 			transportSource.start();
-			changeState(Playing);
+			changeState(TransportState::Playing);
 			break;
 		}
 	}
 	sendChangeMessage();
 }
 
-void AudioPlayer::loadFile(File file)
+
+void AudioPlayer::loadFile(Sample::Reference ref)
 {
-	AudioFormatReader* reader = formatManager.createReaderFor(file);
-	mCurrentFile = file;
+	AudioFormatReader* reader = formatManager.createReaderFor(ref.getFile());
+	mCurrentSample = ref;
 	juce::Time currentTime = juce::Time::getCurrentTime();
-	if (reader != nullptr && (currentTime - mTimeSinceLoaded).inSeconds() > 0.2f && state != Starting)
+	if (reader != nullptr && (currentTime - mTimeSinceLoaded).inSeconds() > 0.2f && state != TransportState::Starting)
 	{
 		std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));
 		transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
 		readerSource.reset(newSource.release());
 	}
 	sendChangeMessage();
-}
-
-void AudioPlayer::loadFile(Sample::Reference ref)
-{
-	loadFile(ref.getFile());
 }
 
 void AudioPlayer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -124,7 +120,7 @@ void AudioPlayer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 
 void AudioPlayer::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-	if (readerSource.get() == nullptr || state == Stopped || transportSource.hasStreamFinished())
+	if (readerSource.get() == nullptr || state == TransportState::Stopped || transportSource.hasStreamFinished())
 	{
 		bufferToFill.clearActiveBufferRegion();
 		return;

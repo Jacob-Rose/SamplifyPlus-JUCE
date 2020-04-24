@@ -16,6 +16,7 @@
 #include "AudioPlayer.h"
 #include "DirectoryExplorer.h"
 #include "FilterExplorer.h"
+#include "SamplePlayerComponent.h"
 #include "SampleExplorer.h"
 #include "ServerAuthUnlockComponent.h"
 
@@ -48,20 +49,18 @@ namespace samplify
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
 
 		void timerCallback() override;
-		void unlockApp();
-
-		bool isAppUnlocked();
 	private:
 		DirectoryExplorer mDirectoryExplorer;
 		SampleExplorer mSampleExplorer;
 		FilterExplorer mFilterExplorer;
+		SamplePlayerComponent mSamplePlayer;
 
 		std::shared_ptr<AudioPlayer> mAudioPlayer;
 		static SamplifyMainComponent* mInstance;
 
-		ServerAuthStatus authorizationStatus;
-		ServerAuthUnlockComponent unlockForm;
-		bool isUnlocked = false;
+		//ServerAuthStatus authorizationStatus;
+		//ServerAuthUnlockComponent unlockForm;
+		//bool isUnlocked = false;
 
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SamplifyMainComponent)
 	};

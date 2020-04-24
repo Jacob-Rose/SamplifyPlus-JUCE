@@ -99,12 +99,13 @@ void TagTile::mouseUp(const MouseEvent& e)
 				{
 					//todo add confirm screen
 					//SamplifyProperties::getInstance()->getTagLibrary().deleteTag(mTag);
+					/*
 					if (SamplifyMainComponent::getInstance() != nullptr)
 					{
 						SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().removeNewTag(mTag);
 						SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
 					}
-					
+					*/
 				}
 			}
 

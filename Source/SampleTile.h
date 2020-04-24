@@ -19,6 +19,9 @@
 
 namespace samplify
 {
+
+	
+
 	class SampleTile : public Component, 
 		public DragAndDropTarget, 
 		public MouseListener, 
@@ -32,7 +35,6 @@ namespace samplify
 		void paint(Graphics&) override;
 		void resized() override;
 		//===========================================================================
-		void mouseDown(const MouseEvent& e) override;
 		void mouseUp(const MouseEvent& e) override;
 		void mouseDrag(const MouseEvent& e) override;
 		void mouseMove(const MouseEvent& e) override;
@@ -41,6 +43,7 @@ namespace samplify
 		bool isInterestedInDragSource(const SourceDetails& dragSourceDetails) override;
 		void itemDropped(const SourceDetails& dragSourceDetails) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
+
 		void playSample();
 		void playSample(float t);
 

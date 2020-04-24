@@ -29,6 +29,8 @@ void SampleTile::paint (Graphics& g)
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
+		Colour titleColor = Colours::slategrey;
+		Colour infoIconColor = Colours::orangered;
 		if (isMouseOver(true))
 		{
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID);
@@ -43,36 +45,34 @@ void SampleTile::paint (Graphics& g)
 		//Draw BG
 		g.setColour(backgroundColor);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius);
-
-		//Draw info icon
-		g.setColour(Colours::aqua);
-		g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
-
-		//Draw Title
-		g.setFont(SAMPLE_TILE_TITLE_FONT);
-		g.setColour(Colours::darkslategrey);
-		g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
-
-		
-
-		g.setColour(foregroundColor);
-
-		switch (mSample.getSampleType())
+		if (mSample.getInfoText() != "")
 		{
-		case Sample::SampleType::ONESHOT:
-			//todo draw
-		case Sample::SampleType::LOOP:
-			//todo draw
-			break;
-		default:
-			break;
+			//Draw info icon
+			g.setColour(Colours::aqua);
+			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
+			g.setColour(titleColor);
+			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), 0.5f);
+
+			//Draw Title
+			g.setFont(SAMPLE_TILE_TITLE_FONT);
+			g.setColour(titleColor);
+			g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
+		}
+		else
+		{
+			//Draw Title
+			g.setFont(SAMPLE_TILE_TITLE_FONT);
+			g.setColour(titleColor);
+			g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(2.0f), Justification::centredLeft);
 		}
 
+		/*
 		//Draw Time
 		g.setFont(16.0f);
 		std::stringstream str;
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
 		g.drawText(String(str.str()), m_TimeRect.withLeft(m_TimeRect.getTopLeft().x + 2.0f), Justification::centred);
+		*/
 
 		//Draw Thumbnail
 		std::shared_ptr<SampleAudioThumbnail> thumbnail = mSample.getThumbnail();
@@ -86,7 +86,7 @@ void SampleTile::paint (Graphics& g)
 
 		//Draw Audio Line if playing
 		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getFile() == mSample.getFile())
+		if (auxPlayer->getSampleReference() == mSample)
 		{
 			float startT = auxPlayer->getStartCueRelative();
 			float currentT = auxPlayer->getRelativeTime();
@@ -132,18 +132,6 @@ bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails
 	}
 }
 
-void SampleTile::mouseDown(const MouseEvent& e)
-{
-	if (!m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isRightButtonDown())
-	{
-		PopupMenu menu;
-		menu.addItem(1, "Open Q-Editor", false, false);
-		menu.addSeparator();
-		menu.addItem(2, "Rename Sample", false, false);
-		menu.addItem(3, "Delete Sample", false, false);
-		int selection = menu.show();
-	}
-}
 
 void SampleTile::mouseUp(const MouseEvent& e)
 {
@@ -165,7 +153,8 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
 		}
-		if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
+		/*
+		else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 		{
 			PopupMenu menu;
 			StringArray parentDirs = mSample.getRelativeParentFolders();
@@ -174,6 +163,24 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				menu.addItem(i + 1, parentDirs[i]);
 			}
 			int choice = menu.show();
+		}
+		*/
+
+		else if (m_InfoIconRect.contains(e.getPosition().toFloat()))
+		{
+			//todo make a tooltip not this
+			PopupMenu menu;
+			menu.addItem(1, mSample.getInfoText(), true, false);
+			menu.show();
+		}
+		else
+		{
+			PopupMenu menu;
+			menu.addItem(1, "Open Q-Editor", false, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
+			menu.addSeparator();
+			menu.addItem(2, "Rename Sample", false, false);
+			menu.addItem(3, "Delete Sample", false, false);
+			int selection = menu.show();
 		}
 	}
 }
@@ -210,7 +217,7 @@ void SampleTile::playSample(float t)
 	if (!mSample.isNull())
 	{
 		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getFile() != mSample.getFile())
+		if (auxPlayer->getSampleReference() != mSample)
 		{
 			auxPlayer->loadFile(mSample);
 		}
@@ -243,7 +250,7 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 	if (!mSample.isNull())
 	{
 		std::shared_ptr<AudioPlayer> aux = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (aux->getFile() == mSample.getFile())
+		if (aux->getSampleReference() == mSample)
 		{
 			if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
 				aux->getState() == AudioPlayer::TransportState::Playing))
@@ -260,17 +267,18 @@ void SampleTile::setSample(Sample::Reference sample)
 {
 	if (!sample.isNull())
 	{
-		bool yes = true;
+		bool alreadyThis = false;
 		if (!mSample.isNull())
 		{
 			if (mSample == sample)
 			{
-				yes = false;
+				alreadyThis = true;
 			}
 		}
-		if (yes)
+		if (!alreadyThis)
 		{
 			sample.generateThumbnailAndCache();
+			
 		}
 	}
 	mSample = sample;

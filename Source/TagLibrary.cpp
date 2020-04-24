@@ -58,11 +58,15 @@ void TagLibrary::renameTag(juce::String currentTagName, juce::String desiredName
 void TagLibrary::deleteTag(juce::String tag)
 {
 	/*
-	Sample::List allSamps = SamplifyProperties::getInstance()->mSampleLibrary.getAllSamples();
+	Sample::List allSamps = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	for (int i = 0; i < allSamps.size(); i++)
 	{
 		//does nothing if not contained
-		allSamps[i].removeTag(tag);
+		if (allSamps[i].getTags().contains(tag))
+		{
+			allSamps[i].removeTag(tag);
+		}
+		
 	}
 	std::map<juce::String, Colour>::iterator it = mSampleTagColors.find(tag);
 	if (it != mSampleTagColors.end())

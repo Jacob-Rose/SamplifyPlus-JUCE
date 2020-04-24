@@ -18,7 +18,7 @@ namespace samplify
 	class AudioPlayer : public ChangeListener, public AudioSource, public ChangeBroadcaster
 	{
 	public:
-		enum TransportState
+		enum class TransportState
 		{
 			Playing,
 			Stopped,
@@ -57,12 +57,12 @@ namespace samplify
 
 		void setRelativeTime(double t);
 
-		File getFile() { return mCurrentFile; }
+		Sample::Reference getSampleReference() { return mCurrentSample; }
 		float getRelativeTime() { return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds(); }
 		float getStartCueRelative() { return mSampleStartT; }
 
 		void changeState(TransportState state);
-		void loadFile(File file);
+
 		void loadFile(Sample::Reference reference);
 
 		TransportState getState() { return state; }
@@ -70,7 +70,7 @@ namespace samplify
 	private:
 		juce::Time mTimeSinceLoaded = juce::Time(0);
 		double mSampleStartT = 0.0f; //between 0 and 1
-		File mCurrentFile;
+		Sample::Reference mCurrentSample = nullptr;
 		AudioFormatManager formatManager;
 		std::unique_ptr<AudioFormatReaderSource> readerSource;
 		AudioTransportSource transportSource;
