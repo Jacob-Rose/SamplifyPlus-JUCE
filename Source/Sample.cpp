@@ -74,16 +74,20 @@ void Sample::savePropertiesFile()
 	{
 		mPropertiesFile.deleteFile();
 	}
-	mPropertiesFile.create(); 
-	mPropertiesFile.appendText(String(ProjectInfo::versionNumber) + "\n");
-	mPropertiesFile.appendText(String(mTags.size()) + "\n");
-	for (int i = 0; i < mTags.size(); i++)
+	if (mPropertiesFile.create().ok)
 	{
-		mPropertiesFile.appendText(mTags[i] + "\n");
+		mPropertiesFile.appendText(String(ProjectInfo::versionNumber) + "\n");
+		mPropertiesFile.appendText(String(mTags.size()) + "\n");
+		for (int i = 0; i < mTags.size(); i++)
+		{
+			mPropertiesFile.appendText(mTags[i] + "\n");
+		}
+		mPropertiesFile.appendText("#TAGEND");
+		//TODO save cue points
+		mPropertiesFile.appendText("#CUEEND");
+		mPropertiesFile.appendText(mColor.toString());
 	}
-	mPropertiesFile.appendText("#TAGEND");
-	//TODO save cue points
-	mPropertiesFile.appendText("#CUEEND");
+	
 }
 
 void Sample::loadPropertiesFile()
@@ -92,13 +96,13 @@ void Sample::loadPropertiesFile()
 	StringArray propFileLines;
 	mPropertiesFile.readLines(propFileLines);
 	int savedVersion = std::stoi(propFileLines[0].toStdString());
-	int line = 1;
+	int line = 1; //read the first line to verify version
 	while (propFileLines[line].toStdString() != "#TAGEND")
 	{
 		mTags.add(propFileLines[line]);
 		line++;
 	}
-	line++;
+	line++; 
 	while (propFileLines[line].toStdString() != "#CUEEND")
 	{
 		juce::String cueName = propFileLines[line];
@@ -107,6 +111,8 @@ void Sample::loadPropertiesFile()
 		line++;
 		mCuePoints[cueName] = cueTime;
 	}
+	line++; //cueend line++
+	mColor = Colour::fromString(propFileLines[line]);
 	line++;
 }
 

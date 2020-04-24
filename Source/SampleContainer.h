@@ -40,6 +40,7 @@ namespace samplify
 	private:
 		//=============================================================================
 		std::vector<SampleTile*> mUsedSampleTiles;
+		std::vector<SampleTile*> mUnusedSampleTiles;
 		Sample::List mCurrentSamples;
 		int mMaxItems = 20;
 

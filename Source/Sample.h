@@ -138,6 +138,7 @@ namespace samplify
 		double mLength = -1;
 		std::shared_ptr<AudioThumbnailCache> mThumbnailCache = nullptr;
 		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
+		juce::Colour mColor; //saved with sample, the sampletile core color
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Sample)
 	};
 

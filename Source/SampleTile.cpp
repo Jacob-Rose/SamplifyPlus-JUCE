@@ -14,6 +14,7 @@ SampleTile::SampleTile(Sample::Reference sample) : mTagContainer(false)
 	setRepaintsOnMouseActivity(true);
 	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
 	setSample(sample);
+	mTagContainer.addMouseListener(this, false);
 	addAndMakeVisible(mTagContainer);
 }
 
@@ -24,11 +25,7 @@ void SampleTile::paint (Graphics& g)
 {
 	if (!mSample.isNull())
 	{
-		const Rectangle<float> titleRect = getTitleRect();
-		const Rectangle<float> timeRect = getTimeRect();
-		const Rectangle<float> typeRect = getTypeRect();
-		const Rectangle<float> thumbnailRect = getThumbnailRect();
-		float tileCornerRadius = 6.0f;
+		float tileCornerRadius = 10.0f;
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
@@ -42,34 +39,22 @@ void SampleTile::paint (Graphics& g)
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID);
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
 		}
+
+		//Draw BG
 		g.setColour(backgroundColor);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius);
+
+		//Draw info icon
+		g.setColour(Colours::aqua);
+		g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
+
+		//Draw Title
 		g.setFont(SAMPLE_TILE_TITLE_FONT);
-		g.setColour(Colours::black);
-		// draw an outline around the component
-		g.drawRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius, 2.0f);
-		g.drawLine(thumbnailRect.getTopLeft().x, 
-			thumbnailRect.getTopLeft().y,
-			0, 
-			getWidth(), 
-			2.0f);
-		g.drawLine(titleRect.getBottomLeft().x,
-			titleRect.getBottomLeft().y,
-			titleRect.getBottomRight().x,
-			titleRect.getBottomRight().y,
-			2.0f);
-		g.drawLine(timeRect.getTopRight().x, 
-			timeRect.getTopRight().y,
-			timeRect.getBottomRight().x,
-			timeRect.getBottomRight().y,
-			2.0f);
-		g.drawLine(typeRect.getTopRight().x,
-			typeRect.getTopRight().y,
-			typeRect.getBottomRight().x,
-			typeRect.getBottomRight().y,
-			2.0f);
 		g.setColour(Colours::darkslategrey);
-		g.drawText(mSample.getFilename(), titleRect, Justification::centredLeft);
+		g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
+
+		
+
 		g.setColour(foregroundColor);
 
 		switch (mSample.getSampleType())
@@ -83,28 +68,32 @@ void SampleTile::paint (Graphics& g)
 			break;
 		}
 
+		//Draw Time
 		g.setFont(16.0f);
 		std::stringstream str;
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
-		g.drawText(String(str.str()), timeRect.withLeft(timeRect.getTopLeft().x + 2.0f), Justification::centred);
+		g.drawText(String(str.str()), m_TimeRect.withLeft(m_TimeRect.getTopLeft().x + 2.0f), Justification::centred);
 
+		//Draw Thumbnail
 		std::shared_ptr<SampleAudioThumbnail> thumbnail = mSample.getThumbnail();
 		if (thumbnail->isFullyLoaded())
 		{
 			if (thumbnail->getNumChannels() != 0)
 			{
-				thumbnail->drawChannel(g, thumbnailRect.toNearestInt(), 0.0, thumbnail->getTotalLength(), 0, 1.0f);
+				thumbnail->drawChannel(g, m_ThumbnailRect.toNearestInt(), 0.0, thumbnail->getTotalLength(), 0, 1.0f);
 			}
 		}
+
+		//Draw Audio Line if playing
 		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
 		if (auxPlayer->getFile() == mSample.getFile())
 		{
 			float startT = auxPlayer->getStartCueRelative();
 			float currentT = auxPlayer->getRelativeTime();
-			float startX = thumbnailRect.getTopLeft().x + ((thumbnailRect.getTopRight().x - thumbnailRect.getTopLeft().x) * startT);
-			float currentX = thumbnailRect.getTopLeft().x + ((thumbnailRect.getTopRight().x - thumbnailRect.getTopLeft().x) * currentT);
-			float y1 = thumbnailRect.getTopLeft().y;
-			float y2 = thumbnailRect.getBottomLeft().y;
+			float startX = m_ThumbnailRect.getTopLeft().x + ((m_ThumbnailRect.getTopRight().x - m_ThumbnailRect.getTopLeft().x) * startT);
+			float currentX = m_ThumbnailRect.getTopLeft().x + ((m_ThumbnailRect.getTopRight().x - m_ThumbnailRect.getTopLeft().x) * currentT);
+			float y1 = m_ThumbnailRect.getTopLeft().y;
+			float y2 = m_ThumbnailRect.getBottomLeft().y;
 			g.setColour(Colours::black);
 			g.drawLine(startX, y1, startX, y2, 1.0f);
 			if (auxPlayer->getState() == AudioPlayer::TransportState::Playing)
@@ -113,19 +102,22 @@ void SampleTile::paint (Graphics& g)
 				g.drawLine(currentX, y1, currentX, y2, 1.0f);
 				repaint();
 			}
-
 		}
 		mTagContainer.setTags(mSample.getTags());
+
+		g.setColour(Colours::black);
+		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), tileCornerRadius, 1.5f);
 	}
 	else
 	{
+		//reset all info if no sample currently active
 		mTagContainer.setTags(StringArray());
 	}
 }
 
 void SampleTile::resized()
 {
-	mTagContainer.setBounds(getTagRect().toNearestInt());
+	updateRects();
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)
@@ -142,8 +134,7 @@ bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails
 
 void SampleTile::mouseDown(const MouseEvent& e)
 {
-	Rectangle audiowaveRect = getThumbnailRect();
-	if (!audiowaveRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isRightButtonDown())
+	if (!m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isRightButtonDown())
 	{
 		PopupMenu menu;
 		menu.addItem(1, "Open Q-Editor", false, false);
@@ -160,9 +151,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 	{
 		int widthSegment = getWidth() / 4;
 		int heightSegment = getHeight() / 3;
-		Rectangle thumbnailRect = getThumbnailRect();
-		Rectangle titleRect = getTitleRect();
-		if (thumbnailRect.contains(e.getMouseDownPosition().toFloat()))
+		if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 		{
 			if (e.mods.isLeftButtonDown())
 			{
@@ -170,13 +159,13 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			}
 			else if (e.mods.isRightButtonDown())
 			{
-				float rectWidth = thumbnailRect.getWidth();
+				float rectWidth = m_ThumbnailRect.getWidth();
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
 			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
 		}
-		if (titleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
+		if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 		{
 			PopupMenu menu;
 			StringArray parentDirs = mSample.getRelativeParentFolders();
@@ -203,6 +192,13 @@ void SampleTile::mouseMove(const MouseEvent & e)
 {
 	repaint();
 }
+
+void samplify::SampleTile::mouseExit(const MouseEvent& e)
+{
+	repaint();
+}
+
+
 
 void SampleTile::playSample()
 {
@@ -287,29 +283,21 @@ Sample::Reference SampleTile::getSample()
 }
 
 
-Rectangle<float> SampleTile::getTitleRect()
+void SampleTile::updateRects()
 {
-	return Rectangle<float>(0,0,getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
-}
+	//Core Rects
+	m_TitleRect = Rectangle<float>(0, 0, getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
+	m_TypeRect = Rectangle<float>(0, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
+	m_TimeRect = Rectangle<float>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
 
-Rectangle<float> SampleTile::getTypeRect()
-{
-	return Rectangle<float>(0, getHeight() - (getWidth() /5), getWidth() / 5, getWidth() / 5);
-}
+	//Derivative Rects
+	float startY = m_TitleRect.getHeight();
+	m_ThumbnailRect = Rectangle<float>(0, startY, getWidth(), getHeight() - (startY + (getWidth() / 5)));
 
-Rectangle<float> SampleTile::getTimeRect()
-{
-	return Rectangle<float>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth()/5, getWidth()/5);
-}
+	float offset = (m_TitleRect.getHeight() + m_ThumbnailRect.getHeight());
+	m_TagRect = Rectangle<float>(getWidth() / 2, offset, getWidth() / 2, getHeight() - offset);
+	mTagContainer.setBounds(m_TagRect.toNearestInt());
 
-Rectangle<float> SampleTile::getThumbnailRect()
-{
-	float startY = getTitleRect().getHeight();
-	return Rectangle<float>(0, startY, getWidth(), getHeight() - (startY + (getWidth() /5)));
-}
+	m_InfoIconRect = Rectangle<float>(0, 0, m_TitleRect.getHeight(), m_TitleRect.getHeight()); //square in top right
 
-Rectangle<float> SampleTile::getTagRect()
-{
-	float startX = getTypeRect().getWidth() + getTimeRect().getWidth();
-	return Rectangle<float>((getWidth()/5) * 2, getHeight() - (getWidth() /5), getWidth()/5, getWidth()/5);
 }
