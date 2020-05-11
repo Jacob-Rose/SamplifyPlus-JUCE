@@ -41,6 +41,7 @@ namespace samplify
 		void updateCurrentSamples(String query);
 
 		Sample::List getCurrentSamples();
+		String getCurrentQuery() { return mCurrentQuery; }
 
 		StringArray getUsedTags(); //get tags that are currently connected to one or more samples
 

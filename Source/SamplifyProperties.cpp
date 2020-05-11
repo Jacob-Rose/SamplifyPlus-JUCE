@@ -131,21 +131,13 @@ void SamplifyProperties::savePropertiesFile()
 			propFile->setValue("directory " + String(i), dirs[i]->getFile().getFullPathName());
 		}
 
-		//Save Tags
-		int tagCount = 0;
-		StringArray usedTags = mSampleLibrary->getUsedTags();
 		std::vector<SampleLibrary::Tag> allTags = mSampleLibrary->getTags();
-		std::vector<SampleLibrary::Tag>::iterator it = allTags.begin();
-		while (it != allTags.end())
+		for(int i =0; i < allTags.size(); i++)
 		{
-			if (usedTags.contains(it->mTitle))
-			{
-				propFile->setValue("tag " + String(tagCount), it->mTitle);
-				propFile->setValue("tag " + it->mTitle, it->mColor.toString());
-				tagCount++;
-			}
+			propFile->setValue("tag " + String(i), allTags[i].mTitle);
+			propFile->setValue("tag " + allTags[i].mTitle, allTags[i].mColor.toString());
 		}
-		propFile->setValue("tag count", tagCount);
+		propFile->setValue("tag count", (int)allTags.size());
 		propFile->saveIfNeeded();
 	}
 	else
