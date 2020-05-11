@@ -160,6 +160,11 @@ void Sample::Reference::setInfoText(String newText) const
 	sample->savePropertiesFile();
 }
 
+Colour samplify::Sample::Reference::getColor() const
+{
+	return mSample.lock()->mColor;
+}
+
 Sample::SampleType Sample::Reference::getSampleType() const
 {
 	jassert(!isNull());

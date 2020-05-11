@@ -25,33 +25,43 @@ void SampleTile::paint (Graphics& g)
 {
 	if (!mSample.isNull())
 	{
-		float tileCornerRadius = 10.0f;
 		//setup colors to use
 		Colour backgroundColor;
 		Colour foregroundColor;
-		Colour titleColor = Colours::slategrey;
-		Colour infoIconColor = Colours::orangered;
+		Colour outlineColor;
+		Colour titleColor;
 		if (isMouseOver(true))
 		{
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID);
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_HOVER_COLOR_ID);
+			outlineColor = getLookAndFeel().findColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID);
 		}
 		else
 		{
 			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID);
 			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
+			outlineColor = getLookAndFeel().findColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID);
+		}
+
+		if (backgroundColor.getPerceivedBrightness() > 0.5f)
+		{
+			titleColor = Colours::slategrey;
+		}
+		else
+		{
+			titleColor = Colours::whitesmoke;
 		}
 
 		//Draw BG
 		g.setColour(backgroundColor);
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), tileCornerRadius);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), SAMPLE_TILE_CORNER_RADIUS);
 		if (mSample.getInfoText() != "")
 		{
 			//Draw info icon
-			g.setColour(Colours::aqua);
+			g.setColour(foregroundColor);
 			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
-			g.setColour(titleColor);
-			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), 0.5f);
+			g.setColour(outlineColor);
+			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), SAMPLE_TILE_OUTLINE_THICKNESS);
 
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
@@ -66,15 +76,17 @@ void SampleTile::paint (Graphics& g)
 			g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(2.0f), Justification::centredLeft);
 		}
 
-		/*
+		
+		g.setColour(titleColor);
 		//Draw Time
 		g.setFont(16.0f);
 		std::stringstream str;
 		str << std::fixed << std::setprecision(2) << mSample.getLength();
 		g.drawText(String(str.str()), m_TimeRect.withLeft(m_TimeRect.getTopLeft().x + 2.0f), Justification::centred);
-		*/
+		
 
 		//Draw Thumbnail
+		g.setColour(foregroundColor);
 		std::shared_ptr<SampleAudioThumbnail> thumbnail = mSample.getThumbnail();
 		if (thumbnail->isFullyLoaded())
 		{
@@ -103,10 +115,11 @@ void SampleTile::paint (Graphics& g)
 				repaint();
 			}
 		}
+		//set tags
 		mTagContainer.setTags(mSample.getTags());
 
-		g.setColour(Colours::black);
-		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), tileCornerRadius, 1.5f);
+		g.setColour(outlineColor);
+		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), SAMPLE_TILE_CORNER_RADIUS, SAMPLE_TILE_OUTLINE_THICKNESS);
 	}
 	else
 	{

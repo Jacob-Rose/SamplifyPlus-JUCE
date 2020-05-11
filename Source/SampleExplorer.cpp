@@ -2,6 +2,7 @@
 #include "SampleLibrary.h"
 #include "SamplifyProperties.h"
 #include "SamplifyMainComponent.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
@@ -77,4 +78,6 @@ void SampleExplorer::SampleSearchbar::resized()
 {
 	mEraseSearchButton.setBoundsRelative(0.8f, 0.2f, 0.1f, 0.6f);
 	TextEditor::resized();
+	//set color here to avoid errors // move to visibilityChanged()
+	setColour(backgroundColourId, getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID));
 }
