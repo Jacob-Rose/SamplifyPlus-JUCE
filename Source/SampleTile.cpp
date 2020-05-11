@@ -80,9 +80,13 @@ void SampleTile::paint (Graphics& g)
 		g.setColour(titleColor);
 		//Draw Time
 		g.setFont(16.0f);
-		std::stringstream str;
-		str << std::fixed << std::setprecision(2) << mSample.getLength();
-		g.drawText(String(str.str()), m_TimeRect.withLeft(m_TimeRect.getTopLeft().x + 2.0f), Justification::centred);
+		std::stringstream secondsStr;
+		std::stringstream minutesStr;
+		int minutes = ((int)mSample.getLength()) / 60;
+		secondsStr << std::fixed << std::setprecision(1) << (mSample.getLength() - (60.0*minutes));
+		minutesStr << std::fixed << minutes;
+		g.drawText(String(secondsStr.str()) + " sec", m_TimeRect, Justification::bottom);
+		g.drawText(String(minutesStr.str()) + " min", m_TimeRect, Justification::top);
 		
 
 		//Draw Thumbnail
@@ -150,21 +154,30 @@ void SampleTile::mouseUp(const MouseEvent& e)
 {
 	if (!mSample.isNull())
 	{
-		int widthSegment = getWidth() / 4;
-		int heightSegment = getHeight() / 3;
-		if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
+		if (e.mods.isLeftButtonDown())
 		{
-			if (e.mods.isLeftButtonDown())
+			if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 			{
 				playSample();
 			}
-			else if (e.mods.isRightButtonDown())
+		}
+		else if (e.mods.isRightButtonDown())
+		{
+			if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 			{
 				float rectWidth = m_ThumbnailRect.getWidth();
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
-			SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(this);
+			else
+			{
+				PopupMenu menu;
+				menu.addItem(1, "Open Q-Editor", false, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
+				menu.addSeparator();
+				menu.addItem(2, "Rename Sample", false, false);
+				menu.addItem(3, "Delete Sample", false, false);
+				int selection = menu.show();
+			}
 		}
 		/*
 		else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
@@ -178,22 +191,9 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			int choice = menu.show();
 		}
 		*/
-
-		else if (m_InfoIconRect.contains(e.getPosition().toFloat()))
-		{
-			//todo make a tooltip not this
-			PopupMenu menu;
-			menu.addItem(1, mSample.getInfoText(), true, false);
-			menu.show();
-		}
 		else
 		{
-			PopupMenu menu;
-			menu.addItem(1, "Open Q-Editor", false, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
-			menu.addSeparator();
-			menu.addItem(2, "Rename Sample", false, false);
-			menu.addItem(3, "Delete Sample", false, false);
-			int selection = menu.show();
+			
 		}
 	}
 }
@@ -270,10 +270,9 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 			{
 				aux->removeChangeListener(this);
 			}
-
-			repaint();
 		}
 	}
+	repaint();
 }
 
 void SampleTile::setSample(Sample::Reference sample)

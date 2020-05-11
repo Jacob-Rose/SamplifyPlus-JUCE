@@ -11,6 +11,7 @@ SamplifyMainComponent::SamplifyMainComponent()
 	mInstance = this;
 	addKeyListener(this);
 	mAudioPlayer = std::make_shared<AudioPlayer>();
+	
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer);
 
 
@@ -106,6 +107,14 @@ void samplify::SamplifyMainComponent::setupLookAndFeel()
 {
 	getLookAndFeel().setColour(MAIN_BASE_COLOR_ID, MAIN_BASE_COLOR);
 	getLookAndFeel().setColour(TextEditor::backgroundColourId, MAIN_BASE_COLOR);
+	getLookAndFeel().setColour(TextEditor::textColourId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(TextEditor::outlineColourId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(TextButton::buttonColourId, MAIN_BASE_COLOR);
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, MAIN_BASE_COLOR);
+	getLookAndFeel().setColour(ComboBox::textColourId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(ComboBox::arrowColourId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(ComboBox::outlineColourId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(ComboBox::buttonColourId, MAIN_ACCENT_COLOR);
 	getLookAndFeel().setColour(MAIN_ACCENT_COLOR_ID, MAIN_ACCENT_COLOR);
 	getLookAndFeel().setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, SAMPLE_TILE_BG_DEFAULT_COLOR);
 	getLookAndFeel().setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, SAMPLE_TILE_BG_HOVER_COLOR);

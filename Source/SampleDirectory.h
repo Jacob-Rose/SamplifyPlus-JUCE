@@ -44,8 +44,10 @@ namespace samplify
 
 		void recursiveRefresh();
 		std::shared_ptr<SampleDirectory> getChildDirectory(int index);
+
+
+		friend class SamplifyPlusApplication; //sets the wildcard really fucking early
 		friend class DirectoryExplorerTreeViewItem;
-		friend class SampleDirectoryManager; //used to optimze callback function later, not necessary though could call recursive
 	private:
 
 		SampleDirectory(const samplify::SampleDirectory& samplify) {}; //dont call me
@@ -54,6 +56,9 @@ namespace samplify
 		bool mIncludeChildSamples = true; //if the folder should load its own samples when getsamples is called
 		std::vector<std::shared_ptr<Sample>> mChildSamples; //safer
 		std::vector<std::shared_ptr<SampleDirectory>> mChildDirectories;
+
+
+		static String mWildcard; //set by SampleLibrary using the audioplayer to get all supported formats
 	};
 }
 #endif

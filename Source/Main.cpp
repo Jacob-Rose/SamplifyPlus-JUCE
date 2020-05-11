@@ -43,8 +43,14 @@ namespace samplify
 			else
 			{
 			*/
-				SamplifyProperties::initInstance();
-				mainWindow.reset(new MainWindow(getApplicationName()));
+
+			//I KNOW THIS IS INEFFICIENT, BUT LIKE HONESTLY I CREATE IT QUICKLY AND DELETE SO FUCK YOU
+			std::shared_ptr<AudioPlayer> audioPlayer = std::make_shared<AudioPlayer>();
+			SampleDirectory::mWildcard = audioPlayer->getFormatManager()->getWildcardForAllFormats();
+
+
+			SamplifyProperties::initInstance();
+			mainWindow.reset(new MainWindow(getApplicationName()));
 			//}
 		}
 

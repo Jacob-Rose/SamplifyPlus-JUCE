@@ -15,18 +15,18 @@ SampleLibrary::~SampleLibrary()
 void SampleLibrary::updateCurrentSamples(String query)
 {
 	mCurrentQuery = query;
-	/*
+	
 	if (updateSampleFuture != nullptr)
 	{
 		updateSampleFuture->_Abandon();
 		updateSampleFuture = nullptr;
 	}
 	updateSampleFuture = std::make_unique<std::future<Sample::List>>(getAllSamplesInDirectories_Async(query));
-	updateSampleFuture->wait();
+	updateSampleFuture->wait(); //this is what kills it, gotta fine a call to check if valid
 	if (updateSampleFuture->valid())
 		mCurrentSamples = updateSampleFuture->get();
-		*/
-	mCurrentSamples = getAllSamplesInDirectories(query, false);
+		
+	//mCurrentSamples = getAllSamplesInDirectories(query, false);
 	sendChangeMessage();
 }
 
@@ -143,9 +143,11 @@ Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool 
 	}
 	return list;
 }
-/*
+
+
 std::future<Sample::List> SampleLibrary::getAllSamplesInDirectories_Async(juce::String query, bool ignoreCheckSystem)
 {
-	return std::async(std::launch::async, &getAllSamplesInDirectories, query, ignoreCheckSystem); //getAllSamplesInDirectories(query, getCount); });
+	
+	std::future<Sample::List> asfunc = std::async(std::launch::async, &SampleLibrary::getAllSamplesInDirectories, this, query, ignoreCheckSystem); 
+	return asfunc;
 }
-*/

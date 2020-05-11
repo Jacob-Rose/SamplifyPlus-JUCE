@@ -11,9 +11,6 @@
 #ifndef SAMPLIFYMAINCOMPONENT_H
 #define SAMPLIFYMAINCOMPONENT_H
 
-#define JUCE_USE_MP3AUDIOFORMAT 1
-#define JUCE_USE_LAME_AUDIO_FORMAT 1
-
 #include "JuceHeader.h"
 
 #include "AudioPlayer.h"

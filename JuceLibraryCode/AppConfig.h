@@ -17,6 +17,8 @@
 // [BEGIN_USER_CODE_SECTION]
 
 // (You can add your own code in this section, and the Projucer will not overwrite it)
+#define JUCE_USE_MP3AUDIOFORMAT 1
+#define JUCE_USE_LAME_AUDIO_FORMAT 1
 
 // [END_USER_CODE_SECTION]
 

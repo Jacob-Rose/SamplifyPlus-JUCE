@@ -43,7 +43,7 @@ namespace samplify
 	const int SAMPLE_TAG_FONT_SIZE = 12;
 	const float SAMPLE_TAG_TEXT_PADDING = 2.0f;
 
-	const float SAMPLE_TILE_MIN_WIDTH = 150.0f;
+	const float SAMPLE_TILE_MIN_WIDTH = 180.0f;
 	const float SAMPLE_TILE_ASPECT_RATIO = 0.666;
 	const float SAMPLE_TILE_CONTAINER_ITEM_PADDING = 2.0f;
 	const float SAMPLE_TILE_CORNER_RADIUS = 8.0f;

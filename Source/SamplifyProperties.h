@@ -52,8 +52,7 @@ namespace samplify
 		~SamplifyProperties();
 
 		std::shared_ptr<SampleLibrary> mSampleLibrary = nullptr;
-		//std::shared_ptr<TagLibrary> mTagLibrary = nullptr;
-		std::shared_ptr<SampleDirectoryManager> mDirectoryManager = nullptr;
+
 		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;
 		//========================================================
 		static SamplifyProperties* smAppProperties;

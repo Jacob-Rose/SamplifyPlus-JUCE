@@ -71,7 +71,7 @@ namespace samplify
 
 		//Get Samples
 		Sample::List getAllSamplesInDirectories(juce::String query, bool ignoreCheckSystem);
-		//std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
+		std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
 
 	private:
 		std::unique_ptr<std::future<Sample::List>> updateSampleFuture;
