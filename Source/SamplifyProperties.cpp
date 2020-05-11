@@ -36,7 +36,7 @@ void SamplifyProperties::browseForDirectoryAndAdd()
 	File dir = browseForDirectory();
 	if (dir.exists())
 	{
-		mDirectoryManager->addDirectory(dir);
+		mSampleLibrary->addDirectory(dir);
 	}
 }
 
@@ -65,9 +65,8 @@ SamplifyProperties* SamplifyProperties::getInstance()
 
 void SamplifyProperties::init()
 {
-	mDirectoryManager = std::make_shared<SampleDirectoryManager>();
-	mSampleLibrary = std::make_shared<SampleLibrary>(mDirectoryManager);
-	mTagLibrary = std::make_shared<TagLibrary>();
+	mSampleLibrary = std::make_shared<SampleLibrary>();
+	//mTagLibrary = std::make_shared<TagLibrary>();
 	loadPropertiesFile();
 	mIsInit = true;
 }
@@ -87,17 +86,21 @@ void SamplifyProperties::loadPropertiesFile()
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
-		StringArray propFileLines;
 		//load dirs
 		int dirCount = propFile->getIntValue("directory count");
-		for (int i = 0; i < dirCount; i++)
-		{
-			mDirectoryManager->addDirectory(File(propFile->getValue("directory "+ i)));
-		}
-		if (mDirectoryManager->getCount() == 0)
+		if (dirCount == 0)
 		{
 			browseForDirectoryAndAdd();
 		}
+		else
+		{
+			for (int i = 0; i < dirCount; i++)
+			{
+				mSampleLibrary->addDirectory(File(propFile->getValue("directory " + i)));
+			}
+		}
+		
+		
 		//load tags
 		int tagCount = propFile->getIntValue("tag count");
 		for (int i = 0; i < tagCount; i++)
@@ -105,7 +108,7 @@ void SamplifyProperties::loadPropertiesFile()
 			String tag = propFile->getValue("tag " + i);
 			jassert(tag != "");
 			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
-			mTagLibrary->addTag(tag, color);
+			mSampleLibrary->addTag(tag, color);
 		}
 	}
 	else
@@ -116,39 +119,42 @@ void SamplifyProperties::loadPropertiesFile()
 
 void SamplifyProperties::savePropertiesFile()
 {
-	saveDirectoriesInPropertiesFile();
-	
-}
-
-void SamplifyProperties::saveDirectoriesInPropertiesFile()
-{
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
-		propFile->setValue("directory count", (int)mDirectoryManager->getCount());
-		for (int i = 0; i < mDirectoryManager->getCount(); i++)
+		//Save Dirs
+		std::vector<std::shared_ptr<SampleDirectory>> dirs = mSampleLibrary->getDirectories();
+		propFile->setValue("directory count", (int)dirs.size());
+		for (int i = 0; i < dirs.size(); i++)
 		{
-			propFile->setValue("directory " + i, mDirectoryManager->getSampleDirectory(i)->getFile().getFullPathName());
+			propFile->setValue("directory " + i, dirs[i]->getFile().getFullPathName());
 		}
+
+		//Save Tags
+		int tagCount = 0;
+		StringArray usedTags = mSampleLibrary->getUsedTags();
+		std::vector<SampleLibrary::Tag> allTags = mSampleLibrary->getTags();
+		std::vector<SampleLibrary::Tag>::iterator it = allTags.begin();
+		while (it != allTags.end())
+		{
+			if (usedTags.contains(it->mTitle))
+			{
+				propFile->setValue("tag " + String(tagCount), it->mTitle);
+				propFile->setValue("tag " + it->mTitle, it->mColor.toString());
+				tagCount++;
+			}
+		}
+		propFile->setValue("tag count", tagCount);
 		propFile->saveIfNeeded();
 	}
 	else
 	{
 		throw "Properties File is not valid file";
 	}
-
-}
-
-void samplify::SamplifyProperties::saveTagsInPropertiesFile()
-{
-	mTagLibrary->saveTags(getUserSettings());
 }
 
 void SamplifyProperties::changeListenerCallback(ChangeBroadcaster* source)
 {
-	if (SampleDirectoryManager* dirLib = dynamic_cast<SampleDirectoryManager*>(source))
-	{
-		saveDirectoriesInPropertiesFile();
-	}
+	savePropertiesFile();
 }
 

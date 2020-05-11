@@ -20,7 +20,7 @@ namespace samplify
 	class Sample : public ChangeBroadcaster, public ChangeListener
 	{
 	public:
-		enum SampleType
+		enum class SampleType
 		{
 			UNDEFINED = -1,
 			ONESHOT,
@@ -60,9 +60,9 @@ namespace samplify
 				return mSample.lock()->mFile.getFileName(); 
 			}
 
-			StringArray getRelativeParentFolders() const;
+			//StringArray getRelativeParentFolders() const;
 
-			String getRelativePathName() const;
+			//String getRelativePathName() const;
 
 			String getFullPathName() const;
 			

@@ -11,6 +11,9 @@
 #ifndef SAMPLIFYMAINCOMPONENT_H
 #define SAMPLIFYMAINCOMPONENT_H
 
+#define JUCE_USE_MP3AUDIOFORMAT 1
+#define JUCE_USE_LAME_AUDIO_FORMAT 1
+
 #include "JuceHeader.h"
 
 #include "AudioPlayer.h"
@@ -25,6 +28,7 @@ namespace samplify
 	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener, private Timer
 	{
 	public:
+		static SamplifyMainComponent* getInstance();
 		//=====================================================
 		SamplifyMainComponent();
 		~SamplifyMainComponent();
@@ -41,7 +45,7 @@ namespace samplify
 		void paint(Graphics&) override;
 		void resized() override;
 
-		static SamplifyMainComponent* getInstance();
+
 		DirectoryExplorer& getDirectoryExplorer() { return mDirectoryExplorer; }
 		SampleExplorer& getSampleExplorer() { return mSampleExplorer; }
 		FilterExplorer& getFilterExplorer() { return mFilterExplorer; }

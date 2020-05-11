@@ -31,10 +31,10 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 		if (file.exists())
 		{
 			bool notLoaded = true;
-			std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
+			std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
 			for (int i = 0; i < dirs.size(); i++)
 			{
-				if (file == dirs[i] || file.isAChildOf(dirs[i]))
+				if (file == dirs[i]->getFile() || file.isAChildOf(dirs[i]->getFile()))
 				{
 					notLoaded = false;
 					break;
@@ -42,7 +42,7 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 			}
 			if (notLoaded)
 			{
-				SamplifyProperties::getInstance()->getSampleDirectoryManager()->removeDirectory(file);
+				SamplifyProperties::getInstance()->getSampleLibrary()->removeDirectory(file);
 			}
 			DeleteSamplifyFilesThread deleteThread(file);
 			deleteThread.runThread();
@@ -50,12 +50,12 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	}
 	else
 	{
-		std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
+		std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
 		for (int i = 0; i < dirs.size(); i++)
 		{
 			if (menuItemID == removeDirectory + i)
 			{
-				SamplifyProperties::getInstance()->getSampleDirectoryManager()->removeDirectory(dirs[i]);
+				SamplifyProperties::getInstance()->getSampleLibrary()->removeDirectory(dirs[i]->getFile());
 			}
 		}
 	}
@@ -70,10 +70,10 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 		menu.addItem(removeSampFiles, "Select Directory and Remove Samples");
 		//menu.addItem(removeDirectory, "Remove Directory");
 		PopupMenu removeMenu;
-		std::vector<File> dirs = SamplifyProperties::getInstance()->getSampleDirectoryManager()->getDirectories();
+		std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
 		for (int i = 0; i < dirs.size(); i++)
 		{
-			removeMenu.addItem(removeDirectory + i, dirs[i].getFullPathName(), true, false);
+			removeMenu.addItem(removeDirectory + i, dirs[i]->getFile().getFullPathName(), true, false);
 		}
 		menu.addSubMenu("Remove Dirs", removeMenu, true);
 		//menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");

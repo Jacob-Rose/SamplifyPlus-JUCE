@@ -5,7 +5,7 @@ using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
-SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProperties::getInstance()->getSampleDirectoryManager())
+SamplifyMainComponent::SamplifyMainComponent()
 {
 	setupLookAndFeel();
 	mInstance = this;
@@ -31,7 +31,6 @@ SamplifyMainComponent::SamplifyMainComponent() : mDirectoryExplorer(SamplifyProp
 
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(&mSampleExplorer);
 	SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(&mSamplePlayer);
-	SamplifyProperties::getInstance()->getSampleDirectoryManager()->addChangeListener(&mDirectoryExplorer);
     setSize (600, 400);
 	//startTimer(100);
 
@@ -69,10 +68,7 @@ bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originati
 
 void SamplifyMainComponent::changeListenerCallback(ChangeBroadcaster* source)
 {
-	if (SampleDirectoryManager* dl = dynamic_cast<SampleDirectoryManager*>(source))
-	{
-		SamplifyProperties::getInstance()->savePropertiesFile();
-	}
+	SamplifyProperties::getInstance()->savePropertiesFile();
 }
 
 void SamplifyMainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)

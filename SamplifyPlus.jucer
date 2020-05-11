@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.5"
+<JUCERPROJECT id="VOKGye" name="SamplifyPlus" projectType="guiapp" jucerVersion="5.4.7"
               cppLanguageStandard="17" companyName="Samplify" companyWebsite="samplify.app"
               companyEmail="jake@samplify.app" version="0.8.5">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">

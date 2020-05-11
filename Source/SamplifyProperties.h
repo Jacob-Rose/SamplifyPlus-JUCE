@@ -15,15 +15,7 @@
 #include "JuceHeader.h"
 
 #include "AudioPlayer.h"
-#include "DirectoryLibrary.h"
-#include "SampleDirectoryManager.h"
 #include "SampleLibrary.h"
-#include "TagLibrary.h"
-#include "TagDrawer.h"
-
-#include <map>
-#include <string>
-#include <vector>
 
 namespace samplify
 {
@@ -41,25 +33,26 @@ namespace samplify
 		//=Saving=================================================
 		void loadPropertiesFile();
 		void savePropertiesFile();
-		void saveDirectoriesInPropertiesFile();
-		void saveTagsInPropertiesFile();
+
 		void changeListenerCallback(ChangeBroadcaster* source);
 
 		static File browseForDirectory();
 		void browseForDirectoryAndAdd();
 		//=======================================================
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
+
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
-		std::shared_ptr<TagLibrary> getTagLibrary() { return mTagLibrary; }
+		//std::shared_ptr<TagLibrary> getTagLibrary() { return mTagLibrary; }
 		std::shared_ptr<SampleLibrary> getSampleLibrary() { return mSampleLibrary; }
-		std::shared_ptr<SampleDirectoryManager> getSampleDirectoryManager() { return mDirectoryManager; }
+		//std::shared_ptr<SampleDirectoryManager> getSampleDirectoryManager() { return mDirectoryManager; }
 		//=======================================================
 	private:
 		//========================================================
 		SamplifyProperties();
 		~SamplifyProperties();
+
 		std::shared_ptr<SampleLibrary> mSampleLibrary = nullptr;
-		std::shared_ptr<TagLibrary> mTagLibrary = nullptr;
+		//std::shared_ptr<TagLibrary> mTagLibrary = nullptr;
 		std::shared_ptr<SampleDirectoryManager> mDirectoryManager = nullptr;
 		std::shared_ptr<AudioPlayer> mAudioPlayer = nullptr;
 		//========================================================

@@ -17,6 +17,8 @@
 namespace samplify
 {
 	const int MAIN_BASE_COLOR_ID = 40;
+	const Colour MAIN_BASE_COLOR = Colour(120, 120, 255);
+
 	const int MAIN_ACCENT_COLOR_ID = 41;
 
 	const int SAMPLE_TILE_BG_DEFAULT_COLOR_ID = 44;

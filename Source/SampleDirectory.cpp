@@ -11,7 +11,7 @@
 #include "SampleDirectory.h"
 using namespace samplify;
 
-SampleDirectory::SampleDirectory(File file, ChangeListener* parent)
+SampleDirectory::SampleDirectory(File file)
 {
 	if (file.exists())
 	{
@@ -25,9 +25,10 @@ SampleDirectory::SampleDirectory(File file, ChangeListener* parent)
 	DirectoryIterator dirIter = DirectoryIterator(file, false, "*", File::findDirectories);
 	while (dirIter.next())
 	{
-		mChildDirectories.push_back(std::make_shared<SampleDirectory>(dirIter.getFile(), parent));
+		std::shared_ptr<SampleDirectory> sampDir = std::make_shared<SampleDirectory>(dirIter.getFile());
+		sampDir->addChangeListener(this);
+		mChildDirectories.push_back(sampDir);
 	}
-	addChangeListener(parent);
 
 	//add all child samples in the actual folder
 	DirectoryIterator sampleIter = DirectoryIterator(file, false, "*.wav", File::findFiles);
@@ -79,6 +80,11 @@ void SampleDirectory::updateChildrenItems(CheckStatus checkStatus)
 	{
 		mChildDirectories[i]->setCheckStatus(checkStatus);
 	}
+}
+
+void samplify::SampleDirectory::changeListenerCallback(ChangeBroadcaster* source)
+{
+	sendChangeMessage();
 }
 
 void SampleDirectory::cycleCurrentCheck()

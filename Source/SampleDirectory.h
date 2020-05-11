@@ -25,16 +25,17 @@ namespace samplify
 		Disabled,
 		Mixed,
 	};
-	class SampleDirectory: public ChangeBroadcaster
+	class SampleDirectory: public ChangeBroadcaster, public ChangeListener
 	{
 	public:
-		SampleDirectory(File file, ChangeListener* parent);
+		SampleDirectory(File file);
 		File getFile() const { return mDirectory; }
 		Sample::List getChildSamplesRecursive(juce::String query, bool ignoreCheckSystem);
 		Sample::List getChildSamples();
 
 		void updateChildrenItems(CheckStatus checkStatus);
 
+		void changeListenerCallback(ChangeBroadcaster* source) override;
 		void cycleCurrentCheck();
 
 		void setCheckStatus(CheckStatus newCheckStatus);
@@ -46,6 +47,8 @@ namespace samplify
 		friend class DirectoryExplorerTreeViewItem;
 		friend class SampleDirectoryManager; //used to optimze callback function later, not necessary though could call recursive
 	private:
+
+		SampleDirectory(const samplify::SampleDirectory& samplify) {}; //dont call me
 		CheckStatus mCheckStatus = CheckStatus::Enabled;
 		File mDirectory;
 		bool mIncludeChildSamples = true; //if the folder should load its own samples when getsamples is called

@@ -3,11 +3,10 @@
 
 using namespace samplify;
 
-DirectoryExplorer::DirectoryExplorer(std::shared_ptr<SampleDirectoryManager> manager)
+DirectoryExplorer::DirectoryExplorer()
 {
-	mSampleDirectory = manager;
 	addAndMakeVisible(mDirectoryTree);
-	manager->addChangeListener(this);
+
 	refresh();
 }
 
@@ -15,6 +14,7 @@ DirectoryExplorer::~DirectoryExplorer()
 {
 	mDirectoryTree.deleteRootItem();
 }
+
 
 void DirectoryExplorer::paint (Graphics& g)
 {
@@ -38,9 +38,10 @@ void DirectoryExplorer::refresh()
 	{
 		root->clearSubItems();
 	}
-	for (int i = 0; i < mSampleDirectory->getCount(); i++)
+	std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
+	for (int i = 0; i < dirs.size(); i++)
 	{
-		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(mSampleDirectory->getSampleDirectory(i));
+		DirectoryExplorerTreeViewItem* item = new DirectoryExplorerTreeViewItem(dirs[i]);
 		root->addSubItem(item);
 	}
 	root->setSelected(true, true);
@@ -48,15 +49,5 @@ void DirectoryExplorer::refresh()
 
 void DirectoryExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	/*
-	if (DirectoryLibrary* dl = dynamic_cast<DirectoryLibrary*>(source))
-	{
-		refresh();
-	}
-	
-	else*/ if (SampleDirectoryManager* sdm = dynamic_cast<SampleDirectoryManager*>(source))
-	{
-		refresh();
-		//((DirectoryExplorerTreeViewItem*)mDirectoryTree.getRootItem())->refreshChildrenPaint();
-	}
+	refresh();
 }
