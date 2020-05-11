@@ -128,10 +128,10 @@ namespace samplify
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
 		bool isQueryValid(juce::String query); //used in search
-		static File getPropertiesFile(const File& sampleFile);
+		static PropertiesFile* getPropertiesFile(const File& sampleFile);
 	private:
 		File mFile;
-		File mPropertiesFile; 
+		std::unique_ptr<PropertiesFile> mPropertiesFile = nullptr; 
 		SampleType mSampleType = SampleType::UNDEFINED;
 		StringArray mTags;
 		//std::map<juce::String, double> mCuePoints;

@@ -5,6 +5,9 @@
               companyEmail="jake@samplify.app" version="0.8.5">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
+      <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
+            file="Source/SamplifyLookAndFeel.h"/>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
         <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
         <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
@@ -12,40 +15,31 @@
               file="Source/DirectoryLibrary.cpp"/>
         <FILE id="mRa5qf" name="DirectoryLibrary.h" compile="0" resource="0"
               file="Source/DirectoryLibrary.h"/>
+        <FILE id="vs29Ra" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
+        <FILE id="qdsnAj" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
+        <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
+              file="Source/SampleAudioThumbnail.cpp"/>
         <FILE id="XDkwzX" name="SampleLibrary.cpp" compile="1" resource="0"
               file="Source/SampleLibrary.cpp"/>
         <FILE id="c8ywNj" name="SampleLibrary.h" compile="0" resource="0" file="Source/SampleLibrary.h"/>
         <FILE id="PMF6VZ" name="Sample.h" compile="0" resource="0" file="Source/Sample.h"/>
-        <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-        <FILE id="gBEUeL" name="SampleAudioThumbnail.cpp" compile="1" resource="0"
-              file="Source/SampleAudioThumbnail.cpp"/>
-        <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
-              file="Source/SamplifyProperties.cpp"/>
-        <FILE id="vs29Ra" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
-        <FILE id="qdsnAj" name="Fonts.cpp" compile="1" resource="0" file="Source/Fonts.cpp"/>
+        <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
+        <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
+              file="Source/SampleAudioThumbnail.h"/>
         <FILE id="t0BTRU" name="SampleDirectory.cpp" compile="1" resource="0"
               file="Source/SampleDirectory.cpp"/>
         <FILE id="QqDZSd" name="SampleDirectory.h" compile="0" resource="0"
               file="Source/SampleDirectory.h"/>
-        <FILE id="uJvWLc" name="SampleDirectoryManager.cpp" compile="1" resource="0"
-              file="Source/SampleDirectoryManager.cpp"/>
-        <FILE id="k7qQ0C" name="SampleDirectoryManager.h" compile="0" resource="0"
-              file="Source/SampleDirectoryManager.h"/>
-        <FILE id="RCw1oz" name="Sample.cpp" compile="1" resource="0" file="Source/Sample.cpp"/>
+        <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
+              file="Source/SamplifyProperties.h"/>
+        <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
+              file="Source/SamplifyProperties.cpp"/>
       </GROUP>
       <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
-        <FILE id="u2qOs0" name="TagLibrary.cpp" compile="1" resource="0" file="Source/TagLibrary.cpp"/>
         <FILE id="eKhF05" name="SamplePlayerComponent.h" compile="0" resource="0"
               file="Source/SamplePlayerComponent.h"/>
         <FILE id="LVGUGi" name="SamplePlayerComponent.cpp" compile="1" resource="0"
               file="Source/SamplePlayerComponent.cpp"/>
-        <FILE id="l18XJb" name="TagLibrary.h" compile="0" resource="0" file="Source/TagLibrary.h"/>
-        <FILE id="BuNXZq" name="SampleAudioThumbnail.h" compile="0" resource="0"
-              file="Source/SampleAudioThumbnail.h"/>
-        <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
-              file="Source/SamplifyLookAndFeel.h"/>
-        <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
-              file="Source/SamplifyProperties.h"/>
         <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
           <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
             <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
@@ -85,25 +79,24 @@
         </GROUP>
         <FILE id="eN9IwM" name="SamplifyMenuBar.cpp" compile="1" resource="0"
               file="Source/SamplifyMenuBar.cpp"/>
-        <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
-              file="Source/SamplifyMainComponent.h"/>
-        <FILE id="g93wLS" name="SamplifyCore.cpp" compile="1" resource="0"
-              file="Source/SamplifyCore.cpp"/>
-        <FILE id="FS5ds6" name="SamplifyCore.h" compile="0" resource="0" file="Source/SamplifyCore.h"/>
         <FILE id="Vtj2sL" name="SamplifyMenuBar.h" compile="0" resource="0"
               file="Source/SamplifyMenuBar.h"/>
+        <FILE id="P1F9lT" name="SamplifyMainComponent.h" compile="0" resource="0"
+              file="Source/SamplifyMainComponent.h"/>
         <FILE id="hzfapg" name="SamplifyMainComponent.cpp" compile="1" resource="0"
               file="Source/SamplifyMainComponent.cpp"/>
-        <FILE id="SpOKxT" name="ServerAuthStatus.h" compile="0" resource="0"
-              file="Source/ServerAuthStatus.h"/>
-        <FILE id="RolRvl" name="ServerAuthStatus.cpp" compile="1" resource="0"
-              file="Source/ServerAuthStatus.cpp"/>
+        <GROUP id="{974D5208-70BA-3D73-E5C1-78386F7A5477}" name="DRM">
+          <FILE id="SpOKxT" name="ServerAuthStatus.h" compile="0" resource="0"
+                file="Source/ServerAuthStatus.h"/>
+          <FILE id="srHuQY" name="ServerAuthUnlockComponent.cpp" compile="1"
+                resource="0" file="Source/ServerAuthUnlockComponent.cpp"/>
+          <FILE id="Zgd6Gf" name="ServerAuthUnlockComponent.h" compile="0" resource="0"
+                file="Source/ServerAuthUnlockComponent.h"/>
+          <FILE id="RolRvl" name="ServerAuthStatus.cpp" compile="1" resource="0"
+                file="Source/ServerAuthStatus.cpp"/>
+        </GROUP>
       </GROUP>
     </GROUP>
-    <FILE id="srHuQY" name="ServerAuthUnlockComponent.cpp" compile="1"
-          resource="0" file="Source/ServerAuthUnlockComponent.cpp"/>
-    <FILE id="Zgd6Gf" name="ServerAuthUnlockComponent.h" compile="0" resource="0"
-          file="Source/ServerAuthUnlockComponent.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">

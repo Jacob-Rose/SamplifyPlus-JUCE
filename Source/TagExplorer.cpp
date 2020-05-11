@@ -67,24 +67,24 @@ void TagExplorer::Container::paint(Graphics& g)
 
 void TagExplorer::Container::updateTags(juce::String newSearch)
 {
-	/*
-	StringArray allTags = SamplifyProperties::getInstance()->getSampleLibrary().getAllTags();
+	
+	std::vector<SampleLibrary::Tag> allTags = SamplifyProperties::getInstance()->getSampleLibrary()->getTags();
 	//remove all new tags that have been used now
 	resetTags();
 	StringArray passedTags; //in dir
 	StringArray failedTags; //not in dir
 	//StringArray currentSampleTags = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
-	Sample::List currentSamps = SamplifyProperties::getInstance()->getSampleLibrary().getCurrentSamples();
+	Sample::List currentSamps = SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples();
 	
 	for (int i = 0; i < allTags.size(); i++)
 	{
-		if (allTags[i].contains(newSearch))
+		if (allTags[i].mTitle.contains(newSearch))
 		{
 			bool found = false;
 			for (int j = 0; j < currentSamps.size(); j++)
 			{
 				StringArray sampTags = currentSamps[j].getTags();
-				if (sampTags.contains(allTags[i]))
+				if (sampTags.contains(allTags[i].mTitle))
 				{
 					found = true;
 					break;
@@ -92,11 +92,11 @@ void TagExplorer::Container::updateTags(juce::String newSearch)
 			}
 			if (found)
 			{
-				passedTags.add(allTags[i]);
+				passedTags.add(allTags[i].mTitle);
 			}
 			else
 			{
-				failedTags.add(allTags[i]);
+				failedTags.add(allTags[i].mTitle);
 			}
 		}
 	}
@@ -104,7 +104,7 @@ void TagExplorer::Container::updateTags(juce::String newSearch)
 	mContainedTags.setTags(passedTags);
 	mNotContainedTags.setTags(failedTags);
 	//updateTagContainerBounds();
-	*/
+	
 }
 
 void TagExplorer::Container::updateTagContainerBounds()

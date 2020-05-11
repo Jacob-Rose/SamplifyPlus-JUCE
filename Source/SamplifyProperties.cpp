@@ -77,6 +77,7 @@ void SamplifyProperties::cleanup()
 	{
 		mAudioPlayer->stop();
 		savePropertiesFile();
+		closeFiles();
 		mIsInit = false;
 	}
 }
@@ -96,7 +97,7 @@ void SamplifyProperties::loadPropertiesFile()
 		{
 			for (int i = 0; i < dirCount; i++)
 			{
-				mSampleLibrary->addDirectory(File(propFile->getValue("directory " + i)));
+				mSampleLibrary->addDirectory(File(propFile->getValue("directory " + String(i))));
 			}
 		}
 		
@@ -105,7 +106,7 @@ void SamplifyProperties::loadPropertiesFile()
 		int tagCount = propFile->getIntValue("tag count");
 		for (int i = 0; i < tagCount; i++)
 		{
-			String tag = propFile->getValue("tag " + i);
+			String tag = propFile->getValue("tag " + String(i));
 			jassert(tag != "");
 			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
 			mSampleLibrary->addTag(tag, color);
@@ -127,7 +128,7 @@ void SamplifyProperties::savePropertiesFile()
 		propFile->setValue("directory count", (int)dirs.size());
 		for (int i = 0; i < dirs.size(); i++)
 		{
-			propFile->setValue("directory " + i, dirs[i]->getFile().getFullPathName());
+			propFile->setValue("directory " + String(i), dirs[i]->getFile().getFullPathName());
 		}
 
 		//Save Tags

@@ -81,6 +81,7 @@ StringArray samplify::SampleLibrary::getUsedTags()
 void SampleLibrary::addTag(juce::String text, Colour color)
 {
 	mTags.push_back(Tag(text, color));
+	sendChangeMessage();
 }
 
 void SampleLibrary::addTag(juce::String text)
@@ -96,18 +97,15 @@ void SampleLibrary::deleteTag(juce::String tag)
 	Sample::List allSamps = getAllSamplesInDirectories("", true);
 	for (int i = 0; i < allSamps.size(); i++)
 	{
-		//does nothing if not contained
-		if (allSamps[i].getTags().contains(tag))
-		{
-			allSamps[i].removeTag(tag);
-		}
-		
+		allSamps[i].removeTag(tag); //remove if exist
+		break;
 	}
 	for (int i = 0; i < mTags.size(); i++)
 	{
 		if (mTags[i].mTitle == tag)
 		{
 			mTags.erase(mTags.begin() + i);
+			break;
 		}
 		//todo
 		//SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().resized();
@@ -116,7 +114,24 @@ void SampleLibrary::deleteTag(juce::String tag)
 
 void SampleLibrary::setTagColor(juce::String tag, juce::Colour newColor)
 {
-	//todo
+	for (int i = 0; i < mTags.size(); i++)
+	{
+		if (mTags[i].mTitle == tag)
+		{
+			mTags[i].mColor = newColor;
+		}
+	}
+}
+
+SampleLibrary::Tag samplify::SampleLibrary::getTag(juce::String tag)
+{
+	for (int i = 0; i < mTags.size(); i++)
+	{
+		if (mTags[i].mTitle == tag)
+		{
+			return mTags[i];
+		}
+	}
 }
 
 Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool ignoreCheckSystem)
@@ -129,8 +144,8 @@ Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool 
 	return list;
 }
 /*
-std::future<Sample::List> SampleLibrary::getAllSamplesInDirectories_Async( juce::String query, bool ignoreCheckSystem)
+std::future<Sample::List> SampleLibrary::getAllSamplesInDirectories_Async(juce::String query, bool ignoreCheckSystem)
 {
-	return std::async(std::launch::async, &getAllSamplesInDirectories, this, query, ignoreCheckSystem); //getAllSamplesInDirectories(query, getCount); });
+	return std::async(std::launch::async, &getAllSamplesInDirectories, query, ignoreCheckSystem); //getAllSamplesInDirectories(query, getCount); });
 }
 */

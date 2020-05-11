@@ -5,8 +5,7 @@ using namespace samplify;
 FilterExplorer::FilterExplorer()
 {
 	mSearchBar.addListener(this);
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+
 	addAndMakeVisible(mSearchBar);
 	addAndMakeVisible(mTagExplorer);
 }

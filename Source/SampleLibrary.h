@@ -4,7 +4,8 @@
     SampleLibrary.h
     Created: 31 May 2018 12:45:49pm
     Author:  Jake Rose
-	Summary: Class with ability to load all samples in the directory specified in AppProperties class
+	Summary: This is the core system Samplify uses to load samples, and basically offers an interface for SamplifyProperties to access. 
+	This way, this all is independent from SamplifyProperties and the actual execution
   ==============================================================================
 */
 #ifndef SAMPLELIBRARY_H
@@ -36,12 +37,9 @@ namespace samplify
 		SampleLibrary();
 		~SampleLibrary();
 
-		void refreshCurrentSamples()
-		{
-			updateCurrentSamples(mCurrentQuery);
-		}
-
+		void refreshCurrentSamples() { updateCurrentSamples(mCurrentQuery); }
 		void updateCurrentSamples(String query);
+
 		Sample::List getCurrentSamples();
 
 		StringArray getUsedTags(); //get tags that are currently connected to one or more samples
@@ -56,7 +54,7 @@ namespace samplify
 		std::vector<Tag> getTags() { return mTags; }
 
 		void setTagColor(juce::String tag, juce::Colour newColor);
-		juce::Colour getTagColor(juce::String tag);
+		SampleLibrary::Tag getTag(juce::String tag);
 
 
 		//Merge Directory Manager - Reduce dependencies, less pointers, easier saving, so fuck it put them together
@@ -72,7 +70,7 @@ namespace samplify
 
 		//Get Samples
 		Sample::List getAllSamplesInDirectories(juce::String query, bool ignoreCheckSystem);
-		std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
+		//std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
 
 	private:
 		std::unique_ptr<std::future<Sample::List>> updateSampleFuture;

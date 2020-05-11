@@ -4,12 +4,12 @@
 
 using namespace samplify;
 
-Sample::Sample(const File& file) : mFile(file),
-mPropertiesFile(getPropertiesFile(mFile))
+Sample::Sample(const File& file) : mFile(file)
 {
-	if (mPropertiesFile.exists())
+	mPropertiesFile.reset(getPropertiesFile(mFile));
+	if (mPropertiesFile->isValidFile())
 	{
-		//loadPropertiesFile();
+		loadPropertiesFile();
 	}
 	else
 	{
@@ -18,11 +18,17 @@ mPropertiesFile(getPropertiesFile(mFile))
 	}
 }
 
+Sample::~Sample()
+{
+
+}
+
 bool Sample::isPropertiesFileValid()
 {
-	return mPropertiesFile.existsAsFile();
+	return mPropertiesFile->isValidFile();
 }
-bool samplify::Sample::isQueryValid(juce::String query)
+
+bool Sample::isQueryValid(juce::String query)
 {
 	if(mFile.getFullPathName().containsIgnoreCase(query) || mTags.contains("#" + query))
 	{
@@ -30,9 +36,7 @@ bool samplify::Sample::isQueryValid(juce::String query)
 	}
 	return false;
 }
-Sample::~Sample()
-{
-}
+
 
 void Sample::determineSampleType()
 {
@@ -70,77 +74,41 @@ void Sample::changeListenerCallback(ChangeBroadcaster * source)
 
 void Sample::savePropertiesFile()
 {
-	//TODO
-	return;
-	if (mPropertiesFile.existsAsFile())
+	if (mPropertiesFile->isValidFile())
 	{
-		mPropertiesFile.deleteFile();
-	}
-	String file = mPropertiesFile.createLegalFileName(mPropertiesFile.getFullPathName());
-	if (mPropertiesFile.create().ok)
-	{
-		mPropertiesFile.appendText(String(ProjectInfo::versionNumber) + "\n");
-		mPropertiesFile.appendText(String(mTags.size()) + "\n");
+		mPropertiesFile->clear();
+		mPropertiesFile->setValue("VersionNumber", String(ProjectInfo::versionNumber));
+		mPropertiesFile->setValue("TagCount", (int)mTags.size());
 		for (int i = 0; i < mTags.size(); i++)
 		{
-			mPropertiesFile.appendText(mTags[i] + "\n");
+			mPropertiesFile->setValue("Tag" + String(i), mTags[i]);
 		}
-		mPropertiesFile.appendText("#TAGEND");
-		//TODO save cue points
-		//mPropertiesFile.appendText("#CUEEND");
-		mPropertiesFile.appendText(mColor.toString());
-		mPropertiesFile.appendText(mInformationDescription);
+		mPropertiesFile->setValue("Color", mColor.toString());
+		mPropertiesFile->setValue("Description", mInformationDescription);
 	}
-	
 }
 
 void Sample::loadPropertiesFile()
 {
-	//todo convert to json because pretty
-	jassert(mPropertiesFile.exists());
-	try
+	if (mPropertiesFile->isValidFile())
 	{
-		StringArray propFileLines;
-		mPropertiesFile.readLines(propFileLines);
-		int savedVersion = std::stoi(propFileLines[0].toStdString());
-		if (savedVersion == ProjectInfo::versionNumber)
+		if (mPropertiesFile->getValue("VersionNumber") == String(ProjectInfo::versionNumber))
 		{
-			int line = 1; //read the first line to verify version
-			while (propFileLines[line].toStdString() != "#TAGEND")
+			int count = mPropertiesFile->getIntValue("TagCount");
+			for (int i = 0; i < count; i++)
 			{
-				mTags.add(propFileLines[line]);
-				line++;
+				String tag = mPropertiesFile->getValue("Tag" + String(i));
+				mTags.add(tag);
 			}
-			line++;
-			/*
-			while (propFileLines[line].toStdString() != "#CUEEND")
-			{
-				juce::String cueName = propFileLines[line];
-				line++;
-				double cueTime = std::stod(propFileLines[line].toStdString());
-				line++;
-				//mCuePoints[cueName] = cueTime;
-			}
-			line++; //cueend line++
-			*/
-			mColor = Colour::fromString(propFileLines[line]);
-			line++;
-			mInformationDescription = propFileLines[line];
-			line++;
-			
+			mColor = Colour::fromString(mPropertiesFile->getValue("Color"));
+			mInformationDescription = mPropertiesFile->getValue("Description");
 		}
 		else
 		{
-			//todo UpgradeSave() need to add
-
+			mPropertiesFile->clear();
+			//In future, offer port for each version here
 		}
 	}
-	catch(std::exception& e)
-	{
-		
-	}
-	
-	
 }
 
 
@@ -283,26 +251,27 @@ void Sample::Reference::renameFile(String name)
 	sample->mFile = sample->mFile.getSiblingFile(name);
 }
 
-File Sample::getPropertiesFile(const File& sampleFile)
+PropertiesFile* Sample::getPropertiesFile(const File& sampleFile)
 {
-
+	String folderName = sampleFile.getFullPathName();
+	PropertiesFile::Options options = PropertiesFile::Options();
+	//options.folderName = sampleFile.get
+	options.applicationName = "SampleProperties";
+	options.filenameSuffix = ".sample";
+	options.commonToAllUsers = false;
+	options.folderName = "SamplifyPlus";
 	if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::MacOSX)
 	{
-
+		options.osxLibrarySubFolder = "Application Support";
 	}
+	/*
 	else if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::Windows)
 	{
-
 	}
-	File relative = SamplifyProperties::getInstance()->getSampleLibrary()->getRelativeDirectoryForFile(sampleFile);
-	String sampleFilePath = sampleFile.getFullPathName();
-	File dir = sampleFile.getCurrentWorkingDirectory();
-	String partialAddition = sampleFilePath.substring(3, sampleFilePath.length() - sampleFile.getFileExtension().length()); //take the letter off
-	File f(File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getFullPathName()
-		+ File::getSeparatorString() + "Samplify" + File::getSeparatorString()
-		+ partialAddition
-		+ ".samplify");
-	return f;
+	*/
+	String path = options.getDefaultFile().getFullPathName();
+	PropertiesFile* file = new PropertiesFile(File(path.substring(0, path.length() - options.getDefaultFile().getFileName().length()) + String(File::getSeparatorString()) + "SampleProperties" ).getChildFile(sampleFile.getFullPathName().removeCharacters("\\:") + ".sample"), options);
+	return file;
 }
 
 Sample::List::List(const std::vector<Sample::Reference>& list)
