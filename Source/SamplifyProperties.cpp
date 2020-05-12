@@ -101,7 +101,6 @@ void SamplifyProperties::loadPropertiesFile()
 			}
 		}
 		
-		
 		//load tags
 		int tagCount = propFile->getIntValue("tag count");
 		for (int i = 0; i < tagCount; i++)
@@ -123,6 +122,7 @@ void SamplifyProperties::savePropertiesFile()
 	PropertiesFile* propFile = getUserSettings();
 	if (propFile->isValidFile())
 	{
+		propFile->clear();
 		//Save Dirs
 		std::vector<std::shared_ptr<SampleDirectory>> dirs = mSampleLibrary->getDirectories();
 		propFile->setValue("directory count", (int)dirs.size());

@@ -109,7 +109,12 @@ void samplify::SamplifyMainComponent::setupLookAndFeel()
 	getLookAndFeel().setColour(TextEditor::backgroundColourId, MAIN_BASE_COLOR);
 	getLookAndFeel().setColour(TextEditor::textColourId, MAIN_ACCENT_COLOR);
 	getLookAndFeel().setColour(TextEditor::outlineColourId, MAIN_ACCENT_COLOR);
+
+	getLookAndFeel().setColour(TextButton::textColourOnId, MAIN_ACCENT_COLOR);
+	getLookAndFeel().setColour(TextButton::buttonOnColourId, MAIN_BASE_COLOR);
 	getLookAndFeel().setColour(TextButton::buttonColourId, MAIN_BASE_COLOR);
+	getLookAndFeel().setColour(TextButton::textColourOffId, MAIN_ACCENT_COLOR);
+
 	getLookAndFeel().setColour(ComboBox::backgroundColourId, MAIN_BASE_COLOR);
 	getLookAndFeel().setColour(ComboBox::textColourId, MAIN_ACCENT_COLOR);
 	getLookAndFeel().setColour(ComboBox::arrowColourId, MAIN_ACCENT_COLOR);

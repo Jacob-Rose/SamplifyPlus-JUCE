@@ -64,7 +64,6 @@ namespace samplify
 		void removeDirectory(const File& dir);
 		int getDirectoryCount() { return mDirectories.size(); }
 
-
 		File getRelativeDirectoryForFile(const File& sampleFile) const;
 
 		void changeListenerCallback(ChangeBroadcaster* source) override;
