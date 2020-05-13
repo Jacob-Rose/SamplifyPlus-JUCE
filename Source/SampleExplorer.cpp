@@ -30,7 +30,8 @@ void SampleExplorer::paint (Graphics& g)
 {
 	if (mIsUpdating)
 	{
-		getLookAndFeel().drawSpinningWaitAnimation(g, Colours::black, 0, 0, getWidth(), getHeight());
+		float size = getWidth() / 5;
+		getLookAndFeel().drawSpinningWaitAnimation(g, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID), (getWidth() / 2) - (size / 2), size, size, size);
 		repaint();
 	}
 }
