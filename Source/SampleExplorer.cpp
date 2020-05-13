@@ -28,7 +28,11 @@ SampleExplorer::~SampleExplorer()
 
 void SampleExplorer::paint (Graphics& g)
 {
-    
+	if (mIsUpdating)
+	{
+		getLookAndFeel().drawSpinningWaitAnimation(g, Colours::black, 0, 0, getWidth(), getHeight());
+		repaint();
+	}
 }
 
 void SampleExplorer::resized()
@@ -46,7 +50,22 @@ void SampleExplorer::textEditorTextChanged(TextEditor& e)
 
 void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 {
-	mSampleContainer.setSampleItems(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentSamples());
+	if (SampleLibrary* sl = dynamic_cast<SampleLibrary*>(source))
+	{
+		if (sl->isAsyncValid())
+		{
+			mSampleContainer.setSampleItems(Sample::List()); //set to empty
+			mIsUpdating = true;
+			repaint();
+		}
+		else
+		{
+			mIsUpdating = false;
+			mSampleContainer.setSampleItems(sl->getCurrentSamples());
+		}
+		
+	}
+	
 }
 
 SampleExplorer::SampleViewport::SampleViewport(SampleContainer* container)

@@ -33,6 +33,7 @@ void SampleContainer::resized()
 void SampleContainer::updateItems()
 {
 	int columns = calculateColumnCount();
+	//first, if there are too many then move them
 	if (mUsedSampleTiles.size() > mCurrentSamples.size())
 	{
 		for (int i = mCurrentSamples.size(); i < mUsedSampleTiles.size(); i++)
@@ -80,6 +81,12 @@ void SampleContainer::clearItems()
 	{
 		delete mUsedSampleTiles[i];
 		mUsedSampleTiles[i] = nullptr;
+	}
+
+	for (unsigned int i = 0; i < mUnusedSampleTiles.size(); i++)
+	{
+		delete mUnusedSampleTiles[i];
+		mUnusedSampleTiles[i] = nullptr;
 	}
 	mUsedSampleTiles.clear();
 }

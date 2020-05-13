@@ -15,13 +15,12 @@ SampleLibrary::~SampleLibrary()
 void SampleLibrary::updateCurrentSamples(String query)
 {
 	mCurrentQuery = query;
-	
+
 	if (mUpdateSampleFuture != nullptr)
 	{
 		mUpdateSampleFuture.reset(nullptr);
 	}
 	mUpdateSampleFuture = std::make_unique<std::future<Sample::List>>(getAllSamplesInDirectories_Async(query));
-		
 	//mCurrentSamples = getAllSamplesInDirectories(query, false);
 	sendChangeMessage();
 }

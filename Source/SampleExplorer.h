@@ -60,6 +60,7 @@ namespace samplify
 		SampleContainer& getSampleContainer() { return mSampleContainer; }
 	private:
 		//============================================================
+		bool mIsUpdating = false;
 		ComboBox mFilter;
 		SampleViewport mViewport;
 		SampleSearchbar mSearchBar;
