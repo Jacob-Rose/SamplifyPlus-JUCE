@@ -16,15 +16,11 @@ void SampleLibrary::updateCurrentSamples(String query)
 {
 	mCurrentQuery = query;
 	
-	if (updateSampleFuture != nullptr)
+	if (mUpdateSampleFuture != nullptr)
 	{
-		updateSampleFuture->_Abandon();
-		updateSampleFuture = nullptr;
+		mUpdateSampleFuture.reset(nullptr);
 	}
-	updateSampleFuture = std::make_unique<std::future<Sample::List>>(getAllSamplesInDirectories_Async(query));
-	updateSampleFuture->wait(); //this is what kills it, gotta fine a call to check if valid
-	if (updateSampleFuture->valid())
-		mCurrentSamples = updateSampleFuture->get();
+	mUpdateSampleFuture = std::make_unique<std::future<Sample::List>>(getAllSamplesInDirectories_Async(query));
 		
 	//mCurrentSamples = getAllSamplesInDirectories(query, false);
 	sendChangeMessage();
@@ -76,6 +72,26 @@ StringArray samplify::SampleLibrary::getUsedTags()
 		}
 	}
 	return tags;
+}
+
+void SampleLibrary::timerCallback()
+{
+	if (mUpdateSampleFuture != nullptr)
+	{
+		if (mUpdateSampleFuture->valid())
+		{
+			mCurrentSamples = mUpdateSampleFuture->get();
+			stopTimer();
+			mUpdateSampleFuture.release();
+			mUpdateSampleFuture.reset(nullptr);
+			sendChangeMessage();
+		}
+	}
+	else
+	{
+		stopTimer();
+	}
+	
 }
 
 void SampleLibrary::addTag(juce::String text, Colour color)
@@ -148,6 +164,7 @@ Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool 
 std::future<Sample::List> SampleLibrary::getAllSamplesInDirectories_Async(juce::String query, bool ignoreCheckSystem)
 {
 	
-	std::future<Sample::List> asfunc = std::async(std::launch::async, &SampleLibrary::getAllSamplesInDirectories, this, query, ignoreCheckSystem); 
+	std::future<Sample::List> asfunc = std::async(std::launch::async, &SampleLibrary::getAllSamplesInDirectories, this, query, ignoreCheckSystem);
+	startTimer(300);
 	return asfunc;
 }

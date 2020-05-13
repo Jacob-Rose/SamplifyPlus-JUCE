@@ -21,8 +21,7 @@
 
 namespace samplify
 {
-
-	class SampleLibrary : public ChangeBroadcaster, public ChangeListener
+	class SampleLibrary : public ChangeBroadcaster, public ChangeListener, public Timer
 	{
 	public:
 		struct Tag
@@ -45,6 +44,7 @@ namespace samplify
 
 		StringArray getUsedTags(); //get tags that are currently connected to one or more samples
 
+		void timerCallback() override;
 
 		//Tag Library Merger - They are dependent on each other for results and modifications, so fuck it put them together
 		void addTag(juce::String tag, Colour color);
@@ -68,12 +68,14 @@ namespace samplify
 
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
+		bool isAsyncValid() { return mUpdateSampleFuture != nullptr; }
+
 		//Get Samples
 		Sample::List getAllSamplesInDirectories(juce::String query, bool ignoreCheckSystem);
 		std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
 
 	private:
-		std::unique_ptr<std::future<Sample::List>> updateSampleFuture;
+		std::unique_ptr<std::future<Sample::List>> mUpdateSampleFuture;
 		Sample::List mCurrentSamples;
 		String mCurrentQuery;
 
