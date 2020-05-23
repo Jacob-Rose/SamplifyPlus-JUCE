@@ -105,34 +105,63 @@ void SamplifyMainComponent::releaseResources()
 
 void samplify::SamplifyMainComponent::setupLookAndFeel()
 {
-	getLookAndFeel().setColour(MAIN_BASE_COLOR_ID, MAIN_BASE_COLOR);
-	getLookAndFeel().setColour(TextEditor::backgroundColourId, MAIN_BASE_COLOR);
-	getLookAndFeel().setColour(TextEditor::textColourId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(TextEditor::outlineColourId, MAIN_ACCENT_COLOR);
+	LookAndFeel& laf = getLookAndFeel();
+	laf.setColour(MAIN_BACKGROUND_COLOR_ID, MAIN_BACKGROUND_COLOR);
+	laf.setColour(MAIN_FOREGROUND_COLOR_ID, MAIN_FOREGROUND_COLOR);
+	laf.setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_BG_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, GET_SAMPLE_TILE_BG_HOVER_COLOR());
+	laf.setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_FG_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, GET_SAMPLE_TILE_FG_HOVER_COLOR());
+	laf.setColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_HOVER_COLOR());
 
-	getLookAndFeel().setColour(TextButton::textColourOnId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(TextButton::buttonOnColourId, MAIN_BASE_COLOR);
-	getLookAndFeel().setColour(TextButton::buttonColourId, MAIN_BASE_COLOR);
-	getLookAndFeel().setColour(TextButton::textColourOffId, MAIN_ACCENT_COLOR);
+	laf.setColour(TextEditor::backgroundColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextEditor::textColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(TextEditor::outlineColourId, MAIN_FOREGROUND_COLOR);
 
-	getLookAndFeel().setColour(ComboBox::backgroundColourId, MAIN_BASE_COLOR);
-	getLookAndFeel().setColour(ComboBox::textColourId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(ComboBox::arrowColourId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(ComboBox::outlineColourId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(ComboBox::buttonColourId, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(MAIN_ACCENT_COLOR_ID, MAIN_ACCENT_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, SAMPLE_TILE_BG_DEFAULT_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, SAMPLE_TILE_BG_HOVER_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, SAMPLE_TILE_FG_DEFAULT_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, SAMPLE_TILE_FG_HOVER_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID, SAMPLE_TILE_OUTLINE_DEFAULT_COLOR);
-	getLookAndFeel().setColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID, SAMPLE_TILE_OUTLINE_HOVER_COLOR);
+	laf.setColour(TextButton::textColourOnId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(TextButton::buttonOnColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextButton::buttonColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextButton::textColourOffId, MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(ComboBox::backgroundColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(ComboBox::textColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::arrowColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::outlineColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::buttonColourId, MAIN_FOREGROUND_COLOR);
+}
+
+void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
+{
+	laf.setColour(MAIN_BACKGROUND_COLOR_ID, MAIN_BACKGROUND_COLOR);
+	laf.setColour(MAIN_FOREGROUND_COLOR_ID, MAIN_FOREGROUND_COLOR);
+	laf.setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_BG_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, GET_SAMPLE_TILE_BG_HOVER_COLOR());
+	laf.setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_FG_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, GET_SAMPLE_TILE_FG_HOVER_COLOR());
+	laf.setColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_DEFAULT_COLOR());
+	laf.setColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_HOVER_COLOR());
+
+	laf.setColour(TextEditor::backgroundColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextEditor::textColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(TextEditor::outlineColourId, MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(TextButton::textColourOnId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(TextButton::buttonOnColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextButton::buttonColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextButton::textColourOffId, MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(ComboBox::backgroundColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(ComboBox::textColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::arrowColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::outlineColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(ComboBox::buttonColourId, MAIN_FOREGROUND_COLOR);
 }
 
 //==============================================================================
 void SamplifyMainComponent::paint (Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour(MAIN_BASE_COLOR_ID));
+    g.fillAll (getLookAndFeel().findColour(MAIN_BACKGROUND_COLOR_ID));
 }
 
 void SamplifyMainComponent::resized()

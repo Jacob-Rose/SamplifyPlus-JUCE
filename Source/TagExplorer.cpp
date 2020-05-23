@@ -38,7 +38,7 @@ void TagExplorer::addNewTag()
 	TextEditor te = TextEditor();
 	te.setBounds(0,0,200,30);
 	//change from nullptr to the maincompoent to make it overlay?
-	DialogWindow::showModalDialog("New Tag Name", &te, nullptr, getLookAndFeel().findColour(MAIN_BASE_COLOR_ID), true,false);
+	DialogWindow::showModalDialog("New Tag Name", &te, nullptr, getLookAndFeel().findColour(MAIN_BACKGROUND_COLOR_ID), true,false);
 	SamplifyProperties::getInstance()->getSampleLibrary()->addTag(te.getText());
 	mTagsContainer.updateTags(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentQuery());
 

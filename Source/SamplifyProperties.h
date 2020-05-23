@@ -34,18 +34,13 @@ namespace samplify
 		void loadPropertiesFile();
 		void savePropertiesFile();
 
-		void changeListenerCallback(ChangeBroadcaster* source);
-
 		static File browseForDirectory();
-		void browseForDirectoryAndAdd();
+		void changeListenerCallback(ChangeBroadcaster* source);
 		//=======================================================
 		void setAudioPlayer(std::shared_ptr<AudioPlayer> ap) { mAudioPlayer = ap; }
 
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
-		//std::shared_ptr<TagLibrary> getTagLibrary() { return mTagLibrary; }
 		std::shared_ptr<SampleLibrary> getSampleLibrary() { return mSampleLibrary; }
-		//std::shared_ptr<SampleDirectoryManager> getSampleDirectoryManager() { return mDirectoryManager; }
-		//=======================================================
 	private:
 		//========================================================
 		SamplifyProperties();

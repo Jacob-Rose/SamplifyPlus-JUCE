@@ -1,5 +1,6 @@
 #include "SamplifyProperties.h"
 #include "SamplifyMainComponent.h"
+#include "SamplifyLookAndFeel.h"
 
 using namespace samplify;
 
@@ -29,15 +30,6 @@ File SamplifyProperties::browseForDirectory()
 		return dirSelector.getResult();
 	}
 	return File();
-}
-
-void SamplifyProperties::browseForDirectoryAndAdd()
-{
-	File dir = browseForDirectory();
-	if (dir.exists())
-	{
-		mSampleLibrary->addDirectory(dir);
-	}
 }
 
 void SamplifyProperties::cleanupInstance()
@@ -91,7 +83,11 @@ void SamplifyProperties::loadPropertiesFile()
 		int dirCount = propFile->getIntValue("directory count");
 		if (dirCount == 0)
 		{
-			browseForDirectoryAndAdd();
+			File dir = browseForDirectory();
+			if (dir.exists())
+			{
+				mSampleLibrary->addDirectory(dir);
+			}
 		}
 		else
 		{
@@ -110,12 +106,24 @@ void SamplifyProperties::loadPropertiesFile()
 			Colour color = Colour::fromString(propFile->getValue("tag " + tag));
 			mSampleLibrary->addTag(tag, color);
 		}
+
+		//HERE IS WHERE DEFAULT VALUES FOR LOOK AND FEEL ARE SET
+		//load window settings
+		MAIN_BACKGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_BACKGROUND_COLOR", Colours::white.toString()));
+		MAIN_FOREGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_FOREGROUND_COLOR", Colours::black.toString()));
+		SAMPLE_TILE_ASPECT_RATIO = (float)propFile->getDoubleValue("SAMPLE_TILE_ASPECT_RATIO", 0.666);
 	}
 	else
 	{
-		browseForDirectoryAndAdd();
+		//run initial setup here
+		File dir = browseForDirectory();
+		if (dir.exists())
+		{
+			mSampleLibrary->addDirectory(dir);
+		}
 	}
 }
+
 
 void SamplifyProperties::savePropertiesFile()
 {
@@ -131,6 +139,7 @@ void SamplifyProperties::savePropertiesFile()
 			propFile->setValue("directory " + String(i), dirs[i]->getFile().getFullPathName());
 		}
 
+		//save tags
 		std::vector<SampleLibrary::Tag> allTags = mSampleLibrary->getTags();
 		for(int i =0; i < allTags.size(); i++)
 		{
@@ -139,6 +148,10 @@ void SamplifyProperties::savePropertiesFile()
 		}
 		propFile->setValue("tag count", (int)allTags.size());
 		propFile->saveIfNeeded();
+
+		//save look and feel
+		propFile->setValue("MAIN_BACKGROUND_COLOR", MAIN_BACKGROUND_COLOR.toString());
+		propFile->setValue("MAIN_FOREGROUND_COLOR", MAIN_FOREGROUND_COLOR.toString());
 	}
 	else
 	{

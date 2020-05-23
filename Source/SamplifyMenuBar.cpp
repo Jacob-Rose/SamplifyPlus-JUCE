@@ -7,15 +7,19 @@ SamplifyMainMenu::SamplifyMainMenu() {}
 
 StringArray SamplifyMainMenu::getMenuBarNames()
 {
-	const char* const names[] = { "Directories", "Volume", nullptr };
-	return StringArray(names);
+	StringArray names = { "File", "View", "Info", nullptr };
+	return names;
 }
 
 void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
 	if (menuItemID == addDirectory)
 	{
-		SamplifyProperties::getInstance()->browseForDirectoryAndAdd();
+		File dir = SamplifyProperties::browseForDirectory();
+		if (dir.exists())
+		{
+			SamplifyProperties::getInstance()->getSampleLibrary()->addDirectory(dir);
+		}
 	}
 	else if (menuItemID == setVolume)
 	{
@@ -27,6 +31,8 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	}
 	else if (menuItemID == removeSampFiles)
 	{
+		//todo clean this and update app when thread finishes
+		/*
 		File file = SamplifyProperties::browseForDirectory();
 		if (file.exists())
 		{
@@ -47,27 +53,17 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 			DeleteSamplifyFilesThread deleteThread(file);
 			deleteThread.runThread();
 		}
-	}
-	else
-	{
-		std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
-		for (int i = 0; i < dirs.size(); i++)
-		{
-			if (menuItemID == removeDirectory + i)
-			{
-				SamplifyProperties::getInstance()->getSampleLibrary()->removeDirectory(dirs[i]->getFile());
-			}
-		}
+		*/
 	}
 }
 
 PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuName)
 {
 	PopupMenu menu;
-	if (menuIndex == 0) //dir
+	if (menuIndex == 0) //File
 	{
 		menu.addItem(addDirectory, "Add Directory", true, false);
-		menu.addItem(removeSampFiles, "Select Directory and Remove Samples");
+		//menu.addItem(removeSampFiles, "Select Directory and Remove Samples");
 		//menu.addItem(removeDirectory, "Remove Directory");
 		PopupMenu removeMenu;
 		std::vector<std::shared_ptr<SampleDirectory>> dirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
@@ -75,17 +71,22 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 		{
 			removeMenu.addItem(removeDirectory + i, dirs[i]->getFile().getFullPathName(), true, false);
 		}
-		menu.addSubMenu("Remove Dirs", removeMenu, true);
+		menu.addSubMenu("Remove Directory:", removeMenu, true);
 		//menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
 	}
-	else if (menuIndex == 1)
+	else if (menuIndex == 1) //View
 	{
-		menu.addItem(setVolume, "Set Gain", true, false);
+		//todo check if enabled or disabled
+		//menu.addItem(togglePlayerWindow, "");
 	}
-	menu.addSeparator();
+	else if (menuIndex == 2) //Info
+	{
+		menu.addItem(visitWebsite, "Visit Website", true, false);
+	}
+	//menu.addSeparator();
 	return menu;
 }
-
+/*
 void SamplifyMainMenu::DeleteSamplifyFilesThread::run()
 {
 	DirectoryIterator iterator(mDirectory, true, "*.samplify");
@@ -94,3 +95,4 @@ void SamplifyMainMenu::DeleteSamplifyFilesThread::run()
 		iterator.getFile().deleteFile();
 	}
 }
+*/

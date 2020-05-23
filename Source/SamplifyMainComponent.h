@@ -38,25 +38,30 @@ namespace samplify
 
 		void setupLookAndFeel();
 
+		static void setupLookAndFeel(LookAndFeel& laf);
+
 		//==============================================================================
 		void paint(Graphics&) override;
 		void resized() override;
+
+		void timerCallback() override;
 
 
 		DirectoryExplorer& getDirectoryExplorer() { return mDirectoryExplorer; }
 		SampleExplorer& getSampleExplorer() { return mSampleExplorer; }
 		FilterExplorer& getFilterExplorer() { return mFilterExplorer; }
-
 		std::shared_ptr<AudioPlayer> getAudioPlayer() { return mAudioPlayer; }
 
-		void timerCallback() override;
+		
 	private:
 		DirectoryExplorer mDirectoryExplorer;
 		SampleExplorer mSampleExplorer;
 		FilterExplorer mFilterExplorer;
 		SamplePlayerComponent mSamplePlayer;
 
+
 		std::shared_ptr<AudioPlayer> mAudioPlayer;
+
 		static SamplifyMainComponent* mInstance;
 
 		//ServerAuthStatus authorizationStatus;

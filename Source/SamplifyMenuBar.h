@@ -18,26 +18,36 @@
 
 namespace samplify
 {
+	/*
+	class DeleteSamplifyFilesThread : public ThreadWithProgressWindow
+	{
+	public:
+		DeleteSamplifyFilesThread(File dir) : ThreadWithProgressWindow("deleting .samplify", true, false),
+			mDirectory(dir) {}
+		void run() override;
+	private:
+		File mDirectory;
+	};
+	*/
+
 	class SamplifyMainMenu : public Component, public MenuBarModel
 	{
 	public:
 		enum CommandIDs
 		{
-			addDirectory = 0x299,
-			removeSampFiles,
+			noCommand = 0,
+			addDirectory = 1,
+			removeDirectory = 1024, //outlier number required for removeDirectory sub-menu
+			removeSampFiles = 2,
+			setPreferences,
 			setVolume,
-			removeDirectory = 0x3000, //outlier number required for removeDirectory sub-menu
+			togglePlayerWindow,
+			toggleFilterWindow,
+			toggleDirectoryWindow,
+			viewDocumentation,
+			visitWebsite
 		};
 
-		class DeleteSamplifyFilesThread : public ThreadWithProgressWindow
-		{
-		public:
-			DeleteSamplifyFilesThread(File dir) : ThreadWithProgressWindow("deleting .samplify", true, false),
-				mDirectory(dir) {}
-			void run() override;
-		private:
-			File mDirectory;
-		};
 		SamplifyMainMenu();
 		//Menu Bar Model Functions
 		StringArray getMenuBarNames() override;

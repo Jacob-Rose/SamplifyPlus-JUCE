@@ -70,7 +70,6 @@ namespace samplify
 		{
 			quit();
 		}
-		
 		//The main application that creates the SamplifyMainComponent
 		class MainWindow : public DocumentWindow
 		{
@@ -82,10 +81,12 @@ namespace samplify
 				DocumentWindow::allButtons)
 			{
 				setUsingNativeTitleBar(true);
-				setContentOwned(new SamplifyMainComponent(), true);
+				SamplifyMainComponent* smc = new SamplifyMainComponent();
+				setContentOwned(smc, true);
 				setResizable(true, true);
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
+				SamplifyMainComponent::setupLookAndFeel(getLookAndFeel());
 				setMenuBar(&mMainMenuModel);
 			}
 			~MainWindow()
@@ -114,7 +115,6 @@ namespace samplify
 	private:
 		std::unique_ptr<MainWindow> mainWindow;
 	};
-
 
 }
 

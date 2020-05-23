@@ -31,7 +31,7 @@ void SampleExplorer::paint (Graphics& g)
 	if (mIsUpdating)
 	{
 		float size = getWidth() / 5;
-		getLookAndFeel().drawSpinningWaitAnimation(g, getLookAndFeel().findColour(MAIN_ACCENT_COLOR_ID), (getWidth() / 2) - (size / 2), size, size, size);
+		getLookAndFeel().drawSpinningWaitAnimation(g, getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID), (getWidth() / 2) - (size / 2), size, size, size);
 		repaint();
 	}
 }
@@ -64,9 +64,7 @@ void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 			mIsUpdating = false;
 			mSampleContainer.setSampleItems(sl->getCurrentSamples());
 		}
-		
 	}
-	
 }
 
 SampleExplorer::SampleViewport::SampleViewport(SampleContainer* container)
@@ -98,6 +96,4 @@ void SampleExplorer::SampleSearchbar::resized()
 {
 	mEraseSearchButton.setBoundsRelative(0.8f, 0.2f, 0.1f, 0.6f);
 	TextEditor::resized();
-	//set color here to avoid errors // move to visibilityChanged()
-	setColour(backgroundColourId, getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID));
 }

@@ -169,6 +169,18 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
+			/*
+			else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
+			{
+				PopupMenu menu;
+				StringArray parentDirs = mSample.getRelativeParentFolders();
+				for (int i = 0; i < parentDirs.size(); i++)
+				{
+					menu.addItem(i + 1, parentDirs[i]);
+				}
+				int choice = menu.show();
+			}
+			*/
 			else
 			{
 				PopupMenu menu;
@@ -179,26 +191,10 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				int selection = menu.show();
 			}
 		}
-		/*
-		else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
-		{
-			PopupMenu menu;
-			StringArray parentDirs = mSample.getRelativeParentFolders();
-			for (int i = 0; i < parentDirs.size(); i++)
-			{
-				menu.addItem(i + 1, parentDirs[i]);
-			}
-			int choice = menu.show();
-		}
-		*/
-		else
-		{
-			
-		}
 	}
 }
 
-void samplify::SampleTile::mouseDrag(const MouseEvent& e)
+void SampleTile::mouseDrag(const MouseEvent& e)
 {
 	if (!mSample.isNull())
 	{
@@ -208,16 +204,10 @@ void samplify::SampleTile::mouseDrag(const MouseEvent& e)
 	}
 }
 
-void SampleTile::mouseMove(const MouseEvent & e)
+void SampleTile::mouseExit(const MouseEvent& e)
 {
 	repaint();
 }
-
-void samplify::SampleTile::mouseExit(const MouseEvent& e)
-{
-	repaint();
-}
-
 
 
 void SampleTile::playSample()
@@ -286,11 +276,12 @@ void SampleTile::setSample(Sample::Reference sample)
 			{
 				alreadyThis = true;
 			}
+			mSample.removeChangeListener(this);
 		}
 		if (!alreadyThis)
 		{
 			sample.generateThumbnailAndCache();
-			
+			sample.addChangeListener(this);
 		}
 	}
 	mSample = sample;
