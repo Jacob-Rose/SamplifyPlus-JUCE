@@ -32,15 +32,15 @@ void SampleTile::paint (Graphics& g)
 		Colour titleColor;
 		if (isMouseOver(true))
 		{
-			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_HOVER_COLOR_ID);
-			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_HOVER_COLOR_ID);
-			outlineColor = getLookAndFeel().findColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID);
+			backgroundColor = getLookAndFeel().findColour(backgroundHoverColorID);
+			foregroundColor = getLookAndFeel().findColour(foregroundHoverColorID);
+			outlineColor = getLookAndFeel().findColour(foregroundHoverColorID);
 		}
 		else
 		{
-			backgroundColor = getLookAndFeel().findColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID);
-			foregroundColor = getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID);
-			outlineColor = getLookAndFeel().findColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID);
+			backgroundColor = getLookAndFeel().findColour(backgroundDefaultColorID);
+			foregroundColor = getLookAndFeel().findColour(foregroundDefaultColorID);
+			outlineColor = getLookAndFeel().findColour(foregroundDefaultColorID);
 		}
 
 		if (backgroundColor.getPerceivedBrightness() > 0.5f)
@@ -66,14 +66,14 @@ void SampleTile::paint (Graphics& g)
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
 			g.setColour(titleColor);
-			g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
+			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
 		}
 		else
 		{
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
 			g.setColour(titleColor);
-			g.drawText(mSample.getFilename(), m_TitleRect.withTrimmedLeft(2.0f), Justification::centredLeft);
+			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(2.0f), Justification::centredLeft);
 		}
 
 		
@@ -199,7 +199,7 @@ void SampleTile::mouseDrag(const MouseEvent& e)
 	if (!mSample.isNull())
 	{
 		StringArray files = StringArray();
-		files.add(mSample.getFullPathName());
+		files.add(mSample.getFile().getFullPathName());
 		DragAndDropContainer::performExternalDragDropOfFiles(files, false);
 	}
 }
@@ -243,7 +243,6 @@ void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 		{
 			mSample.addTag(tagComp->getTag());
 			mTagContainer.setTags(mSample.getTags());
-			SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
 		}
 	}
 }

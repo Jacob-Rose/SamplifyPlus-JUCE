@@ -14,7 +14,7 @@ Sample::Sample(const File& file) : mFile(file)
 	else
 	{
 		//todo add what to do for new files
-		determineSampleType();
+
 	}
 }
 
@@ -37,7 +37,7 @@ bool Sample::isQueryValid(juce::String query)
 	return false;
 }
 
-
+/* deprecated
 void Sample::determineSampleType()
 {
 	if (mLength > 4.0)
@@ -64,10 +64,10 @@ void Sample::determineSampleType()
 		}
 	}
 }
+*/
 
 void Sample::changeListenerCallback(ChangeBroadcaster * source)
 {
-	determineSampleType();
 	sendChangeMessage();
 }
 
@@ -112,23 +112,14 @@ void Sample::loadPropertiesFile()
 }
 
 
-/*
+
 StringArray Sample::Reference::getRelativeParentFolders() const
 {
 	jassert(!isNull());
 	std::shared_ptr<Sample> sample = mSample.lock();
 	StringArray folders;
 	File file(sample->mFile);
-	File root;
-	std::vector<File> rootDirs = SamplifyProperties::getInstance()->getSampleLibrary()->getDirectories();
-	for (int i = 0; i < rootDirs.size(); i++)
-	{
-		if (file.isAChildOf(rootDirs[i]))
-		{
-			root = rootDirs[i];
-			break;
-		}
-	}
+	File root = SamplifyProperties::getInstance()->getSampleLibrary()->getRelativeDirectoryForFile(file);
 	while (file.isAChildOf(root))
 	{
 		file = file.getParentDirectory();
@@ -136,12 +127,30 @@ StringArray Sample::Reference::getRelativeParentFolders() const
 	}
 	return folders;
 }
-*/
 
-String Sample::Reference::getFullPathName() const
+
+Sample::Reference::Reference(std::shared_ptr<Sample> sample)
+{
+	mSample = sample;
+}
+
+Sample::Reference::Reference(nullptr_t null) : mSample() { jassert(isNull()); }
+
+Sample::Reference::Reference(const Sample::Reference& ref)
+{
+	mSample = ref.mSample;
+}
+
+std::shared_ptr<SampleAudioThumbnail> Sample::Reference::getThumbnail() const
 {
 	jassert(!isNull());
-	return mSample.lock()->mFile.getFullPathName();
+	return mSample.lock()->mThumbnail;
+}
+
+File Sample::Reference::getFile() const
+{
+	jassert(!isNull());
+	return mSample.lock()->mFile;
 }
 
 String Sample::Reference::getInfoText() const
@@ -162,13 +171,8 @@ void Sample::Reference::setInfoText(String newText) const
 
 Colour samplify::Sample::Reference::getColor() const
 {
-	return mSample.lock()->mColor;
-}
-
-Sample::SampleType Sample::Reference::getSampleType() const
-{
 	jassert(!isNull());
-	return mSample.lock()->mSampleType;
+	return mSample.lock()->mColor;
 }
 
 double Sample::Reference::getLength() const
@@ -293,7 +297,7 @@ int Sample::List::size() const
 	return mSamples.size();
 }
 
-void Sample::List::addSample(const Sample::Reference& sample)
+void Sample::List::addSample(const Sample::Reference sample)
 {
 	mSamples.push_back(sample);
 }
@@ -352,25 +356,90 @@ void Sample::List::removeSamples(const Sample::List& list)
 	}
 }
 
-void Sample::List::clearSamples()
+void Sample::List::clear()
 {
 	mSamples.clear();
 }
 
-void samplify::Sample::List::randomize()
+void samplify::Sample::List::sort(SortingMethod method)
 {
-	std::vector<Sample::Reference> newSamps;
-	Sample::List currentSamples = mSamples;
+	if (method == SortingMethod::Random)
+	{
+		randomize();
+	}
+	else if (method == SortingMethod::Newest 
+		|| method == SortingMethod::Oldest)
+	{
+		quickSort(method, 0, mSamples.size() - 1);
+	}
+}
+//https://www.geeksforgeeks.org/quick-sort/
+void Sample::List::quickSort(SortingMethod method, int low, int high)
+{
+	if (low < high)
+	{
+		int pivotIndex = partition(method, low, high);
+
+		quickSort(method, low, pivotIndex - 1);
+		quickSort(method, pivotIndex + 1, high);
+	}
+
+}
+//https://www.geeksforgeeks.org/quick-sort/
+int Sample::List::partition(SortingMethod method, int low, int high)
+{
+	int pivotIndex = ((high - low)/2) + low;
+	float pivotValue = mSamples[pivotIndex].getValueForSortType(method);
+
+	int i = (low - 1);
+
+	for (int j = low; j <= high -1; j++)
+	{
+		float val = mSamples[j].getValueForSortType(method);
+		if (val <= pivotValue)
+		{
+			i++;
+			Sample::Reference tmp = mSamples[i];
+			mSamples[i] = mSamples[j];
+			mSamples[j] = tmp;
+		}
+	}
+	Sample::Reference tmp = mSamples[(i + 1)];
+	mSamples[i+1] = mSamples[pivotIndex];
+	mSamples[pivotIndex] = tmp;
+	return i + 1;
+}
+
+float Sample::getValueForSortType(SortingMethod method)
+{
+	if (method == SortingMethod::Newest)
+	{
+		return mFile.getCreationTime().toMilliseconds();
+	}
+	else if (method == SortingMethod::Oldest)
+	{
+		return -mFile.getCreationTime().toMilliseconds();
+	}
+	return 0.0f;
+}
+
+void Sample::List::randomize()
+{
 	srand(time(NULL));
-	while (currentSamples.size() > 0)
+
+	for (int i = 0; i < mSamples.size(); i++)
 	{
 		int ranInt = rand();
-		int randIndex = ranInt % currentSamples.size();
-		newSamps.push_back(currentSamples[randIndex]);
-		currentSamples.removeSample(randIndex);
+		int randIndex = ranInt % mSamples.size();
+		if (i != randIndex) //just in case
+		{
+			Sample::Reference tmp = mSamples[i];
+			mSamples[i] = mSamples[randIndex];
+			mSamples[randIndex] = tmp;
+		}
 	}
-	mSamples = newSamps;
 }
+
 
 void Sample::List::operator+=(const Sample::List& toAdd)
 {
@@ -381,96 +450,8 @@ Sample::Reference Sample::List::operator[](int index) const
 {
 	return mSamples[index];
 }
-/*
-bool Sample::getSortBool(Sample::Reference lhs, Sample::Reference rhs, Sample::SortMethod method)
-{
-	switch (method)
-	{
-	case Sample::SortMethod::Alphabetical:
-		if (lhs.getFilename().compareNatural(rhs.getFilename()) > 0)
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::ReverseAlphabetical:
-		if (rhs.getFilename().compareNatural(rhs.getFilename()) < 0)
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Newest:
-		if (lhs.getFile().getCreationTime() > rhs.getFile().getCreationTime())
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Oldest:
-		if (lhs.getFile().getCreationTime() < rhs.getFile().getCreationTime())
-		{
-			return true;
-		}
-		return false;
-		break;
-	case Sample::SortMethod::Random:
-		return false;
-		break;
-	}
-}
-void Sample::SortedLists::Alphabetical::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Alphabetical))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
 
-void Sample::SortedLists::RevAlphabetical::addSample(const Sample::Reference& sample)
+void Sample::List::operator=(const Sample::List& other)
 {
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::ReverseAlphabetical))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
+	mSamples = other.mSamples;
 }
-
-void Sample::SortedLists::Newest::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Newest))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-
-void Sample::SortedLists::Oldest::addSample(const Sample::Reference& sample)
-{
-	int index = 0;
-	while (mSamples.size() > index && getSortBool(sample, mSamples[index], SortMethod::Oldest))
-	{
-		index++;
-	}
-	mSamples.insert(mSamples.begin() + index, sample);
-}
-void Sample::SortedLists::Random::addSample(const Sample::Reference& sample)
-{
-	/*todo fix bug
-	if (mSamples.size() > 0)
-	{
-		int randPlace = rand() % mSamples.size();
-		mSamples.insert(mSamples.begin() + randPlace, sample);
-	}
-	else
-	{
-		mSamples.push_back(sample);
-	}
-	
-	mSamples.push_back(sample);
-}
-*/

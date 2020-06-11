@@ -10,20 +10,22 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
 {
     addAndMakeVisible(mViewport);
 	addAndMakeVisible(mFilter);
-	mFilter.addItem("A-Z", 1);
-	mFilter.addItem("Z-A", 2);
-	mFilter.addItem("Newest", 3);
-	mFilter.addItem("Oldest", 4);
-	mFilter.addItem("Random", 5);
-	mViewport.addAndMakeVisible(mSampleContainer);
 	addAndMakeVisible(mSearchBar);
+	mFilter.addItem("Newest", 1);
+	mFilter.addItem("Oldest", 2);
+	mFilter.addItem("Random", 3);
+	mFilter.setSelectedId(1);
+	mFilter.setLookAndFeel(&getLookAndFeel());
+	mViewport.addAndMakeVisible(mSampleContainer);
 	mViewport.setViewedComponent(&mSampleContainer);
 	mViewport.setScrollBarsShown(true, false, true, false);
 	mSearchBar.addListener(this);
+	mFilter.addListener(this);
 }
 
 SampleExplorer::~SampleExplorer()
 {
+	mFilter.setLookAndFeel(nullptr);
 }
 
 void SampleExplorer::paint (Graphics& g)
@@ -31,7 +33,7 @@ void SampleExplorer::paint (Graphics& g)
 	if (mIsUpdating)
 	{
 		float size = getWidth() / 5;
-		getLookAndFeel().drawSpinningWaitAnimation(g, getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID), (getWidth() / 2) - (size / 2), size, size, size);
+		getLookAndFeel().drawSpinningWaitAnimation(g, getLookAndFeel().findColour(loadingWheelColorId), (getWidth() / 2) - (size / 2), size, size, size);
 		repaint();
 	}
 }
@@ -64,6 +66,22 @@ void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 			mIsUpdating = false;
 			mSampleContainer.setSampleItems(sl->getCurrentSamples());
 		}
+	}
+}
+
+void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
+{
+	if (comboBoxThatHasChanged->getSelectedId() == 1) //Newest
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Newest);
+	}
+	else if (comboBoxThatHasChanged->getSelectedId() == 2) //Oldest
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Newest);
+	}
+	else if (comboBoxThatHasChanged->getSelectedId() == 3)
+	{
+		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Random);
 	}
 }
 

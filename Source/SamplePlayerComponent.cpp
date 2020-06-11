@@ -40,7 +40,7 @@ void SamplePlayerComponent::paint (Graphics& g)
     if (!getCurrentSample().isNull())
     {
         mSampleInfoEditor.setText(getCurrentSample().getInfoText());
-        g.drawText(getCurrentSample().getFilename(), Rectangle<float>(0, 0, getWidth(), 50), Justification::left, true);
+        g.drawText(getCurrentSample().getFile().getFileName(), Rectangle<float>(0, 0, getWidth(), 50), Justification::left, true);
     }
 }
 

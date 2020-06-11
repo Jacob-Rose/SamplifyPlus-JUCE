@@ -25,6 +25,12 @@ void SampleLibrary::updateCurrentSamples(String query)
 	sendChangeMessage();
 }
 
+void SampleLibrary::sortSamples(SortingMethod method)
+{
+	mCurrentSamples.sort(method);
+	sendChangeMessage();
+}
+
 void SampleLibrary::addDirectory(const File& dir)
 {
 	std::shared_ptr<SampleDirectory> sampDir = std::make_shared<SampleDirectory>(dir);
@@ -125,6 +131,16 @@ void SampleLibrary::deleteTag(juce::String tag)
 		//todo
 		//SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().resized();
 	}
+}
+
+StringArray SampleLibrary::getTagsStringArray()
+{
+	StringArray tags = StringArray();
+	for (int i = 0; i < mTags.size(); i++)
+	{
+		tags.add(mTags[i].mTitle);
+	}
+	return tags;
 }
 
 void SampleLibrary::setTagColor(juce::String tag, juce::Colour newColor)

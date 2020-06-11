@@ -7,7 +7,7 @@ SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
 SamplifyMainComponent::SamplifyMainComponent()
 {
-	setupLookAndFeel();
+	setupLookAndFeel(getLookAndFeel());
 	mInstance = this;
 	addKeyListener(this);
 	mAudioPlayer = std::make_shared<AudioPlayer>();
@@ -41,14 +41,11 @@ SamplifyMainComponent::SamplifyMainComponent()
 
 SamplifyMainComponent::~SamplifyMainComponent()
 {
-	//deviceManager.closeAudioDevice();
 	shutdownAudio();
-	/*
 	if (mInstance == this)
 	{
 		mInstance = nullptr;
 	}
-	*/
 }
 
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
@@ -86,13 +83,6 @@ void SamplifyMainComponent::getNextAudioBlock(const AudioSourceChannelInfo& buff
 	{
 		mAudioPlayer->getNextAudioBlock(bufferToFill);
 	}
-	
-	/*
-	if (mCopyProtection.get() == nullptr)
-	{
-		juce::JUCEApplicationBase::quit();
-	}
-	*/
 }
 
 void SamplifyMainComponent::releaseResources()
@@ -103,51 +93,31 @@ void SamplifyMainComponent::releaseResources()
 	}
 }
 
-void samplify::SamplifyMainComponent::setupLookAndFeel()
-{
-	LookAndFeel& laf = getLookAndFeel();
-	laf.setColour(MAIN_BACKGROUND_COLOR_ID, MAIN_BACKGROUND_COLOR);
-	laf.setColour(MAIN_FOREGROUND_COLOR_ID, MAIN_FOREGROUND_COLOR);
-	laf.setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_BG_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, GET_SAMPLE_TILE_BG_HOVER_COLOR());
-	laf.setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_FG_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, GET_SAMPLE_TILE_FG_HOVER_COLOR());
-	laf.setColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_HOVER_COLOR());
-
-	laf.setColour(TextEditor::backgroundColourId, MAIN_BACKGROUND_COLOR);
-	laf.setColour(TextEditor::textColourId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(TextEditor::outlineColourId, MAIN_FOREGROUND_COLOR);
-
-	laf.setColour(TextButton::textColourOnId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(TextButton::buttonOnColourId, MAIN_BACKGROUND_COLOR);
-	laf.setColour(TextButton::buttonColourId, MAIN_BACKGROUND_COLOR);
-	laf.setColour(TextButton::textColourOffId, MAIN_FOREGROUND_COLOR);
-
-	laf.setColour(ComboBox::backgroundColourId, MAIN_BACKGROUND_COLOR);
-	laf.setColour(ComboBox::textColourId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(ComboBox::arrowColourId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(ComboBox::outlineColourId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(ComboBox::buttonColourId, MAIN_FOREGROUND_COLOR);
-}
 
 void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
 {
-	laf.setColour(MAIN_BACKGROUND_COLOR_ID, MAIN_BACKGROUND_COLOR);
-	laf.setColour(MAIN_FOREGROUND_COLOR_ID, MAIN_FOREGROUND_COLOR);
-	laf.setColour(SAMPLE_TILE_BG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_BG_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_BG_HOVER_COLOR_ID, GET_SAMPLE_TILE_BG_HOVER_COLOR());
-	laf.setColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_FG_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_FG_HOVER_COLOR_ID, GET_SAMPLE_TILE_FG_HOVER_COLOR());
-	laf.setColour(SAMPLE_TILE_OUTLINE_DEFAULT_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_DEFAULT_COLOR());
-	laf.setColour(SAMPLE_TILE_OUTLINE_HOVER_COLOR_ID, GET_SAMPLE_TILE_OUTLINE_HOVER_COLOR());
+	laf.setColour(ResizableWindow::backgroundColourId, MAIN_BACKGROUND_COLOR);
+
+	laf.setColour(SampleTile::backgroundDefaultColorID, MAIN_BACKGROUND_COLOR);
+	laf.setColour(SampleTile::backgroundHoverColorID, MAIN_BACKGROUND_COLOR.darker(0.2f));
+	laf.setColour(SampleTile::foregroundDefaultColorID, MAIN_FOREGROUND_COLOR);
+	laf.setColour(SampleTile::foregroundHoverColorID, MAIN_FOREGROUND_COLOR.darker(0.2f));
+
+	laf.setColour(SampleExplorer::loadingWheelColorId, MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(DirectoryExplorerTreeViewItem::defaultBackgroundId, Colours::transparentWhite);
+	laf.setColour(DirectoryExplorerTreeViewItem::selectedBackgroundId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(DirectoryExplorerTreeViewItem::checkboxActiveBackgroundId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(DirectoryExplorerTreeViewItem::checkboxMixedBackgroundId, MAIN_FOREGROUND_COLOR.withSaturation(0.2f));
+	laf.setColour(DirectoryExplorerTreeViewItem::checkboxDisabledBackgroundId, Colours::grey);
+	laf.setColour(DirectoryExplorerTreeViewItem::checkboxNotLoadedBackgroundId, Colours::lightpink);
 
 	laf.setColour(TextEditor::backgroundColourId, MAIN_BACKGROUND_COLOR);
 	laf.setColour(TextEditor::textColourId, MAIN_FOREGROUND_COLOR);
 	laf.setColour(TextEditor::outlineColourId, MAIN_FOREGROUND_COLOR);
 
 	laf.setColour(TextButton::textColourOnId, MAIN_FOREGROUND_COLOR);
-	laf.setColour(TextButton::buttonOnColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(TextButton::buttonOnColourId, MAIN_BACKGROUND_COLOR.darker(0.2f));
 	laf.setColour(TextButton::buttonColourId, MAIN_BACKGROUND_COLOR);
 	laf.setColour(TextButton::textColourOffId, MAIN_FOREGROUND_COLOR);
 
@@ -156,12 +126,18 @@ void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
 	laf.setColour(ComboBox::arrowColourId, MAIN_FOREGROUND_COLOR);
 	laf.setColour(ComboBox::outlineColourId, MAIN_FOREGROUND_COLOR);
 	laf.setColour(ComboBox::buttonColourId, MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(PopupMenu::backgroundColourId, MAIN_BACKGROUND_COLOR);
+	laf.setColour(PopupMenu::headerTextColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(PopupMenu::highlightedBackgroundColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(PopupMenu::highlightedTextColourId, MAIN_FOREGROUND_COLOR);
+	laf.setColour(PopupMenu::textColourId, MAIN_FOREGROUND_COLOR);
 }
 
 //==============================================================================
 void SamplifyMainComponent::paint (Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour(MAIN_BACKGROUND_COLOR_ID));
+    g.fillAll (getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
 void SamplifyMainComponent::resized()

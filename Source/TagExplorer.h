@@ -16,7 +16,7 @@
 
 namespace samplify
 {
-	class TagExplorer : public Component
+	class TagExplorer : public Component, public ChangeListener
 	{
 	public:
 		TagExplorer();
@@ -59,6 +59,8 @@ namespace samplify
 		void paint(Graphics&) override;
 		void addNewTag();
 		Container& getContainer() { return mTagsContainer; }
+
+		void changeListenerCallback(ChangeBroadcaster* source) override;
 	private:
 
 		TextButton mNewButtonTag;
@@ -66,5 +68,7 @@ namespace samplify
 		Container mTagsContainer;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagExplorer)
 	};
+
+
 }
 #endif

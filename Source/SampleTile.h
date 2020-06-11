@@ -26,6 +26,15 @@ namespace samplify
 		public ChangeListener
 	{
 	public:
+
+		enum ColourIds
+		{
+			foregroundHoverColorID = 720,
+		    foregroundDefaultColorID,
+		    backgroundDefaultColorID,
+			backgroundHoverColorID
+		};
+		
 		//===========================================================================
 		SampleTile(Sample::Reference);
 		~SampleTile();

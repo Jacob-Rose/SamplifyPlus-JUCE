@@ -24,6 +24,7 @@ namespace samplify
 	class SampleLibrary : public ChangeBroadcaster, public ChangeListener, public Timer
 	{
 	public:
+
 		struct Tag
 		{
 			//simple holder for information, can be expanded later
@@ -39,6 +40,8 @@ namespace samplify
 		void refreshCurrentSamples() { updateCurrentSamples(mCurrentQuery); }
 		void updateCurrentSamples(String query);
 
+		void sortSamples(SortingMethod method);
+
 		Sample::List getCurrentSamples();
 		String getCurrentQuery() { return mCurrentQuery; }
 
@@ -46,19 +49,20 @@ namespace samplify
 
 		void timerCallback() override;
 
-		//Tag Library Merger - They are dependent on each other for results and modifications, so fuck it put them together
+		///Tag Library Merger - They are dependent on each other for results and modifications, so fuck it put them together
 		void addTag(juce::String tag, Colour color);
 		void addTag(juce::String tag);
 		//void renameTag(juce::String currentTagName, juce::String desiredName);
 		void deleteTag(juce::String tag);
 		int getTagCount() { return mTags.size(); }
 		std::vector<Tag> getTags() { return mTags; }
+		StringArray getTagsStringArray();
 
 		void setTagColor(juce::String tag, juce::Colour newColor);
 		SampleLibrary::Tag getTag(juce::String tag);
 
 
-		//Merge Directory Manager - Reduce dependencies, less pointers, easier saving, so fuck it put them together
+		///Directory Manager Merger - Reduce dependencies, less pointers, easier saving, so fuck it put them together
 		void addDirectory(const File& dir);
 		std::vector<std::shared_ptr<SampleDirectory>> getDirectories() { return mDirectories; }
 		void removeDirectory(const File& dir);
@@ -76,6 +80,7 @@ namespace samplify
 
 	private:
 		std::unique_ptr<std::future<Sample::List>> mUpdateSampleFuture;
+		SortingMethod mSortingMethod = SortingMethod::Newest;
 		Sample::List mCurrentSamples;
 		String mCurrentQuery;
 

@@ -6,6 +6,10 @@
 
 using namespace samplify;
 
+std::unique_ptr<Drawable> DirectoryExplorerTreeViewItem::crossDrawable = nullptr;
+std::unique_ptr<Drawable> DirectoryExplorerTreeViewItem::checkDrawable = nullptr;
+
+
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir)
 {
 	mSampleDirectory = dir;
@@ -14,7 +18,7 @@ DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(std::shared_ptr<Sam
 }
 
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(String string)
-{ //this is only used for the root item
+{ 
 	mText = string;
 	mShouldUseFile = false;
 }
@@ -77,67 +81,65 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 	//check if not added yet, dont draw
 	if (getOwnerView() != nullptr && mShouldUseFile)
 	{
+		//1: Setup Colors to be used
+		Colour itemBackgroundColor;
+		Colour textColor;
+		Colour checkboxBackgroundColor;
 		if (isSelected())
 		{
-			Colour c = getOwnerView()->getLookAndFeel().findColour(MAIN_FOREGROUND_COLOR_ID);
-			g.setColour(c.brighter(0.5));
-			g.fillRoundedRectangle(0, 0, width, height, 4.0f);
-			g.setColour(c);
-			g.drawRoundedRectangle(0, 0, width, height, 4.0f, 1.0f);
-			if (c.getPerceivedBrightness() > 0.5f)
-			{
-				g.setColour(Colours::black);
-			}
-			else
-			{
-				g.setColour(Colours::white);
-			}
+			itemBackgroundColor = getOwnerView()->getLookAndFeel().findColour(selectedBackgroundId);
 		}
 		else
 		{
-
-			if (getOwnerView()->getLookAndFeel().findColour(MAIN_BACKGROUND_COLOR_ID).getPerceivedBrightness() > 0.5f)
-			{
-				g.setColour(Colours::black);
-			}
-			else
-			{
-				g.setColour(Colours::white);
-			}
+			itemBackgroundColor = getOwnerView()->getLookAndFeel().findColour(defaultBackgroundId);
 		}
+		if (itemBackgroundColor.getPerceivedBrightness() > 0.5f)
+		{
+			textColor = Colours::black;
+		}
+		else
+		{
+			textColor = Colours::white;
+		}
+		switch (mSampleDirectory->getCheckStatus())
+		{
+		case CheckStatus::NotLoaded:
+			checkboxBackgroundColor = getOwnerView()->getLookAndFeel().findColour(checkboxNotLoadedBackgroundId);
+			break;
+		case CheckStatus::Mixed:
+			checkboxBackgroundColor = getOwnerView()->getLookAndFeel().findColour(checkboxMixedBackgroundId);
+			break;
+		case CheckStatus::Enabled:
+			checkboxBackgroundColor = getOwnerView()->getLookAndFeel().findColour(checkboxActiveBackgroundId);
+			break;
+		case CheckStatus::Disabled:
+			checkboxBackgroundColor = getOwnerView()->getLookAndFeel().findColour(checkboxDisabledBackgroundId);
+			break;
+		}
+
+
+		g.setColour(itemBackgroundColor);
+		g.fillRoundedRectangle(0, 0, width, height, 4.0f);
+		g.setColour(itemBackgroundColor.darker(0.2f));
+		g.drawRoundedRectangle(0, 0, width, height, 4.0f, 1.0f);
+
+
 		g.setFont(12);
 		float padding = 2.0f;
 		Rectangle<float> checkBoxRect = Rectangle<float>(padding, padding, height - (padding*2), height-(padding*2));
 		float checkBoxCornerWidth = 4.0f;
-		switch (mSampleDirectory->getCheckStatus())
-		{
-		case CheckStatus::NotLoaded:
-			g.setColour(Colours::lightpink);
-			break;
-		case CheckStatus::Mixed:
-			g.setColour(Colours::grey);
-			break;
-		case CheckStatus::Enabled:
-			g.setColour(SamplifyMainComponent::getInstance()->getLookAndFeel().findColour(SAMPLE_TILE_FG_DEFAULT_COLOR_ID));
-			break;
-		case CheckStatus::Disabled:
-			g.setColour(Colours::white);
-			break;
-		}
+		
+		g.setColour(checkboxBackgroundColor);
 		g.fillRoundedRectangle(checkBoxRect, checkBoxCornerWidth);
+
+
 		if (mSampleDirectory->getCheckStatus() == CheckStatus::NotLoaded)
 		{
-			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/cross.svg");
-			static std::unique_ptr<Drawable> cross = Drawable::createFromSVGFile(crossFile);
-			cross.get()->replaceColour(Colours::black, Colours::white);
-			cross.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+			crossDrawable.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
 		}
 		else if (mSampleDirectory->getCheckStatus() == CheckStatus::Enabled)
 		{
-			File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/check.svg");
-			static std::unique_ptr<Drawable> check = Drawable::createFromSVGFile(crossFile);
-			check.get()->replaceColour(Colours::black, Colours::white);
-			check.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+			checkDrawable.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
 		}
 		else if (mSampleDirectory->getCheckStatus() == CheckStatus::Mixed)
 		{
@@ -148,6 +150,7 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 		{
 
 		}
+
 		g.setColour(Colours::black);
 		g.drawRoundedRectangle(checkBoxRect, checkBoxCornerWidth, 1.0f);
 		juce::String text;

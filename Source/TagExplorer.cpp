@@ -15,6 +15,7 @@ TagExplorer::TagExplorer()
 	mTagViewport.setViewedComponent(&mTagsContainer);
 	//mTagViewport.setViewedComponent()
 	mTagViewport.setScrollBarsShown(true, false, true, false);
+	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(this);
 }
 
 TagExplorer::~TagExplorer()
@@ -38,10 +39,15 @@ void TagExplorer::addNewTag()
 	TextEditor te = TextEditor();
 	te.setBounds(0,0,200,30);
 	//change from nullptr to the maincompoent to make it overlay?
-	DialogWindow::showModalDialog("New Tag Name", &te, nullptr, getLookAndFeel().findColour(MAIN_BACKGROUND_COLOR_ID), true,false);
+	DialogWindow::showModalDialog("New Tag Name", &te, nullptr, getLookAndFeel().findColour(ResizableWindow::backgroundColourId), true,false);
 	SamplifyProperties::getInstance()->getSampleLibrary()->addTag(te.getText());
 	mTagsContainer.updateTags(SamplifyProperties::getInstance()->getSampleLibrary()->getCurrentQuery());
 
+}
+
+void samplify::TagExplorer::changeListenerCallback(ChangeBroadcaster* source)
+{
+	mTagsContainer.updateTags("");
 }
 
 void samplify::TagExplorer::Container::removeNewTag(juce::String tag)

@@ -8,6 +8,10 @@
       <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
             file="Source/SamplifyLookAndFeel.h"/>
+      <FILE id="YpmpIU" name="LookAndFeel_VJake.cpp" compile="1" resource="0"
+            file="Source/LookAndFeel_VJake.cpp"/>
+      <FILE id="zOgE2N" name="LookAndFeel_VJake.h" compile="0" resource="0"
+            file="Source/LookAndFeel_VJake.h"/>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
         <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
         <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
@@ -26,6 +30,9 @@
               file="Source/SampleDirectory.cpp"/>
         <FILE id="QqDZSd" name="SampleDirectory.h" compile="0" resource="0"
               file="Source/SampleDirectory.h"/>
+        <FILE id="Ex3tgN" name="SampleTag.h" compile="0" resource="0" file="Source/SampleTag.h"/>
+        <FILE id="U2UDAS" name="SampleTag.cpp" compile="1" resource="0" file="Source/SampleTag.cpp"/>
+        <FILE id="I4fmsx" name="SortingMethod.h" compile="0" resource="0" file="Source/SortingMethod.h"/>
         <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
               file="Source/SamplifyProperties.h"/>
         <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
@@ -48,6 +55,10 @@
               <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
               <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
               <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
+              <FILE id="D1vfp9" name="TagExplorer_V2.h" compile="0" resource="0"
+                    file="Source/TagExplorer_V2.h"/>
+              <FILE id="bKydrE" name="TagExplorer_V2.cpp" compile="1" resource="0"
+                    file="Source/TagExplorer_V2.cpp"/>
               <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
               <FILE id="Fh8M8U" name="TagTile.h" compile="0" resource="0" file="Source/TagTile.h"/>
             </GROUP>

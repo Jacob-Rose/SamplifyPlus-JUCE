@@ -20,10 +20,24 @@ namespace samplify
 	class DirectoryExplorerTreeViewItem : public TreeViewItem, public FileDragAndDropTarget, public ChangeListener
 	{
 	public:
+		enum ColourIds
+		{
+			defaultBackgroundId = 0x22123,
+			selectedBackgroundId,
+			checkboxActiveBackgroundId,
+			checkboxMixedBackgroundId,
+			checkboxDisabledBackgroundId,
+			checkboxNotLoadedBackgroundId
+		};
+
+		static std::unique_ptr<Drawable> crossDrawable;
+		static std::unique_ptr<Drawable> checkDrawable;
+
+
 		const juce::String containedSamplesTitle = "Contained Samples";
 
 		DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir);
-		DirectoryExplorerTreeViewItem(String string);
+		DirectoryExplorerTreeViewItem(String string); //this is only used for the root item
 		~DirectoryExplorerTreeViewItem();
 
 		bool mightContainSubItems() override;

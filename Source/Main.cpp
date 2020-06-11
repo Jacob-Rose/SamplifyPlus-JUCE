@@ -12,9 +12,12 @@
 
 #include "JuceHeader.h"
 
+#include "LookAndFeel_VJake.h"
+
 #include "SamplifyMainComponent.h"
 #include "SamplifyMenuBar.h"
 #include "SamplifyProperties.h"
+#include "SamplifyLookAndFeel.h"
 #include "Sample.h"
 
 namespace samplify
@@ -84,14 +87,22 @@ namespace samplify
 				SamplifyMainComponent* smc = new SamplifyMainComponent();
 				setContentOwned(smc, true);
 				setResizable(true, true);
+
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
-				SamplifyMainComponent::setupLookAndFeel(getLookAndFeel());
+
+				SamplifyMainComponent::setupLookAndFeel(mLookAndFeel);
+				setLookAndFeel(&mLookAndFeel);
+
 				setMenuBar(&mMainMenuModel);
+				mMainMenuModel.setLookAndFeel(&mLookAndFeel);
 			}
 			~MainWindow()
 			{
 				setMenuBar(nullptr);
+				mMainMenuModel.setLookAndFeel(nullptr);
+				getContentComponent()->setLookAndFeel(nullptr);
+				setLookAndFeel(nullptr);
 				clearContentComponent();
 			}
 
@@ -108,6 +119,7 @@ namespace samplify
 			*/
 
 		private:
+			LookAndFeel_VJake mLookAndFeel;
 			SamplifyMainMenu mMainMenuModel;
 			JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
 		};

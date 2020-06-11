@@ -36,8 +36,6 @@ namespace samplify
 		void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 		void releaseResources() override;
 
-		void setupLookAndFeel();
-
 		static void setupLookAndFeel(LookAndFeel& laf);
 
 		//==============================================================================

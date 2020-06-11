@@ -55,6 +55,10 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 		}
 		*/
 	}
+	else if (menuItemID == visitWebsite)
+	{
+		URL("www.samplify.app").launchInDefaultBrowser();
+	}
 }
 
 PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuName)
@@ -77,7 +81,9 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 	else if (menuIndex == 1) //View
 	{
 		//todo check if enabled or disabled
-		//menu.addItem(togglePlayerWindow, "");
+		menu.addItem(togglePlayerWindow, "Toggle Player Window (TBD)");
+		menu.addItem(toggleFilterWindow, "Toggle Filter Window (TBD)");
+		menu.addItem(toggleDirectoryWindow, "Toggle Directory Window (TBD)");
 	}
 	else if (menuIndex == 2) //Info
 	{

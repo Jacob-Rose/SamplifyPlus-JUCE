@@ -21,9 +21,14 @@ namespace samplify
 {
 	class SampleExplorer : public Component, 
 		public TextEditor::Listener, 
+		public ComboBox::Listener,
 		public ChangeListener
 	{
 	public:
+		enum ColourIds
+		{
+			loadingWheelColorId
+		};
 		///Custom Viewport to add support for the visible area changed method,
 		///needed to check if scrolled to bottom 
 		class SampleViewport : public Viewport
@@ -55,6 +60,8 @@ namespace samplify
 
 		void textEditorTextChanged(TextEditor&) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
+
+		void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
 
 		TextEditor& getSearchBar() { return mSearchBar; }
 		SampleContainer& getSampleContainer() { return mSampleContainer; }
