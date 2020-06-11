@@ -21,8 +21,7 @@ namespace samplify
 {
 
 	class SampleTile : public Component, 
-		public DragAndDropTarget, 
-		public MouseListener, 
+		public DragAndDropTarget,  
 		public ChangeListener
 	{
 	public:

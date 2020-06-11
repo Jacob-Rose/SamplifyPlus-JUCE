@@ -59,13 +59,13 @@ void samplify::DirectoryExplorer::initializeDrawableFiles()
 {
 	if (DirectoryExplorerTreeViewItem::checkDrawable == nullptr)
 	{
-		File checkFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/check.svg");
+        File checkFile = File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory().getChildFile("../../Icons/check.svg");
 		DirectoryExplorerTreeViewItem::checkDrawable = Drawable::createFromSVGFile(checkFile); //static to reuse asset
 		DirectoryExplorerTreeViewItem::checkDrawable.get()->replaceColour(Colours::black, Colours::white);
 	}
 	if (DirectoryExplorerTreeViewItem::crossDrawable == nullptr)
 	{
-		File crossFile = File::getCurrentWorkingDirectory().getChildFile("../../Icons/cross.svg");
+        File crossFile = File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory().getChildFile("../../Icons/cross.svg");
 		DirectoryExplorerTreeViewItem::crossDrawable = Drawable::createFromSVGFile(crossFile); //static to reuse asset
 		DirectoryExplorerTreeViewItem::crossDrawable.get()->replaceColour(Colours::black, Colours::white);
 	}

@@ -12,6 +12,7 @@ SamplifyProperties::SamplifyProperties()
 	propFileOptions.applicationName = "SamplifyPlus";
 	propFileOptions.commonToAllUsers = false;
 	propFileOptions.filenameSuffix = ".settings";
+    propFileOptions.osxLibrarySubFolder = "Application Support/SamplifyPlus";
 	propFileOptions.ignoreCaseOfKeyNames = true;
 	propFileOptions.storageFormat = PropertiesFile::StorageFormat::storeAsXML;
 	setStorageParameters(propFileOptions);

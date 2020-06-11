@@ -269,10 +269,7 @@ PropertiesFile* Sample::getPropertiesFile(const File& sampleFile)
 	options.filenameSuffix = ".sample";
 	options.commonToAllUsers = false;
 	options.folderName = "SamplifyPlus";
-	if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::MacOSX)
-	{
-		options.osxLibrarySubFolder = "Application Support";
-	}
+	options.osxLibrarySubFolder = "Application Support/SamplifyPlus";
 	/*
 	else if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::Windows)
 	{

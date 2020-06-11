@@ -14,7 +14,7 @@ SampleTile::SampleTile(Sample::Reference sample) : mTagContainer(false)
 	setRepaintsOnMouseActivity(true);
 	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
 	setSample(sample);
-	mTagContainer.addMouseListener(this, false);
+    mTagContainer.addMouseListener(this, false);
 	addAndMakeVisible(mTagContainer);
 }
 
