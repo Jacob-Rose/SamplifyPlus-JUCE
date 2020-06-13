@@ -80,7 +80,6 @@ namespace samplify
 
 	private:
 		std::unique_ptr<std::future<Sample::List>> mUpdateSampleFuture;
-		SortingMethod mSortingMethod = SortingMethod::Newest;
 		Sample::List mCurrentSamples;
 		String mCurrentQuery;
 

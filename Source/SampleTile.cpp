@@ -12,7 +12,7 @@ using namespace samplify;
 SampleTile::SampleTile(Sample::Reference sample) : mTagContainer(false)
 {
 	setRepaintsOnMouseActivity(true);
-	setSize(SAMPLE_TILE_MIN_WIDTH, SAMPLE_TILE_MIN_WIDTH * SAMPLE_TILE_ASPECT_RATIO);
+	setSize(AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH, AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH * AppValues::getInstance().SAMPLE_TILE_ASPECT_RATIO);
 	setSample(sample);
     mTagContainer.addMouseListener(this, false);
 	addAndMakeVisible(mTagContainer);
@@ -54,14 +54,14 @@ void SampleTile::paint (Graphics& g)
 
 		//Draw BG
 		g.setColour(backgroundColor);
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), SAMPLE_TILE_CORNER_RADIUS);
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), AppValues::getInstance().SAMPLE_TILE_CORNER_RADIUS);
 		if (mSample.getInfoText() != "")
 		{
 			//Draw info icon
 			g.setColour(foregroundColor);
 			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
 			g.setColour(outlineColor);
-			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), SAMPLE_TILE_OUTLINE_THICKNESS);
+			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
 
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
@@ -123,7 +123,7 @@ void SampleTile::paint (Graphics& g)
 		mTagContainer.setTags(mSample.getTags());
 
 		g.setColour(outlineColor);
-		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), SAMPLE_TILE_CORNER_RADIUS, SAMPLE_TILE_OUTLINE_THICKNESS);
+		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), AppValues::getInstance().SAMPLE_TILE_CORNER_RADIUS, AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
 	}
 	else
 	{
@@ -169,6 +169,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
+			
 			/*
 			else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 			{
@@ -184,11 +185,46 @@ void SampleTile::mouseUp(const MouseEvent& e)
 			else
 			{
 				PopupMenu menu;
-				menu.addItem(1, "Open Q-Editor", false, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
+				menu.addItem((int)RightClickOptions::openExplorer, "Open in Explorer", true, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
 				menu.addSeparator();
-				menu.addItem(2, "Rename Sample", false, false);
-				menu.addItem(3, "Delete Sample", false, false);
+				menu.addItem((int)RightClickOptions::renameSample, "Rename Sample", false, false);
+				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Move to Trash) ", false, false);
+				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Permanant)", false, false);
+				menu.addSeparator();
+				menu.addItem((int)RightClickOptions::addTriggerKeyAtStart, "Add Trigger at Start", false, false);
+				menu.addItem((int)RightClickOptions::addTriggerKeyAtCue, "Add Trigger at Cue", false, false);
 				int selection = menu.show();
+				if (selection == (int)RightClickOptions::openExplorer)
+				{
+					mSample.getFile().revealToUser();
+				}
+				else if (selection == (int)RightClickOptions::renameSample)
+				{
+					//rename sample (do not activate until the list updated with the new name)
+					FileChooser newFile("rename file", mSample.getFile());
+					if (newFile.browseForFileToSave(true))
+					{
+						mSample.getFile().moveFileTo(newFile.getResult());
+						//todo update list
+					}
+				}
+				else if (selection == (int)RightClickOptions::deleteSample)
+				{
+					//delete sample (do not activate until the list updated with deleted item)
+					if (!mSample.getFile().moveToTrash()) //if failed
+					{
+						NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "Error in Throwing Away", "Failed to move item to trash, check if it is full!");
+					}
+					//todo update list 
+				}
+				else if (selection == (int)RightClickOptions::addTriggerKeyAtStart)
+				{
+					//todo
+				}
+				else if (selection == (int)RightClickOptions::addTriggerKeyAtCue)
+				{
+					//todo
+				}
 			}
 		}
 	}
@@ -232,7 +268,6 @@ void SampleTile::playSample(float t)
 		auxPlayer->setRelativeTime(t);
 		auxPlayer->play();
 	}
-
 }
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)

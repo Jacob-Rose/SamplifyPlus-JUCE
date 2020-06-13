@@ -33,6 +33,15 @@ namespace samplify
 		    backgroundDefaultColorID,
 			backgroundHoverColorID
 		};
+
+		enum class RightClickOptions
+		{
+			openExplorer = 1,
+			renameSample,
+			deleteSample,
+			addTriggerKeyAtStart,
+			addTriggerKeyAtCue
+		};
 		
 		//===========================================================================
 		SampleTile(Sample::Reference);

@@ -3,7 +3,7 @@
 
 using namespace samplify;
 
-TagContainer::TagContainer(bool updateHeight) : tagFont(SAMPLE_TAG_FONT_SIZE)
+TagContainer::TagContainer(bool updateHeight) : tagFont(AppValues::getInstance().SAMPLE_TAG_FONT_SIZE)
 {
 	mUpdateHeight = updateHeight;
 }
@@ -30,7 +30,7 @@ void TagContainer::resized()
 
 void TagContainer::updateItemBounds()
 {
-	int padding = SAMPLE_TAG_TEXT_PADDING;
+	int padding = AppValues::getInstance().SAMPLE_TAG_TEXT_PADDING;
 
 	int fontHeight = tagFont.getHeight();
 	int boxHeight = fontHeight + padding;

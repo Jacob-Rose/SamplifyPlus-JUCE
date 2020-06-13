@@ -97,7 +97,7 @@ namespace samplify
 			void operator=(const Sample::List& other);
 		protected:
 			std::vector<Sample::Reference> mSamples;
-			SortingMethod mListSortingMethod;
+			SortingMethod mListSortingMethod = SortingMethod::Newest;
 			JUCE_LEAK_DETECTOR(List)
 		};
 
@@ -125,6 +125,7 @@ namespace samplify
 		std::shared_ptr<SampleAudioThumbnail> mThumbnail = nullptr;
 		juce::Colour mColor; //saved with sample, the sampletile core color
 		int mUseCount; //count number of times dragged into the program
+		bool mUserHidden; //todo
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Sample)
 	};
 

@@ -50,8 +50,7 @@ namespace samplify
 			//I KNOW THIS IS INEFFICIENT, BUT LIKE HONESTLY I CREATE IT QUICKLY AND DELETE SO FUCK YOU
 			std::shared_ptr<AudioPlayer> audioPlayer = std::make_shared<AudioPlayer>();
 			SampleDirectory::mWildcard = audioPlayer->getFormatManager()->getWildcardForAllFormats();
-
-
+			AppValues::initInstance();
 			SamplifyProperties::initInstance();
 			mainWindow.reset(new MainWindow(getApplicationName()));
 			//}
@@ -61,6 +60,7 @@ namespace samplify
 		{
 			mainWindow = nullptr; // (deletes our window)
 			SamplifyProperties::cleanupInstance();
+			AppValues::cleanupInstance();
 		}
 
 		//==============================================================================
@@ -87,15 +87,19 @@ namespace samplify
 				SamplifyMainComponent* smc = new SamplifyMainComponent();
 				setContentOwned(smc, true);
 				setResizable(true, true);
-
 				centreWithSize(getWidth(), getHeight());
 				setVisible(true);
 
 				SamplifyMainComponent::setupLookAndFeel(mLookAndFeel);
 				setLookAndFeel(&mLookAndFeel);
-
+#if JUCE_MAC || DOXYGEN
+				MenuBarModel::setMacMenuModel(&mMainMenuModel);
+#endif
+#if JUCE_WINDOWS || JUCE_WIN32
 				setMenuBar(&mMainMenuModel);
 				mMainMenuModel.setLookAndFeel(&mLookAndFeel);
+#endif
+					
 			}
 			~MainWindow()
 			{

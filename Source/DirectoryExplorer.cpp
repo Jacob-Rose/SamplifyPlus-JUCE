@@ -1,5 +1,6 @@
 #include "DirectoryExplorer.h"
 #include "SamplifyProperties.h"
+#include "Icons.h"
 
 using namespace samplify;
 
@@ -55,23 +56,23 @@ void DirectoryExplorer::changeListenerCallback(ChangeBroadcaster* source)
 	refresh();
 }
 
-void samplify::DirectoryExplorer::initializeDrawableFiles()
+void DirectoryExplorer::initializeDrawableFiles()
 {
 	if (DirectoryExplorerTreeViewItem::checkDrawable == nullptr)
 	{
-        File checkFile = File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory().getChildFile("../../Icons/check.svg");
-		DirectoryExplorerTreeViewItem::checkDrawable = Drawable::createFromSVGFile(checkFile); //static to reuse asset
+		std::unique_ptr<XmlElement> svg = XmlDocument::parse(Icons::check_svg);
+		DirectoryExplorerTreeViewItem::checkDrawable = Drawable::createFromSVG(*svg); //static to reuse asset
 		DirectoryExplorerTreeViewItem::checkDrawable.get()->replaceColour(Colours::black, Colours::white);
 	}
 	if (DirectoryExplorerTreeViewItem::crossDrawable == nullptr)
 	{
-        File crossFile = File::getCurrentWorkingDirectory().getParentDirectory().getParentDirectory().getChildFile("../../Icons/cross.svg");
-		DirectoryExplorerTreeViewItem::crossDrawable = Drawable::createFromSVGFile(crossFile); //static to reuse asset
+		std::unique_ptr<XmlElement> svg = XmlDocument::parse(Icons::cross_svg);
+		DirectoryExplorerTreeViewItem::crossDrawable = Drawable::createFromSVG(*svg); //static to reuse asset
 		DirectoryExplorerTreeViewItem::crossDrawable.get()->replaceColour(Colours::black, Colours::white);
 	}
 }
 
-void samplify::DirectoryExplorer::cleanupDrawableFiles()
+void DirectoryExplorer::cleanupDrawableFiles()
 {
 	if (DirectoryExplorerTreeViewItem::checkDrawable != nullptr)
 	{

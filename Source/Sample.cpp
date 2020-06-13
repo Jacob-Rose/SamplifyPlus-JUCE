@@ -7,6 +7,7 @@ using namespace samplify;
 Sample::Sample(const File& file) : mFile(file)
 {
 	mPropertiesFile.reset(getPropertiesFile(mFile));
+	mThumbnailFile.reset(getThumbnailFile(mFile));
 	if (mPropertiesFile->isValidFile())
 	{
 		loadPropertiesFile();
@@ -70,7 +71,45 @@ void Sample::changeListenerCallback(ChangeBroadcaster * source)
 {
 	sendChangeMessage();
 }
+PropertiesFile* Sample::getThumbnailFile(const File& sampleFile)
+{
+	String folderName = sampleFile.getFullPathName();
+	PropertiesFile::Options options = PropertiesFile::Options();
+	//options.folderName = sampleFile.get
+	options.applicationName = "SampleProperties";
+	options.filenameSuffix = ".thumb";
+	options.commonToAllUsers = false;
+	options.folderName = "SamplifyPlus";
+	options.osxLibrarySubFolder = "Application Support/SamplifyPlus/Thumbnails";
+	/*
+	else if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::Windows)
+	{
+	}
+	*/
+	String path = options.getDefaultFile().getFullPathName();
+	PropertiesFile* file = new PropertiesFile(File(path.substring(0, path.length() - options.getDefaultFile().getFileName().length()) + String(File::getSeparatorString()) + "SampleProperties").getChildFile(sampleFile.getFullPathName().removeCharacters("\\:") + ".sample"), options);
+	return file;
+}
 
+PropertiesFile* Sample::getPropertiesFile(const File& sampleFile)
+{
+	String folderName = sampleFile.getFullPathName();
+	PropertiesFile::Options options = PropertiesFile::Options();
+	//options.folderName = sampleFile.get
+	options.applicationName = "SampleProperties";
+	options.filenameSuffix = ".sample";
+	options.commonToAllUsers = false;
+	options.folderName = "SamplifyPlus";
+	options.osxLibrarySubFolder = "Application Support/SamplifyPlus";
+	/*
+	else if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::Windows)
+	{
+	}
+	*/
+	String path = options.getDefaultFile().getFullPathName();
+	PropertiesFile* file = new PropertiesFile(File(path.substring(0, path.length() - options.getDefaultFile().getFileName().length()) + String(File::getSeparatorString()) + "SampleProperties").getChildFile(sampleFile.getFullPathName().removeCharacters("\\:") + ".sample"), options);
+	return file;
+}
 
 void Sample::savePropertiesFile()
 {
@@ -86,6 +125,7 @@ void Sample::savePropertiesFile()
 		mPropertiesFile->setValue("Color", mColor.toString());
 		mPropertiesFile->setValue("Description", mInformationDescription);
 	}
+
 }
 
 void Sample::loadPropertiesFile()
@@ -260,25 +300,7 @@ void Sample::Reference::renameFile(String name)
 	sample->mFile = sample->mFile.getSiblingFile(name);
 }
 
-PropertiesFile* Sample::getPropertiesFile(const File& sampleFile)
-{
-	String folderName = sampleFile.getFullPathName();
-	PropertiesFile::Options options = PropertiesFile::Options();
-	//options.folderName = sampleFile.get
-	options.applicationName = "SampleProperties";
-	options.filenameSuffix = ".sample";
-	options.commonToAllUsers = false;
-	options.folderName = "SamplifyPlus";
-	options.osxLibrarySubFolder = "Application Support/SamplifyPlus";
-	/*
-	else if (SystemStats::getOperatingSystemType() == SystemStats::OperatingSystemType::Windows)
-	{
-	}
-	*/
-	String path = options.getDefaultFile().getFullPathName();
-	PropertiesFile* file = new PropertiesFile(File(path.substring(0, path.length() - options.getDefaultFile().getFileName().length()) + String(File::getSeparatorString()) + "SampleProperties" ).getChildFile(sampleFile.getFullPathName().removeCharacters("\\:") + ".sample"), options);
-	return file;
-}
+
 
 Sample::List::List(const std::vector<Sample::Reference>& list)
 {

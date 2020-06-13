@@ -19,10 +19,10 @@ void SampleAudioThumbnail::drawChannel(Graphics & g, const Rectangle<int>& area,
 {
 	float peak = getApproximatePeak();
 
-	float widthSegment = ((float)area.getWidth()) / AUDIO_THUMBNAIL_LINE_COUNT;
-	float segmentTimeLength = (endTimeSeconds - startTimeSeconds) / AUDIO_THUMBNAIL_LINE_COUNT;
+	float widthSegment = ((float)area.getWidth()) / AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT;
+	float segmentTimeLength = (endTimeSeconds - startTimeSeconds) / AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT;
 
-	for (int i = 0; i < AUDIO_THUMBNAIL_LINE_COUNT; i++)
+	for (int i = 0; i < AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT; i++)
 	{
 		float max, min;
 		getApproximateMinMax(startTimeSeconds + (segmentTimeLength*i), startTimeSeconds + (segmentTimeLength*i + 1), channelNum, min, max);
@@ -30,7 +30,7 @@ void SampleAudioThumbnail::drawChannel(Graphics & g, const Rectangle<int>& area,
 		//max /= peak; //normalize
 		float posX = area.getPosition().x + (widthSegment*i);
 		float posY = ((area.getPosition().y) + (area.getHeight() / 2)) - (max * (area.getHeight() / 2));
-		float sizeX = widthSegment * (AUDIO_THUMBNAIL_LINE_FILL_WIDTH / (AUDIO_THUMBNAIL_LINE_FILL_WIDTH + AUDIO_THUMBNAIL_LINE_GAP_WIDTH));
+		float sizeX = widthSegment * (AppValues::getInstance().AUDIO_THUMBNAIL_LINE_FILL_WIDTH / (AppValues::getInstance().AUDIO_THUMBNAIL_LINE_FILL_WIDTH + AppValues::getInstance().AUDIO_THUMBNAIL_LINE_GAP_WIDTH));
 		float sizeY = ((area.getHeight() / 2)*(min*-1)) + (max * (area.getHeight() / 2));
 		Rectangle<float> rectangleArea(posX, posY, sizeX, sizeY);
 		//Rectangle<float> r(Point<float>(0,0), Point<float>(0,0))

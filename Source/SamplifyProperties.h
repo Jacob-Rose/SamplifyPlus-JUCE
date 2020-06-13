@@ -22,7 +22,6 @@ namespace samplify
 	class SamplifyProperties : public ApplicationProperties, public ChangeListener
 	{
 	public:
-
 		//=Instance Handling========================================
 		static void initInstance();
 		static void cleanupInstance();

@@ -37,6 +37,8 @@
               file="Source/SamplifyProperties.h"/>
         <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
               file="Source/SamplifyProperties.cpp"/>
+        <FILE id="f67Jg1" name="Icons.cpp" compile="1" resource="0" file="Source/Icons.cpp"/>
+        <FILE id="P7VQFr" name="Icons.h" compile="0" resource="0" file="Source/Icons.h"/>
       </GROUP>
       <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
         <FILE id="eKhF05" name="SamplePlayerComponent.h" compile="0" resource="0"
@@ -104,6 +106,8 @@
         </GROUP>
       </GROUP>
     </GROUP>
+    <FILE id="CT57hZ" name="SamplifyLookAndFeel.cpp" compile="1" resource="0"
+          file="Source/SamplifyLookAndFeel.cpp"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">

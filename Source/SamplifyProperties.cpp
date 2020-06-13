@@ -110,9 +110,11 @@ void SamplifyProperties::loadPropertiesFile()
 
 		//HERE IS WHERE DEFAULT VALUES FOR LOOK AND FEEL ARE SET
 		//load window settings
-		MAIN_BACKGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_BACKGROUND_COLOR", Colours::white.toString()));
-		MAIN_FOREGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_FOREGROUND_COLOR", Colours::black.toString()));
-		SAMPLE_TILE_ASPECT_RATIO = (float)propFile->getDoubleValue("SAMPLE_TILE_ASPECT_RATIO", 0.666);
+		AppValues::getInstance().MAIN_BACKGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_BACKGROUND_COLOR", Colours::white.toString()));
+		AppValues::getInstance().MAIN_FOREGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_FOREGROUND_COLOR", Colours::blueviolet.toString()));
+		AppValues::getInstance().WINDOW_WIDTH = propFile->getIntValue("START_WIDTH", 1280);
+		AppValues::getInstance().WINDOW_HEIGHT = propFile->getIntValue("START_WIDTH", 900);
+		AppValues::getInstance().SAMPLE_TILE_ASPECT_RATIO = (float)propFile->getDoubleValue("SAMPLE_TILE_ASPECT_RATIO", 0.666);
 	}
 	else
 	{
@@ -151,8 +153,8 @@ void SamplifyProperties::savePropertiesFile()
 		propFile->saveIfNeeded();
 
 		//save look and feel
-		propFile->setValue("MAIN_BACKGROUND_COLOR", MAIN_BACKGROUND_COLOR.toString());
-		propFile->setValue("MAIN_FOREGROUND_COLOR", MAIN_FOREGROUND_COLOR.toString());
+		propFile->setValue("MAIN_BACKGROUND_COLOR", AppValues::getInstance().MAIN_BACKGROUND_COLOR.toString());
+		propFile->setValue("MAIN_FOREGROUND_COLOR", AppValues::getInstance().MAIN_FOREGROUND_COLOR.toString());
 	}
 	else
 	{

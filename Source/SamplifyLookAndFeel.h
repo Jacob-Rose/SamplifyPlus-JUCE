@@ -16,6 +16,38 @@
 
 namespace samplify
 {
+	class AppValues
+	{
+	public:
+		AppValues() {}
+		static void initInstance();
+		static void cleanupInstance();
+		static AppValues& getInstance();
+		Colour MAIN_BACKGROUND_COLOR = Colours::white;
+		Colour MAIN_FOREGROUND_COLOR = Colours::blueviolet;
+
+		int SAMPLE_TAG_FONT_SIZE = 12;
+		float SAMPLE_TAG_TEXT_PADDING = 2.0f;
+
+		float WINDOW_WIDTH = 800;
+		float WINDOW_HEIGHT = 600;
+		float SAMPLE_TILE_MIN_WIDTH = 150.0f;
+		float SAMPLE_TILE_ASPECT_RATIO = 0.666f;
+		float SAMPLE_TILE_CONTAINER_ITEM_PADDING = 2.0f;
+		float SAMPLE_TILE_CORNER_RADIUS = 8.0f;
+		float SAMPLE_TILE_OUTLINE_THICKNESS = 2.0f;
+
+		//Thumbnail Properties
+		float AUDIO_THUMBNAIL_LINE_GAP_WIDTH = 0.5f; //ratio based, not pixels
+		float AUDIO_THUMBNAIL_LINE_FILL_WIDTH = 2.0f;
+		int AUDIO_THUMBNAIL_LINE_COUNT = 60;
+
+
+	private:
+
+		static std::unique_ptr<AppValues> instance;
+	};
+	/*
 	static Colour MAIN_BACKGROUND_COLOR = Colours::white;
 	static Colour MAIN_FOREGROUND_COLOR = Colours::blueviolet;
 
@@ -32,7 +64,7 @@ namespace samplify
 	static float AUDIO_THUMBNAIL_LINE_GAP_WIDTH = 0.5f; //ratio based, not pixels
 	static float AUDIO_THUMBNAIL_LINE_FILL_WIDTH = 2.0f;
 	static int AUDIO_THUMBNAIL_LINE_COUNT = 60;
-
+	*/
 	const Font SAMPLE_TILE_TITLE_FONT = Font(Typeface::createSystemTypefaceFor(Fonts::AbelRegular_ttf, Fonts::AbelRegular_ttfSize)).withHeight(22.0f);
 }
 #endif

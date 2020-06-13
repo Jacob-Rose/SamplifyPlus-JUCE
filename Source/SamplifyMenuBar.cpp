@@ -29,6 +29,10 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 		DialogWindow::showModalDialog("Set Gain", &slider, nullptr, Colours::slategrey, true, false);
 		SamplifyProperties::getInstance()->getAudioPlayer()->setVolumeMultiply(slider.getValue());
 	}
+	else if (menuItemID == setPreferences)
+	{
+		
+	}
 	else if (menuItemID == removeSampFiles)
 	{
 		//todo clean this and update app when thread finishes

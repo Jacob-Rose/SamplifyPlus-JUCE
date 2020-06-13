@@ -12,6 +12,7 @@
 #define SORTINGMETHODS_H
 const enum class SortingMethod
 {
+	None,//just append all additions
 	Newest,
 	Oldest,
 	Recent,
@@ -20,6 +21,7 @@ const enum class SortingMethod
 };
 
 const std::map<SortingMethod, juce::String> sortingNames = {
+	{SortingMethod::None, "None"},
 	{SortingMethod::Newest, "Newest"},
 	{SortingMethod::Oldest, "Oldest"},
 	{SortingMethod::Recent, "Recent"},
