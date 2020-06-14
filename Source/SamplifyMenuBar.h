@@ -41,6 +41,7 @@ namespace samplify
 			removeSampFiles = 2,
 			setPreferences,
 			setVolume,
+			exitApplication,
 			togglePlayerWindow,
 			toggleFilterWindow,
 			toggleDirectoryWindow,

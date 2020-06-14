@@ -113,8 +113,9 @@ void SamplifyProperties::loadPropertiesFile()
 		AppValues::getInstance().MAIN_BACKGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_BACKGROUND_COLOR", Colours::white.toString()));
 		AppValues::getInstance().MAIN_FOREGROUND_COLOR = Colour::fromString(propFile->getValue("MAIN_FOREGROUND_COLOR", Colours::blueviolet.toString()));
 		AppValues::getInstance().WINDOW_WIDTH = propFile->getIntValue("START_WIDTH", 1280);
-		AppValues::getInstance().WINDOW_HEIGHT = propFile->getIntValue("START_WIDTH", 900);
+		AppValues::getInstance().WINDOW_HEIGHT = propFile->getIntValue("START_HEIGHT", 900);
 		AppValues::getInstance().SAMPLE_TILE_ASPECT_RATIO = (float)propFile->getDoubleValue("SAMPLE_TILE_ASPECT_RATIO", 0.666);
+		AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH = (float)propFile->getDoubleValue("SAMPLE_TILE_MIN_WIDTH", 120);
 	}
 	else
 	{
@@ -155,6 +156,10 @@ void SamplifyProperties::savePropertiesFile()
 		//save look and feel
 		propFile->setValue("MAIN_BACKGROUND_COLOR", AppValues::getInstance().MAIN_BACKGROUND_COLOR.toString());
 		propFile->setValue("MAIN_FOREGROUND_COLOR", AppValues::getInstance().MAIN_FOREGROUND_COLOR.toString());
+		propFile->setValue("START_WIDTH", AppValues::getInstance().WINDOW_WIDTH);
+		propFile->setValue("START_HEIGHT", AppValues::getInstance().WINDOW_HEIGHT);
+		propFile->setValue("SAMPLE_TILE_ASPECT_RATIO", AppValues::getInstance().SAMPLE_TILE_ASPECT_RATIO);
+		propFile->setValue("SAMPLE_TILE_MIN_WIDTH", AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH);
 	}
 	else
 	{

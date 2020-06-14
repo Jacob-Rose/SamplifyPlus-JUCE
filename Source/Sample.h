@@ -18,7 +18,6 @@
 
 namespace samplify
 {
-
 	class Sample : public ChangeBroadcaster, public ChangeListener
 	{
 	public:

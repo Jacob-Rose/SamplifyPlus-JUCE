@@ -8,6 +8,8 @@
       <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="N4Xjbk" name="SamplifyLookAndFeel.h" compile="0" resource="0"
             file="Source/SamplifyLookAndFeel.h"/>
+      <FILE id="CT57hZ" name="SamplifyLookAndFeel.cpp" compile="1" resource="0"
+            file="Source/SamplifyLookAndFeel.cpp"/>
       <FILE id="YpmpIU" name="LookAndFeel_VJake.cpp" compile="1" resource="0"
             file="Source/LookAndFeel_VJake.cpp"/>
       <FILE id="zOgE2N" name="LookAndFeel_VJake.h" compile="0" resource="0"
@@ -45,6 +47,10 @@
               file="Source/SamplePlayerComponent.h"/>
         <FILE id="LVGUGi" name="SamplePlayerComponent.cpp" compile="1" resource="0"
               file="Source/SamplePlayerComponent.cpp"/>
+        <FILE id="nN5T4u" name="PreferenceWindow.cpp" compile="1" resource="0"
+              file="Source/PreferenceWindow.cpp"/>
+        <FILE id="y8uCea" name="PreferenceWindow.h" compile="0" resource="0"
+              file="Source/PreferenceWindow.h"/>
         <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
           <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
             <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
@@ -106,8 +112,6 @@
         </GROUP>
       </GROUP>
     </GROUP>
-    <FILE id="CT57hZ" name="SamplifyLookAndFeel.cpp" compile="1" resource="0"
-          file="Source/SamplifyLookAndFeel.cpp"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2019 targetFolder="Builds/VisualStudio2019">

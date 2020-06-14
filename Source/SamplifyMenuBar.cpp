@@ -1,5 +1,6 @@
 #include "SamplifyMenuBar.h"
 #include "SamplifyProperties.h"
+#include "PreferenceWindow.h"
 
 using namespace samplify;
 
@@ -7,7 +8,7 @@ SamplifyMainMenu::SamplifyMainMenu() {}
 
 StringArray SamplifyMainMenu::getMenuBarNames()
 {
-	StringArray names = { "File", "View", "Info", nullptr };
+	StringArray names = { "File", "View", "Info" };
 	return names;
 }
 
@@ -31,7 +32,12 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	}
 	else if (menuItemID == setPreferences)
 	{
-		
+		PreferenceWindow window;
+		window.runModalLoop();
+	}
+	else if (menuItemID == exitApplication)
+	{
+		JUCEApplication::getInstance()->systemRequestedQuit(); //close app
 	}
 	else if (menuItemID == removeSampFiles)
 	{
@@ -80,6 +86,9 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 			removeMenu.addItem(removeDirectory + i, dirs[i]->getFile().getFullPathName(), true, false);
 		}
 		menu.addSubMenu("Remove Directory:", removeMenu, true);
+		menu.addSeparator();
+		menu.addItem(setPreferences, "Preferences", true, false);
+		menu.addItem(exitApplication, "Exit Application", true, false);
 		//menu.addItem(removeAndResetDirectory, "Remove Directory and Delete .samp files");
 	}
 	else if (menuIndex == 1) //View
