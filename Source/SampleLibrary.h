@@ -72,14 +72,16 @@ namespace samplify
 
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
-		bool isAsyncValid() { return mUpdateSampleFuture != nullptr; }
+		bool isAsyncValid() { return mUpdateSampleFuture.valid(); }
 
 		//Get Samples
 		Sample::List getAllSamplesInDirectories(juce::String query, bool ignoreCheckSystem);
 		std::future<Sample::List> getAllSamplesInDirectories_Async(juce::String query = "", bool ignoreCheckSystem = false);
 
 	private:
-		std::unique_ptr<std::future<Sample::List>> mUpdateSampleFuture;
+		std::future<Sample::List> mUpdateSampleFuture;
+		bool mUpdatingSamples = false;
+		bool mCancelUpdating = false;
 		Sample::List mCurrentSamples;
 		String mCurrentQuery;
 

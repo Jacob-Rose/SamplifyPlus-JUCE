@@ -16,11 +16,12 @@ void SampleLibrary::updateCurrentSamples(String query)
 {
 	mCurrentQuery = query;
 
-	if (mUpdateSampleFuture != nullptr)
+	if (mUpdatingSamples)
 	{
-		mUpdateSampleFuture.reset(nullptr);
+		mCancelUpdating = true;
 	}
-	mUpdateSampleFuture = std::make_unique<std::future<Sample::List>>(getAllSamplesInDirectories_Async(query));
+	mUpdateSampleFuture = std::future<Sample::List>(getAllSamplesInDirectories_Async(query));
+	mUpdatingSamples = true;
 	//mCurrentSamples = getAllSamplesInDirectories(query, false);
 	sendChangeMessage();
 }
@@ -42,7 +43,7 @@ void SampleLibrary::removeDirectory(const File& dir)
 {
 }
 
-File samplify::SampleLibrary::getRelativeDirectoryForFile(const File& sampleFile) const
+File SampleLibrary::getRelativeDirectoryForFile(const File& sampleFile) const
 {
 	for (int i = 0; i < mDirectories.size(); i++)
 	{
@@ -81,16 +82,12 @@ StringArray samplify::SampleLibrary::getUsedTags()
 
 void SampleLibrary::timerCallback()
 {
-	if (mUpdateSampleFuture != nullptr)
+	if (mUpdateSampleFuture.valid() && mUpdatingSamples && !mCancelUpdating)
 	{
-		if (mUpdateSampleFuture->valid())
-		{
-			mCurrentSamples = mUpdateSampleFuture->get();
-			stopTimer();
-			mUpdateSampleFuture.release();
-			mUpdateSampleFuture.reset(nullptr);
-			sendChangeMessage();
-		}
+		mCurrentSamples = mUpdateSampleFuture.get();
+		stopTimer();
+		mUpdatingSamples = false;
+		sendChangeMessage();
 	}
 	else
 	{
@@ -154,7 +151,7 @@ void SampleLibrary::setTagColor(juce::String tag, juce::Colour newColor)
 	}
 }
 
-SampleLibrary::Tag samplify::SampleLibrary::getTag(juce::String tag)
+SampleLibrary::Tag SampleLibrary::getTag(juce::String tag)
 {
 	for (int i = 0; i < mTags.size(); i++)
 	{
@@ -171,6 +168,11 @@ Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool 
 	for (int i = 0; i < mDirectories.size(); i++)
 	{
 		list += mDirectories[i]->getChildSamplesRecursive(query, ignoreCheckSystem);
+		if (mCancelUpdating)
+		{
+			mCancelUpdating = false;
+			return list;
+		}
 	}
 	return list;
 }
@@ -178,7 +180,6 @@ Sample::List SampleLibrary::getAllSamplesInDirectories(juce::String query, bool 
 
 std::future<Sample::List> SampleLibrary::getAllSamplesInDirectories_Async(juce::String query, bool ignoreCheckSystem)
 {
-	
 	std::future<Sample::List> asfunc = std::async(std::launch::async, &SampleLibrary::getAllSamplesInDirectories, this, query, ignoreCheckSystem);
 	startTimer(300);
 	return asfunc;
