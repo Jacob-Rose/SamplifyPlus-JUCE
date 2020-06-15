@@ -298,7 +298,19 @@ int Sample::List::size() const
 
 void Sample::List::addSample(const Sample::Reference sample)
 {
-	mSamples.push_back(sample);
+	if (mListSortingMethod == SortingMethod::None)
+	{
+		mSamples.push_back(sample);
+		return;
+	}
+	for (int i = 0; i < mSamples.size(); i++)
+	{
+		if (mSamples[i].getValueForSortType(mListSortingMethod) < sample.getValueForSortType(mListSortingMethod))
+		{
+			mSamples.insert(mSamples.begin() + i, sample);
+			return;
+		}
+	}
 }
 
 void Sample::List::addSamples(const Sample::List& list)
@@ -409,7 +421,7 @@ int Sample::List::partition(SortingMethod method, int low, int high)
 	return i + 1;
 }
 
-float Sample::getValueForSortType(SortingMethod method)
+float Sample::getValueForSortType(SortingMethod method) const
 {
 	if (method == SortingMethod::Newest)
 	{

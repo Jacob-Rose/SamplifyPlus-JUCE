@@ -5,20 +5,37 @@ using namespace samplify;
 
 SamplifyMainComponent* SamplifyMainComponent::mInstance = nullptr;
 
-SamplifyMainComponent::SamplifyMainComponent()
+SamplifyMainComponent::SamplifyMainComponent() : 
+	mResizableEdgeDirectoryExplorer(&mDirectoryExplorer, &mResizableEdgeDirectoryExplorerBounds, ResizableEdgeComponent::Edge::rightEdge),
+	mResizableEdgeFilterExplorer(&mFilterExplorer, &mResizableEdgeDirectoryExplorerBounds, ResizableEdgeComponent::Edge::leftEdge),
+	mResizableEdgeAudioPlayer(&mSamplePlayerComponent, &mResizableEdgeAudioPlayerBounds, ResizableEdgeComponent::Edge::topEdge)
 {
 	setupLookAndFeel(getLookAndFeel());
 	mInstance = this;
 	addKeyListener(this);
+
 	mAudioPlayer = std::make_shared<AudioPlayer>();
-	
 	SamplifyProperties::getInstance()->setAudioPlayer(mAudioPlayer);
 
+	mResizableEdgeDirectoryExplorerBounds.setMinimumWidth(100);
+	mResizableEdgeFilterExplorerBounds.setMinimumWidth(100);
+	mResizableEdgeAudioPlayerBounds.setMinimumHeight(100);
+	mResizableEdgeAudioPlayerBounds.setMaximumHeight(400);
+	mDirectoryExplorer.setSize(200, 1000); //todo make these save
+	mFilterExplorer.setSize(200, 1000); //todo make these save
+	mSamplePlayerComponent.setSize(200, 200); //todo make these save
+	mResizableEdgeDirectoryExplorer.addMouseListener(this, false);
+	mResizableEdgeFilterExplorer.addMouseListener(this, false);
+	mResizableEdgeAudioPlayer.addMouseListener(this, false);
+	addAndMakeVisible(mResizableEdgeFilterExplorer);
+	addAndMakeVisible(mResizableEdgeDirectoryExplorer);
+	addAndMakeVisible(mResizableEdgeAudioPlayer);
 
 	addAndMakeVisible(mDirectoryExplorer);
 	addAndMakeVisible(mSampleExplorer);
 	addAndMakeVisible(mFilterExplorer);
-	addAndMakeVisible(mSamplePlayer);
+	addAndMakeVisible(mSamplePlayerComponent);
+
 	//addAndMakeVisible(unlockForm);
     
 	//Setup Audio
@@ -31,7 +48,7 @@ SamplifyMainComponent::SamplifyMainComponent()
 	setAudioChannels(0, 2);
 
 	SamplifyProperties::getInstance()->getSampleLibrary()->addChangeListener(&mSampleExplorer);
-	SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(&mSamplePlayer);
+	SamplifyProperties::getInstance()->getAudioPlayer()->addChangeListener(&mSamplePlayerComponent);
 	//startTimer(100);
 	setSize(AppValues::getInstance().WINDOW_WIDTH, AppValues::getInstance().WINDOW_HEIGHT);
 	//initial load
@@ -50,6 +67,7 @@ SamplifyMainComponent::~SamplifyMainComponent()
 bool SamplifyMainComponent::keyPressed(const KeyPress& key, Component* originatingComponent)
 {
 	//pause/play controls
+	//todo
 	if (key.getTextCharacter() == 'g')
 	{
 		SamplifyProperties::getInstance()->getAudioPlayer()->play();
@@ -104,7 +122,7 @@ void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
 
 	laf.setColour(SampleExplorer::loadingWheelColorId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 
-	laf.setColour(DirectoryExplorerTreeViewItem::defaultBackgroundId, Colours::transparentWhite);
+	laf.setColour(DirectoryExplorerTreeViewItem::defaultBackgroundId, AppValues::getInstance().MAIN_BACKGROUND_COLOR.withAlpha(0.0f));
 	laf.setColour(DirectoryExplorerTreeViewItem::selectedBackgroundId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 	laf.setColour(DirectoryExplorerTreeViewItem::checkboxActiveBackgroundId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 	laf.setColour(DirectoryExplorerTreeViewItem::checkboxMixedBackgroundId, AppValues::getInstance().MAIN_FOREGROUND_COLOR.withSaturation(0.2f));
@@ -120,11 +138,19 @@ void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
 	laf.setColour(TextButton::buttonColourId, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
 	laf.setColour(TextButton::textColourOffId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 
+	laf.setColour(ScrollBar::thumbColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+
 	laf.setColour(ComboBox::backgroundColourId, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
 	laf.setColour(ComboBox::textColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 	laf.setColour(ComboBox::arrowColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 	laf.setColour(ComboBox::outlineColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 	laf.setColour(ComboBox::buttonColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+	laf.setColour(SamplePlayerComponent::waveformColour, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+
+	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::defaultFill, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
+	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::defaultText, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::highlightedFill, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::highlightedText, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
 
 	laf.setColour(PopupMenu::backgroundColourId, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
 	laf.setColour(PopupMenu::headerTextColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
@@ -138,14 +164,29 @@ void SamplifyMainComponent::paint (Graphics& g)
 {
     g.fillAll (getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
-
+const int edgeSize = 8;
 void SamplifyMainComponent::resized()
 {
-	int widthSegment = getWidth() / 5;
-	mDirectoryExplorer.setBounds(0, 0, widthSegment, getHeight());
-	mSampleExplorer.setBounds(widthSegment, 0, widthSegment * 3, getHeight());
-	mFilterExplorer.setBounds(widthSegment * 4, getHeight() / 2, widthSegment, getHeight()/2);
-	mSamplePlayer.setBounds(widthSegment * 4, 0, widthSegment, getHeight()/2);
+	int lWidth = mDirectoryExplorer.getWidth(); //set by dragger
+	mDirectoryExplorer.setBounds(0, 0, lWidth, getHeight());
+	mResizableEdgeDirectoryExplorer.setBounds(lWidth, 0, edgeSize, getHeight());
+	lWidth += mResizableEdgeDirectoryExplorer.getWidth();
+
+	int rWidth = mFilterExplorer.getWidth(); //set by dragger
+	mFilterExplorer.setBounds(getWidth() - rWidth, 0, rWidth, getHeight()); 
+
+	mResizableEdgeFilterExplorer.setBounds(getWidth() - rWidth - edgeSize, 0, edgeSize, getHeight());
+	rWidth += mResizableEdgeFilterExplorer.getWidth();
+
+	float bHeight = mSamplePlayerComponent.getHeight();
+	mSamplePlayerComponent.setBounds(lWidth, getHeight() - bHeight, getWidth() - (lWidth + rWidth), bHeight);
+	mResizableEdgeAudioPlayer.setBounds(lWidth, getHeight() - (bHeight + edgeSize), getWidth() - (lWidth + rWidth), edgeSize);
+	bHeight += mResizableEdgeAudioPlayer.getHeight();
+
+	mSampleExplorer.setBounds(lWidth, 0, getWidth() - (rWidth + lWidth), getHeight() - bHeight);
+
+	mResizableEdgeDirectoryExplorerBounds.setMaximumWidth(getWidth() - (rWidth));
+	mResizableEdgeFilterExplorerBounds.setMaximumWidth(getWidth() - (lWidth));
 }
 
 SamplifyMainComponent* SamplifyMainComponent::getInstance()
@@ -162,4 +203,9 @@ void SamplifyMainComponent::timerCallback()
 		unlockApp();
 	}
 	*/
+}
+
+void SamplifyMainComponent::mouseDrag(const MouseEvent& e)
+{
+	resized();
 }

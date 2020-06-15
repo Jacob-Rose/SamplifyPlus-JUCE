@@ -15,9 +15,14 @@
 
 using namespace samplify;
 
-class SamplePlayerComponent    : public Component, public ChangeListener, public TextEditor::Listener
+class SamplePlayerComponent    : public Component, public ChangeListener, public TextEditor::Listener, public MouseListener
 {
 public:
+
+    enum ColourIds
+    {
+        waveformColour = 0x1245
+    };
     SamplePlayerComponent();
     ~SamplePlayerComponent();
 
@@ -28,10 +33,13 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    void mouseDown(const MouseEvent& event) override;
+
     Sample::Reference getCurrentSample();
 
 private:
-    Sample::Reference mSample = nullptr;
     TextEditor mSampleInfoEditor;
+
+    Rectangle<int> m_ThumbnailRect;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SamplePlayerComponent)
 };

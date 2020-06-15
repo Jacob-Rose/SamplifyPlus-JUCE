@@ -45,7 +45,7 @@ namespace samplify
 			togglePlayerWindow,
 			toggleFilterWindow,
 			toggleDirectoryWindow,
-			viewDocumentation,
+			viewInformation,
 			visitWebsite
 		};
 

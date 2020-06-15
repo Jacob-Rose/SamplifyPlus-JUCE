@@ -45,6 +45,11 @@ namespace samplify
 		void stop();
 		void toggle();
 
+		void setSample(Sample::Reference sample);
+
+		void playSample();
+		void playSample(float t);
+
 		void setVolumeMultiply(float gain)
 		{
 			transportSource.setGain(gain);

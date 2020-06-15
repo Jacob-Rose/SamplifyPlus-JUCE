@@ -59,9 +59,9 @@ void SampleTile::paint (Graphics& g)
 		{
 			//Draw info icon
 			g.setColour(foregroundColor);
-			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING));
+			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING).toFloat());
 			g.setColour(outlineColor);
-			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
+			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING).toFloat(), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
 
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
@@ -156,21 +156,21 @@ void SampleTile::mouseUp(const MouseEvent& e)
 	{
 		if (e.mods.isLeftButtonDown())
 		{
-			if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
+			SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSample);
+			if (m_ThumbnailRect.contains(e.getMouseDownPosition()))
 			{
-				playSample();
+				SamplifyProperties::getInstance()->getAudioPlayer()->playSample();
 			}
 		}
 		else if (e.mods.isRightButtonDown())
 		{
+			/*
 			if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
 			{
 				float rectWidth = m_ThumbnailRect.getWidth();
 				float mouseDownX = e.getMouseDownX();
 				playSample(mouseDownX / rectWidth);
 			}
-			
-			/*
 			else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 			{
 				PopupMenu menu;
@@ -181,9 +181,10 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				}
 				int choice = menu.show();
 			}
-			*/
+
 			else
 			{
+						*/
 				PopupMenu menu;
 				menu.addItem((int)RightClickOptions::openExplorer, "Open in Explorer", true, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
 				menu.addSeparator();
@@ -226,7 +227,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 					//todo
 				}
 			}
-		}
+		//}
 	}
 }
 
@@ -245,30 +246,6 @@ void SampleTile::mouseExit(const MouseEvent& e)
 	repaint();
 }
 
-
-void SampleTile::playSample()
-{
-	playSample(0.0f);
-}
-
-void SampleTile::playSample(float t)
-{
-	if (!mSample.isNull())
-	{
-		std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
-		if (auxPlayer->getSampleReference() != mSample)
-		{
-			auxPlayer->loadFile(mSample);
-		}
-		else
-		{
-			auxPlayer->stop();
-			auxPlayer->reset();
-		}
-		auxPlayer->setRelativeTime(t);
-		auxPlayer->play();
-	}
-}
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 {
@@ -290,7 +267,8 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 		if (aux->getSampleReference() == mSample)
 		{
 			if (!(aux->getState() == AudioPlayer::TransportState::Starting ||
-				aux->getState() == AudioPlayer::TransportState::Playing))
+				aux->getState() == AudioPlayer::TransportState::Stopped || 
+				aux->getState() == AudioPlayer::TransportState::Stopping))
 			{
 				aux->removeChangeListener(this);
 			}
@@ -310,7 +288,10 @@ void SampleTile::setSample(Sample::Reference sample)
 			{
 				alreadyThis = true;
 			}
-			mSample.removeChangeListener(this);
+			else
+			{
+				mSample.removeChangeListener(this);
+			}
 		}
 		if (!alreadyThis)
 		{
@@ -331,18 +312,18 @@ Sample::Reference SampleTile::getSample()
 void SampleTile::updateRects()
 {
 	//Core Rects
-	m_TitleRect = Rectangle<float>(0, 0, getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
-	m_TypeRect = Rectangle<float>(0, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
-	m_TimeRect = Rectangle<float>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
+	m_TitleRect = Rectangle<int>(0, 0, getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
+	m_TypeRect = Rectangle<int>(0, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
+	m_TimeRect = Rectangle<int>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
 
 	//Derivative Rects
-	float startY = m_TitleRect.getHeight();
-	m_ThumbnailRect = Rectangle<float>(0, startY, getWidth(), getHeight() - (startY + (getWidth() / 5)));
+	int startY = m_TitleRect.getHeight();
+	m_ThumbnailRect = Rectangle<int>(0, startY, getWidth(), getHeight() - (startY + (getWidth() / 5)));
 
-	float offset = (m_TitleRect.getHeight() + m_ThumbnailRect.getHeight());
-	m_TagRect = Rectangle<float>(getWidth() / 2, offset, getWidth() / 2, getHeight() - offset);
+	int offset = (m_TitleRect.getHeight() + m_ThumbnailRect.getHeight());
+	m_TagRect = Rectangle<int>(getWidth() / 2, offset, getWidth() / 2, getHeight() - offset);
 	mTagContainer.setBounds(m_TagRect.toNearestInt());
 
-	m_InfoIconRect = Rectangle<float>(0, 0, m_TitleRect.getHeight(), m_TitleRect.getHeight()); //square in top right
+	m_InfoIconRect = Rectangle<int>(0, 0, m_TitleRect.getHeight(), m_TitleRect.getHeight()); //square in top right
 
 }

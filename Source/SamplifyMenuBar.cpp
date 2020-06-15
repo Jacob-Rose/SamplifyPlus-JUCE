@@ -1,6 +1,7 @@
 #include "SamplifyMenuBar.h"
 #include "SamplifyProperties.h"
 #include "PreferenceWindow.h"
+#include "InfoWindow.h"
 
 using namespace samplify;
 
@@ -65,6 +66,11 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 		}
 		*/
 	}
+	else if (menuItemID == viewInformation)
+	{
+		InfoWindow window;
+		window.runModalLoop();
+	}
 	else if (menuItemID == visitWebsite)
 	{
 		URL("www.samplify.app").launchInDefaultBrowser();
@@ -100,6 +106,7 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 	}
 	else if (menuIndex == 2) //Info
 	{
+		menu.addItem(viewInformation, "View Information", true, false);
 		menu.addItem(visitWebsite, "Visit Website", true, false);
 	}
 	//menu.addSeparator();

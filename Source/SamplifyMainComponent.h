@@ -22,7 +22,7 @@
 
 namespace samplify
 {
-	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener, private Timer
+	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener, private Timer, public MouseListener
 	{
 	public:
 		static SamplifyMainComponent* getInstance();
@@ -44,6 +44,8 @@ namespace samplify
 
 		void timerCallback() override;
 
+		void mouseDrag(const MouseEvent& e) override;
+
 
 		DirectoryExplorer& getDirectoryExplorer() { return mDirectoryExplorer; }
 		SampleExplorer& getSampleExplorer() { return mSampleExplorer; }
@@ -55,8 +57,13 @@ namespace samplify
 		DirectoryExplorer mDirectoryExplorer;
 		SampleExplorer mSampleExplorer;
 		FilterExplorer mFilterExplorer;
-		SamplePlayerComponent mSamplePlayer;
-
+		SamplePlayerComponent mSamplePlayerComponent;
+		ResizableEdgeComponent mResizableEdgeDirectoryExplorer;
+		ResizableEdgeComponent mResizableEdgeFilterExplorer;
+		ResizableEdgeComponent mResizableEdgeAudioPlayer;
+		ComponentBoundsConstrainer mResizableEdgeDirectoryExplorerBounds;
+		ComponentBoundsConstrainer mResizableEdgeFilterExplorerBounds;
+		ComponentBoundsConstrainer mResizableEdgeAudioPlayerBounds;
 
 		std::shared_ptr<AudioPlayer> mAudioPlayer;
 

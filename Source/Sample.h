@@ -53,7 +53,7 @@ namespace samplify
 			void removeTag(juce::String tag);
 			 
 			void generateThumbnailAndCache();
-			float getValueForSortType(SortingMethod method) { return mSample.lock()->getValueForSortType(method); };
+			float getValueForSortType(SortingMethod method) const { return mSample.lock()->getValueForSortType(method); }
 		
 			void addChangeListener(ChangeListener* listener);
 			void removeChangeListener(ChangeListener* listener);
@@ -96,7 +96,7 @@ namespace samplify
 			void operator=(const Sample::List& other);
 		protected:
 			std::vector<Sample::Reference> mSamples;
-			SortingMethod mListSortingMethod = SortingMethod::Newest;
+			SortingMethod mListSortingMethod = SortingMethod::None;
 			JUCE_LEAK_DETECTOR(List)
 		};
 
@@ -108,7 +108,7 @@ namespace samplify
 		void savePropertiesFile();
 		void loadPropertiesFile();
 
-		float getValueForSortType(SortingMethod method);
+		float getValueForSortType(SortingMethod method) const;
 		/*Checks if file both exist and has same or older version number*/
 		bool isPropertiesFileValid();
 		bool isQueryValid(juce::String query); //used in search

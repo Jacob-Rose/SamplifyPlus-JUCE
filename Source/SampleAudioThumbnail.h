@@ -31,6 +31,19 @@ namespace samplify
 			double endTimeSeconds,
 			int channelNum,
 			float verticalZoomFactor) override;
+		void drawChannel(Graphics& g,
+			const Rectangle<int>& area,
+			double startTimeSeconds,
+			double endTimeSeconds,
+			int channelNum,
+			float verticalZoomFactor,
+			int lines);
+		void drawChannels(Graphics& g,
+			const Rectangle<int>& area,
+			double startTimeSeconds,
+			double endTimeSeconds,
+			float verticalZoomFactor,
+			int lines);
 		void drawChannels(Graphics& g,
 			const Rectangle<int>& area,
 			double startTimeSeconds,

@@ -42,35 +42,39 @@
         <FILE id="f67Jg1" name="Icons.cpp" compile="1" resource="0" file="Source/Icons.cpp"/>
         <FILE id="P7VQFr" name="Icons.h" compile="0" resource="0" file="Source/Icons.h"/>
       </GROUP>
+      <GROUP id="{79C14502-3025-0432-3989-D402AD2C61DB}" name="Windows">
+        <FILE id="nN5T4u" name="PreferenceWindow.cpp" compile="1" resource="0"
+              file="Source/PreferenceWindow.cpp"/>
+        <FILE id="y8uCea" name="PreferenceWindow.h" compile="0" resource="0"
+              file="Source/PreferenceWindow.h"/>
+        <FILE id="K7szFB" name="InfoWindow.cpp" compile="1" resource="0" file="Source/InfoWindow.cpp"/>
+        <FILE id="Gih0O9" name="InfoWindow.h" compile="0" resource="0" file="Source/InfoWindow.h"/>
+      </GROUP>
       <GROUP id="{F9565290-EFC5-863F-89CF-73C02A7059FF}" name="Components">
         <FILE id="eKhF05" name="SamplePlayerComponent.h" compile="0" resource="0"
               file="Source/SamplePlayerComponent.h"/>
         <FILE id="LVGUGi" name="SamplePlayerComponent.cpp" compile="1" resource="0"
               file="Source/SamplePlayerComponent.cpp"/>
-        <FILE id="nN5T4u" name="PreferenceWindow.cpp" compile="1" resource="0"
-              file="Source/PreferenceWindow.cpp"/>
-        <FILE id="y8uCea" name="PreferenceWindow.h" compile="0" resource="0"
-              file="Source/PreferenceWindow.h"/>
-        <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
-          <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
-            <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
-                  file="Source/FilterExplorer.cpp"/>
-            <FILE id="UVcWpr" name="FilterExplorer.h" compile="0" resource="0"
-                  file="Source/FilterExplorer.h"/>
-            <GROUP id="{D90898C6-6CDA-0955-AFE1-9A006F77CB0B}" name="TagExplorer">
-              <FILE id="nj6vkM" name="TagContainer.cpp" compile="1" resource="0"
-                    file="Source/TagContainer.cpp"/>
-              <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
-              <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
-              <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
-              <FILE id="D1vfp9" name="TagExplorer_V2.h" compile="0" resource="0"
-                    file="Source/TagExplorer_V2.h"/>
-              <FILE id="bKydrE" name="TagExplorer_V2.cpp" compile="1" resource="0"
-                    file="Source/TagExplorer_V2.cpp"/>
-              <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
-              <FILE id="Fh8M8U" name="TagTile.h" compile="0" resource="0" file="Source/TagTile.h"/>
-            </GROUP>
+        <GROUP id="{857CD5D2-A741-B414-8AD9-0BAD3FD1D02B}" name="FilterExplorer">
+          <FILE id="dvfT0J" name="FilterExplorer.cpp" compile="1" resource="0"
+                file="Source/FilterExplorer.cpp"/>
+          <FILE id="UVcWpr" name="FilterExplorer.h" compile="0" resource="0"
+                file="Source/FilterExplorer.h"/>
+          <GROUP id="{D90898C6-6CDA-0955-AFE1-9A006F77CB0B}" name="TagExplorer">
+            <FILE id="nj6vkM" name="TagContainer.cpp" compile="1" resource="0"
+                  file="Source/TagContainer.cpp"/>
+            <FILE id="OncQlj" name="TagContainer.h" compile="0" resource="0" file="Source/TagContainer.h"/>
+            <FILE id="bXnU4v" name="TagExplorer.cpp" compile="1" resource="0" file="Source/TagExplorer.cpp"/>
+            <FILE id="go8nGZ" name="TagExplorer.h" compile="0" resource="0" file="Source/TagExplorer.h"/>
+            <FILE id="D1vfp9" name="TagExplorer_V2.h" compile="0" resource="0"
+                  file="Source/TagExplorer_V2.h"/>
+            <FILE id="bKydrE" name="TagExplorer_V2.cpp" compile="1" resource="0"
+                  file="Source/TagExplorer_V2.cpp"/>
+            <FILE id="bJirq9" name="TagTile.cpp" compile="1" resource="0" file="Source/TagTile.cpp"/>
+            <FILE id="Fh8M8U" name="TagTile.h" compile="0" resource="0" file="Source/TagTile.h"/>
           </GROUP>
+        </GROUP>
+        <GROUP id="{F1A95D11-ADF8-7932-5E8F-5ECB9DA1539D}" name="DirectoryExplorer">
           <FILE id="ULN1cJ" name="DirectoryExplorer.h" compile="0" resource="0"
                 file="Source/DirectoryExplorer.h"/>
           <FILE id="Ouzaz2" name="DirectoryExplorer.cpp" compile="1" resource="0"

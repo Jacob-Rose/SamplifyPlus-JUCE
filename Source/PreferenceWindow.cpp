@@ -77,11 +77,18 @@ void PreferenceWindow::View::textEditorTextChanged(TextEditor& editor)
 {
     if (editor.getName() == "Set Sample Tile Minimum Size")
     {
-        AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH = std::stoi(editor.getText().toStdString());
+        if (editor.getText().length() > 0)
+        {
+            AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH = std::stoi(editor.getText().toStdString());
+        }
+        
     }
     else if (editor.getName() == "Set Thumbnail Draw Line Count")
     {
-        AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT = std::stoi(editor.getText().toStdString());
+        if (editor.getText().length() > 0)
+        {
+            AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT = std::stoi(editor.getText().toStdString());
+        }
     }
 }
 

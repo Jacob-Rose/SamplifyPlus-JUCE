@@ -17,7 +17,7 @@
 
 namespace samplify
 {
-	class DirectoryExplorer : public Component, public ChangeListener
+	class DirectoryExplorer : public Viewport, public ChangeListener
 	{
 	public:
 		//============================================================
@@ -34,6 +34,7 @@ namespace samplify
 
 	private:
 		//============================================================
+		
 		TreeView mDirectoryTree;
 		JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DirectoryExplorer)
 	};

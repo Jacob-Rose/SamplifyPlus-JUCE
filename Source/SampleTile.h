@@ -58,9 +58,6 @@ namespace samplify
 		void itemDropped(const SourceDetails& dragSourceDetails) override;
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
-		void playSample();
-		void playSample(float t);
-
 		void setSample(Sample::Reference);
 		Sample::Reference getSample();
 
@@ -71,14 +68,14 @@ namespace samplify
 
 		/*This updates all the rects, called when sampleTile resized (thus on start too)*/
 		void updateRects();
-		Rectangle<float> m_TitleRect;
-		Rectangle<float> m_TypeRect;
-		Rectangle<float> m_TimeRect;
-		Rectangle<float> m_ThumbnailRect;
-		Rectangle<float> m_TagRect;
-		Rectangle<float> m_InfoIconRect;
+		Rectangle<int> m_TitleRect;
+		Rectangle<int> m_TypeRect;
+		Rectangle<int> m_TimeRect;
+		Rectangle<int> m_ThumbnailRect;
+		Rectangle<int> m_TagRect;
+		Rectangle<int> m_InfoIconRect;
 
-		const float INFO_ICON_PADDING = 4.0f;
+		const int INFO_ICON_PADDING = 4;
 
 		//Rectangle<float> m_FavoriteButtonRect;
 		//Rectangle<float> m_SaveForLaterRect;

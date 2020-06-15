@@ -43,6 +43,30 @@ void samplify::AudioPlayer::toggle()
 	}
 }
 
+void AudioPlayer::setSample(Sample::Reference sample)
+{
+	if (getSampleReference() != sample)
+	{
+		loadFile(sample);
+	}
+}
+
+void AudioPlayer::playSample()
+{
+	playSample(0.0f);
+}
+
+void samplify::AudioPlayer::playSample(float t)
+{
+	if (!mCurrentSample.isNull())
+	{
+		stop();
+		reset();
+		setRelativeTime(t);
+		play();
+	}
+}
+
 void AudioPlayer::changeListenerCallback(ChangeBroadcaster* source)
 {
 	if (source == &transportSource)
