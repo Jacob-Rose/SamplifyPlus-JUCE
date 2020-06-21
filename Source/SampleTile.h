@@ -22,7 +22,7 @@ namespace samplify
 
 	class SampleTile : public Component, 
 		public DragAndDropTarget,  
-		public ChangeListener
+		public ChangeListener 
 	{
 	public:
 
@@ -61,19 +61,27 @@ namespace samplify
 		void setSample(Sample::Reference);
 		Sample::Reference getSample();
 
+		class InfoIcon : public Component, public TooltipClient
+		{
+		public:
+			InfoIcon();
+			String getTooltip();
+			void setTooltip(String newTooltip);
 
+			void paint(Graphics& g) override;
+		private:
+			String mTooltip;
+		};
 	private:
 		Sample::Reference mSample = nullptr;
 		TagContainer mTagContainer;
 
-		/*This updates all the rects, called when sampleTile resized (thus on start too)*/
-		void updateRects();
 		Rectangle<int> m_TitleRect;
 		Rectangle<int> m_TypeRect;
 		Rectangle<int> m_TimeRect;
 		Rectangle<int> m_ThumbnailRect;
 		Rectangle<int> m_TagRect;
-		Rectangle<int> m_InfoIconRect;
+		InfoIcon m_InfoIcon;
 
 		const int INFO_ICON_PADDING = 4;
 

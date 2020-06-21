@@ -11,12 +11,22 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SamplePlayerComponent.h"
 #include "SamplifyProperties.h"
+#include "SamplifyLookAndFeel.h"
+
+using namespace samplify;
 
 //==============================================================================
-SamplePlayerComponent::SamplePlayerComponent()
+SamplePlayerComponent::SamplePlayerComponent() : mSampleTagContainer(false)
 {
     addAndMakeVisible(mSampleInfoEditor);
+    addAndMakeVisible(mSampleColorSelectorButton);
+    addAndMakeVisible(mSampleDirectoryChainButton); //shows the parent folders of sample
+    mSampleColorSelectorButton.setName("SampleColor");
+    mSampleColorSelectorButton.setButtonText("Sample Color");
+    mSampleDirectoryChainButton.setName("ParentFolders");
+    mSampleDirectoryChainButton.setButtonText("Parent Folders");
     mSampleInfoEditor.addListener(this);
+    mSampleInfoEditor.setTextToShowWhenEmpty("Add Comment about Sample", getLookAndFeel().findColour(TextEditor::textColourId).darker(0.4f));
     mSampleInfoEditor.setMultiLine(true, true);
     addMouseListener(this, false);
 }
@@ -37,16 +47,22 @@ void SamplePlayerComponent::textEditorTextChanged(TextEditor& e)
     getCurrentSample().setInfoText(e.getText());
 }
 
+void SamplePlayerComponent::buttonClicked(Button*)
+{
+}
+
 void SamplePlayerComponent::paint (Graphics& g)
 {
     Sample::Reference samp = getCurrentSample();
     if (!samp.isNull())
     {
         mSampleInfoEditor.setText(samp.getInfoText());
-        g.drawText(samp.getFile().getFileName(), Rectangle<int>(0, 0, getWidth(), 50), Justification::left, true);
-        g.setColour(getLookAndFeel().findColour(waveformColour));
+        g.drawText(samp.getFile().getFileName(), m_TitleRect, Justification::left, true);
+
+        //draw thumbnail
         if (samp.getThumbnail() != nullptr)
         {
+            g.setColour(getLookAndFeel().findColour(waveformColour));
             if (SampleAudioThumbnail* thumbnail = dynamic_cast<SampleAudioThumbnail*>(samp.getThumbnail().get()))
             {
                 samp.getThumbnail()->drawChannels(g, m_ThumbnailRect, 0, samp.getLength(), 1.0f, 160);
@@ -55,7 +71,6 @@ void SamplePlayerComponent::paint (Graphics& g)
             {
                 samp.getThumbnail()->drawChannels(g, m_ThumbnailRect, 0, samp.getLength(), 1.0f);
             }
-            
         }
         //Draw Audio Line if playing
         std::shared_ptr<AudioPlayer> auxPlayer = SamplifyProperties::getInstance()->getAudioPlayer();
@@ -84,12 +99,21 @@ void SamplePlayerComponent::resized()
     if (!getCurrentSample().isNull())
     {
         m_ThumbnailRect = Rectangle<int>(padding, 0, getWidth() - (padding * 2), getHeight() / 2);
-        mSampleInfoEditor.setBounds(0, getHeight() / 2, getWidth() / 4, getHeight() / 2);
+        float cHeight = m_ThumbnailRect.getHeight();
+        m_TitleRect = Rectangle<int>(0, m_ThumbnailRect.getHeight(), (getWidth()/3)*2, SAMPLE_TILE_TITLE_FONT.getHeight() + 2);
+        mSampleDirectoryChainButton.setBounds(m_TitleRect.getWidth(), cHeight, (getWidth() / 3), m_TitleRect.getHeight());
+        cHeight += m_TitleRect.getHeight();
+        mSampleInfoEditor.setBounds(0, cHeight, getWidth() / 4, getHeight()- cHeight);
+        float cWidth = mSampleInfoEditor.getWidth();
+        mSampleColorSelectorButton.setBounds(cWidth, cHeight, 100, getHeight() - cHeight);
+        cWidth += 100;
     }
     else
     {
         m_ThumbnailRect = Rectangle<int>(0, 0, 0, 0);
         mSampleInfoEditor.setBounds(0, 0, 0, 0);
+        mSampleColorSelectorButton.setBounds(0, 0, 0, 0);
+        mSampleDirectoryChainButton.setBounds(0, 0, 0, 0); 
     }
     
 }

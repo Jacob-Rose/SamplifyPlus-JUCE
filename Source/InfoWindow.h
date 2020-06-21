@@ -14,13 +14,14 @@
 
 namespace samplify
 {
-	class InfoWindow : public DocumentWindow
+	class InfoWindow : public DialogWindow
 	{
 	public:
 		StringArray attributions = {
-		"Info Icon by bqlqn through FlatIcon",
-		"Check Icon by Pixel Perfect through FlatIcon",
-		"Minus Icon by Becris through FlatIcon",
+		"Info Icon made by bqlqn from www.flaticon.com",
+		"Check Icon made by Pixel Perfect from www.flaticon.com",
+		"Minus Icon made by Becris from www.flaticon.com",
+		"Cross Icon made by xnimrodx from www.flaticon.com"
 		};
 		InfoWindow();
 		void paint(Graphics& g) override;

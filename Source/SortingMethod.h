@@ -10,6 +10,9 @@
 
 #ifndef SORTINGMETHODS_H
 #define SORTINGMETHODS_H
+
+#include <JuceHeader.h>
+
 const enum class SortingMethod
 {
 	None,//just append all additions
@@ -20,11 +23,11 @@ const enum class SortingMethod
 	Random
 };
 
-const std::map<SortingMethod, juce::String> sortingNames = {
-	{SortingMethod::None, "None"},
-	{SortingMethod::Newest, "Newest"},
-	{SortingMethod::Oldest, "Oldest"},
-	{SortingMethod::Recent, "Recent"},
-	{SortingMethod::Popular, "Popular"},
-	{SortingMethod::Random, "Randomize"} };
+const std::vector<juce::String> sortingNames = {
+	"None",
+	"Newest",
+	"Oldest",
+	"Recent",
+	"Popular",
+	"Randomize" };
 #endif

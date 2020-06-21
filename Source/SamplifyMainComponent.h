@@ -66,6 +66,7 @@ namespace samplify
 		ComponentBoundsConstrainer mResizableEdgeAudioPlayerBounds;
 
 		std::shared_ptr<AudioPlayer> mAudioPlayer;
+		juce::SharedResourcePointer<TooltipWindow> mTooltip;
 
 		static SamplifyMainComponent* mInstance;
 

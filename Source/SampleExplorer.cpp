@@ -11,10 +11,11 @@ SampleExplorer::SampleExplorer() : mViewport(&mSampleContainer)
     addAndMakeVisible(mViewport);
 	addAndMakeVisible(mFilter);
 	addAndMakeVisible(mSearchBar);
-	mFilter.addItem("Newest", 1);
-	mFilter.addItem("Oldest", 2);
-	mFilter.addItem("Random", 3);
-	mFilter.setSelectedId(1);
+	for (int i = 1; i < sortingNames.size(); i++)
+	{
+		mFilter.addItem(sortingNames[i], i);
+	}
+	mFilter.setSelectedId(0);
 	mFilter.setLookAndFeel(&getLookAndFeel());
 	mViewport.addAndMakeVisible(mSampleContainer);
 	mViewport.setViewedComponent(&mSampleContainer);
@@ -71,15 +72,15 @@ void SampleExplorer::changeListenerCallback(ChangeBroadcaster* source)
 
 void SampleExplorer::comboBoxChanged(ComboBox* comboBoxThatHasChanged)
 {
-	if (comboBoxThatHasChanged->getSelectedId() == 1) //Newest
+	if (comboBoxThatHasChanged->getSelectedId() == (int)SortingMethod::Newest) //Newest
 	{
 		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Newest);
 	}
-	else if (comboBoxThatHasChanged->getSelectedId() == 2) //Oldest
+	else if (comboBoxThatHasChanged->getSelectedId() == (int)SortingMethod::Oldest) //Oldest
 	{
 		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Newest);
 	}
-	else if (comboBoxThatHasChanged->getSelectedId() == 3)
+	else if (comboBoxThatHasChanged->getSelectedId() == (int)SortingMethod::Random)
 	{
 		SamplifyProperties::getInstance()->getSampleLibrary()->sortSamples(SortingMethod::Random);
 	}

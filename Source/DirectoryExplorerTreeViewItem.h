@@ -30,9 +30,6 @@ namespace samplify
 			checkboxNotLoadedBackgroundId
 		};
 
-		static std::unique_ptr<Drawable> crossDrawable;
-		static std::unique_ptr<Drawable> checkDrawable;
-
 
 		const juce::String containedSamplesTitle = "Contained Samples";
 

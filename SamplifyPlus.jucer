@@ -15,6 +15,7 @@
       <FILE id="zOgE2N" name="LookAndFeel_VJake.h" compile="0" resource="0"
             file="Source/LookAndFeel_VJake.h"/>
       <GROUP id="{0B1DF397-D3F7-A7B1-4C68-363F38FC82BC}" name="Structures">
+        <FILE id="pp5ttE" name="SearchFilter.h" compile="0" resource="0" file="Source/SearchFilter.h"/>
         <FILE id="D8jhRB" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
         <FILE id="pnS8ma" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
         <FILE id="vs29Ra" name="Fonts.h" compile="0" resource="0" file="Source/Fonts.h"/>
@@ -35,12 +36,12 @@
         <FILE id="Ex3tgN" name="SampleTag.h" compile="0" resource="0" file="Source/SampleTag.h"/>
         <FILE id="U2UDAS" name="SampleTag.cpp" compile="1" resource="0" file="Source/SampleTag.cpp"/>
         <FILE id="I4fmsx" name="SortingMethod.h" compile="0" resource="0" file="Source/SortingMethod.h"/>
+        <FILE id="e9X9bJ" name="Icons.h" compile="0" resource="0" file="Source/Icons.h"/>
+        <FILE id="twO4lX" name="Icons.cpp" compile="1" resource="0" file="Source/Icons.cpp"/>
         <FILE id="iqDfsQ" name="SamplifyProperties.h" compile="0" resource="0"
               file="Source/SamplifyProperties.h"/>
         <FILE id="nNZPqb" name="SamplifyProperties.cpp" compile="1" resource="0"
               file="Source/SamplifyProperties.cpp"/>
-        <FILE id="f67Jg1" name="Icons.cpp" compile="1" resource="0" file="Source/Icons.cpp"/>
-        <FILE id="P7VQFr" name="Icons.h" compile="0" resource="0" file="Source/Icons.h"/>
       </GROUP>
       <GROUP id="{79C14502-3025-0432-3989-D402AD2C61DB}" name="Windows">
         <FILE id="nN5T4u" name="PreferenceWindow.cpp" compile="1" resource="0"

@@ -42,9 +42,17 @@ namespace samplify
 		float AUDIO_THUMBNAIL_LINE_FILL_WIDTH = 2.0f;
 		int AUDIO_THUMBNAIL_LINE_COUNT = 60;
 
+		bool FILTERWINDOWOPEN = true;
+		bool DIRECTORYWINDOWOPEN = true;
+		bool EXTENDEDSAMPLEWINDOWOPEN = true;
 
+		bool RIGHTCLICKPLAYFROMPOINT = true;
+
+		Drawable* getDrawable(String id);
+		void loadDrawables();
+		void cleanupDrawables();
 	private:
-
+		std::map<String, std::unique_ptr<Drawable>> mDrawables;
 		static std::unique_ptr<AppValues> instance;
 	};
 	/*

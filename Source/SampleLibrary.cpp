@@ -130,6 +130,20 @@ void SampleLibrary::deleteTag(juce::String tag)
 	}
 }
 
+Colour SampleLibrary::getTagColor(String tag)
+{
+	for (int i = 0; i < mTags.size(); i++)
+	{
+		if (mTags[i].mTitle == tag)
+		{
+			return mTags[i].mColor;
+		}
+	}
+	//if not in list, make and then return again
+	addTag(tag);
+	return getTagColor(tag);
+}
+
 StringArray SampleLibrary::getTagsStringArray()
 {
 	StringArray tags = StringArray();

@@ -6,10 +6,6 @@
 
 using namespace samplify;
 
-std::unique_ptr<Drawable> DirectoryExplorerTreeViewItem::crossDrawable = nullptr;
-std::unique_ptr<Drawable> DirectoryExplorerTreeViewItem::checkDrawable = nullptr;
-
-
 DirectoryExplorerTreeViewItem::DirectoryExplorerTreeViewItem(std::shared_ptr<SampleDirectory> dir)
 {
 	mSampleDirectory = dir;
@@ -137,16 +133,15 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 
 			if (mSampleDirectory->getCheckStatus() == CheckStatus::NotLoaded)
 			{
-				crossDrawable.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+				AppValues::getInstance().getDrawable("minus")->drawWithin(g, checkBoxRect.reduced(1.0f), RectanglePlacement::centred, 1.0f);
 			}
 			else if (mSampleDirectory->getCheckStatus() == CheckStatus::Enabled)
 			{
-				checkDrawable.get()->drawWithin(g, checkBoxRect, RectanglePlacement::centred, 1.0f);
+				AppValues::getInstance().getDrawable("correct")->drawWithin(g, checkBoxRect.reduced(1.0f), RectanglePlacement::centred, 1.0f);
 			}
 			else if (mSampleDirectory->getCheckStatus() == CheckStatus::Mixed)
 			{
-				g.setColour(Colours::white);
-				g.fillRoundedRectangle(checkBoxRect.getProportion(Rectangle<float>(0.25f, 0.25f, 0.5f, 0.5f)), 2.0f);
+				AppValues::getInstance().getDrawable("minus")->drawWithin(g, checkBoxRect.reduced(1.0f), RectanglePlacement::centred, 1.0f);
 			}
 			else //disabled
 			{

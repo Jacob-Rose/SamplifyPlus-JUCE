@@ -29,9 +29,6 @@ namespace samplify
 		void refresh();
 		void changeListenerCallback(ChangeBroadcaster* source);
 
-		void initializeDrawableFiles();
-		void cleanupDrawableFiles();
-
 	private:
 		//============================================================
 		

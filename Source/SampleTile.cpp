@@ -16,6 +16,7 @@ SampleTile::SampleTile(Sample::Reference sample) : mTagContainer(false)
 	setSample(sample);
     mTagContainer.addMouseListener(this, false);
 	addAndMakeVisible(mTagContainer);
+	addAndMakeVisible(m_InfoIcon);
 }
 
 SampleTile::~SampleTile()
@@ -55,18 +56,21 @@ void SampleTile::paint (Graphics& g)
 		//Draw BG
 		g.setColour(backgroundColor);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), AppValues::getInstance().SAMPLE_TILE_CORNER_RADIUS);
-		if (mSample.getInfoText() != "")
+		if (mSample.getInfoText() != "" || mSample.getColor().getAlpha() != 0.0f)
 		{
 			//Draw info icon
-			g.setColour(foregroundColor);
-			g.fillEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING).toFloat());
-			g.setColour(outlineColor);
-			g.drawEllipse(m_InfoIconRect.reduced(INFO_ICON_PADDING).toFloat(), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
+			if (mSample.getColor().getAlpha() != 0.0f)
+			{
+				g.setColour(mSample.getColor());
+				g.fillEllipse(m_InfoIcon.getBounds().reduced(INFO_ICON_PADDING).toFloat());
+				g.setColour(mSample.getColor().darker());
+				g.drawEllipse(m_InfoIcon.getBounds().reduced(INFO_ICON_PADDING).toFloat(), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
+			}
 
 			//Draw Title
 			g.setFont(SAMPLE_TILE_TITLE_FONT);
 			g.setColour(titleColor);
-			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(m_InfoIconRect.getWidth()), Justification::centredLeft);
+			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(m_InfoIcon.getWidth()), Justification::centredLeft);
 		}
 		else
 		{
@@ -122,6 +126,8 @@ void SampleTile::paint (Graphics& g)
 		//set tags
 		mTagContainer.setTags(mSample.getTags());
 
+
+
 		g.setColour(outlineColor);
 		g.drawRoundedRectangle(getLocalBounds().reduced(1).toFloat(), AppValues::getInstance().SAMPLE_TILE_CORNER_RADIUS, AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
 	}
@@ -134,7 +140,20 @@ void SampleTile::paint (Graphics& g)
 
 void SampleTile::resized()
 {
-	updateRects();
+	//Core Rects
+	m_TitleRect = Rectangle<int>(0, 0, getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
+	m_TypeRect = Rectangle<int>(0, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
+	m_TimeRect = Rectangle<int>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
+
+	//Derivative Rects
+	int startY = m_TitleRect.getHeight();
+	m_ThumbnailRect = Rectangle<int>(0, startY, getWidth(), getHeight() - (startY + (getWidth() / 5)));
+
+	int offset = (m_TitleRect.getHeight() + m_ThumbnailRect.getHeight());
+	m_TagRect = Rectangle<int>(getWidth() / 2, offset, getWidth() / 2, getHeight() - offset);
+	mTagContainer.setBounds(m_TagRect.toNearestInt());
+
+	m_InfoIcon.setBounds(0, 0, m_TitleRect.getHeight(), m_TitleRect.getHeight()); //square in top right
 }
 
 bool SampleTile::isInterestedInDragSource(const SourceDetails& dragSourceDetails)
@@ -164,13 +183,15 @@ void SampleTile::mouseUp(const MouseEvent& e)
 		}
 		else if (e.mods.isRightButtonDown())
 		{
-			/*
-			if (m_ThumbnailRect.contains(e.getMouseDownPosition().toFloat()))
+			
+			if (m_ThumbnailRect.contains(e.getMouseDownPosition()) && AppValues::getInstance().RIGHTCLICKPLAYFROMPOINT)
 			{
 				float rectWidth = m_ThumbnailRect.getWidth();
 				float mouseDownX = e.getMouseDownX();
-				playSample(mouseDownX / rectWidth);
+				SamplifyProperties::getInstance()->getAudioPlayer()->loadFile(mSample);
+				SamplifyProperties::getInstance()->getAudioPlayer()->playSample(mouseDownX / rectWidth);
 			}
+			/*
 			else if (m_TitleRect.contains(e.getMouseDownPosition().toFloat()) && e.mods.isLeftButtonDown())
 			{
 				PopupMenu menu;
@@ -181,19 +202,18 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				}
 				int choice = menu.show();
 			}
-
+			*/
 			else
-			{
-						*/
+			{	
 				PopupMenu menu;
 				menu.addItem((int)RightClickOptions::openExplorer, "Open in Explorer", true, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
 				menu.addSeparator();
 				menu.addItem((int)RightClickOptions::renameSample, "Rename Sample", false, false);
 				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Move to Trash) ", false, false);
 				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Permanant)", false, false);
-				menu.addSeparator();
-				menu.addItem((int)RightClickOptions::addTriggerKeyAtStart, "Add Trigger at Start", false, false);
-				menu.addItem((int)RightClickOptions::addTriggerKeyAtCue, "Add Trigger at Cue", false, false);
+				//menu.addSeparator();
+				//menu.addItem((int)RightClickOptions::addTriggerKeyAtStart, "Add Trigger at Start", false, false);
+				//menu.addItem((int)RightClickOptions::addTriggerKeyAtCue, "Add Trigger at Cue", false, false);
 				int selection = menu.show();
 				if (selection == (int)RightClickOptions::openExplorer)
 				{
@@ -227,7 +247,7 @@ void SampleTile::mouseUp(const MouseEvent& e)
 					//todo
 				}
 			}
-		//}
+		}
 	}
 }
 
@@ -245,7 +265,6 @@ void SampleTile::mouseExit(const MouseEvent& e)
 {
 	repaint();
 }
-
 
 void SampleTile::itemDropped(const SourceDetails & dragSourceDetails)
 {
@@ -273,6 +292,7 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 				aux->removeChangeListener(this);
 			}
 		}
+		m_InfoIcon.setTooltip(mSample.getInfoText());
 	}
 	repaint();
 }
@@ -295,9 +315,15 @@ void SampleTile::setSample(Sample::Reference sample)
 		}
 		if (!alreadyThis)
 		{
+			
 			sample.generateThumbnailAndCache();
+			m_InfoIcon.setTooltip(sample.getInfoText());
 			sample.addChangeListener(this);
 		}
+	}
+	else
+	{
+		m_InfoIcon.setTooltip("");
 	}
 	mSample = sample;
 	repaint();
@@ -308,22 +334,25 @@ Sample::Reference SampleTile::getSample()
 	return mSample;
 }
 
-
-void SampleTile::updateRects()
+SampleTile::InfoIcon::InfoIcon()
 {
-	//Core Rects
-	m_TitleRect = Rectangle<int>(0, 0, getWidth(), SAMPLE_TILE_TITLE_FONT.getHeight() + 4.0f);
-	m_TypeRect = Rectangle<int>(0, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
-	m_TimeRect = Rectangle<int>(getWidth() / 5, getHeight() - (getWidth() / 5), getWidth() / 5, getWidth() / 5);
 
-	//Derivative Rects
-	int startY = m_TitleRect.getHeight();
-	m_ThumbnailRect = Rectangle<int>(0, startY, getWidth(), getHeight() - (startY + (getWidth() / 5)));
+}
 
-	int offset = (m_TitleRect.getHeight() + m_ThumbnailRect.getHeight());
-	m_TagRect = Rectangle<int>(getWidth() / 2, offset, getWidth() / 2, getHeight() - offset);
-	mTagContainer.setBounds(m_TagRect.toNearestInt());
+String SampleTile::InfoIcon::getTooltip()
+{
+	return mTooltip;
+}
 
-	m_InfoIconRect = Rectangle<int>(0, 0, m_TitleRect.getHeight(), m_TitleRect.getHeight()); //square in top right
+void SampleTile::InfoIcon::setTooltip(String newTooltip)
+{
+	mTooltip = newTooltip;
+}
 
+void SampleTile::InfoIcon::paint(Graphics& g)
+{
+	if (mTooltip != "")
+	{
+		AppValues::getInstance().getDrawable("info")->drawWithin(g, getBounds().reduced(4.0f).toFloat(), RectanglePlacement::centred, 1.0f);
+	}
 }

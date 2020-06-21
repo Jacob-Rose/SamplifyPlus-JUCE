@@ -15,7 +15,7 @@ TagTile::~TagTile()
 {
 }
 
-void samplify::TagTile::setTag(juce::String tag)
+void TagTile::setTag(juce::String tag)
 {
 	mTag = tag;
 	repaint();
@@ -25,12 +25,12 @@ void TagTile::paint (Graphics& g)
 {
 	if (mTag != "")
 	{
-		//Colour mainColor = SamplifyProperties::getInstance()->getTagLibrary().getTagColor(mTag);
-		Colour mainColor = Colours::aqua;
+		float cornerSize = 4.0f;
+		Colour mainColor = SamplifyProperties::getInstance()->getSampleLibrary()->getTagColor(mTag);
 		g.setColour(mainColor);
-		g.fillRoundedRectangle(getLocalBounds().toFloat(), 1.0f);   // draw an outline around the component
+		g.fillRoundedRectangle(getLocalBounds().toFloat(), cornerSize);   // draw an outline around the component
 		g.setColour(mainColor.darker());
-		g.drawRoundedRectangle(getLocalBounds().toFloat(), 1.0f, 1.0f);
+		g.drawRoundedRectangle(getLocalBounds().toFloat(), cornerSize, 1.0f);
 		float oldFontSize = g.getCurrentFont().getHeight();
 		if (mainColor.getPerceivedBrightness() > 0.5f)
 		{
@@ -71,8 +71,9 @@ void TagTile::mouseUp(const MouseEvent& e)
 		{
 			PopupMenu menu;
 			//TagContainer -> sampleTile?
-			if (SampleTile * parent = dynamic_cast<SampleTile*>(getParentComponent()->getParentComponent()))
+			if (SampleTile* parent = dynamic_cast<SampleTile*>(getParentComponent()->getParentComponent()))
 			{
+				//if on a sample tile
 				menu.addItem(1, "Edit Tag", false, false);
 				menu.addItem(2, "Untag", true, false);
 				int selection = menu.show();
@@ -89,7 +90,7 @@ void TagTile::mouseUp(const MouseEvent& e)
 			else
 			{
 				menu.addItem(1, "Edit Tag", false, false);
-				menu.addItem(2, "Delete Tag (+ Refs)", true, false);
+				menu.addItem(2, "Delete Tag (+ References)", true, false);
 				int selection = menu.show();
 				if (selection == 1)
 				{
@@ -97,13 +98,19 @@ void TagTile::mouseUp(const MouseEvent& e)
 				}
 				else if (selection == 2)
 				{
-					//todo add confirm screen
-					//SamplifyProperties::getInstance()->getTagLibrary().deleteTag(mTag);
+					//todo confirm working
 					/*
-					if (SamplifyMainComponent::getInstance() != nullptr)
+					int selection = NativeMessageBox::showYesNoBox(AlertWindow::QuestionIcon, "Confirm action", "Are you sure you want to remove the existance of this tag, it will be removed off all samples that contain it.");
+					if (selection == 1) //yes selected
 					{
-						SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().removeNewTag(mTag);
-						SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
+						
+						SamplifyProperties::getInstance()->getTagLibrary().deleteTag(mTag);
+						if (SamplifyMainComponent::getInstance() != nullptr)
+						{
+							SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().removeNewTag(mTag);
+							SamplifyMainComponent::getInstance()->getFilterExplorer().getTagExplorer().getTagContainer().resetTags();
+						}
+
 					}
 					*/
 				}

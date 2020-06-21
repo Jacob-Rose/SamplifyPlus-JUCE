@@ -236,9 +236,9 @@ void Sample::Reference::removeTag(juce::String tag)
 }
 void Sample::Reference::generateThumbnailAndCache()
 {
-	if (!isNull())
+	std::shared_ptr<Sample> sample = mSample.lock();
+	if (!isNull() && sample->mThumbnail == nullptr)
 	{
-		std::shared_ptr<Sample> sample = mSample.lock();
 		sample->mThumbnailCache = std::make_shared<AudioThumbnailCache>(1);
 		AudioFormatManager* afm = SamplifyProperties::getInstance()->getAudioPlayer()->getFormatManager();
 		sample->mThumbnail = std::make_shared<SampleAudioThumbnail>(512, *afm, *sample->mThumbnailCache);

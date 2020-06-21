@@ -50,11 +50,12 @@ namespace samplify
 		void timerCallback() override;
 
 		///Tag Library Merger - They are dependent on each other for results and modifications, so fuck it put them together
-		void addTag(juce::String tag, Colour color);
-		void addTag(juce::String tag);
+		void addTag(String tag, Colour color);
+		void addTag(String tag);
 		//void renameTag(juce::String currentTagName, juce::String desiredName);
-		void deleteTag(juce::String tag);
+		void deleteTag(String tag);
 		int getTagCount() { return mTags.size(); }
+		Colour getTagColor(String tag);
 		std::vector<Tag> getTags() { return mTags; }
 		StringArray getTagsStringArray();
 

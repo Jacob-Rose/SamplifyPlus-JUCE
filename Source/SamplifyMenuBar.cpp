@@ -35,6 +35,9 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	{
 		PreferenceWindow window;
 		window.runModalLoop();
+		window.exitModalState(0);
+		NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "Restart required", "Restarting is mandatory in order to ensure all changes show themselves");
+		JUCEApplication::getInstance()->systemRequestedQuit();
 	}
 	else if (menuItemID == exitApplication)
 	{
