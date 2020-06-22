@@ -16,7 +16,7 @@
 
 namespace samplify
 {
-    class SamplePlayerComponent : public Component, public ChangeListener, public TextEditor::Listener, public MouseListener, public Button::Listener
+    class SamplePlayerComponent : public Component, public ChangeListener, public TextEditor::Listener, public Button::Listener
     {
     public:
 

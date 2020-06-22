@@ -93,7 +93,7 @@ namespace samplify
 				SamplifyMainComponent::setupLookAndFeel(mLookAndFeel);
 				setLookAndFeel(&mLookAndFeel);
 #if JUCE_MAC || DOXYGEN
-				MenuBarModel::setMacMenuModel(&mMainMenuModel);
+                MenuBarModel::setMacMainMenu(&mMainMenuModel);
 #endif
 #if JUCE_WINDOWS || JUCE_WIN32
 				setMenuBar(&mMainMenuModel);
@@ -103,7 +103,13 @@ namespace samplify
 			}
 			~MainWindow()
 			{
-				setMenuBar(nullptr);
+#if JUCE_MAC || DOXYGEN
+                                MenuBarModel::setMacMainMenu(nullptr);
+#endif
+#if JUCE_WINDOWS || JUCE_WIN32
+                                setMenuBar(nullptr);
+                                mMainMenuModel.setLookAndFeel(nullptr);
+#endif
 				mMainMenuModel.setLookAndFeel(nullptr);
 				getContentComponent()->setLookAndFeel(nullptr);
 				setLookAndFeel(nullptr);

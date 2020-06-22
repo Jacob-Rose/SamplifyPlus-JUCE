@@ -28,7 +28,7 @@ SamplePlayerComponent::SamplePlayerComponent() : mSampleTagContainer(false)
     mSampleInfoEditor.addListener(this);
     mSampleInfoEditor.setTextToShowWhenEmpty("Add Comment about Sample", getLookAndFeel().findColour(TextEditor::textColourId).darker(0.4f));
     mSampleInfoEditor.setMultiLine(true, true);
-    addMouseListener(this, false);
+    //addMouseListener(this, false);
 }
 
 SamplePlayerComponent::~SamplePlayerComponent()

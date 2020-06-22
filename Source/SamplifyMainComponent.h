@@ -22,7 +22,7 @@
 
 namespace samplify
 {
-	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener, private Timer, public MouseListener
+	class SamplifyMainComponent : public AudioAppComponent, public KeyListener, public ChangeListener, private Timer
 	{
 	public:
 		static SamplifyMainComponent* getInstance();
