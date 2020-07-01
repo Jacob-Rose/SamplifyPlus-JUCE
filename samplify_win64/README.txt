@@ -1,6 +1,16 @@
 [H] - Stop Audio
 [G] - Replay Audio from Cue Point
 
+Left Click on Waveform - Play Sample From Beginning
+Right Click on Waveform - Play Sample From That Point
+
+Drag and drop audio file into daw once you find one you like.
+Create tags and drag them onto the sample to label them
+
+
+##Extended Info##
+
+
 All preferences and files are saved under the OS's application properties location. This includes preferences to modify the look and feel of the application.
 
 Incomplete Features:
