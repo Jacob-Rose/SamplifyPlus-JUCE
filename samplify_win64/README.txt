@@ -15,3 +15,4 @@ Windows:
 
 Mac:
 - The repaint function of the application varies from Windows, does not draw the line while audio plays automatically, must move mouse over app to continue visual updates.
+- Most testing in development was done on windows, might be more unnoticed bugs.
