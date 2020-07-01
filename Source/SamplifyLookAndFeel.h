@@ -26,7 +26,7 @@ namespace samplify
 		Colour MAIN_BACKGROUND_COLOR = Colours::white;
 		Colour MAIN_FOREGROUND_COLOR = Colours::blueviolet;
 
-		int SAMPLE_TAG_FONT_SIZE = 12;
+		int SAMPLE_TAG_FONT_SIZE = 14;
 		float SAMPLE_TAG_TEXT_PADDING = 2.0f;
 
 		float WINDOW_WIDTH = 800;
@@ -50,29 +50,13 @@ namespace samplify
 
 		Drawable* getDrawable(String id);
 		void loadDrawables();
+		void updateDrawablesColors();
 		void cleanupDrawables();
 	private:
 		std::map<String, std::unique_ptr<Drawable>> mDrawables;
 		static std::unique_ptr<AppValues> instance;
 	};
-	/*
-	static Colour MAIN_BACKGROUND_COLOR = Colours::white;
-	static Colour MAIN_FOREGROUND_COLOR = Colours::blueviolet;
 
-	static int SAMPLE_TAG_FONT_SIZE = 12;
-	static float SAMPLE_TAG_TEXT_PADDING = 2.0f;
-
-	static float SAMPLE_TILE_MIN_WIDTH = 150.0f;
-	static float SAMPLE_TILE_ASPECT_RATIO = 0.666f;
-	static float SAMPLE_TILE_CONTAINER_ITEM_PADDING = 2.0f;
-	static float SAMPLE_TILE_CORNER_RADIUS = 8.0f;
-	static float SAMPLE_TILE_OUTLINE_THICKNESS = 2.0f;
-
-	//Thumbnail Properties
-	static float AUDIO_THUMBNAIL_LINE_GAP_WIDTH = 0.5f; //ratio based, not pixels
-	static float AUDIO_THUMBNAIL_LINE_FILL_WIDTH = 2.0f;
-	static int AUDIO_THUMBNAIL_LINE_COUNT = 60;
-	*/
-	const Font SAMPLE_TILE_TITLE_FONT = Font(Typeface::createSystemTypefaceFor(Fonts::AbelRegular_ttf, Fonts::AbelRegular_ttfSize)).withHeight(22.0f);
+	const Font SAMPLE_TILE_TITLE_FONT = Font(Typeface::createSystemTypefaceFor(Fonts::AbelRegular_ttf, Fonts::AbelRegular_ttfSize)).withHeight(24.0f);
 }
 #endif

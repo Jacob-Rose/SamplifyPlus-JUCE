@@ -21,10 +21,13 @@ SamplePlayerComponent::SamplePlayerComponent() : mSampleTagContainer(false)
     addAndMakeVisible(mSampleInfoEditor);
     addAndMakeVisible(mSampleColorSelectorButton);
     addAndMakeVisible(mSampleDirectoryChainButton); //shows the parent folders of sample
+    addAndMakeVisible(mSampleTagContainer);
     mSampleColorSelectorButton.setName("SampleColor");
     mSampleColorSelectorButton.setButtonText("Sample Color");
+    mSampleColorSelectorButton.addListener(this);
     mSampleDirectoryChainButton.setName("ParentFolders");
     mSampleDirectoryChainButton.setButtonText("Parent Folders");
+    mSampleDirectoryChainButton.addListener(this);
     mSampleInfoEditor.addListener(this);
     mSampleInfoEditor.setTextToShowWhenEmpty("Add Comment about Sample", getLookAndFeel().findColour(TextEditor::textColourId).darker(0.4f));
     mSampleInfoEditor.setMultiLine(true, true);
@@ -38,6 +41,15 @@ SamplePlayerComponent::~SamplePlayerComponent()
 
 void SamplePlayerComponent::changeListenerCallback(ChangeBroadcaster* source)
 {
+    Sample::Reference samp = getCurrentSample();
+    if (!samp.isNull())
+    {
+        mSampleTagContainer.setTags(samp.getTags());
+    }
+    else
+    {
+        mSampleTagContainer.setTags(StringArray());
+    }
     resized();
     repaint();
 }
@@ -47,8 +59,20 @@ void SamplePlayerComponent::textEditorTextChanged(TextEditor& e)
     getCurrentSample().setInfoText(e.getText());
 }
 
-void SamplePlayerComponent::buttonClicked(Button*)
+void SamplePlayerComponent::buttonClicked(Button* b)
 {
+    if (b->getName() == "SampleColor")
+    {
+        //todo
+    }
+    else if (b->getName() == "ParentFolders")
+    {
+        //todo
+    }
+    else if (b->getName() == "ReverseSample")
+    {
+        //todo if possible easily
+    }
 }
 
 void SamplePlayerComponent::paint (Graphics& g)
@@ -107,6 +131,7 @@ void SamplePlayerComponent::resized()
         float cWidth = mSampleInfoEditor.getWidth();
         mSampleColorSelectorButton.setBounds(cWidth, cHeight, 100, getHeight() - cHeight);
         cWidth += 100;
+        mSampleTagContainer.setBounds(cWidth, cHeight, getWidth() - cWidth, getHeight() - cHeight);
     }
     else
     {
@@ -114,6 +139,7 @@ void SamplePlayerComponent::resized()
         mSampleInfoEditor.setBounds(0, 0, 0, 0);
         mSampleColorSelectorButton.setBounds(0, 0, 0, 0);
         mSampleDirectoryChainButton.setBounds(0, 0, 0, 0); 
+        mSampleTagContainer.setBounds(0, 0, 0, 0);
     }
     
 }

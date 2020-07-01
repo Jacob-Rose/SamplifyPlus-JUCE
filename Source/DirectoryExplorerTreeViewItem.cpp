@@ -160,6 +160,12 @@ void DirectoryExplorerTreeViewItem::paintItem(Graphics & g, int width, int heigh
 	}
 }
 
+void DirectoryExplorerTreeViewItem::paintOpenCloseButton(Graphics& g, const Rectangle<float>& area, Colour backgroundColour, bool isMouseOver)
+{
+	//ignore background colour and isMouseOver
+	getOwnerView()->getLookAndFeel().drawTreeviewPlusMinusBox(g, area, getOwnerView()->getLookAndFeel().findColour(checkboxActiveBackgroundId), isOpen(), true);
+}
+
 void DirectoryExplorerTreeViewItem::itemOpennessChanged(bool isNowOpen)
 {
 	if (isNowOpen)

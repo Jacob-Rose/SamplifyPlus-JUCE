@@ -187,6 +187,7 @@ void Sample::Reference::setInfoText(String newText) const
 
 	sample->mInformationDescription =newText;
 	sample->savePropertiesFile();
+	sample->sendChangeMessage();
 }
 
 Colour samplify::Sample::Reference::getColor() const

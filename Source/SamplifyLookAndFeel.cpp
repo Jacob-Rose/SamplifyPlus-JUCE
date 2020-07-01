@@ -60,7 +60,29 @@ void AppValues::loadDrawables()
     mDrawables["close"]->replaceColour(Colours::black, Colours::white);
 }
 
+void AppValues::updateDrawablesColors()
+{
+    Colour newColor;
+    /*
+    if (MAIN_BACKGROUND_COLOR.getPerceivedBrightness() > 0.5f)
+    {
+        newColor = Colours::black;
+    }
+    else
+    {
+        newColor = Colours::white;
+    }
+    */
+    newColor = MAIN_FOREGROUND_COLOR;
+    mDrawables["info"]->replaceColour(Colours::white, newColor);
+
+    newColor = MAIN_BACKGROUND_COLOR;
+    mDrawables["correct"]->replaceColour(Colours::white, newColor);
+    mDrawables["minus"]->replaceColour(Colours::white, newColor);
+    mDrawables["close"]->replaceColour(Colours::white, newColor);
+}
+
 void AppValues::cleanupDrawables()
 {
-   
+   //unique pointers auto delete
 }

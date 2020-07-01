@@ -24,3 +24,12 @@ void LookAndFeel_VJake::drawMenuBarBackground(Graphics& g, int width, int height
     //g.setGradientFill(ColourGradient::vertical(colour, 0, colour.darker(0.2f), (float)height));
     g.fillRect(r);
 }
+
+void LookAndFeel_VJake::drawTreeviewPlusMinusBox(Graphics& g, const Rectangle<float>& area, Colour backgroundColour, bool isOpen, bool isMouseOver)
+{
+    Path p;
+    p.addTriangle(0.0f, 0.0f, 1.0f, isOpen ? 0.0f : 0.5f, isOpen ? 0.5f : 0.0f, 1.0f);
+
+    g.setColour(backgroundColour.withAlpha(isMouseOver ? 0.5f : 0.3f));
+    g.fillPath(p, p.getTransformToScaleToFit(area.reduced(2, area.getHeight() / 4), true));
+}

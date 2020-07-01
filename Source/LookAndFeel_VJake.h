@@ -17,5 +17,6 @@ class LookAndFeel_VJake : public LookAndFeel_V4
 {
     //modified to override the menu the way I want
     void drawMenuBarBackground(Graphics&, int width, int height, bool isMouseOverBar, MenuBarComponent&) override;
+    void drawTreeviewPlusMinusBox(Graphics& g, const Rectangle<float>& area, Colour backgroundColour, bool isOpen, bool isMouseOver) override;
 };
 #endif

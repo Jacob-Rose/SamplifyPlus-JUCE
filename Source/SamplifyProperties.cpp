@@ -117,6 +117,7 @@ void SamplifyProperties::loadPropertiesFile()
 		AppValues::getInstance().SAMPLE_TILE_ASPECT_RATIO = (float)propFile->getDoubleValue("SAMPLE_TILE_ASPECT_RATIO", 0.666);
 		AppValues::getInstance().SAMPLE_TILE_MIN_WIDTH = (float)propFile->getDoubleValue("SAMPLE_TILE_MIN_WIDTH", 120);
 		AppValues::getInstance().AUDIO_THUMBNAIL_LINE_COUNT = (float)propFile->getDoubleValue("AUDIO_THUMBNAIL_LINE_COUNT", 50);
+		AppValues::getInstance().updateDrawablesColors();
 	}
 	else
 	{

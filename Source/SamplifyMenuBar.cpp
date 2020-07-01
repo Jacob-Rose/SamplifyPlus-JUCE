@@ -35,8 +35,7 @@ void SamplifyMainMenu::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 	{
 		PreferenceWindow window;
 		window.runModalLoop();
-		window.exitModalState(0);
-		NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "Restart required", "Restarting is mandatory in order to ensure all changes show themselves");
+		//NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::InfoIcon, "Restart required", "Restarting is mandatory in order to ensure all changes show themselves");
 		JUCEApplication::getInstance()->systemRequestedQuit();
 	}
 	else if (menuItemID == exitApplication)
@@ -103,9 +102,9 @@ PopupMenu SamplifyMainMenu::getMenuForIndex(int menuIndex, const String& menuNam
 	else if (menuIndex == 1) //View
 	{
 		//todo check if enabled or disabled
-		menu.addItem(togglePlayerWindow, "Toggle Player Window (TBD)");
-		menu.addItem(toggleFilterWindow, "Toggle Filter Window (TBD)");
-		menu.addItem(toggleDirectoryWindow, "Toggle Directory Window (TBD)");
+		//menu.addItem(togglePlayerWindow, "Toggle Player Window (TBD)");
+		//menu.addItem(toggleFilterWindow, "Toggle Filter Window (TBD)");
+		//menu.addItem(toggleDirectoryWindow, "Toggle Directory Window (TBD)");
 	}
 	else if (menuIndex == 2) //Info
 	{

@@ -43,6 +43,7 @@ namespace samplify
 		void changeListenerCallback(ChangeBroadcaster* source) override;
 
 		void paintItem(Graphics& g, int width, int height) override;
+		void paintOpenCloseButton(Graphics&, const Rectangle<float>& area, Colour backgroundColour, bool isMouseOver) override;
 		void itemOpennessChanged(bool isNowOpen) override;
 		void itemClicked(const MouseEvent& e) override;
 

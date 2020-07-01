@@ -56,6 +56,8 @@ void SampleTile::paint (Graphics& g)
 		//Draw BG
 		g.setColour(backgroundColor);
 		g.fillRoundedRectangle(getLocalBounds().toFloat(), AppValues::getInstance().SAMPLE_TILE_CORNER_RADIUS);
+
+		Rectangle<int> titleRect;
 		if (mSample.getInfoText() != "" || mSample.getColor().getAlpha() != 0.0f)
 		{
 			//Draw info icon
@@ -67,22 +69,18 @@ void SampleTile::paint (Graphics& g)
 				g.drawEllipse(m_InfoIcon.getBounds().reduced(INFO_ICON_PADDING).toFloat(), AppValues::getInstance().SAMPLE_TILE_OUTLINE_THICKNESS);
 			}
 
-			//Draw Title
-			g.setFont(SAMPLE_TILE_TITLE_FONT);
-			g.setColour(titleColor);
-			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(m_InfoIcon.getWidth()), Justification::centredLeft);
+			titleRect = m_TitleRect.withTrimmedLeft(m_InfoIcon.getWidth());
 		}
-		else
+		else 
 		{
-			//Draw Title
-			g.setFont(SAMPLE_TILE_TITLE_FONT);
-			g.setColour(titleColor);
-			g.drawText(mSample.getFile().getFileName(), m_TitleRect.withTrimmedLeft(2.0f), Justification::centredLeft);
+			titleRect = m_TitleRect.withTrimmedLeft(2.0f);
 		}
-
-		
+		g.setFont(SAMPLE_TILE_TITLE_FONT);
 		g.setColour(titleColor);
+		g.drawText(mSample.getFile().getFileName(), titleRect, Justification::centredLeft);
+
 		//Draw Time
+		g.setColour(titleColor);
 		g.setFont(16.0f);
 		std::stringstream secondsStr;
 		std::stringstream minutesStr;
@@ -294,6 +292,7 @@ void SampleTile::changeListenerCallback(ChangeBroadcaster* source)
 		}
 		m_InfoIcon.setTooltip(mSample.getInfoText());
 	}
+	resized();
 	repaint();
 }
 
@@ -347,6 +346,7 @@ String SampleTile::InfoIcon::getTooltip()
 void SampleTile::InfoIcon::setTooltip(String newTooltip)
 {
 	mTooltip = newTooltip;
+	repaint();
 }
 
 void SampleTile::InfoIcon::paint(Graphics& g)
