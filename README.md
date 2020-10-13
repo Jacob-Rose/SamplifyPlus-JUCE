@@ -25,17 +25,16 @@ The library offers many tools that make it easier than ever to create an audio a
 Juce will allow an easy port to a VST, simplier cryptography and copy protection as well as online authorization. Also allows cross platform support that is required as music production device market share is split between Windows and Mac.
 
 ## Features
-![SamplifyImage1](https://i.imgur.com/GoQHlHo.png)
-> The version with images published is very out of date, massive rebuild has been completed and more features are being added.
 - Directory View of Folders
 - Waveform View of Files
 - Drag and Drop ability
 - Tag system
 - File sticky notes, easy ways to save a file for later and any ideas had with the file
-
+- Site is more up to date on these features
 ![SamplifyImage1](https://i.imgur.com/yw0G0ml.png)
 - Color preferences setting, allows changing to whatever you wish!
 ![SamplifyImage2](https://i.imgur.com/vaobH0v.png)
+
 ### Future Plans
 
 - Development is mostly finished due to lack of time commitment, have a few ideas I would like but we will see
