@@ -33,11 +33,12 @@ Juce will allow an easy port to a VST, simplier cryptography and copy protection
 - Tag system
 - File sticky notes, easy ways to save a file for later and any ideas had with the file
 
-![SamplifyImage1](https://i.imgur.com/LbgovDd.png)
-
+![SamplifyImage1](https://i.imgur.com/yw0G0ml.png)
+- Color preferences setting, allows changing to whatever you wish!
+![SamplifyImage2](https://i.imgur.com/vaobH0v.png)
 ### Future Plans
 
-- TBA (right now the issue is more of protecting my IP, so features will be announced on release
+- Development is mostly finished due to lack of time commitment, have a few ideas I would like but we will see
 
 
 ## Learning Outcomes
