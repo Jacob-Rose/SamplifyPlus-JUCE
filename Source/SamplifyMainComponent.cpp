@@ -147,7 +147,7 @@ void samplify::SamplifyMainComponent::setupLookAndFeel(LookAndFeel& laf)
 	laf.setColour(ComboBox::buttonColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 
 
-	laf.setColour(SamplePlayerComponent::waveformColour, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
+	laf.setColour(SamplePlayerComponent::waveformColourId, AppValues::getInstance().MAIN_FOREGROUND_COLOR);
 
 	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::defaultFill, AppValues::getInstance().MAIN_BACKGROUND_COLOR);
 	laf.setColour(LookAndFeel_V4::ColourScheme::UIColour::defaultText, AppValues::getInstance().MAIN_FOREGROUND_COLOR);

@@ -18,16 +18,24 @@ using namespace samplify;
 //==============================================================================
 SamplePlayerComponent::SamplePlayerComponent() : mSampleTagContainer(false)
 {
+
     addAndMakeVisible(mSampleInfoEditor);
     addAndMakeVisible(mSampleColorSelectorButton);
+    addAndMakeVisible(mSampleRemoveColorButton);
     addAndMakeVisible(mSampleDirectoryChainButton); //shows the parent folders of sample
     addAndMakeVisible(mSampleTagContainer);
-    mSampleColorSelectorButton.setName("SampleColor");
-    mSampleColorSelectorButton.setButtonText("Sample Color");
+
+    mSampleColorSelectorButton.setName("SetSampleColor");
     mSampleColorSelectorButton.addListener(this);
+
+    mSampleRemoveColorButton.setName("RemoveSampleColor");
+    mSampleColorSelectorButton.setColour(TextButton::textColourOffId, getLookAndFeel().findColour(TextEditor::backgroundColourId).getPerceivedBrightness() > 0.5f ? Colours::black : Colours::white);
+    mSampleRemoveColorButton.addListener(this);
+
     mSampleDirectoryChainButton.setName("ParentFolders");
     mSampleDirectoryChainButton.setButtonText("Parent Folders");
     mSampleDirectoryChainButton.addListener(this);
+
     mSampleInfoEditor.addListener(this);
     mSampleInfoEditor.setTextToShowWhenEmpty("Add Comment about Sample", getLookAndFeel().findColour(TextEditor::textColourId).darker(0.4f));
     mSampleInfoEditor.setMultiLine(true, true);
@@ -45,6 +53,16 @@ void SamplePlayerComponent::changeListenerCallback(ChangeBroadcaster* source)
     if (!samp.isNull())
     {
         mSampleTagContainer.setTags(samp.getTags());
+        if (samp.getColor().getFloatAlpha() > 0.0f)
+        {
+            mSampleColorSelectorButton.setButtonText("Set Sample Color");
+            mSampleColorSelectorButton.setColour(TextButton::buttonColourId, getLookAndFeel().findColour(backgroundColourId));
+        }
+        else
+        {
+            mSampleColorSelectorButton.setButtonText("Change Sample Color");
+            mSampleColorSelectorButton.setColour(TextButton::buttonColourId, samp.getColor());
+        }
     }
     else
     {
@@ -61,17 +79,36 @@ void SamplePlayerComponent::textEditorTextChanged(TextEditor& e)
 
 void SamplePlayerComponent::buttonClicked(Button* b)
 {
-    if (b->getName() == "SampleColor")
+    Sample::Reference samp = getCurrentSample();
+    if (b->getName() == "SetSampleColor")
     {
         //todo
+        ColourSelector selector;
+        selector.setSize(200, 200);
+        selector.setCurrentColour(samp.getColor().withAlpha(1.0f));
+        CallOutBox box = CallOutBox(selector, Rectangle<int>(0, 0, 200, 200), this);
+        box.runModalLoop();
+        mSampleColorSelectorButton.setColour(TextButton::buttonColourId, selector.getCurrentColour());
+        mSampleColorSelectorButton.setColour(TextButton::textColourOffId, selector.getCurrentColour().getPerceivedBrightness() > 0.5f ? Colours::black : Colours::white);
+        samp.setColor(selector.getCurrentColour());
+        resized();
+    }
+    else if (b->getName() == "RemoveSampleColor")
+    {
+        samp.setColor(Colours::transparentWhite);
+        resized();
     }
     else if (b->getName() == "ParentFolders")
     {
         //todo
-    }
-    else if (b->getName() == "ReverseSample")
-    {
-        //todo if possible easily
+        PopupMenu dirMenu = PopupMenu();
+        StringArray parentFolders = samp.getRelativeParentFolders();
+        for (int i = 0; i < parentFolders.size(); i++)
+        {
+            dirMenu.addItem(parentFolders[i]);
+        }
+        dirMenu.show();
+
     }
 }
 
@@ -86,7 +123,7 @@ void SamplePlayerComponent::paint (Graphics& g)
         //draw thumbnail
         if (samp.getThumbnail() != nullptr)
         {
-            g.setColour(getLookAndFeel().findColour(waveformColour));
+            g.setColour(getLookAndFeel().findColour(waveformColourId));
             if (SampleAudioThumbnail* thumbnail = dynamic_cast<SampleAudioThumbnail*>(samp.getThumbnail().get()))
             {
                 samp.getThumbnail()->drawChannels(g, m_ThumbnailRect, 0, samp.getLength(), 1.0f, 160);
@@ -120,7 +157,8 @@ void SamplePlayerComponent::paint (Graphics& g)
 const int padding = 10;
 void SamplePlayerComponent::resized()
 {
-    if (!getCurrentSample().isNull())
+    Sample::Reference samp = getCurrentSample();
+    if (!samp.isNull())
     {
         m_ThumbnailRect = Rectangle<int>(padding, 0, getWidth() - (padding * 2), getHeight() / 2);
         float cHeight = m_ThumbnailRect.getHeight();
@@ -129,7 +167,19 @@ void SamplePlayerComponent::resized()
         cHeight += m_TitleRect.getHeight();
         mSampleInfoEditor.setBounds(0, cHeight, getWidth() / 4, getHeight()- cHeight);
         float cWidth = mSampleInfoEditor.getWidth();
-        mSampleColorSelectorButton.setBounds(cWidth, cHeight, 100, getHeight() - cHeight);
+        if (samp.getColor().getFloatAlpha() > 0.0f)
+        {
+            float regionHeight = (getHeight() - cHeight);
+            mSampleColorSelectorButton.setBounds(cWidth, cHeight, 100, regionHeight /2);
+            mSampleRemoveColorButton.setBounds(cWidth, cHeight + (regionHeight / 2), 100, regionHeight / 2);
+        }
+        else
+        {
+            float regionHeight = (getHeight() - cHeight);
+            mSampleColorSelectorButton.setBounds(cWidth, cHeight, 100, regionHeight);
+            mSampleRemoveColorButton.setBounds(cWidth, cHeight, 100, 0);
+        }
+        
         cWidth += 100;
         mSampleTagContainer.setBounds(cWidth, cHeight, getWidth() - cWidth, getHeight() - cHeight);
     }
@@ -138,6 +188,7 @@ void SamplePlayerComponent::resized()
         m_ThumbnailRect = Rectangle<int>(0, 0, 0, 0);
         mSampleInfoEditor.setBounds(0, 0, 0, 0);
         mSampleColorSelectorButton.setBounds(0, 0, 0, 0);
+        mSampleRemoveColorButton.setBounds(0, 0, 0, 0);
         mSampleDirectoryChainButton.setBounds(0, 0, 0, 0); 
         mSampleTagContainer.setBounds(0, 0, 0, 0);
     }

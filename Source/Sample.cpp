@@ -190,6 +190,12 @@ void Sample::Reference::setInfoText(String newText) const
 	sample->sendChangeMessage();
 }
 
+void Sample::Reference::setColor(Colour newColor)
+{
+	jassert(!isNull());
+	mSample.lock()->mColor = newColor;
+}
+
 Colour samplify::Sample::Reference::getColor() const
 {
 	jassert(!isNull());

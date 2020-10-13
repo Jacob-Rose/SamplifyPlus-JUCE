@@ -35,6 +35,7 @@ namespace samplify
 		//==============================================================================
 		void initialise(const String& commandLine) override
 		{
+			/*
 			Time timeToKill = Time(2020, 8, 1, 0, 0); //month is between 0-11
 			Time cTime = Time::getCurrentTime();
 			if (cTime.toMilliseconds() > timeToKill.toMilliseconds())
@@ -42,6 +43,7 @@ namespace samplify
 				AlertWindow::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "App Beta Expired", "The Application has passed its usage date. The application will now close. \nThank you for your participation. \nThis is one of my few ways to ensure security and encourage more feedback from participants.");
 				quit();
 			}
+			*/
 
 			//I KNOW THIS IS INEFFICIENT, BUT LIKE HONESTLY I CREATE IT QUICKLY AND DELETE SO FUCK YOU
 			std::shared_ptr<AudioPlayer> audioPlayer = std::make_shared<AudioPlayer>();
@@ -54,7 +56,7 @@ namespace samplify
 
 		void shutdown() override
 		{
-			mainWindow = nullptr; // (deletes our window)
+			mainWindow.reset(nullptr); //(deletes our window)
 			SamplifyProperties::cleanupInstance();
 			AppValues::cleanupInstance();
 		}

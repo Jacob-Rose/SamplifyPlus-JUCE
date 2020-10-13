@@ -22,7 +22,9 @@ namespace samplify
 
         enum ColourIds
         {
-            waveformColour = 0x1245
+            waveformColourId = 0x1245,
+            backgroundColourId,
+            textColourId
         };
         SamplePlayerComponent();
         ~SamplePlayerComponent();
@@ -43,6 +45,7 @@ namespace samplify
     private:
         TextEditor mSampleInfoEditor;
         TextButton mSampleColorSelectorButton;
+        TextButton mSampleRemoveColorButton;
         TextButton mSampleDirectoryChainButton;
         TagContainer mSampleTagContainer;
 

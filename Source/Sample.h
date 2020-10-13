@@ -44,6 +44,8 @@ namespace samplify
 			String getInfoText() const;
 			void setInfoText(String newText) const;
 
+			void setColor(Colour newColor);
+
 			Colour getColor() const;
 
 			double getLength() const;

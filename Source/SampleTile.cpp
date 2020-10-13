@@ -61,7 +61,7 @@ void SampleTile::paint (Graphics& g)
 		if (mSample.getInfoText() != "" || mSample.getColor().getAlpha() != 0.0f)
 		{
 			//Draw info icon
-			if (mSample.getColor().getAlpha() != 0.0f)
+			if (mSample.getColor().getFloatAlpha() > 0.0f)
 			{
 				g.setColour(mSample.getColor());
 				g.fillEllipse(m_InfoIcon.getBounds().reduced(INFO_ICON_PADDING).toFloat());
@@ -206,9 +206,8 @@ void SampleTile::mouseUp(const MouseEvent& e)
 				PopupMenu menu;
 				menu.addItem((int)RightClickOptions::openExplorer, "Open in Explorer", true, false); //QEDITOR IS THE PLACE TO BREAK A SAMPLE
 				menu.addSeparator();
-				menu.addItem((int)RightClickOptions::renameSample, "Rename Sample", false, false);
-				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Move to Trash) ", false, false);
-				menu.addItem((int)RightClickOptions::deleteSample, "Delete (Permanant)", false, false);
+				menu.addItem((int)RightClickOptions::renameSample, "Rename", true, false);
+				menu.addItem((int)RightClickOptions::deleteSample, "Move To Trash", true, false);
 				//menu.addSeparator();
 				//menu.addItem((int)RightClickOptions::addTriggerKeyAtStart, "Add Trigger at Start", false, false);
 				//menu.addItem((int)RightClickOptions::addTriggerKeyAtCue, "Add Trigger at Cue", false, false);
@@ -223,18 +222,26 @@ void SampleTile::mouseUp(const MouseEvent& e)
 					FileChooser newFile("rename file", mSample.getFile());
 					if (newFile.browseForFileToSave(true))
 					{
-						mSample.getFile().moveFileTo(newFile.getResult());
-						//todo update list
+						if (mSample.getFile().moveFileTo(newFile.getResult()))
+						{
+							SamplifyProperties::getInstance()->getSampleLibrary()->refreshCurrentSamples();
+						}
 					}
 				}
 				else if (selection == (int)RightClickOptions::deleteSample)
 				{
-					//delete sample (do not activate until the list updated with deleted item)
-					if (!mSample.getFile().moveToTrash()) //if failed
+					int shouldDelete = NativeMessageBox::showYesNoBox(AlertWindow::AlertIconType::WarningIcon, "Delete Sample?", "Are you sure you want to delete this sample?");
+					if (shouldDelete == 1)
 					{
-						NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "Error in Throwing Away", "Failed to move item to trash, check if it is full!");
+						if (mSample.getFile().moveToTrash())
+						{
+							SamplifyProperties::getInstance()->getSampleLibrary()->refreshCurrentSamples();
+						}
+						else
+						{
+							NativeMessageBox::showMessageBox(AlertWindow::AlertIconType::WarningIcon, "Error in Throwing Away", "Failed to move item to trash, check if it is full!");
+						}
 					}
-					//todo update list 
 				}
 				else if (selection == (int)RightClickOptions::addTriggerKeyAtStart)
 				{
@@ -256,6 +263,7 @@ void SampleTile::mouseDrag(const MouseEvent& e)
 		StringArray files = StringArray();
 		files.add(mSample.getFile().getFullPathName());
 		DragAndDropContainer::performExternalDragDropOfFiles(files, false);
+		SamplifyProperties::getInstance()->getAudioPlayer()->stop();
 	}
 }
 

@@ -4,7 +4,6 @@
               cppLanguageStandard="17" companyName="Samplify" companyWebsite="samplify.app"
               companyEmail="jake@samplify.app" version="0.8.5" displaySplashScreen="1">
   <MAINGROUP id="xcW0wO" name="SamplifyPlus">
-    <FILE id="JnFeMs" name="icon.ico" compile="0" resource="1" file="Reference/icon.ico"/>
     <FILE id="ThFu8p" name="logo.PNG" compile="0" resource="1" file="Reference/logo.PNG"/>
     <GROUP id="{C47D1158-7E95-A42C-1242-8C6595F23D75}" name="Source">
       <FILE id="C3H0P2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
