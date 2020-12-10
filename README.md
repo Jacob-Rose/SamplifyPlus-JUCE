@@ -61,4 +61,4 @@ Current passion project, working on as I can. Hopefully beta release with online
 
 I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
 
-I have included a FontAwesome module for JUCE, I do not own these files and all rights for those files fall under their specified license.
+I have included a FontAwesome module for JUCE, I do not own these files and all rights for those files fall under their specified license. (This has since been deprecated and we are now using proper icons legally sourced, but code remnants might remain)
