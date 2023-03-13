@@ -14,8 +14,6 @@ Optimized file loading prevents crashes, only loads supported files, and after a
 
 Easy drag and drop from Samplify into your preferred DAW, similar to dragging it in from any OS File Explorer.
 
-[Samplify Site](https://www.samplify.app)
-
 ### JUCE Library
 
 My first attempt with using the JUCE library.
@@ -62,3 +60,7 @@ Current passion project, working on as I can. Hopefully beta release with online
 I have included all the JUCE library files I used, I do not own these files and all rights for those files fall under their specified license.
 
 I have included a FontAwesome module for JUCE, I do not own these files and all rights for those files fall under their specified license. (This has since been deprecated and we are now using proper icons legally sourced, but code remnants might remain)
+
+## Rename Required
+
+I have received legal notice that a trademark is active for Samplify. If this app sees any future updates, a rename will be part of that endevor now.
