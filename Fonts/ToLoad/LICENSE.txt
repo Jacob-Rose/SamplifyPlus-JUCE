@@ -1,0 +1,3 @@
+NOTE: Included fonts are protected under various copyrights and are not included under this project's license. 
+
+To be honest, these should not be included on a repo like this either.

@@ -47,6 +47,10 @@ profile
 **/VisualStudio2015/x64
 **/VisualStudio2017/Win32
 **/VisualStudio2017/x64
+**/VisualStudio2019/Win32
+**/VisualStudio2019/x64
+**/VisualStudio2022/Win32
+**/VisualStudio2022/x64
 **/.vs
 **/CodeBlocks/bin
 **/CodeBlocks/obj
