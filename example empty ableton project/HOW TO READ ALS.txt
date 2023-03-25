@@ -1,0 +1,1 @@
+.ALS is a gzipped xml file, just unzip
